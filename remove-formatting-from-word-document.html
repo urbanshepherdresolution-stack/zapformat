@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove Formatting From Word Document Online | ZapFormat</title>
+    <meta name="description" content="Instantly remove formatting from your word document clipping, leaving behind completely clean plain text ready to paste anywhere.">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1 { color: #111; margin-bottom: 8px; }
+        p { color: #666; margin-top: 0; margin-bottom: 24px; }
+        textarea {
+            width: 100%;
+            height: 250px;
+            padding: 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            resize: vertical;
+            box-sizing: border-box;
+            background: #fff;
+        }
+        textarea:focus { border-color: #0066cc; outline: none; }
+        .btn-group { margin-top: 16px; display: flex; gap: 12px; }
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-primary { background-color: #0066cc; color: white; }
+        .btn-primary:hover { background-color: #0052a3; }
+        .btn-secondary { background-color: #e4e4e7; color: #333; }
+        .btn-secondary:hover { background-color: #d4d4d8; }
+        .toast {
+            margin-top: 12px; color: #2e7d32; font-weight: 500; opacity: 0; transition: opacity 0.3s;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Remove Formatting From Word Document</h1>
+    <p>Paste your text below to instantly {{DESCRIPTION}}.</p>
+
+    <!-- ZapFormat Core Tool Component -->
+    <textarea id="textInput" placeholder="Paste your messy text here..."></textarea>
+    
+    <div class="btn-group">
+        <button class="btn-primary" onclick="cleanText()">Zap Text & Copy</button>
+        <button class="btn-secondary" onclick="clearText()">Clear</button>
+    </div>
+    <div id="toast" class="toast">Text cleaned and copied to clipboard!</div>
+
+    <script>
+        const input = document.getElementById('textInput');
+        const toast = document.getElementById('toast');
+
+        function cleanText() {
+            let text = input.value;
+            
+            // Core ZapFormat Logic: Strip rich formatting, clean up spacing, fix line breaks
+            text = text
+                .replace(/\r\n/g, '\n')      // Normalize line breaks
+                .replace(/[ \t]+/g, ' ')      // Collapse multiple spaces/tabs into a single space
+                .replace(/^ +| +$/gm, '')     // Trim spaces from beginning/end of lines
+                .replace(/\n{3,}/g, '\n\n')   // Collapse excessive consecutive blank lines
+                .trim();                      // Trim entire string boundary
+
+            input.value = text;
+            
+            if (text) {
+                // Instantly copy clean text to clipboard
+                navigator.clipboard.writeText(text);
+                showToast();
+            }
+        }
+
+        function clearText() {
+            input.value = '';
+        }
+
+        function showToast() {
+            toast.style.opacity = '1';
+            setTimeout(() => toast.style.opacity = '0', 2000);
+        }
+    </script>
+</body>
+</html>
