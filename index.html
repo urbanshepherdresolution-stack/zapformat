@@ -91,6 +91,46 @@
 </head>
 <body>
 
+<div style="max-width: 500px; margin: 0 auto 30px auto; text-align: center; font-family: sans-serif;">
+    <form onsubmit="teleportToTool(event)" style="display: flex; gap: 10px; justify-content: center;">
+        <input type="text" id="search-input" placeholder="Search for a tool (e.g., merge, split, compress, clean)..." style="flex: 1; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; outline: none;">
+        <button type="submit" style="background-color: #2563eb; color: white; border: none; padding: 12px 20px; font-size: 15px; border-radius: 8px; cursor: pointer; font-weight: 600;">Search</button>
+    </form>
+    <p id="search-error" style="color: red; font-size: 14px; margin-top: 5px; font-weight: bold; display: none;"></p>
+</div>
+
+<script>
+    function teleportToTool(event) {
+        event.preventDefault();
+        const query = document.getElementById('search-input').value.toLowerCase().trim();
+        const errorText = document.getElementById('search-error');
+        errorText.style.display = "none";
+
+        let targetId = "";
+
+        if (query.includes('merge') || query.includes('combine') || query.includes('glue')) {
+            targetId = "pdf-inputs"; // Teleports to Merger
+        } else if (query.includes('split') || query.includes('extract') || query.includes('page')) {
+            targetId = "split-input"; // Teleports to Splitter
+        } else if (query.includes('compress') || query.includes('shrink') || query.includes('small') || query.includes('email')) {
+            targetId = "compress-input"; // Teleports to Compressor
+        } else if (query.includes('clean') || query.includes('text') || query.includes('zap') || query.includes('format')) {
+            targetId = "input"; // Teleports to Text Cleaner
+        }
+
+        if (targetId !== "") {
+            const element = document.getElementById(targetId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                element.focus();
+            }
+        } else {
+            errorText.innerText = "Tool not found! Try searching 'merge', 'split', 'compress', or 'clean'.";
+            errorText.style.display = "block";
+        }
+    }
+</script>
+   
 <header>
     <h1>ZapFormat</h1>
     <p>Paste rich text from PDFs, Word, or Web to instantly strip hidden styles and formatting.</p>
