@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZapFormat | Instant Plain Text Converter & Formatting Stripper</title>
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --panel: #ffffff;
+            --text: #1e293b;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --border: #e2e8f0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        header { text-align: center; margin-bottom: 2rem; }
+        h1 { margin-bottom: 0.5rem; font-size: 2rem; }
+        p { color: #64748b; margin-top: 0; }
+        .wrapper {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+        textarea {
+            width: 100%;
+            height: 250px;
+            padding: 1rem;
+            box-sizing: border-box;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            resize: vertical;
+            font-family: inherit;
+        }
+        textarea:focus {
+            outline: 2px solid var(--primary);
+            border-color: transparent;
+        }
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        button {
+            flex: 1;
+            min-width: 130px;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-hover); }
+        .btn-secondary { background: #e2e8f0; color: #334155; }
+        .btn-secondary:hover { background: #cbd5e1; }
+        .stats {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #64748b;
+            display: flex;
+            gap: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>ZapFormat</h1>
+    <p>Paste rich text from PDFs, Word, or Web to instantly strip hidden styles and formatting.</p>
+</header>
+
+<div class="wrapper">
+    <textarea id="input" placeholder="Paste your messy formatted text here..."></textarea>
+    
+    <div class="stats">
+        <span id="charCount">Characters: 0</span>
+        <span id="wordCount">Words: 0</span>
+    </div>
+
+    <div class="controls">
+        <button class="btn-primary" onclick="stripFormatting()">Zap Formatting</button>
+        <button class="btn-secondary" onclick="copyToClipboard()">Copy Clean Text</button>
+        <button class="btn-secondary" onclick="clearAll()">Clear</button>
+    </div>
+</div>
+
+<script>
+    const inputArea = document.getElementById('input');
+    const charCount = document.getElementById('charCount');
+    const wordCount = document.getElementById('wordCount');
+
+    // Live character and word counter
+    inputArea.addEventListener('input', () => {
+        const text = inputArea.value;
+        charCount.textContent = `Characters: ${text.length}`;
+        const words = text.trim().split(/\s+/).filter(w => w.length > 0);
+        wordCount.textContent = `Words: ${words.length}`;
+    });
+
+    function stripFormatting() {
+        let text = inputArea.value;
+        
+        // 1. Force conversion to plain string (strips native HTML context if pasted directly)
+        text = text.toString(); 
+        
+        // 2. Normalize smart/curly quotes and dashes often brought over from MS Word/Mac Pages
+        text = text.replace(/[\u2018\u2019]/g, "'") // Smart single quotes
+                   .replace(/[\u201C\u201D]/g, '"') // Smart double quotes
+                   .replace(/\u2013/g, "-")         // En dash
+                   .replace(/\u2014/g, "--");       // Em dash
+        
+        // 3. Optional: Clean up excessive stacked empty lines (keeps maximum of 2 consecutive breaks)
+        text = text.replace(/\n{3,}/g, '\n\n');
+
+        inputArea.value = text;
+    }
+
+    async function copyToClipboard() {
+        if (!inputArea.value) return;
+        try {
+            await navigator.clipboard.writeText(inputArea.value);
+            alert('Clean text copied to clipboard!');
+        } catch (err) {
+            alert('Failed to copy. Please select all and copy manually.');
+        }
+    }
+
+    function clearAll() {
+        inputArea.value = '';
+        charCount.textContent = 'Characters: 0';
+        wordCount.textContent = 'Words: 0';
+        inputArea.focus();
+    }
+</script>
+
+</body>
+</html>
