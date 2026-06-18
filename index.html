@@ -220,7 +220,82 @@
     });
 </script>
 
-   
+
+
+   <section style="max-width: 600px; margin: 40px auto; padding: 20px; border: 2px dashed #28a745; border-radius: 8px; font-family: sans-serif; text-align: center; background-color: #f8f9fa; margin-top: 20px;">
+    <h2>PDF Splitter Tool</h2>
+    <p>Upload a PDF and choose which page you want to extract into a separate file.</p>
+    
+    <input type="file" id="split-input" accept=".pdf" style="margin: 10px 0; padding: 10px;">
+    <br>
+    <label style="font-weight: bold;">Page Number to Extract: </label>
+    <input type="number" id="page-number" min="1" value="1" style="width: 60px; padding: 5px; margin: 10px;">
+    <br>
+    <button id="split-button" style="background-color: #28a745; color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 4px; cursor: pointer; margin-top: 10px;">Extract Page</button>
+    
+    <p id="split-status" style="margin-top: 15px; color: #555; font-weight: bold;"></p>
+</section>
+
+<script>
+    document.getElementById('split-button').addEventListener('click', async () => {
+        const fileInput = document.getElementById('split-input');
+        const pageInput = document.getElementById('page-number');
+        const status = document.getElementById('split-status');
+        const files = fileInput.files;
+        const targetPage = parseInt(pageInput.value);
+
+        if (files.length === 0) {
+            status.innerText = "Please select a PDF file first!";
+            status.style.color = "red";
+            return;
+        }
+        if (isNaN(targetPage) || targetPage < 1) {
+            status.innerText = "Please enter a valid page number!";
+            status.style.color = "red";
+            return;
+        }
+
+        status.innerText = "Extracting page... Please wait...";
+        status.style.color = "#28a745";
+
+        try {
+            const fileBytes = await files[0].arrayBuffer();
+            const sourcePdf = await PDFLib.PDFDocument.load(fileBytes);
+            const totalPages = sourcePdf.getPageCount();
+
+            // Make sure the user didn't type a page number bigger than the document
+            if (targetPage > totalPages) {
+                status.innerText = "Error: This PDF only has " + totalPages + " pages.";
+                status.style.color = "red";
+                return;
+            }
+
+            // Create a brand new empty PDF
+            const newPdf = await PDFLib.PDFDocument.create();
+            
+            // Copy just the single page (Computer counts starting from 0, so we subtract 1)
+            const [copiedPage] = await newPdf.copyPages(sourcePdf, [targetPage - 1]);
+            newPdf.addPage(copiedPage);
+
+            const newPdfBytes = await newPdf.save();
+
+            // Download it automatically
+            const blob = new Blob([newPdfBytes], { type: 'application/pdf' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'extracted-page-' + targetPage + '.pdf';
+            link.click();
+
+            status.innerText = "Success! Page " + targetPage + " has been extracted and downloaded.";
+            status.style.color = "green";
+
+        } catch (error) {
+            status.innerText = "Oops! Something went wrong trying to split this file.";
+            status.style.color = "red";
+            console.error(error);
+        }
+    });
+</script>
    
    <h2>Helpful Text Guides</h2>
     
