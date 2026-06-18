@@ -1,8 +1,8 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta name="google-site-verification" content="FZGpLGXbRt6fRr4AcyZ6PXbznNaDXuls7rXoQgfuA40" />
-   <meta name="google-site-verification" content="..." /> 
+    <meta name="google-site-verification" content="FZGpLGXbRt6fRr4AcyZ6PXbznNaDXuls7rXoQgfuA40" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZapFormat | Instant Plain Text Converter & Formatting Stripper</title>
@@ -105,7 +105,6 @@
     const charCount = document.getElementById('charCount');
     const wordCount = document.getElementById('wordCount');
 
-    // Live character and word counter
     inputArea.addEventListener('input', () => {
         const text = inputArea.value;
         charCount.textContent = `Characters: ${text.length}`;
@@ -115,19 +114,12 @@
 
     function stripFormatting() {
         let text = inputArea.value;
-        
-        // 1. Force conversion to plain string (strips native HTML context if pasted directly)
         text = text.toString(); 
-        
-        // 2. Normalize smart/curly quotes and dashes often brought over from MS Word/Mac Pages
-        text = text.replace(/[\u2018\u2019]/g, "'") // Smart single quotes
-                   .replace(/[\u201C\u201D]/g, '"') // Smart double quotes
-                   .replace(/\u2013/g, "-")         // En dash
-                   .replace(/\u2014/g, "--");       // Em dash
-        
-        // 3. Optional: Clean up excessive stacked empty lines (keeps maximum of 2 consecutive breaks)
+        text = text.replace(/[\u2018\u2019]/g, "'")
+                   .replace(/[\u201C\u201D]/g, '"')
+                   .replace(/\u2013/g, "-")         
+                   .replace(/\u2014/g, "--");       
         text = text.replace(/\n{3,}/g, '\n\n');
-
         inputArea.value = text;
     }
 
@@ -149,33 +141,23 @@
     }
 </script>
 
-</body>
-</html>
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
 
-
-<section style="max-width: 600px; margin: 40px auto; padding: 20px; font-family: sans-serif; line-height: 1.6; color: #333;">
-  
-   <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
-
-   <section style="max-width: 600px; margin: 40px auto; padding: 20px; border: 2px dashed #007bff; border-radius: 8px; font-family: sans-serif; text-align: center; background-color: #f8f9fa;">
+<section style="max-width: 600px; margin: 40px auto; padding: 20px; border: 2px dashed #007bff; border-radius: 8px; font-family: sans-serif; text-align: center; background-color: #f8f9fa; margin-top: 40px;">
     <h2>PDF Merger Tool</h2>
     <p>Select two or more PDF files to combine them into one single document.</p>
-    
     <input type="file" id="pdf-inputs" multiple accept=".pdf" style="margin: 20px 0; padding: 10px;">
     <br>
-    
     <button id="merge-button" style="background-color: #007bff; color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 4px; cursor: pointer;">Merge PDFs</button>
-    
     <p id="status-message" style="margin-top: 15px; color: #555; font-weight: bold;"></p>
 </section>
 
-   <script>
+<script>
     document.getElementById('merge-button').addEventListener('click', async () => {
         const fileInput = document.getElementById('pdf-inputs');
         const status = document.getElementById('status-message');
         const files = fileInput.files;
 
-        // Check if the user actually selected at least 2 files
         if (files.length < 2) {
             status.innerText = "Please select at least 2 PDF files to merge!";
             status.style.color = "red";
@@ -186,32 +168,21 @@
         status.style.color = "#007bff";
 
         try {
-            // Create a brand new, empty PDF document
             const mergedPdf = await PDFLib.PDFDocument.create();
-
-            // Loop through each file the user uploaded
             for (let i = 0; i < files.length; i++) {
                 const fileBytes = await files[i].arrayBuffer();
                 const pdf = await PDFLib.PDFDocument.load(fileBytes);
-                
-                // Copy pages from the uploaded PDF to our new empty PDF
                 const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
                 copiedPages.forEach((page) => mergedPdf.addPage(page));
             }
-
-            // Save the newly combined PDF file
             const mergedPdfBytes = await mergedPdf.save();
-
-            // Download the file automatically to the user's computer
             const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = 'combined-zapformat.pdf';
             link.click();
-
             status.innerText = "Success! Your merged PDF has downloaded.";
             status.style.color = "green";
-
         } catch (error) {
             status.innerText = "Oops! Something went wrong trying to merge these files.";
             status.style.color = "red";
@@ -220,19 +191,15 @@
     });
 </script>
 
-
-
-   <section style="max-width: 600px; margin: 40px auto; padding: 20px; border: 2px dashed #28a745; border-radius: 8px; font-family: sans-serif; text-align: center; background-color: #f8f9fa; margin-top: 20px;">
+<section style="max-width: 600px; margin: 40px auto; padding: 20px; border: 2px dashed #28a745; border-radius: 8px; font-family: sans-serif; text-align: center; background-color: #f8f9fa; margin-top: 20px;">
     <h2>PDF Splitter Tool</h2>
     <p>Upload a PDF and choose which page you want to extract into a separate file.</p>
-    
     <input type="file" id="split-input" accept=".pdf" style="margin: 10px 0; padding: 10px;">
     <br>
     <label style="font-weight: bold;">Page Number to Extract: </label>
     <input type="number" id="page-number" min="1" value="1" style="width: 60px; padding: 5px; margin: 10px;">
     <br>
     <button id="split-button" style="background-color: #28a745; color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 4px; cursor: pointer; margin-top: 10px;">Extract Page</button>
-    
     <p id="split-status" style="margin-top: 15px; color: #555; font-weight: bold;"></p>
 </section>
 
@@ -263,32 +230,24 @@
             const sourcePdf = await PDFLib.PDFDocument.load(fileBytes);
             const totalPages = sourcePdf.getPageCount();
 
-            // Make sure the user didn't type a page number bigger than the document
             if (targetPage > totalPages) {
                 status.innerText = "Error: This PDF only has " + totalPages + " pages.";
                 status.style.color = "red";
                 return;
             }
 
-            // Create a brand new empty PDF
             const newPdf = await PDFLib.PDFDocument.create();
-            
-            // Copy just the single page (Computer counts starting from 0, so we subtract 1)
             const [copiedPage] = await newPdf.copyPages(sourcePdf, [targetPage - 1]);
             newPdf.addPage(copiedPage);
 
             const newPdfBytes = await newPdf.save();
-
-            // Download it automatically
             const blob = new Blob([newPdfBytes], { type: 'application/pdf' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = 'extracted-page-' + targetPage + '.pdf';
             link.click();
-
             status.innerText = "Success! Page " + targetPage + " has been extracted and downloaded.";
             status.style.color = "green";
-
         } catch (error) {
             status.innerText = "Oops! Something went wrong trying to split this file.";
             status.style.color = "red";
@@ -297,15 +256,12 @@
     });
 </script>
 
-
-   <section style="max-width: 600px; margin: 40px auto; padding: 20px; border: 2px dashed #6f42c1; border-radius: 8px; font-family: sans-serif; text-align: center; background-color: #f8f9fa; margin-top: 20px;">
+<section style="max-width: 600px; margin: 40px auto; padding: 20px; border: 2px dashed #6f42c1; border-radius: 8px; font-family: sans-serif; text-align: center; background-color: #f8f9fa; margin-top: 20px;">
     <h2>PDF Compressor Tool</h2>
     <p>Upload a heavy PDF file to compress its file layout and optimize it for email sharing.</p>
-    
     <input type="file" id="compress-input" accept=".pdf" style="margin: 10px 0; padding: 10px;">
     <br>
     <button id="compress-button" style="background-color: #6f42c1; color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 4px; cursor: pointer; margin-top: 10px;">Compress PDF</button>
-    
     <p id="compress-status" style="margin-top: 15px; color: #555; font-weight: bold;"></p>
 </section>
 
@@ -327,20 +283,14 @@
         try {
             const fileBytes = await files[0].arrayBuffer();
             const pdfDoc = await PDFLib.PDFDocument.load(fileBytes);
-            
-            // This triggers internal structural optimization inside the magic helper tool
             const compressedBytes = await pdfDoc.save({ useObjectStreams: true });
-
-            // Download it automatically
             const blob = new Blob([compressedBytes], { type: 'application/pdf' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = 'compressed-zapformat.pdf';
             link.click();
-
             status.innerText = "Success! Your optimized PDF has been downloaded.";
             status.style.color = "green";
-
         } catch (error) {
             status.innerText = "Oops! Something went wrong trying to compress this file.";
             status.style.color = "red";
@@ -349,28 +299,35 @@
     });
 </script>
 
-
-   
-   <h2>Helpful Text Guides</h2>
+<section style="max-width: 600px; margin: 40px auto; padding: 20px; font-family: sans-serif; line-height: 1.6; color: #333; text-align: left;">
+    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 40px 0;">
     
-    <h3>How to Fix Messy Text from PDFs</h3>
-    <p>Copying text out of a PDF document often results in a formatting nightmare. You frequently end up with random line breaks in the middle of sentences, strange symbols, or double spaces that ruin your layout. This happens because PDFs are designed for printing, not editing. Using a text cleaner like ZapFormat removes these hidden line breaks automatically.</p>
+    <h2>About ZapFormat</h2>
+    <p>ZapFormat is a collection of 100% free, fast, and secure utility tools designed to solve everyday document frustrations. Because all processing happens directly inside your web browser, your sensitive files are never uploaded to an external server, keeping your data entirely private and safe.</p>
     
-    <h3>Why Smart Quotes Break Code</h3>
-    <p>Many modern word processors automatically convert standard straight quotation marks into curved "curly" quotes. While curly quotes look great in essays, they break completely when pasted into programming environments or website editors. Using a text cleaner to strip away formatting forces quotes back into standard straight text to prevent computer errors.</p>
+    <h2>Helpful User Guides</h2>
+    
+    <h3>1. How to Merge and Combine PDF Files</h3>
+    <p>Whether you need to combine separate monthly receipts, project pages, or business reports, our PDF Merger tool makes it easy. Simply select two or more PDF files from your device, click merge, and instantly download your newly combined document as a single file.</p>
+    
+    <h3>2. How to Split and Extract Pages from a PDF</h3>
+    <p>If you have a large document but only need a single page to email or print, the PDF Splitter tool is the perfect solution. Upload your multi-page PDF, type in the exact page number you want to isolate, and download it instantly without affecting the original file.</p>
+    
+    <h3>3. Optimizing File Size with PDF Compression</h3>
+    <p>Large PDF documents can easily get blocked by email providers or application systems due to strict file size limits. The PDF Compressor analyzes your document's internal layout structure and optimizes it for email attachments, keeping your text sharp while reducing bulk.</p>
+    
+    <h3>4. Fixing Messy Formatting and PDF Text Breaks</h3>
+    <p>Copying text straight out of a PDF often causes broken paragraphs, random line breaks, and awkward double spaces. Using the original ZapFormat Text Cleaner strips away these hidden layout bugs, instantly returning clean, beautifully spaced paragraphs ready for word processors.</p>
 </section>
 
-
-
 <hr style="margin-top: 50px;">
-<footer style="text-align: center; font-family: sans-serif; padding: 20px; color: #555;">
-    <h3>About ZapFormat</h3>
-    <p>ZapFormat is a simple tool that cleans up messy text. If you copy text from a PDF or a website and it looks weird, paste it here to make it clean text. All cleaning happens on your computer—we never save your text.</p>
-    
+<footer style="text-align: center; font-family: sans-serif; padding: 20px; color: #555; line-height: 1.6;">
     <h3>Contact</h3>
     <p>Have a question? Email us at: <strong>urbanshepherdresolution@gmail.com</strong></p>
     
     <h3>Privacy Policy & Terms</h3>
-
-   <p>We use Google AdSense to show ads. Google uses cookies to show ads based on your visit to this site and other sites on the internet. By using this tool, you agree to use it as-is. <strong>ZapFormat is provided for free, and we take no liability for any loss, errors, or damages caused by the use of this website.</strong></p>
+    <p>We use Google AdSense to show ads. Google uses cookies to show ads based on your visit to this site and other sites on the internet. By using this tool, you agree to use it as-is. <strong>ZapFormat is provided for free, and we take no liability for any loss, errors, or damages caused by the use of this website.</strong></p>
 </footer>
+
+</body>
+</html>
