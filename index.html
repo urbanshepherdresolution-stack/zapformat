@@ -154,7 +154,75 @@
 
 
 <section style="max-width: 600px; margin: 40px auto; padding: 20px; font-family: sans-serif; line-height: 1.6; color: #333;">
-    <h2>Helpful Text Guides</h2>
+  
+   <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+
+   <section style="max-width: 600px; margin: 40px auto; padding: 20px; border: 2px dashed #007bff; border-radius: 8px; font-family: sans-serif; text-align: center; background-color: #f8f9fa;">
+    <h2>PDF Merger Tool</h2>
+    <p>Select two or more PDF files to combine them into one single document.</p>
+    
+    <input type="file" id="pdf-inputs" multiple accept=".pdf" style="margin: 20px 0; padding: 10px;">
+    <br>
+    
+    <button id="merge-button" style="background-color: #007bff; color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 4px; cursor: pointer;">Merge PDFs</button>
+    
+    <p id="status-message" style="margin-top: 15px; color: #555; font-weight: bold;"></p>
+</section>
+
+   <script>
+    document.getElementById('merge-button').addEventListener('click', async () => {
+        const fileInput = document.getElementById('pdf-inputs');
+        const status = document.getElementById('status-message');
+        const files = fileInput.files;
+
+        // Check if the user actually selected at least 2 files
+        if (files.length < 2) {
+            status.innerText = "Please select at least 2 PDF files to merge!";
+            status.style.color = "red";
+            return;
+        }
+
+        status.innerText = "Merging your PDFs... Please wait...";
+        status.style.color = "#007bff";
+
+        try {
+            // Create a brand new, empty PDF document
+            const mergedPdf = await PDFLib.PDFDocument.create();
+
+            // Loop through each file the user uploaded
+            for (let i = 0; i < files.length; i++) {
+                const fileBytes = await files[i].arrayBuffer();
+                const pdf = await PDFLib.PDFDocument.load(fileBytes);
+                
+                // Copy pages from the uploaded PDF to our new empty PDF
+                const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+                copiedPages.forEach((page) => mergedPdf.addPage(page));
+            }
+
+            // Save the newly combined PDF file
+            const mergedPdfBytes = await mergedPdf.save();
+
+            // Download the file automatically to the user's computer
+            const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'combined-zapformat.pdf';
+            link.click();
+
+            status.innerText = "Success! Your merged PDF has downloaded.";
+            status.style.color = "green";
+
+        } catch (error) {
+            status.innerText = "Oops! Something went wrong trying to merge these files.";
+            status.style.color = "red";
+            console.error(error);
+        }
+    });
+</script>
+
+   
+   
+   <h2>Helpful Text Guides</h2>
     
     <h3>How to Fix Messy Text from PDFs</h3>
     <p>Copying text out of a PDF document often results in a formatting nightmare. You frequently end up with random line breaks in the middle of sentences, strange symbols, or double spaces that ruin your layout. This happens because PDFs are designed for printing, not editing. Using a text cleaner like ZapFormat removes these hidden line breaks automatically.</p>
