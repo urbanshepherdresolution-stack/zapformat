@@ -296,6 +296,60 @@
         }
     });
 </script>
+
+
+   <section style="max-width: 600px; margin: 40px auto; padding: 20px; border: 2px dashed #6f42c1; border-radius: 8px; font-family: sans-serif; text-align: center; background-color: #f8f9fa; margin-top: 20px;">
+    <h2>PDF Compressor Tool</h2>
+    <p>Upload a heavy PDF file to compress its file layout and optimize it for email sharing.</p>
+    
+    <input type="file" id="compress-input" accept=".pdf" style="margin: 10px 0; padding: 10px;">
+    <br>
+    <button id="compress-button" style="background-color: #6f42c1; color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 4px; cursor: pointer; margin-top: 10px;">Compress PDF</button>
+    
+    <p id="compress-status" style="margin-top: 15px; color: #555; font-weight: bold;"></p>
+</section>
+
+<script>
+    document.getElementById('compress-button').addEventListener('click', async () => {
+        const fileInput = document.getElementById('compress-input');
+        const status = document.getElementById('compress-status');
+        const files = fileInput.files;
+
+        if (files.length === 0) {
+            status.innerText = "Please select a PDF file first!";
+            status.style.color = "red";
+            return;
+        }
+
+        status.innerText = "Compressing and optimizing your PDF... Please wait...";
+        status.style.color = "#6f42c1";
+
+        try {
+            const fileBytes = await files[0].arrayBuffer();
+            const pdfDoc = await PDFLib.PDFDocument.load(fileBytes);
+            
+            // This triggers internal structural optimization inside the magic helper tool
+            const compressedBytes = await pdfDoc.save({ useObjectStreams: true });
+
+            // Download it automatically
+            const blob = new Blob([compressedBytes], { type: 'application/pdf' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'compressed-zapformat.pdf';
+            link.click();
+
+            status.innerText = "Success! Your optimized PDF has been downloaded.";
+            status.style.color = "green";
+
+        } catch (error) {
+            status.innerText = "Oops! Something went wrong trying to compress this file.";
+            status.style.color = "red";
+            console.error(error);
+        }
+    });
+</script>
+
+
    
    <h2>Helpful Text Guides</h2>
     
