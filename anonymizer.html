@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Anonymizer - Concept Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 { color: #2c3e50; text-align: center; }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            font-size: 16px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover { background-color: #2980b9; }
+        .section-title { font-weight: bold; margin-bottom: 5px; color: #7f8c8d; }
+        .pills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 4px;
+            min-height: 40px;
+        }
+        .pill {
+            background: #e74c3c;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            user-select: none;
+        }
+        .pill.disabled {
+            background: #bdc3c7;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>The Anonymizer (Concept Experiment)</h1>
+    
+    <div class="container">
+        <div>
+            <div class="section-title">1. Paste your sensitive text here:</div>
+            <textarea id="inputText" placeholder="Example: Call John at 555-123-4567 or email john@company.com about Project Titan ASAP."></textarea>
+        </div>
+
+        <div>
+            <div class="section-title">2. Custom secret words to wipe out (separated by commas):</div>
+            <input type="text" id="customWords" placeholder="Project Titan, CompanyName" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+
+        <button onclick="runExperiment()">Scan Text</button>
+
+        <div>
+            <div class="section-title">3. Detected Sensitive Data (Click a pill to KEEP it):</div>
+            <div id="pillsContainer" class="pills-container">Your detected items will appear here as clickable buttons...</div>
+        </div>
+
+        <div>
+            <div class="section-title">4. Your Cleaned Text (Ready for ChatGPT):</div>
+            <textarea id="outputText" readonly placeholder="Clean text will appear here..."></textarea>
+        </div>
+    </div>
+
+    <script>
+        // Global variables to track state during the experiment
+        let detectedItems = [];
+        let currentText = "";
+
+        function runExperiment() {
+            const text = document.getElementById('inputText').value;
+            const customInput = document.getElementById('customWords').value;
+            currentText = text;
+            detectedItems = [];
+
+            // 1. Match Emails
+            const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+            const emails = text.match(emailRegex) || [];
+            emails.forEach(item => addDetectedItem(item, 'EMAIL'));
+
+            // 2. Match Phone Numbers (Simple format)
+            const phoneRegex = /\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/g;
+            const phones = text.match(phoneRegex) || [];
+            phones.forEach(item => addDetectedItem(item, 'PHONE'));
+
+            // 3. Match Custom Words
+            if (customInput.trim() !== "") {
+                const words = customInput.split(',').map(w => w.trim()).filter(w => w.length > 0);
+                words.forEach(word => {
+                    const wordRegex = new RegExp(word, 'gi');
+                    const matches = text.match(wordRegex) || [];
+                    matches.forEach(item => addDetectedItem(item, 'CUSTOM'));
+                });
+            }
+
+            renderPills();
+            sanitize();
+        }
+
+        function addDetectedItem(text, type) {
+            // Avoid adding duplicates to our pill selection list
+            if (!detectedItems.some(i => i.text.toLowerCase() === text.toLowerCase())) {
+                detectedItems.push({ text: text, type: type, active: true });
+            }
+        }
+
+        function renderPills() {
+            const container = document.getElementById('pillsContainer');
+            container.innerHTML = "";
+
+            if (detectedItems.length === 0) {
+                container.innerHTML = "<em>No sensitive data detected. Clean to go!</em>";
+                return;
+            }
+
+            detectedItems.forEach((item, index) => {
+                const pill = document.createElement('div');
+                pill.className = `pill ${item.active ? '' : 'disabled'}`;
+                pill.innerHTML = `<span>[${item.type}] ${item.text}</span>`;
+                pill.onclick = () => togglePill(index);
+                container.appendChild(pill);
+            });
+        }
+
+        function togglePill(index) {
+            detectedItems[index].active = !detectedItems[index].active;
+            renderPills();
+            sanitize();
+        }
+
+        function sanitize() {
+            let result = currentText;
+
+            detectedItems.forEach((item, index) => {
+                if (item.active) {
+                    // Escaping regex characters just in case
+                    const safeText = item.text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                    const regex = new RegExp(safeText, 'gi');
+                    result = result.replace(regex, `[${item.type} ${index + 1}]`);
+                }
+            });
+
+            document.getElementById('outputText').value = result;
+        }
+    </script>
+</body>
+</html>
