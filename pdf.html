@@ -7,6 +7,16 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -109,7 +119,7 @@
     <button class="btn" id="copy-btn" onclick="copyToClipboard()">Copy Clean Text</button>
 
     <p style="text-align: center; margin-top: 20px;">
-        <a href="/" style="color: #00bcd4; text-decoration: none;">← Back to Standard Text Cleaner</a>
+        <a href="index.html" style="color: #00bcd4; text-decoration: none;">← Back to Standard Text Cleaner</a>
     </p>
 
     <div class="seo-section">
@@ -122,7 +132,6 @@
 </div>
 
 <script>
-    // Specify the worker script path for PDF.js library
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
     const fileInput = document.getElementById('pdf-file');
@@ -142,17 +151,12 @@
             const fileReader = new FileReader();
             fileReader.onload = async function() {
                 const typedarray = new Uint8Array(this.result);
-                
-                // Load the PDF file
                 const pdf = await pdfjsLib.getDocument(typedarray).promise;
                 let fullText = "";
 
-                // Loop through every single page in the PDF document
                 for (let i = 1; i <= pdf.numPages; i++) {
                     const page = await pdf.getPage(i);
                     const textContent = await page.getTextContent();
-                    
-                    // Join text items together
                     const pageText = textContent.items.map(item => item.str).join(" ");
                     fullText += pageText + "\n\n";
                 }
@@ -168,7 +172,6 @@
         }
     });
 
-    // Copy to clipboard helper functionality
     function copyToClipboard() {
         outputText.select();
         document.execCommand('copy');
