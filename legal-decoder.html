@@ -9,89 +9,83 @@
       gtag('config', 'G-7TP5H35738');
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms of Service Risk Decoder - Free Document Scanner</title>
     <style>
         :root { --primary: #1e3a8a; --primary-hover: #172554; --dark: #0f172a; --secondary: #64748b; --border: #e2e8f0; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: var(--dark); margin: 0; padding: 20px; }
-        .container { max-width: 800px; margin: 0 auto; }
+        .container { max-width: 900px; margin: 0 auto; }
         header { text-align: center; margin-bottom: 30px; }
         .panel { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
-        textarea { width: 100%; height: 250px; padding: 12px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; }
+        textarea { width: 100%; height: 200px; padding: 12px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; }
         .btn { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 15px; }
-        .btn:hover { background: var(--primary-hover); }
-        .result-card { margin-top: 25px; padding: 20px; background: white; border: 1px solid var(--border); border-radius: 12px; display: none; }
+        .result-card { margin-top: 25px; padding: 25px; background: white; border: 1px solid var(--border); border-radius: 12px; display: none; }
         .risk-bar { height: 12px; width: 100%; background: #e2e8f0; border-radius: 6px; margin-top: 8px; overflow: hidden; }
         .risk-fill { height: 100%; background: #dc2626; width: 0%; transition: width 0.5s ease; }
-        .flag-item { padding: 12px; border-left: 4px solid #dc2626; background: #fef2f2; margin-bottom: 10px; font-size: 14px; border-radius: 0 4px 4px 0; }
+        .preview-pane { border: 1px solid var(--border); padding: 20px; background: #fafafa; border-radius: 6px; max-height: 300px; overflow-y: auto; line-height: 1.6; font-size: 14px; margin-top: 15px; }
+        .danger-sentence { background: #fee2e2; color: #991b1b; padding: 2px 4px; border-radius: 4px; font-weight: 600; }
     </style>
 </head>
 <body>
 <div class="container">
     <header>
-        <h1>Terms of Service Risk Decoder</h1>
-        <p>Deconstruct dense legal policy walls for hidden tracking, auto-billing traps, and data-sharing liabilities instantly.</p>
+        <h1>Policy Risk Decoder &amp; Visual Highlighter</h1>
+        <p>Isolate and view predatory clauses and fine-print liabilities instantly with cross-referenced sentence tracking maps.</p>
     </header>
     <div class="panel">
-        <h3>Paste Agreement, ToS, or Policy Block</h3>
-        <textarea id="legalInput" placeholder="Paste data privacy documentation segments here to cross-examine core structural metrics..."></textarea>
-        <button class="btn" onclick="decodeLegalText()">Analyze Clause Structure</button>
+        <h3>Paste Policy or NDA Terms Agreement</h3>
+        <textarea id="legalInput" placeholder="Paste the documentation text blocks here..."></textarea>
+        <button class="btn" onclick="decodeLegalText()">Run Policy Audit</button>
     </div>
 
     <div id="decodeResult" class="result-card">
         <h3>System Structural Audit Complete</h3>
-        <div style="font-weight:700;">Aggregated Operational Risk Profile: <span id="riskLabel" style="color:#dc2626;">0 / 10</span></div>
+        <div style="font-weight:700; font-size:18px;">Aggregated Threat Profile: <span id="riskLabel" style="color:#dc2626;">0 / 10</span></div>
         <div class="risk-bar"><div id="riskIndicator" class="risk-fill"></div></div>
         
-        <h4 style="margin-top: 20px;">Flagged Tracking Parameters & Clause Interpretations:</h4>
-        <div id="flagContainer"></div>
+        <h4>Interactive Policy Threat Map Preview:</h4>
+        <div style="font-size:13px; color:var(--secondary); margin-bottom:8px;">High-risk sentences have been automatically highlighted below:</div>
+        <div id="visualPreview" class="preview-pane"></div>
     </div>
 </div>
-
 <script>
     function decodeLegalText() {
-        const text = document.getElementById('legalInput').value.toLowerCase();
-        const container = document.getElementById('flagContainer');
-        container.innerHTML = "";
-        
-        // Expanded risk assessment array definitions
-        const liabilityRules = [
-            { term: 'third-party', risk: 3, label: 'Data Exportation Hazard', desc: 'Authorizes transfer or sale of collected data assets to unnamed third-party marketing brokers and ad networks.' },
-            { term: 'waive', risk: 3, label: 'Rights Forfeiture Clause', desc: 'Explicitly forces you to give up a legal right, such as your right to a trial or to dispute systematic processing errors.' },
-            { term: 'auto-renew', risk: 2, label: 'Subscription Trap Vector', desc: 'Enforces automatic recurring billing cycles from your payment method without mandatory pre-billing notifications.' },
-            { term: 'arbitration', risk: 2, label: 'Class Action Limitation', desc: 'Strips your right to join class-action lawsuits or go to public court, forcing disputes into private corporate panels.' },
-            { term: 'indemnify', risk: 2, label: 'Liability Transfer Parameter', desc: 'Forces the end-user to assume and pay all legal costs, corporate damages, and fees if the app gets sued because of you.' },
-            { term: 'sole discretion', risk: 2, label: 'Unilateral Power Balance', desc: 'Grants the platform total power to alter rules, change service pricing, or suspend features at any moment without notice.' },
-            { term: 'track your location', risk: 1, label: 'Persistent Telemetry Capture', desc: 'Records real-world hardware telemetry positions and device coordination background parameters.' },
-            { term: 'cookies', risk: 1, label: 'Browser Telemetry Identifier', desc: 'Deploys localized data trackers to track your navigation across external web applications for ad profiling.' },
-            { term: 'interest-based ads', risk: 1, label: 'Target Behavioral Profiling', desc: 'Analyzes your app activity, profile metrics, and search habits to serve tailored corporate advertising.' },
-            { term: 'non-refundable', risk: 1, label: 'Capital Retention Rule', desc: 'States that any money paid to the platform cannot be retrieved or refunded under any conditions if you cancel.' },
-            { term: 'governing law', risk: 1, label: 'Jurisdiction Displacement', desc: 'Dictates that all legal disputes must be handled in the company’s specific home state or country, making litigation very costly.' },
-            { term: 'terminate your access', risk: 1, label: 'Sudden Account Liquidation', desc: 'Grants the provider full authority to lock you out of the platform and delete your account data permanently without warning.' }
-        ];
+        const rawText = document.getElementById('legalInput').value;
+        if(!rawText.trim()) return alert("Please enter an agreement block.");
 
+        // Clean legal mapping variables
+        const trapTerms = ['third-party', 'waive', 'auto-renew', 'arbitration', 'indemnify', 'sole discretion', 'track your location', 'non-refundable', 'terminate your access'];
+        const riskWeights = { 'third-party': 3, 'waive': 3, 'auto-renew': 2, 'arbitration': 2, 'indemnify': 2, 'sole discretion': 2, 'track your location': 1, 'non-refundable': 1, 'terminate your access': 1 };
+
+        // Split text layout by sentence loops
+        const sentences = rawText.match(/[^.!?]+[.!?]+/g) || [rawText];
         let totalRisk = 0;
-        let triggered = 0;
+        let mappedOutput = "";
 
-        liabilityRules.forEach(rule => {
-            if(text.includes(rule.term)) {
-                totalRisk += rule.risk;
-                triggered++;
-                container.innerHTML += `<div class="flag-item"><strong>⚠️ ${rule.label}:</strong> ${rule.desc}</div>`;
+        sentences.forEach(sentence => {
+            let lowerSentence = sentence.toLowerCase();
+            let isDangerous = false;
+
+            trapTerms.forEach(term => {
+                if (lowerSentence.includes(term)) {
+                    if (!isDangerous) { totalRisk += riskWeights[term]; }
+                    isDangerous = true;
+                }
+            });
+
+            if (isDangerous) {
+                mappedOutput += `<span class="danger-sentence">${sentence.trim()}</span> `;
+            } else {
+                mappedOutput += `<span>${sentence.trim()}</span> `;
             }
         });
 
-        // Cap maximum risk score output presentation at 10
-        if(totalRisk > 10) totalRisk = 10;
-        
-        if(triggered === 0) {
-            container.innerHTML = '<div style="color:#10b981; font-weight:600;">No high-risk pattern sequences or hidden corporate clauses flagged within the current text sandbox.</div>';
-        }
+        if (totalRisk > 10) totalRisk = 10;
 
-        document.getElementById('riskLabel').textContent = `${totalRisk} / 10`;
+        document.getElementById('riskLabel').textContent = `${totalRisk} / 10 Threat Rating`;
         document.getElementById('riskIndicator').style.width = `${totalRisk * 10}%`;
+        document.getElementById('visualPreview').innerHTML = mappedOutput;
         document.getElementById('decodeResult').style.display = 'block';
     }
 </script>
