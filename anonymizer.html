@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Anonymizer - Single Master List</title>
+    <title>The Anonymizer - Complete Control</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -38,12 +38,44 @@
         }
         textarea {
             width: 100%;
-            height: 150px;
+            height: 120px;
             padding: 12px;
             border: 2px solid #cbd5e1;
             border-radius: 6px;
             font-size: 16px;
             box-sizing: border-box;
+        }
+
+        /* CONTROL PANEL Styles */
+        .control-panel {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #475569;
+        }
+        .checkbox-label input { width: 18px; height: 18px; cursor: pointer; }
+        
+        .custom-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 15px;
         }
         
         button.main-btn {
@@ -58,7 +90,7 @@
         }
         button.main-btn:hover { background-color: #2980b9; }
 
-        /* ONE MASTER BUBBLE LIST */
+        /* MASTER BUBBLE LIST */
         .master-bubble-box {
             background: #f8fafc;
             border: 2px dashed #cbd5e1;
@@ -79,9 +111,6 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 15px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
             user-select: none;
         }
         .bubble.disabled {
@@ -97,7 +126,7 @@
             background: #fafafa;
             line-height: 1.8;
             font-size: 16px;
-            min-height: 100px;
+            min-height: 80px;
             white-space: pre-wrap;
         }
     </style>
@@ -113,15 +142,28 @@
             <textarea id="inputText" placeholder="Paste your contract, email, or report text here..."></textarea>
         </div>
 
+        <div class="control-panel">
+            <div style="font-weight: bold; margin-bottom: 12px; color: #1e293b;">2. Choose what classes of words to remove:</div>
+            <div class="options-grid">
+                <label class="checkbox-label"><input type="checkbox" id="classNames" checked> 👤 Names & Companies</label>
+                <label class="checkbox-label"><input type="checkbox" id="classEmails" checked> 📧 Email Addresses</label>
+                <label class="checkbox-label"><input type="checkbox" id="classPhones" checked> 📞 Phone Numbers</label>
+                <label class="checkbox-label"><input type="checkbox" id="classMoney" checked> 💰 Financial Amounts</label>
+            </div>
+            
+            <div style="font-weight: bold; margin-bottom: 6px; color: #1e293b;">Add custom secret words/phrases to remove:</div>
+            <input type="text" id="customInput" class="custom-input" placeholder="Type specific secret words here (e.g. Project Titan, SecretPassword)">
+        </div>
+
         <button class="main-btn" onclick="scanDocument()">Scan & Clean Document</button>
 
         <div class="master-bubble-box">
-            <div style="font-weight: bold; color: #1e293b;">2. Removed Words (Peruse this list! Click a bubble to KEEP/REVEAL that word):</div>
-            <div id="masterBubbles" class="bubbles-container">Your removed words will list out here as bubbles...</div>
+            <div style="font-weight: bold; color: #1e293b;">3. Removed Words (Peruse this list! Click a bubble to KEEP/REVEAL that word):</div>
+            <div id="masterBubbles" class="bubbles-container">Your removed words will list out here as bubbles after scanning...</div>
         </div>
 
         <div>
-            <div style="font-weight: bold; margin-bottom: 8px; color: #334155;">3. Safe Document Preview:</div>
+            <div style="font-weight: bold; margin-bottom: 8px; color: #334155;">4. Safe Document Preview:</div>
             <div id="previewDisplay" class="preview-box">Your cleaned document preview...</div>
         </div>
 
@@ -140,28 +182,54 @@
 
             masterSecretsList = [];
 
-            // Simple rules to find common targets automatically
-            const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
-            const phoneRegex = /\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/g;
-            const moneyRegex = /\$[0-9,]+/g;
-            const nameRegex = /\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?\b/g; // Captures names/companies
+            // Read checkboxes
+            const wantNames = document.getElementById('classNames').checked;
+            const wantEmails = document.getElementById('classEmails').checked;
+            const wantPhones = document.getElementById('classPhones').checked;
+            const wantMoney = document.getElementById('classMoney').checked;
 
-            const emails = originalText.match(emailRegex) || [];
-            const phones = originalText.match(phoneRegex) || [];
-            const money = originalText.match(moneyRegex) || [];
-            const names = originalText.match(nameRegex) || [];
+            // 1. Run Checked Default Rules
+            if (wantEmails) {
+                const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+                const emails = originalText.match(emailRegex) || [];
+                emails.forEach(item => addSecret(item, '[EMAIL]'));
+            }
 
-            // Load them all into ONE list
-            emails.forEach(item => addSecret(item, '[EMAIL]'));
-            phones.forEach(item => addSecret(item, '[PHONE]'));
-            money.forEach(item => addSecret(item, '[MONEY]'));
-            
-            const skipWords = ["The", "A", "An", "To", "From", "He", "She", "They", "It", "If", "But", "Or", "This", "That"];
-            names.forEach(item => {
-                if(!skipWords.includes(item.split(' ')[0]) && item.length > 2) {
-                    addSecret(item, '[SECRET]');
-                }
-            });
+            if (wantPhones) {
+                const phoneRegex = /\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/g;
+                const phones = originalText.match(phoneRegex) || [];
+                phones.forEach(item => addSecret(item, '[PHONE]'));
+            }
+
+            if (wantMoney) {
+                const moneyRegex = /\$[0-9,]+/g;
+                const money = originalText.match(moneyRegex) || [];
+                money.forEach(item => addSecret(item, '[MONEY]'));
+            }
+
+            if (wantNames) {
+                const nameRegex = /\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?\b/g;
+                const names = originalText.match(nameRegex) || [];
+                const skipWords = ["The", "A", "An", "To", "From", "He", "She", "They", "It", "If", "But", "Or", "This", "That"];
+                names.forEach(item => {
+                    if(!skipWords.includes(item.split(' ')[0]) && item.length > 2) {
+                        addSecret(item, '[SECRET]');
+                    }
+                });
+            }
+
+            // 2. Run Custom User Words Input
+            const customRaw = document.getElementById('customInput').value;
+            if (customRaw.trim() !== "") {
+                // Splits words by commas OR spaces to be idiot proof
+                const customWords = customRaw.split(/[,,]/).map(w => w.trim()).filter(w => w.length > 0);
+                customWords.forEach(word => {
+                    const safeWord = word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                    const wordRegex = new RegExp(safeWord, 'gi');
+                    const matches = originalText.match(wordRegex) || [];
+                    matches.forEach(item => addSecret(item, '[CUSTOM]'));
+                });
+            }
 
             renderMasterBubbles();
             updatePreview();
@@ -178,7 +246,7 @@
             container.innerHTML = "";
 
             if(masterSecretsList.length === 0) {
-                container.innerText = "No sensitive words found. Your text looks safe!";
+                container.innerText = "No sensitive words found matching your choices.";
                 return;
             }
 
