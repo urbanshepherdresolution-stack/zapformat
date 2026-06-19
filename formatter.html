@@ -1,0 +1,384 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+   
+   <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5V522WJY0R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5V522WJY0R');
+</script> 
+    <meta name="google-site-verification" content="FZGpLGXbRt6fRr4AcyZ6PXbznNaDXuls7rXoQgfuA40" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZapFormat | Instant Plain Text Converter & Formatting Stripper</title>
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --panel: #ffffff;
+            --text: #1e293b;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --border: #e2e8f0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        header { text-align: center; margin-bottom: 2rem; }
+        h1 { margin-bottom: 0.5rem; font-size: 2rem; }
+        p { color: #64748b; margin-top: 0; }
+        .wrapper {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+        textarea {
+            width: 100%;
+            height: 250px;
+            padding: 1rem;
+            box-sizing: border-box;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            resize: vertical;
+            font-family: inherit;
+        }
+        textarea:focus {
+            outline: 2px solid var(--primary);
+            border-color: transparent;
+        }
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        button {
+            flex: 1;
+            min-width: 130px;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-hover); }
+        .btn-secondary { background: #e2e8f0; color: #334155; }
+        .btn-secondary:hover { background: #cbd5e1; }
+        .stats {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #64748b;
+            display: flex;
+            gap: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<div style="max-width: 500px; margin: 0 auto 30px auto; text-align: center; font-family: sans-serif;">
+    <form onsubmit="teleportToTool(event)" style="display: flex; gap: 10px; justify-content: center;">
+        <input type="text" id="search-input" placeholder="Search for a tool (e.g., merge, split, compress, clean)..." style="flex: 1; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; outline: none;">
+        <button type="submit" style="background-color: #2563eb; color: white; border: none; padding: 12px 20px; font-size: 15px; border-radius: 8px; cursor: pointer; font-weight: 600;">Search</button>
+    </form>
+    <p id="search-error" style="color: red; font-size: 14px; margin-top: 5px; font-weight: bold; display: none;"></p>
+</div>
+
+<script>
+    function teleportToTool(event) {
+        event.preventDefault();
+        const query = document.getElementById('search-input').value.toLowerCase().trim();
+        const errorText = document.getElementById('search-error');
+        errorText.style.display = "none";
+
+        let targetId = "";
+
+        if (query.includes('merge') || query.includes('combine') || query.includes('glue')) {
+            targetId = "pdf-inputs"; // Teleports to Merger
+        } else if (query.includes('split') || query.includes('extract') || query.includes('page')) {
+            targetId = "split-input"; // Teleports to Splitter
+        } else if (query.includes('compress') || query.includes('shrink') || query.includes('small') || query.includes('email')) {
+            targetId = "compress-input"; // Teleports to Compressor
+        } else if (query.includes('clean') || query.includes('text') || query.includes('zap') || query.includes('format')) {
+            targetId = "input"; // Teleports to Text Cleaner
+        }
+
+        if (targetId !== "") {
+            const element = document.getElementById(targetId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                element.focus();
+            }
+        } else {
+            errorText.innerText = "Tool not found! Try searching 'merge', 'split', 'compress', or 'clean'.";
+            errorText.style.display = "block";
+        }
+    }
+</script>
+   
+<header>
+    <h1>ZapFormat</h1>
+    <p>Paste rich text from PDFs, Word, or Web to instantly strip hidden styles and formatting.</p>
+</header>
+
+<div class="wrapper">
+    <textarea id="input" placeholder="Paste your messy formatted text here..."></textarea>
+    
+    <div class="stats">
+        <span id="charCount">Characters: 0</span>
+        <span id="wordCount">Words: 0</span>
+    </div>
+
+    <div class="controls">
+        <button class="btn-primary" onclick="stripFormatting()">Zap Formatting</button>
+        <button class="btn-secondary" onclick="copyToClipboard()">Copy Clean Text</button>
+        <button class="btn-secondary" onclick="clearAll()">Clear</button>
+    </div>
+</div>
+
+<script>
+    const inputArea = document.getElementById('input');
+    const charCount = document.getElementById('charCount');
+    const wordCount = document.getElementById('wordCount');
+
+    inputArea.addEventListener('input', () => {
+        const text = inputArea.value;
+        charCount.textContent = `Characters: ${text.length}`;
+        const words = text.trim().split(/\s+/).filter(w => w.length > 0);
+        wordCount.textContent = `Words: ${words.length}`;
+    });
+
+    function stripFormatting() {
+        let text = inputArea.value;
+        text = text.toString(); 
+        text = text.replace(/[\u2018\u2019]/g, "'")
+                   .replace(/[\u201C\u201D]/g, '"')
+                   .replace(/\u2013/g, "-")         
+                   .replace(/\u2014/g, "--");       
+        text = text.replace(/\n{3,}/g, '\n\n');
+        inputArea.value = text;
+    }
+
+    async function copyToClipboard() {
+        if (!inputArea.value) return;
+        try {
+            await navigator.clipboard.writeText(inputArea.value);
+            alert('Clean text copied to clipboard!');
+        } catch (err) {
+            alert('Failed to copy. Please select all and copy manually.');
+        }
+    }
+
+    function clearAll() {
+        inputArea.value = '';
+        charCount.textContent = 'Characters: 0';
+        wordCount.textContent = 'Words: 0';
+        inputArea.focus();
+    }
+</script>
+
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+
+<section style="max-width: 600px; margin: 40px auto; padding: 20px; border: 2px dashed #007bff; border-radius: 8px; font-family: sans-serif; text-align: center; background-color: #f8f9fa; margin-top: 40px;">
+    <h2>PDF Merger Tool</h2>
+    <p>Select two or more PDF files to combine them into one single document.</p>
+    <input type="file" id="pdf-inputs" multiple accept=".pdf" style="margin: 20px 0; padding: 10px;">
+    <br>
+    <button id="merge-button" style="background-color: #007bff; color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 4px; cursor: pointer;">Merge PDFs</button>
+    <p id="status-message" style="margin-top: 15px; color: #555; font-weight: bold;"></p>
+</section>
+
+<script>
+    document.getElementById('merge-button').addEventListener('click', async () => {
+        const fileInput = document.getElementById('pdf-inputs');
+        const status = document.getElementById('status-message');
+        const files = fileInput.files;
+
+        if (files.length < 2) {
+            status.innerText = "Please select at least 2 PDF files to merge!";
+            status.style.color = "red";
+            return;
+        }
+
+        status.innerText = "Merging your PDFs... Please wait...";
+        status.style.color = "#007bff";
+
+        try {
+            const mergedPdf = await PDFLib.PDFDocument.create();
+            for (let i = 0; i < files.length; i++) {
+                const fileBytes = await files[i].arrayBuffer();
+                const pdf = await PDFLib.PDFDocument.load(fileBytes);
+                const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+                copiedPages.forEach((page) => mergedPdf.addPage(page));
+            }
+            const mergedPdfBytes = await mergedPdf.save();
+            const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'combined-zapformat.pdf';
+            link.click();
+            status.innerText = "Success! Your merged PDF has downloaded.";
+            status.style.color = "green";
+        } catch (error) {
+            status.innerText = "Oops! Something went wrong trying to merge these files.";
+            status.style.color = "red";
+            console.error(error);
+        }
+    });
+</script>
+
+<section style="max-width: 600px; margin: 40px auto; padding: 20px; border: 2px dashed #28a745; border-radius: 8px; font-family: sans-serif; text-align: center; background-color: #f8f9fa; margin-top: 20px;">
+    <h2>PDF Splitter Tool</h2>
+    <p>Upload a PDF and choose which page you want to extract into a separate file.</p>
+    <input type="file" id="split-input" accept=".pdf" style="margin: 10px 0; padding: 10px;">
+    <br>
+    <label style="font-weight: bold;">Page Number to Extract: </label>
+    <input type="number" id="page-number" min="1" value="1" style="width: 60px; padding: 5px; margin: 10px;">
+    <br>
+    <button id="split-button" style="background-color: #28a745; color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 4px; cursor: pointer; margin-top: 10px;">Extract Page</button>
+    <p id="split-status" style="margin-top: 15px; color: #555; font-weight: bold;"></p>
+</section>
+
+<script>
+    document.getElementById('split-button').addEventListener('click', async () => {
+        const fileInput = document.getElementById('split-input');
+        const pageInput = document.getElementById('page-number');
+        const status = document.getElementById('split-status');
+        const files = fileInput.files;
+        const targetPage = parseInt(pageInput.value);
+
+        if (files.length === 0) {
+            status.innerText = "Please select a PDF file first!";
+            status.style.color = "red";
+            return;
+        }
+        if (isNaN(targetPage) || targetPage < 1) {
+            status.innerText = "Please enter a valid page number!";
+            status.style.color = "red";
+            return;
+        }
+
+        status.innerText = "Extracting page... Please wait...";
+        status.style.color = "#28a745";
+
+        try {
+            const fileBytes = await files[0].arrayBuffer();
+            const sourcePdf = await PDFLib.PDFDocument.load(fileBytes);
+            const totalPages = sourcePdf.getPageCount();
+
+            if (targetPage > totalPages) {
+                status.innerText = "Error: This PDF only has " + totalPages + " pages.";
+                status.style.color = "red";
+                return;
+            }
+
+            const newPdf = await PDFLib.PDFDocument.create();
+            const [copiedPage] = await newPdf.copyPages(sourcePdf, [targetPage - 1]);
+            newPdf.addPage(copiedPage);
+
+            const newPdfBytes = await newPdf.save();
+            const blob = new Blob([newPdfBytes], { type: 'application/pdf' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'extracted-page-' + targetPage + '.pdf';
+            link.click();
+            status.innerText = "Success! Page " + targetPage + " has been extracted and downloaded.";
+            status.style.color = "green";
+        } catch (error) {
+            status.innerText = "Oops! Something went wrong trying to split this file.";
+            status.style.color = "red";
+            console.error(error);
+        }
+    });
+</script>
+
+<section style="max-width: 600px; margin: 40px auto; padding: 20px; border: 2px dashed #6f42c1; border-radius: 8px; font-family: sans-serif; text-align: center; background-color: #f8f9fa; margin-top: 20px;">
+    <h2>PDF Compressor Tool</h2>
+    <p>Upload a heavy PDF file to compress its file layout and optimize it for email sharing.</p>
+    <input type="file" id="compress-input" accept=".pdf" style="margin: 10px 0; padding: 10px;">
+    <br>
+    <button id="compress-button" style="background-color: #6f42c1; color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 4px; cursor: pointer; margin-top: 10px;">Compress PDF</button>
+    <p id="compress-status" style="margin-top: 15px; color: #555; font-weight: bold;"></p>
+</section>
+
+<script>
+    document.getElementById('compress-button').addEventListener('click', async () => {
+        const fileInput = document.getElementById('compress-input');
+        const status = document.getElementById('compress-status');
+        const files = fileInput.files;
+
+        if (files.length === 0) {
+            status.innerText = "Please select a PDF file first!";
+            status.style.color = "red";
+            return;
+        }
+
+        status.innerText = "Compressing and optimizing your PDF... Please wait...";
+        status.style.color = "#6f42c1";
+
+        try {
+            const fileBytes = await files[0].arrayBuffer();
+            const pdfDoc = await PDFLib.PDFDocument.load(fileBytes);
+            const compressedBytes = await pdfDoc.save({ useObjectStreams: true });
+            const blob = new Blob([compressedBytes], { type: 'application/pdf' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'compressed-zapformat.pdf';
+            link.click();
+            status.innerText = "Success! Your optimized PDF has been downloaded.";
+            status.style.color = "green";
+        } catch (error) {
+            status.innerText = "Oops! Something went wrong trying to compress this file.";
+            status.style.color = "red";
+            console.error(error);
+        }
+    });
+</script>
+
+<section style="max-width: 600px; margin: 40px auto; padding: 20px; font-family: sans-serif; line-height: 1.6; color: #333; text-align: left;">
+    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 40px 0;">
+    
+    <h2>About ZapFormat</h2>
+    <p>ZapFormat is a collection of 100% free, fast, and secure utility tools designed to solve everyday document frustrations. Because all processing happens directly inside your web browser, your sensitive files are never uploaded to an external server, keeping your data entirely private and safe.</p>
+    
+    <h2>Helpful User Guides</h2>
+    
+    <h3>1. How to Merge and Combine PDF Files</h3>
+    <p>Whether you need to combine separate monthly receipts, project pages, or business reports, our PDF Merger tool makes it easy. Simply select two or more PDF files from your device, click merge, and instantly download your newly combined document as a single file.</p>
+    
+    <h3>2. How to Split and Extract Pages from a PDF</h3>
+    <p>If you have a large document but only need a single page to email or print, the PDF Splitter tool is the perfect solution. Upload your multi-page PDF, type in the exact page number you want to isolate, and download it instantly without affecting the original file.</p>
+    
+    <h3>3. Optimizing File Size with PDF Compression</h3>
+    <p>Large PDF documents can easily get blocked by email providers or application systems due to strict file size limits. The PDF Compressor analyzes your document's internal layout structure and optimizes it for email attachments, keeping your text sharp while reducing bulk.</p>
+    
+    <h3>4. Fixing Messy Formatting and PDF Text Breaks</h3>
+    <p>Copying text straight out of a PDF often causes broken paragraphs, random line breaks, and awkward double spaces. Using the original ZapFormat Text Cleaner strips away these hidden layout bugs, instantly returning clean, beautifully spaced paragraphs ready for word processors.</p>
+</section>
+
+<hr style="margin-top: 50px;">
+<footer style="text-align: center; font-family: sans-serif; padding: 20px; color: #555; line-height: 1.6;">
+    <h3>Contact</h3>
+    <p>Have a question? Email us at: <strong>urbanshepherdresolution@gmail.com</strong></p>
+    
+    <h3>Privacy Policy & Terms</h3>
+    <p>We use Google AdSense to show ads. Google uses cookies to show ads based on your visit to this site and other sites on the internet. By using this tool, you agree to use it as-is. <strong>ZapFormat is provided for free, and we take no liability for any loss, errors, or damages caused by the use of this website.</strong></p>
+</footer>
+
+</body>
+</html>
