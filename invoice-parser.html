@@ -37,33 +37,31 @@
 <body>
 <div class="container">
     <header>
-        <h1>Invoice to Bookkeeping Ledger Parser</h1>
-        <p>Upload a PDF document or a photo invoice to extract data values straight into a spreadsheet structure.</p>
+        <h1>Smart Invoice to Ledger Parser</h1>
+        <p>Drop PDFs, images, or raw text to isolate financial line variables instantly inside your local sandbox.</p>
     </header>
     <div class="grid">
         <div class="panel">
-            <h3>Upload Invoice File (PDF, PNG, JPG)</h3>
+            <h3>Step 1: Input Document Source</h3>
             <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
-                <span style="font-size:32px;">📁</span>
-                <p>Click to browse or drop file here</p>
+                <span style="font-size:32px;">📊</span>
+                <p>Upload PDF, Receipt Image, or Document Photo</p>
                 <input type="file" id="fileInput" accept="image/*,.pdf" style="display:none;" onchange="processIncomingFile()">
             </div>
-            <div id="statusIndicator" class="status">Reading data layers...</div>
+            <div id="statusIndicator" class="status">Initializing...</div>
             
-            <h3>Extracted Raw Text Raw Output</h3>
-            <textarea id="invoiceInput" placeholder="Extracted text matrix will display here for verification..."></textarea>
-            <button class="btn" onclick="parseInvoiceText()">Run Matrix Extraction</button>
+            <textarea id="invoiceInput" placeholder="Or paste raw text blocks here manually..."></textarea>
+            <button class="btn" onclick="parseInvoiceText()">Extract Data Parameters</button>
         </div>
         <div class="panel">
-            <h3>Compiled Spreadsheet Ledger Row</h3>
-            <div id="invoiceOutput" class="output-box">Data rows will display here...</div>
-            <button class="btn" style="background:#10b981;" onclick="downloadCSV()">Download CSV Ledger</button>
+            <h3>Step 2: Structured Accounting Output</h3>
+            <div id="invoiceOutput" class="output-box">No data extracted yet.</div>
+            <button class="btn" style="background:#10b981;" onclick="downloadCSV()">Download Clean CSV Ledger</button>
         </div>
     </div>
 </div>
 
 <script>
-    // Point PDF.js to the online rendering worker script
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
     let csvContent = "";
 
@@ -73,72 +71,69 @@
 
         const status = document.getElementById('statusIndicator');
         status.style.display = 'block';
-        status.textContent = "⏳ Accessing Document Structure...";
+        status.textContent = "⏳ Reading file layers locally...";
 
         if (file.type === "application/pdf") {
-            // Process PDF data blocks
             const fileReader = new FileReader();
             fileReader.onload = async function() {
                 try {
                     const typedarray = new Uint8Array(this.result);
                     const pdf = await pdfjsLib.getDocument(typedarray).promise;
                     let fullText = "";
-                    
-                    // Scan the text segments of the first page
                     const page = await pdf.getPage(1);
                     const textContent = await page.getTextContent();
                     textContent.items.forEach(item => { fullText += item.str + " "; });
-                    
                     document.getElementById('invoiceInput').value = fullText;
-                    status.textContent = "✅ PDF Text Successfully Extracted!";
+                    status.textContent = "✅ Text extracted from PDF structure.";
                     parseInvoiceText();
                 } catch (err) {
-                    status.textContent = "❌ Failed to read PDF characters directly. Trying image scanning rules...";
+                    status.textContent = "❌ Direct text reading failed. Please use an image copy.";
                 }
             };
             fileReader.readAsArrayBuffer(file);
         } else {
-            // Process Image Files via OCR scanning
-            status.textContent = "⏳ Running Optical Image OCR Scanning (This takes a few seconds)...";
+            status.textContent = "⏳ Processing image canvas via OCR (this may take up to 10 seconds)...";
             Tesseract.recognize(file, 'eng')
                 .then(({ data: { text } }) => {
                     document.getElementById('invoiceInput').value = text;
-                    status.textContent = "✅ Photo OCR Scanning Complete!";
+                    status.textContent = "✅ OCR analysis complete.";
                     parseInvoiceText();
                 })
-                .catch(err => {
-                    status.textContent = "❌ OCR Parsing Error.";
-                });
+                .catch(err => { status.textContent = "❌ Error processing image framework."; });
         }
     }
 
     function parseInvoiceText() {
         const text = document.getElementById('invoiceInput').value;
         
-        // Data filter patterns using Regular Expression scanning models
-        const dateMatch = text.match(/(?:date|inv-date)[:\s]+([0-9\-\/A-Za-z\s,]+)/i);
-        const totalMatch = text.match(/(?:total|amount due|grand total|balance)[:\s\$\u20AC\u00A3]+([0-9,\.]+)/i);
-        const taxMatch = text.match(/(?:tax|vat|gst)[:\s\$\u20AC\u00A3]+([0-9,\.]+)/i);
-        const vendorMatch = text.match(/(?:vendor|from|company|supplier)[:\s]+([^\n]+)/i);
+        // Comprehensive accounting variation expressions
+        const vendorPatterns = /(?:vendor|from|company|supplier|service provider|issued by|merchant)[:\s\n]+([^\n\d]+)/i;
+        const datePatterns = /(?:date|inv-date|billing date|date of issue|issued)[:\s\n]+([0-9\-\/A-Za-z\s,]+)/i;
+        const totalPatterns = /(?:total|amount due|grand total|balance|total amount|due|invoice total|charges|payable)[:\s\$\u20AC\u00A3]+([0-9,]+\.[0-9]{2}|[0-9,]+)/i;
+        const taxPatterns = /(?:tax|vat|gst|sales tax|estimated tax)[:\s\$\u20AC\u00A3]+([0-9,]+\.[0-9]{2}|[0-9,]+)/i;
 
-        const date = dateMatch ? dateMatch[1].trim().split('\n')[0] : "Not Found";
-        const total = totalMatch ? totalMatch[1].trim() : "Not Found";
-        const tax = taxMatch ? taxMatch[1].trim() : "0.00";
-        const vendor = vendorMatch ? vendorMatch[1].trim() : "Unknown Vendor";
+        const vendor = text.match(vendorPatterns) ? text.match(vendorPatterns)[1].trim() : "Unknown / Check Header";
+        const date = text.match(datePatterns) ? text.match(datePatterns)[1].trim().split('\n')[0] : "Check Text Matrix";
+        const total = text.match(totalPatterns) ? text.match(totalPatterns)[1].trim() : "Not Found (Review Base)";
+        const tax = text.match(taxPatterns) ? text.match(taxPatterns)[1].trim() : "0.00";
 
-        csvContent = `Vendor,Date,Tax,Total\n"${vendor}","${date}","${tax}","${total}"`;
+        csvContent = `Vendor,Date,Tax,Total\n"${vendor.replace(/"/g, '""')}","${date}","${tax}","${total}"`;
         
         document.getElementById('invoiceOutput').textContent = 
-            `[Extracted Spreadsheet Row]\n\nVendor: ${vendor}\nDate: ${date}\nTax Asset: ${tax}\nTotal Amount: ${total}`;
+            `[Extracted Spreadsheet Row Mapping]\n\n` +
+            `Vendor/Merchant : ${vendor}\n` +
+            `Invoice Date    : ${date}\n` +
+            `Identified Tax  : ${tax}\n` +
+            `Total Financial Amount: ${total}`;
     }
 
     function downloadCSV() {
-        if(!csvContent) return alert('Please parse a valid file structure first.');
+        if(!csvContent) return alert('No data available. Please upload a spreadsheet or paste an input block.');
         const blob = new Blob([csvContent], { type: 'text/csv' });
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.setAttribute('href', url);
-        a.setAttribute('download', 'invoice_ledger.csv');
+        a.setAttribute('download', 'bookkeeping_ledger.csv');
         a.click();
     }
 </script>
