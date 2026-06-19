@@ -9,6 +9,7 @@
       gtag('config', 'G-7TP5H35738');
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms of Service Risk Decoder - Free Document Scanner</title>
@@ -17,13 +18,14 @@
         body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: var(--dark); margin: 0; padding: 20px; }
         .container { max-width: 800px; margin: 0 auto; }
         header { text-align: center; margin-bottom: 30px; }
-        .panel { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 25px; }
+        .panel { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
         textarea { width: 100%; height: 250px; padding: 12px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; }
         .btn { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 15px; }
+        .btn:hover { background: var(--primary-hover); }
         .result-card { margin-top: 25px; padding: 20px; background: white; border: 1px solid var(--border); border-radius: 12px; display: none; }
         .risk-bar { height: 12px; width: 100%; background: #e2e8f0; border-radius: 6px; margin-top: 8px; overflow: hidden; }
         .risk-fill { height: 100%; background: #dc2626; width: 0%; transition: width 0.5s ease; }
-        .flag-item { padding: 10px; border-left: 4px solid #dc2626; background: #fef2f2; margin-bottom: 10px; font-size: 14px; border-radius: 0 4px 4px 0; }
+        .flag-item { padding: 12px; border-left: 4px solid #dc2626; background: #fef2f2; margin-bottom: 10px; font-size: 14px; border-radius: 0 4px 4px 0; }
     </style>
 </head>
 <body>
@@ -47,19 +49,27 @@
         <div id="flagContainer"></div>
     </div>
 </div>
+
 <script>
     function decodeLegalText() {
         const text = document.getElementById('legalInput').value.toLowerCase();
         const container = document.getElementById('flagContainer');
         container.innerHTML = "";
         
-        // Risk assessment definition framework metrics
+        // Expanded risk assessment array definitions
         const liabilityRules = [
-            { term: 'third-party', risk: 3, label: 'Data Exportation Hazard', desc: 'Authorizes transfer of collected data assets to unnamed third-party marketing brokers.' },
-            { term: 'auto-renew', risk: 2, label: 'Subscription Trap Vector', desc: 'Enforces automatic balance withdrawals without explicit pre-billing window alerts.' },
-            { term: 'arbitration', risk: 2, label: 'Class Action Limitation Clause', desc: 'Strips consumer rights to pursue standard legal litigation frameworks in favor of private panels.' },
-            { term: 'indemnify', risk: 2, label: 'Liability Transfer Parameter', desc: 'Forces the end user to assume system operational legal costs and damages framework liabilities.' },
-            { term: 'track your location', risk: 1, label: 'Persistent Telemetry Capture', desc: 'Records real-world hardware telemetry positions background parameters.' }
+            { term: 'third-party', risk: 3, label: 'Data Exportation Hazard', desc: 'Authorizes transfer or sale of collected data assets to unnamed third-party marketing brokers and ad networks.' },
+            { term: 'waive', risk: 3, label: 'Rights Forfeiture Clause', desc: 'Explicitly forces you to give up a legal right, such as your right to a trial or to dispute systematic processing errors.' },
+            { term: 'auto-renew', risk: 2, label: 'Subscription Trap Vector', desc: 'Enforces automatic recurring billing cycles from your payment method without mandatory pre-billing notifications.' },
+            { term: 'arbitration', risk: 2, label: 'Class Action Limitation', desc: 'Strips your right to join class-action lawsuits or go to public court, forcing disputes into private corporate panels.' },
+            { term: 'indemnify', risk: 2, label: 'Liability Transfer Parameter', desc: 'Forces the end-user to assume and pay all legal costs, corporate damages, and fees if the app gets sued because of you.' },
+            { term: 'sole discretion', risk: 2, label: 'Unilateral Power Balance', desc: 'Grants the platform total power to alter rules, change service pricing, or suspend features at any moment without notice.' },
+            { term: 'track your location', risk: 1, label: 'Persistent Telemetry Capture', desc: 'Records real-world hardware telemetry positions and device coordination background parameters.' },
+            { term: 'cookies', risk: 1, label: 'Browser Telemetry Identifier', desc: 'Deploys localized data trackers to track your navigation across external web applications for ad profiling.' },
+            { term: 'interest-based ads', risk: 1, label: 'Target Behavioral Profiling', desc: 'Analyzes your app activity, profile metrics, and search habits to serve tailored corporate advertising.' },
+            { term: 'non-refundable', risk: 1, label: 'Capital Retention Rule', desc: 'States that any money paid to the platform cannot be retrieved or refunded under any conditions if you cancel.' },
+            { term: 'governing law', risk: 1, label: 'Jurisdiction Displacement', desc: 'Dictates that all legal disputes must be handled in the company’s specific home state or country, making litigation very costly.' },
+            { term: 'terminate your access', risk: 1, label: 'Sudden Account Liquidation', desc: 'Grants the provider full authority to lock you out of the platform and delete your account data permanently without warning.' }
         ];
 
         let totalRisk = 0;
@@ -73,9 +83,11 @@
             }
         });
 
+        // Cap maximum risk score output presentation at 10
         if(totalRisk > 10) totalRisk = 10;
+        
         if(triggered === 0) {
-            container.innerHTML = '<div style="color:#10b981; font-weight:600;">No toxic pattern sequences or corporate traps flagged within current processing sandbox.</div>';
+            container.innerHTML = '<div style="color:#10b981; font-weight:600;">No high-risk pattern sequences or hidden corporate clauses flagged within the current text sandbox.</div>';
         }
 
         document.getElementById('riskLabel').textContent = `${totalRisk} / 10`;
