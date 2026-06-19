@@ -4,18 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Anonymizer - Complete Control</title>
+    <title>The Pro Anonymizer</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f0f4f8;
             color: #333;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
         }
         h1 { color: #2c3e50; text-align: center; margin-bottom: 5px; }
-        
         .privacy-badge {
             background-color: #27ae60;
             color: white;
@@ -24,10 +23,9 @@
             border-radius: 20px;
             font-weight: bold;
             font-size: 14px;
-            max-width: 400px;
+            max-width: 450px;
             margin: 0 auto 25px auto;
         }
-
         .container {
             display: flex;
             flex-direction: column;
@@ -39,15 +37,13 @@
         }
         textarea {
             width: 100%;
-            height: 120px;
+            height: 140px;
             padding: 12px;
             border: 2px solid #cbd5e1;
             border-radius: 6px;
             font-size: 16px;
             box-sizing: border-box;
         }
-
-        /* CONTROL PANEL Styles */
         .control-panel {
             background: #f8fafc;
             border: 1px solid #cbd5e1;
@@ -56,7 +52,7 @@
         }
         .options-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 12px;
             margin-bottom: 15px;
         }
@@ -64,12 +60,11 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-weight: bold;
+            font-weight: 500;
             cursor: pointer;
-            color: #475569;
+            color: #334155;
         }
         .checkbox-label input { width: 18px; height: 18px; cursor: pointer; }
-        
         .custom-input {
             width: 100%;
             padding: 10px;
@@ -78,7 +73,6 @@
             box-sizing: border-box;
             font-size: 15px;
         }
-        
         button.main-btn {
             background-color: #3498db;
             color: white;
@@ -90,8 +84,6 @@
             font-weight: bold;
         }
         button.main-btn:hover { background-color: #2980b9; }
-
-        /* MASTER BUBBLE LIST */
         .master-bubble-box {
             background: #f8fafc;
             border: 2px dashed #cbd5e1;
@@ -111,7 +103,7 @@
             border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 15px;
+            font-size: 14px;
             user-select: none;
         }
         .bubble.disabled {
@@ -119,7 +111,6 @@
             text-decoration: line-through;
             opacity: 0.7;
         }
-
         .preview-box {
             border: 1px solid #cbd5e1;
             padding: 15px;
@@ -134,42 +125,48 @@
 </head>
 <body>
 
-    <h1>The Anonymizer</h1>
-    <div class="privacy-badge">🔒 100% Secure & Private: For All Documents</div>
+    <h1>The Legal & Bank Anonymizer</h1>
+    <div class="privacy-badge">🔒 Bank-Grade Privacy: Processing Runs 100% On Your Device</div>
     
     <div class="container">
         <div>
-            <div style="font-weight: bold; margin-bottom: 8px; color: #334155;">1. Paste your original document here:</div>
-            <textarea id="inputText" placeholder="Paste your contract, email, or report text here..."></textarea>
+            <div style="font-weight: bold; margin-bottom: 8px; color: #334155;">1. Paste your legal/financial document:</div>
+            <textarea id="inputText" placeholder="Paste your contract, bank statement, or report here..."></textarea>
         </div>
 
         <div class="control-panel">
-            <div style="font-weight: bold; margin-bottom: 12px; color: #1e293b;">2. Choose what classes of words to remove:</div>
+            <div style="font-weight: bold; margin-bottom: 12px; color: #1e293b;">2. Select Data Classes to Auto-Remove:</div>
             <div class="options-grid">
-                <label class="checkbox-label"><input type="checkbox" id="classNames" checked> 👤 Names & Companies</label>
-                <label class="checkbox-label"><input type="checkbox" id="classEmails" checked> 📧 Email Addresses</label>
-                <label class="checkbox-label"><input type="checkbox" id="classPhones" checked> 📞 Phone Numbers</label>
-                <label class="checkbox-label"><input type="checkbox" id="classMoney" checked> 💰 Financial Amounts</label>
+                <label class="checkbox-label"><input type="checkbox" id="cNames" checked> 👤 1. Names & Titles</label>
+                <label class="checkbox-label"><input type="checkbox" id="cCompanies" checked> 🏢 2. Companies & Orgs</label>
+                <label class="checkbox-label"><input type="checkbox" id="cEmails" checked> 📧 3. Email Addresses</label>
+                <label class="checkbox-label"><input type="checkbox" id="cPhones" checked> 📞 4. Phone/Fax Numbers</label>
+                <label class="checkbox-label"><input type="checkbox" id="cMoney" checked> 💰 5. Financial Figures</label>
+                <label class="checkbox-label"><input type="checkbox" id="cAccounts" checked> 💳 6. Bank/Card Accounts</label>
+                <label class="checkbox-label"><input type="checkbox" id="cIDs" checked> 🆔 7. Government IDs/SSNs</label>
+                <label class="checkbox-label"><input type="checkbox" id="cDates" checked> 📅 8. Specific Dates</label>
+                <label class="checkbox-label"><input type="checkbox" id="cAddresses" checked> 📍 9. Physical Addresses</label>
+                <label class="checkbox-label"><input type="checkbox" id="cSystem" checked> 📑 10. Case/System IDs</label>
             </div>
             
-            <div style="font-weight: bold; margin-bottom: 6px; color: #1e293b;">Add custom secret words/phrases to remove:</div>
-            <input type="text" id="customInput" class="custom-input" placeholder="Type specific secret words here (e.g. Project Titan, SecretPassword)">
+            <div style="font-weight: bold; margin-bottom: 6px; color: #1e293b;">Add custom secret phrases/words:</div>
+            <input type="text" id="customInput" class="custom-input" placeholder="Type extra case secrets here (e.g. Project Falcon, Judge Judy)">
         </div>
 
         <button class="main-btn" onclick="scanDocument()">Scan & Clean Document</button>
 
         <div class="master-bubble-box">
-            <div style="font-weight: bold; color: #1e293b;">3. Removed Words (Peruse this list! Click a bubble to KEEP/REVEAL that word):</div>
-            <div id="masterBubbles" class="bubbles-container">Your removed words will list out here as bubbles after scanning...</div>
+            <div style="font-weight: bold; color: #1e293b;">3. Removed Words (Peruse carefully! Click to KEEP/REVEAL any item):</div>
+            <div id="masterBubbles" class="bubbles-container">Bubbles will list out here after scanning...</div>
         </div>
 
         <div>
-            <div style="font-weight: bold; margin-bottom: 8px; color: #334155;">4. Safe Document Preview:</div>
-            <div id="previewDisplay" class="preview-box">Your cleaned document preview...</div>
+            <div style="font-weight: bold; margin-bottom: 8px; color: #334155;">4. Redacted Preview:</div>
+            <div id="previewDisplay" class="preview-box">Your cleaned preview...</div>
         </div>
 
         <div>
-            <button class="main-btn" style="background-color: #27ae60; width: 100%;" onclick="copyCleanText()">Copy Secure Anonymous Text</button>
+            <button class="main-btn" style="background-color: #27ae60; width: 100%;" onclick="copyCleanText()">Copy Secure Document Text</button>
         </div>
     </div>
 
@@ -183,52 +180,77 @@
 
             masterSecretsList = [];
 
-            // Read checkboxes
-            const wantNames = document.getElementById('classNames').checked;
-            const wantEmails = document.getElementById('classEmails').checked;
-            const wantPhones = document.getElementById('classPhones').checked;
-            const wantMoney = document.getElementById('classMoney').checked;
-
-            // 1. Run Checked Default Rules
-            if (wantEmails) {
-                const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
-                const emails = originalText.match(emailRegex) || [];
-                emails.forEach(item => addSecret(item, '[EMAIL]'));
+            // 1. Core Scanners Based on Checkboxes
+            if (document.getElementById('cEmails').checked) {
+                const regex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+                (originalText.match(regex) || []).forEach(item => addSecret(item, '[EMAIL]'));
             }
 
-            if (wantPhones) {
-                const phoneRegex = /\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/g;
-                const phones = originalText.match(phoneRegex) || [];
-                phones.forEach(item => addSecret(item, '[PHONE]'));
+            if (document.getElementById('cPhones').checked) {
+                const regex = /\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/g;
+                (originalText.match(regex) || []).forEach(item => addSecret(item, '[PHONE]'));
             }
 
-            if (wantMoney) {
-                const moneyRegex = /\$[0-9,]+/g;
-                const money = originalText.match(moneyRegex) || [];
-                money.forEach(item => addSecret(item, '[MONEY]'));
+            if (document.getElementById('cMoney').checked) {
+                const regex = /[\$\b\d{3}[-.]?\d{3}[-.]?\d{4}\b]/g; 
+                const standardMoney = originalText.match(/\$[0-9,]+/g) || [];
+                standardMoney.forEach(item => addSecret(item, '[FINANCIAL]'));
             }
 
-            if (wantNames) {
-                const nameRegex = /\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?\b/g;
-                const names = originalText.match(nameRegex) || [];
-                const skipWords = ["The", "A", "An", "To", "From", "He", "She", "They", "It", "If", "But", "Or", "This", "That"];
-                names.forEach(item => {
-                    if(!skipWords.includes(item.split(' ')[0]) && item.length > 2) {
-                        addSecret(item, '[SECRET]');
+            if (document.getElementById('cAccounts').checked) {
+                // Catch strings of 10-16 digits often used for routing/accounts
+                const bankRegex = /\b\d{10,16}\b/g;
+                (originalText.match(bankRegex) || []).forEach(item => addSecret(item, '[ACCOUNT_NO]'));
+            }
+
+            if (document.getElementById('cIDs').checked) {
+                // Look for standard SSN layouts (XXX-XX-XXXX)
+                const ssnRegex = /\b\d{3}-\d{2}-\d{4}\b/g;
+                (originalText.match(ssnRegex) || []).forEach(item => addSecret(item, '[GOV_ID]'));
+            }
+
+            if (document.getElementById('cDates').checked) {
+                // Matches variants like Month DD, YYYY or DD/MM/YYYY
+                const dateRegex = /\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+\d{1,2},\s+\d{4}\b/gi;
+                (originalText.match(dateRegex) || []).forEach(item => addSecret(item, '[DATE]'));
+            }
+
+            if (document.getElementById('cSystem').checked) {
+                // Looks for typical Case patterns like "Case No. 123-A"
+                const caseRegex = /(?:Case|Order|Ref|Ticket)\s*(?:No\.?|#)?\s*[A-Z0-9-]+/gi;
+                (originalText.match(caseRegex) || []).forEach(item => addSecret(item, '[SYSTEM_ID]'));
+            }
+
+            if (document.getElementById('cAddresses').checked) {
+                // Look for common street components
+                const addressRegex = /\d+\s+[A-Za-z0-9\s]+(?:Street|St|Avenue|Ave|Road|Rd|Highway|Hwy|Boulevard|Blvd|Drive|Dr)\.?/gi;
+                (originalText.match(addressRegex) || []).forEach(item => addSecret(item, '[ADDRESS]'));
+            }
+
+            // Capitalization scanners for Names & Companies
+            const nameRegex = /\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?\b/g;
+            const capMatches = originalText.match(nameRegex) || [];
+            const skipWords = ["The", "A", "An", "To", "From", "He", "She", "They", "It", "If", "But", "Or", "This", "That", "We", "On", "In", "At", "Our"];
+
+            capMatches.forEach(item => {
+                if(!skipWords.includes(item.split(' ')[0]) && item.length > 2) {
+                    // Check if it looks like a company type
+                    if (item.toLowerCase().includes('corp') || item.toLowerCase().includes('inc') || item.toLowerCase().includes('llc') || item.toLowerCase().includes('bank')) {
+                        if (document.getElementById('cCompanies').checked) addSecret(item, '[COMPANY]');
+                    } else {
+                        if (document.getElementById('cNames').checked) addSecret(item, '[SECRET_NAME]');
                     }
-                });
-            }
+                }
+            });
 
-            // 2. Run Custom User Words Input
+            // 2. Add Custom Input Words
             const customRaw = document.getElementById('customInput').value;
             if (customRaw.trim() !== "") {
-                // Splits words by commas OR spaces to be idiot proof
-                const customWords = customRaw.split(/[,,]/).map(w => w.trim()).filter(w => w.length > 0);
+                const customWords = customRaw.split(',').map(w => w.trim()).filter(w => w.length > 0);
                 customWords.forEach(word => {
                     const safeWord = word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
                     const wordRegex = new RegExp(safeWord, 'gi');
-                    const matches = originalText.match(wordRegex) || [];
-                    matches.forEach(item => addSecret(item, '[CUSTOM]'));
+                    (originalText.match(wordRegex) || []).forEach(item => addSecret(item, '[CUSTOM]'));
                 });
             }
 
@@ -247,14 +269,14 @@
             container.innerHTML = "";
 
             if(masterSecretsList.length === 0) {
-                container.innerText = "No sensitive words found matching your choices.";
+                container.innerText = "No sensitive data matched your checked preferences.";
                 return;
             }
 
             masterSecretsList.forEach((secret, index) => {
                 const bubble = document.createElement('div');
                 bubble.className = `bubble ${secret.active ? '' : 'disabled'}`;
-                bubble.innerText = secret.value;
+                bubble.innerText = `${secret.label}: ${secret.value}`;
                 bubble.onclick = () => toggleBubble(index);
                 container.appendChild(bubble);
             });
@@ -268,7 +290,6 @@
 
         function updatePreview() {
             let displayText = originalText;
-
             masterSecretsList.forEach((secret) => {
                 if(secret.active) {
                     const safeWord = secret.value.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
@@ -276,13 +297,11 @@
                     displayText = displayText.replace(regex, `██████`);
                 }
             });
-
             document.getElementById('previewDisplay').innerText = displayText;
         }
 
         function copyCleanText() {
             let finalOutput = originalText;
-
             masterSecretsList.forEach((secret) => {
                 if(secret.active) {
                     const safeWord = secret.value.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
@@ -290,9 +309,8 @@
                     finalOutput = finalOutput.replace(regex, secret.label);
                 }
             });
-
             navigator.clipboard.writeText(finalOutput);
-            alert("Secure text copied! You can paste it safely anywhere now.");
+            alert("Secure anonymous document text copied to clipboard!");
         }
     </script>
 </body>
