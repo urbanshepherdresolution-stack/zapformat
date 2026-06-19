@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Fast Excel to PDF Converter Online - Batch Convert .XLSX</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.5.28/dist/jspdf.plugin.autotable.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #10b981; /* Excel green variant matching corporate vibe */
+            --primary-hover: #047857;
+            --dark: #0f172a;
+            --secondary: #64748b;
+            --border: #e2e8f0;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: #f8fafc;
+            color: var(--dark);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h1 { font-size: 2.5rem; margin-bottom: 10px; color: var(--dark); }
+        .drop-zone {
+            border: 3px dashed var(--border);
+            border-radius: 12px;
+            background: white;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .drop-zone:hover {
+            border-color: var(--primary);
+            background: #f0fdf4;
+        }
+        .file-input { display: none; }
+        .status-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background: white;
+            border: 1px solid var(--border);
+            display: none;
+        }
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        .file-item:last-child { border-bottom: none; }
+        .convert-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: background 0.2s;
+        }
+        .convert-btn:hover { background: var(--primary-hover); }
+        .loading { display: none; color: var(--secondary); font-weight: 600; text-align: center; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Batch Excel to PDF Converter</h1>
+        <p>Convert spreadsheets (.xlsx / .xls) into professional corporate PDFs instantly. Zero data storage overhead.</p>
+    </header>
+
+    <main>
+        <div class="drop-zone" onclick="document.getElementById('filePicker').click()">
+            <span style="font-size: 48px; display:block; margin-bottom:10px;">📊</span>
+            <strong>Drag & Drop Excel files here</strong> or click to browse local files
+            <input type="file" id="filePicker" class="file-input" accept=".xlsx, .xls" multiple onchange="handleFileSelection()">
+        </div>
+
+        <div id="statusBox" class="status-box">
+            <h3 style="margin-top:0;">Selected Documents</h3>
+            <div id="fileList"></div>
+            <button class="convert-btn" onclick="processAllFiles()">Convert & Download PDFs</button>
+        </div>
+
+        <div id="loadingTracker" class="loading">Parsing rows into table matrix frameworks...</div>
+    </main>
+</div>
+
+<script>
+    let queue = [];
+
+    function handleFileSelection() {
+        const input = document.getElementById('filePicker');
+        const listDiv = document.getElementById('fileList');
+        const box = document.getElementById('statusBox');
+        
+        queue = Array.from(input.files);
+        listDiv.innerHTML = '';
+        
+        if(queue.length > 0) {
+            box.style.display = 'block';
+            queue.forEach(file => {
+                listDiv.innerHTML += `<div class="file-item"><span>📄 ${file.name}</span><span style="color:#10b981; font-weight:600;">Ready</span></div>`;
+            });
+        }
+    }
+
+    async function processAllFiles() {
+        if(queue.length === 0) return;
+        document.getElementById('loadingTracker').style.display = 'block';
+
+        for(let file of queue) {
+            await convertSingleExcelToPdf(file);
+        }
+
+        document.getElementById('loadingTracker').style.display = 'none';
+        alert('All spreadsheets converted and compiled successfully!');
+    }
+
+    function convertSingleExcelToPdf(file) {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, {type: 'array'});
+                
+                // Pull out the first tab sheet framework
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                
+                // Map worksheet rows to standard structural text arrays
+                const jsonRows = XLSX.utils.sheet_to_json(worksheet, {header: 1});
+                
+                if(jsonRows.length === 0) {
+                    resolve();
+                    return;
+                }
+
+                // Call local engine parameters to print document elements
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('p', 'pt', 'a4');
+                
+                const headers = jsonRows[0].map(h => String(h || ''));
+                const body = jsonRows.slice(1).map(row => row.map(cell => String(cell || '')));
+
+                doc.text(file.name.replace(/\.[^/.]+$/, ""), 40, 40);
+                
+                doc.autoTable({
+                    head: [headers],
+                    body: body,
+                    startY: 60,
+                    theme: 'grid',
+                    styles: { fontSize: 9, font: 'helvetica' },
+                    headStyles: { fillColor: [30, 58, 138] } // Matches your corporate navy theme
+                });
+
+                doc.save(file.name.replace(/\.[^/.]+$/, "") + ".pdf");
+                resolve();
+            };
+            
+            reader.readAsArrayBuffer(file);
+        });
+    }
+</script>
+
+</body>
+</html>
