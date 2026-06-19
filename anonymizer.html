@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anonymizer - Enterprise Data Privacy Tool</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
     <style>
         :root {
             --primary: #1e3a8a; /* Corporate Navy */
@@ -63,16 +64,49 @@
 
         label.section-heading { font-weight: 700; font-size: 16px; color: var(--primary); display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
 
+        /* UPGRADED DROP ZONE STYLE */
+        .upload-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .upload-wrapper { grid-template-columns: 1fr; }
+        }
+
+        .drop-zone {
+            border: 3px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            background: var(--bg-light);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .drop-zone:hover, .drop-zone.dragover {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+        .drop-zone p { margin: 0; font-weight: 600; color: var(--secondary); }
+        .drop-zone span { font-size: 12px; color: #94a3b8; }
+        .drop-zone .icon { font-size: 40px; color: var(--secondary); }
+
         textarea {
             width: 100%;
-            height: 160px;
+            height: 180px;
             padding: 14px;
             border: 2px solid var(--border-color);
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 15px;
             box-sizing: border-box;
             background-color: var(--bg-light);
             transition: border-color 0.2s;
+            resize: vertical;
         }
         textarea:focus { border-color: var(--primary); outline: none; background-color: white; }
         
@@ -201,17 +235,16 @@
         }
         .legal-label input { width: 18px; height: 18px; margin-top: 2px; }
 
-        /* Action Buttons Row */
         .action-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
         }
-        .action-row button {
-            width: 100%;
-        }
+        .action-row button { width: 100%; }
         button.copy-btn { background-color: var(--success); opacity: 0.5; cursor: not-allowed; }
-        button.download-btn { background-color: #f59e0b; opacity: 0.5; cursor: not-allowed; } /* Amber Yellow */
+        button.download-btn { background-color: #f59e0b; opacity: 0.5; cursor: not-allowed; }
+        
+        .status-msg { font-size: 13px; font-weight: bold; margin-top: 5px; color: var(--primary); display: none; }
     </style>
 </head>
 <body>
@@ -223,23 +256,32 @@
     <div class="instruction-banner">
         <strong>💡 Real-World Usage Instructions & Specifications:</strong>
         <ul style="margin: 5px 0 0 15px; padding: 0;">
-            <li><strong>Document Size Limit:</strong> Optimized for text under 50 pages. For massive folders, process in sections to avoid browser lag.</li>
-            <li><strong>PDF/Word Conversion Limitation:</strong> To maintain strict local privacy, paste text contents directly. Ensure you verify the output template before final distribution.</li>
+            <li><strong>Document Size Limit:</strong> Optimized for text and standard PDFs under 50 pages. Process multi-file folders incrementally.</li>
+            <li><strong>Local PDF Extraction Engine:</strong> Drops or uploads process strictly within browser memory space. No external telemetry or logging occurs.</li>
             <li><strong>User Accountability:</strong> Machine compilation patterns are assistive. Ultimate data safety relies on your final bubble verification.</li>
         </ul>
     </div>
 
     <div class="container">
         <div>
-            <label class="section-heading">1. Input Document Content</label>
-            <textarea id="inputText" placeholder="Paste structural text content from contracts, emails, statements or legal files here..."></textarea>
+            <label class="section-heading">1. Input Document Content (Upload PDF or Paste Text)</label>
+            <div class="upload-wrapper">
+                <div id="dropZone" class="drop-zone" onclick="document.getElementById('fileInput').click()">
+                    <div class="icon">📄</div>
+                    <p>Drag &amp; Drop PDF File Here</p>
+                    <span>or click to browse local directory</span>
+                    <input type="file" id="fileInput" accept="application/pdf" style="display:none" onchange="handleFileSelect(event)">
+                    <div id="uploadStatus" class="status-msg">Extracting document contents...</div>
+                </div>
+                <textarea id="inputText" placeholder="Alternatively, paste raw structural text content from contracts or financial sheets directly here..."></textarea>
+            </div>
         </div>
 
         <div class="control-panel">
             <label class="section-heading">2. Scan Parameters (Default Classes)</label>
             <div class="options-grid">
-                <label class="checkbox-label"><input type="checkbox" id="cNames" checked> 👤 Names & Titles</label>
-                <label class="checkbox-label"><input type="checkbox" id="cCompanies" checked> 🏢 Companies & Orgs</label>
+                <label class="checkbox-label"><input type="checkbox" id="cNames" checked> 👤 Names &amp; Titles</label>
+                <label class="checkbox-label"><input type="checkbox" id="cCompanies" checked> 🏢 Companies &amp; Orgs</label>
                 <label class="checkbox-label"><input type="checkbox" id="cEmails" checked> 📧 Email Addresses</label>
                 <label class="checkbox-label"><input type="checkbox" id="cPhones" checked> 📞 Phone/Fax Numbers</label>
                 <label class="checkbox-label"><input type="checkbox" id="cMoney" checked> 💰 Financial Figures</label>
@@ -302,8 +344,68 @@
     </div>
 
     <script>
+        // Point Mozilla Engine Workers to public distribution script CDN
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+
         let originalText = "";
         let masterSecretsList = [];
+
+        // Set up HTML Drag and Drop Visual Listeners
+        const zone = document.getElementById('dropZone');
+        zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('dragover'); });
+        zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+        zone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            zone.classList.remove('dragover');
+            if(e.dataTransfer.files.length > 0) {
+                processPDFFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        function handleFileSelect(e) {
+            if(e.target.files.length > 0) processPDFFile(e.target.files[0]);
+        }
+
+        // Native Local PDF Text Stream Compilation Core
+        function processPDFFile(file) {
+            if(file.type !== "application/pdf") {
+                alert("Invalid format: Please drop a native PDF system file.");
+                return;
+            }
+            
+            const status = document.getElementById('uploadStatus');
+            status.style.display = "block";
+            status.innerText = "Reading document layers...";
+
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                const typedarray = new Uint8Array(ev.target.result);
+                
+                pdfjsLib.getDocument(typedarray).promise.then(function(pdf) {
+                    let totalPages = pdf.numPages;
+                    let countPromises = [];
+                    
+                    for (let i = 1; i <= totalPages; i++) {
+                        countPromises.push(pdf.getPage(i).then(function(page) {
+                            return page.getTextContent().then(function(textContent) {
+                                return textContent.items.map(item => item.str).join(" ");
+                            });
+                        }));
+                    }
+                    
+                    Promise.all(countPromises).then(function(pageTexts) {
+                        status.innerText = "Extraction complete! Scanning patterns...";
+                        document.getElementById('inputText').value = pageTexts.join("\n\n");
+                        setTimeout(() => { status.style.display = "none"; }, 1500);
+                        scanDocument(); // Run scanner loops immediately
+                    });
+                }).catch(err => {
+                    status.innerText = "Error parsing local data lines.";
+                    console.error(err);
+                });
+            };
+            reader.readAsArrayBuffer(file);
+        }
 
         function scanDocument() {
             originalText = document.getElementById('inputText').value;
@@ -311,7 +413,7 @@
 
             masterSecretsList = [];
 
-            // 1. FIRST PRIORITY: Custom User Words
+            // 1. Custom User Words (Priority 1)
             const customRaw = document.getElementById('customInput').value;
             if (customRaw.trim() !== "") {
                 const customWords = customRaw.split(',').map(w => w.trim()).filter(w => w.length > 0);
@@ -322,7 +424,7 @@
                 });
             }
 
-            // 2. SECOND PRIORITY: Checked Classes
+            // 2. Default Pattern Matchers (Priority 2)
             if (document.getElementById('cEmails').checked) {
                 (originalText.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g) || []).forEach(item => addSecret(item, '[EMAIL]', 'DEFAULT'));
             }
@@ -351,7 +453,7 @@
                 (originalText.match(addressRegex) || []).forEach(item => addSecret(item, '[ADDRESS]', 'DEFAULT'));
             }
 
-            // 3. THIRD PRIORITY: Capitalization Engine (Proper Nouns)
+            // 3. Proper Noun Scanning Engine (Priority 3)
             const nameRegex = /\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?\b/g;
             const capMatches = originalText.match(nameRegex) || [];
             const skipWords = ["The", "A", "An", "To", "From", "He", "She", "They", "It", "If", "But", "Or", "This", "That", "We", "On", "In", "At", "Our", "My", "Your"];
