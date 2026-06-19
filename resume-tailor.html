@@ -9,87 +9,126 @@
       gtag('config', 'G-7TP5H35738');
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATS Resume Keyword Tailor - Free Match Matrix Analyzer</title>
+    <title>ATS Resume Tailor - Generate Optimized PDF CVs Online</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     <style>
-        :root { --primary: #1e3a8a; --primary-hover: #172554; --dark: #0f172a; --secondary: #64748b; --border: #e2e8f0; }
+        :root { --primary: #1e3a8a; --primary-hover: #172554; --dark: #0f172a; --secondary: #64748b; --border: #e2e8f0; --success: #10b981; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: var(--dark); margin: 0; padding: 20px; }
-        .container { max-width: 1000px; margin: 0 auto; }
+        .container { max-width: 1100px; margin: 0 auto; }
         header { text-align: center; margin-bottom: 30px; }
         .grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
         @media (min-width: 768px) { .grid { grid-template-columns: 1fr 1fr; } }
-        .panel { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 25px; }
-        textarea { width: 100%; height: 220px; padding: 12px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; }
-        .btn { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 15px; }
-        .results { margin-top: 20px; padding: 15px; background: white; border: 1px solid var(--border); border-radius: 12px; display: none; }
+        .panel { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
+        textarea { width: 100%; height: 200px; padding: 12px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; font-family: inherit; }
+        .btn { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 15px; transition: background 0.2s; }
+        .btn:hover { background: var(--primary-hover); }
         .badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; margin-right: 5px; margin-bottom: 5px; }
         .missing { background: #fee2e2; color: #991b1b; }
         .found { background: #dcfce7; color: #166534; }
+        .workspace { margin-top: 25px; display: none; }
+        .editable-cv { border: 1px solid var(--border); padding: 30px; background: white; border-radius: 8px; min-height: 400px; margin-top: 15px; outline: none; box-shadow: inset 0 2px 4px rgba(0,0,0,0.01); }
+        .editable-cv:focus { border-color: var(--primary); }
     </style>
 </head>
 <body>
 <div class="container">
     <header>
-        <h1>ATS Resume Keyword Tailor</h1>
-        <p>Audit critical tracking phrases and formatting density gaps in your professional profile sandbox.</p>
+        <h1>ATS Resume Tailor &amp; CV Generator</h1>
+        <p>Match your professional history with job openings and generate a tailored plain-text PDF CV instantly.</p>
     </header>
+
     <div class="grid">
         <div class="panel">
             <h3>Target Job Description</h3>
-            <textarea id="jdInput" placeholder="Paste the text layout of the job advertisement here..."></textarea>
+            <textarea id="jdInput" placeholder="Paste the job advertisement requirements here..."></textarea>
         </div>
         <div class="panel">
-            <h3>Your Current Resume Content</h3>
-            <textarea id="resumeInput" placeholder="Paste your clean text profile bullet structures here..."></textarea>
+            <h3>Your Base CV Experience</h3>
+            <textarea id="resumeInput" placeholder="Paste your current resume summary, roles, and bullets here..."></textarea>
         </div>
     </div>
-    <button class="btn" style="margin-top:20px;" onclick="analyzeResume()">Run Alignment Verification</button>
+    
+    <button class="btn" onclick="analyzeAndBuildWorkspace()">Analyze &amp; Build Live Workspace</button>
 
-    <div id="resultPanel" class="results">
-        <h2>Optimization Diagnostic Complete</h2>
-        <div style="font-size: 18px; font-weight: bold; margin-bottom: 15px;">ATS Match Rating: <span id="scoreField" style="color:#10b981;">0%</span></div>
-        <div class="grid">
-            <div>
-                <h4>⚠️ High-Priority Missing Keywords</h4>
-                <div id="missingKeywords">None</div>
-            </div>
-            <div>
-                <h4>✅ Validated Core Competencies</h4>
-                <div id="foundKeywords">None</div>
-            </div>
+    <div id="workspacePanel" class="panel workspace">
+        <h2>Tailor Your Live CV Layout</h2>
+        <p style="color: var(--secondary); font-size: 14px;">Review your keyword matches below. Edit the text inside the CV sheet block directly to integrate missing words, then export your final PDF document.</p>
+        
+        <div style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--border);">
+            <strong>Missing target terms to add:</strong>
+            <div id="missingKeywords" style="margin-top: 5px;"></div>
         </div>
+
+        <div id="liveCvArea" class="editable-cv" contenteditable="true"></div>
+        
+        <button class="btn" style="background: var(--success);" onclick="exportTailoredPdf()">Export Optimized PDF CV</button>
     </div>
 </div>
+
 <script>
-    function analyzeResume() {
+    function analyzeAndBuildWorkspace() {
         const jd = document.getElementById('jdInput').value.toLowerCase();
-        const resume = document.getElementById('resumeInput').value.toLowerCase();
+        const baseCv = document.getElementById('resumeInput').value;
+        const cvLower = baseCv.toLowerCase();
         
-        // Lexical scan library dictionary array parameters
-        const targetKeywords = ['javascript', 'python', 'excel', 'management', 'budget', 'development', 'sql', 'analysis', 'marketing', 'strategy', 'operations', 'cloud', 'agile', 'scrum', 'leadership', 'design'];
+        // Dictionary array of common professional skill targets
+        const targetKeywords = ['javascript', 'python', 'excel', 'management', 'budget', 'development', 'sql', 'analysis', 'marketing', 'strategy', 'operations', 'cloud', 'agile', 'scrum', 'leadership', 'design', 'communication'];
         
-        let found = [];
         let missing = [];
 
         targetKeywords.forEach(word => {
-            if (jd.includes(word)) {
-                if (resume.includes(word)) { found.push(word); } 
-                else { missing.push(word); }
+            if (jd.includes(word) && !cvLower.includes(word)) {
+                missing.push(word);
             }
         });
 
-        const totalTracked = found.length + missing.length;
-        const score = totalTracked > 0 ? Math.round((found.length / totalTracked) * 100) : 0;
+        // Display results to the user
+        const missingContainer = document.getElementById('missingKeywords');
+        if (missing.length > 0) {
+            missingContainer.innerHTML = missing.map(w => `<span class="badge missing">${w}</span>`).join('');
+        } else {
+            missingContainer.innerHTML = '<span class="badge found">Perfect Match! No missing core keywords flagged.</span>';
+        }
 
-        document.getElementById('scoreField').textContent = `${score}%`;
+        // Put the user's CV text inside the live editor sandbox
+        const cvArea = document.getElementById('liveCvArea');
+        cvArea.innerHTML = baseCv.replace(/\n/g, '<br>');
+
+        // Unroll the editor dashboard interface
+        document.getElementById('workspacePanel').style.display = 'block';
+        cvArea.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function exportTailoredPdf() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF('p', 'pt', 'a4');
         
-        document.getElementById('missingKeywords').innerHTML = missing.length > 0 ? 
-            missing.map(w => `<span class="badge missing">${w}</span>`).join('') : 'No gaps detected!';
-        document.getElementById('foundKeywords').innerHTML = found.length > 0 ? 
-            found.map(w => `<span class="badge found">${w}</span>`).join('') : 'No matches parsed.';
+        // Grab the edited text layout out of the editing frame
+        const element = document.getElementById('liveCvArea');
+        const text = element.innerText || element.textContent;
 
-        document.getElementById('resultPanel').style.display = 'block';
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(11);
+        
+        // Handle automated page margins and clean structural line splits
+        const splitText = doc.splitTextToSize(text, 515); // standard horizontal safety boundaries
+        
+        let yOffset = 50;
+        splitText.forEach(line => {
+            if (yOffset > 780) { // check vertical printable bounds to prevent overflowing
+                doc.addPage();
+                yOffset = 50;
+            }
+            doc.text(line, 40, yOffset);
+            yOffset += 16; // strict line spacing adjustments
+        });
+
+        doc.save("tailored_optimized_cv.pdf");
     }
 </script>
 </body>
