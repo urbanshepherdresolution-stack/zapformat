@@ -76,7 +76,7 @@
 
         /* Core Feature Grid */
         .grid-section {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto 80px auto;
             padding: 0 20px;
         }
@@ -91,11 +91,8 @@
         }
         .utility-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 25px;
-        }
-        @media (max-width: 768px) {
-            .utility-grid { grid-template-columns: 1fr; }
         }
 
         /* Tool Cards */
@@ -145,7 +142,7 @@
         .tool-btn.secondary-btn {
             background: #f1f5f9;
             color: #475569;
-            pointer-events: none; /* Disabled placeholder */
+            pointer-events: none;
             opacity: 0.7;
         }
 
@@ -189,7 +186,7 @@
 
     <main>
         <section class="hero">
-            <h1>Sanitize & Format Business Data with Total Immunity</h1>
+            <h1>Sanitize &amp; Format Business Data with Total Immunity</h1>
             <p>High-volume programmatic tools built explicitly for legal and financial environments. Zero server connections. Zero records kept. 100% compilation inside browser sandbox.</p>
         </section>
 
@@ -199,8 +196,16 @@
                 
                 <div class="tool-card">
                     <div>
+                        <h2>📋 Text Formatter</h2>
+                        <p>Strip formatting styles, clean up chaotic spacing, and align text case. Built for rapid clean-up of messy data columns and copied text segments before team distribution.</p>
+                    </div>
+                    <a href="formatter.html" class="tool-btn">Launch Formatter App</a>
+                </div>
+
+                <div class="tool-card">
+                    <div>
                         <h2>👤 Anonymizer</h2>
-                        <p>Automatically scrub corporate records, emails, bank codes, and sensitive parameters out of legal strings. Features an interactive 4-column cluster review panel to eliminate identification risks before AI engine pasting.</p>
+                        <p>Automatically scrub corporate records, emails, bank codes, and sensitive parameters out of legal strings. Features an interactive 4-column cluster review panel to eliminate risk.</p>
                     </div>
                     <a href="anonymizer.html" class="tool-btn">Launch Anonymizer App</a>
                 </div>
@@ -208,7 +213,7 @@
                 <div class="tool-card">
                     <div>
                         <h2>📑 PDF Extraction Snipper</h2>
-                        <p>Isolate and map structured sections from legacy text trees and layout arrays directly. Built to convert difficult multi-page documents into clean structural models without cloud processing dependency.</p>
+                        <p>Isolate and map structured sections from legacy text trees and layout arrays directly. Built to convert difficult documents into clean structural models without cloud dependencies.</p>
                     </div>
                     <a href="#" class="tool-btn secondary-btn">Development In Progress</a>
                 </div>
