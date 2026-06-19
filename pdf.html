@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Extraction Snipper - Zap Text Cleaner</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: #1e1e1e;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            box-sizing: border-box;
+        }
+        h1, h2 {
+            color: #ffffff;
+            text-align: center;
+        }
+        .file-upload-box {
+            border: 2px dashed #444;
+            padding: 30px;
+            text-align: center;
+            border-radius: 6px;
+            background-color: #151515;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .file-upload-box:hover {
+            border-color: #00bcd4;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        textarea {
+            width: 100%;
+            height: 250px;
+            background-color: #2d2d2d;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 15px;
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: vertical;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            background-color: #00bcd4;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            text-align: center;
+        }
+        .btn:hover {
+            background-color: #0097a7;
+        }
+        .status-msg {
+            text-align: center;
+            color: #00bcd4;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .seo-section {
+            margin-top: 40px;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>PDF Extraction Snipper</h1>
+    <p style="text-align:center; color:#aaa;">Upload any digital PDF file to instantly extract and strip its text into clean plain text.</p>
+
+    <div class="file-upload-box" onclick="document.getElementById('pdf-file').click()">
+        <p style="margin: 0; font-size: 16px;">📁 Click to Browse and Select a PDF File</p>
+        <p id="file-name" style="margin: 10px 0 0 0; color: #aaa; font-size: 13px;">No file chosen</p>
+        <input type="file" id="pdf-file" accept=".pdf">
+    </div>
+
+    <div id="status" class="status-msg"></div>
+
+    <textarea id="output-text" placeholder="Your clean, extracted plain text will appear here..."></textarea>
+
+    <button class="btn" id="copy-btn" onclick="copyToClipboard()">Copy Clean Text</button>
+
+    <p style="text-align: center; margin-top: 20px;">
+        <a href="/" style="color: #00bcd4; text-decoration: none;">← Back to Standard Text Cleaner</a>
+    </p>
+
+    <div class="seo-section">
+        <h2>About Online PDF Text Extraction</h2>
+        <p>Extracting raw data from digital document files can be incredibly frustrating. Copying lines directly from a PDF reader often introduces broken line gaps, missing characters, and unreadable layout styling tags. The <strong>PDF Extraction Snipper</strong> runs directly inside your web browser to extract sentences flawlessly while instantly purging bad layout code.</p>
+        
+        <h3>100% Private, Client-Side Snipping</h3>
+        <p>Your security is our priority. Unlike other document converters, your files are never transmitted to a remote web server. This utility processes your entire file locally using browser scripts, making it completely safe for scanning sensitive records, text transcripts, and professional files.</p>
+    </div>
+</div>
+
+<script>
+    // Specify the worker script path for PDF.js library
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+    const fileInput = document.getElementById('pdf-file');
+    const fileNameDisplay = document.getElementById('file-name');
+    const outputText = document.getElementById('output-text');
+    const statusDiv = document.getElementById('status');
+
+    fileInput.addEventListener('change', async function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        fileNameDisplay.innerText = file.name;
+        statusDiv.innerText = "Processing file... Please wait.";
+        outputText.value = "";
+
+        try {
+            const fileReader = new FileReader();
+            fileReader.onload = async function() {
+                const typedarray = new Uint8Array(this.result);
+                
+                // Load the PDF file
+                const pdf = await pdfjsLib.getDocument(typedarray).promise;
+                let fullText = "";
+
+                // Loop through every single page in the PDF document
+                for (let i = 1; i <= pdf.numPages; i++) {
+                    const page = await pdf.getPage(i);
+                    const textContent = await page.getTextContent();
+                    
+                    // Join text items together
+                    const pageText = textContent.items.map(item => item.str).join(" ");
+                    fullText += pageText + "\n\n";
+                }
+
+                outputText.value = fullText.trim();
+                statusDiv.innerText = "Extraction complete! Formatting stripped successfully.";
+            };
+            fileReader.readAsArrayBuffer(file);
+
+        } catch (error) {
+            console.error(error);
+            statusDiv.innerText = "Error: Could not extract text from this PDF file.";
+        }
+    });
+
+    // Copy to clipboard helper functionality
+    function copyToClipboard() {
+        outputText.select();
+        document.execCommand('copy');
+        const copyBtn = document.getElementById('copy-btn');
+        copyBtn.innerText = "Copied to Clipboard!";
+        setTimeout(() => {
+            copyBtn.innerText = "Copy Clean Text";
+        }, 2000);
+    }
+</script>
+
+</body>
+</html>
