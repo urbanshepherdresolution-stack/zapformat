@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATS Resume Keyword Tailor - Free Match Matrix Analyzer</title>
+    <style>
+        :root { --primary: #1e3a8a; --primary-hover: #172554; --dark: #0f172a; --secondary: #64748b; --border: #e2e8f0; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: var(--dark); margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 30px; }
+        .grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media (min-width: 768px) { .grid { grid-template-columns: 1fr 1fr; } }
+        .panel { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 25px; }
+        textarea { width: 100%; height: 220px; padding: 12px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; }
+        .btn { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 15px; }
+        .results { margin-top: 20px; padding: 15px; background: white; border: 1px solid var(--border); border-radius: 12px; display: none; }
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; margin-right: 5px; margin-bottom: 5px; }
+        .missing { background: #fee2e2; color: #991b1b; }
+        .found { background: #dcfce7; color: #166534; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>ATS Resume Keyword Tailor</h1>
+        <p>Audit critical tracking phrases and formatting density gaps in your professional profile sandbox.</p>
+    </header>
+    <div class="grid">
+        <div class="panel">
+            <h3>Target Job Description</h3>
+            <textarea id="jdInput" placeholder="Paste the text layout of the job advertisement here..."></textarea>
+        </div>
+        <div class="panel">
+            <h3>Your Current Resume Content</h3>
+            <textarea id="resumeInput" placeholder="Paste your clean text profile bullet structures here..."></textarea>
+        </div>
+    </div>
+    <button class="btn" style="margin-top:20px;" onclick="analyzeResume()">Run Alignment Verification</button>
+
+    <div id="resultPanel" class="results">
+        <h2>Optimization Diagnostic Complete</h2>
+        <div style="font-size: 18px; font-weight: bold; margin-bottom: 15px;">ATS Match Rating: <span id="scoreField" style="color:#10b981;">0%</span></div>
+        <div class="grid">
+            <div>
+                <h4>⚠️ High-Priority Missing Keywords</h4>
+                <div id="missingKeywords">None</div>
+            </div>
+            <div>
+                <h4>✅ Validated Core Competencies</h4>
+                <div id="foundKeywords">None</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function analyzeResume() {
+        const jd = document.getElementById('jdInput').value.toLowerCase();
+        const resume = document.getElementById('resumeInput').value.toLowerCase();
+        
+        // Lexical scan library dictionary array parameters
+        const targetKeywords = ['javascript', 'python', 'excel', 'management', 'budget', 'development', 'sql', 'analysis', 'marketing', 'strategy', 'operations', 'cloud', 'agile', 'scrum', 'leadership', 'design'];
+        
+        let found = [];
+        let missing = [];
+
+        targetKeywords.forEach(word => {
+            if (jd.includes(word)) {
+                if (resume.includes(word)) { found.push(word); } 
+                else { missing.push(word); }
+            }
+        });
+
+        const totalTracked = found.length + missing.length;
+        const score = totalTracked > 0 ? Math.round((found.length / totalTracked) * 100) : 0;
+
+        document.getElementById('scoreField').textContent = `${score}%`;
+        
+        document.getElementById('missingKeywords').innerHTML = missing.length > 0 ? 
+            missing.map(w => `<span class="badge missing">${w}</span>`).join('') : 'No gaps detected!';
+        document.getElementById('foundKeywords').innerHTML = found.length > 0 ? 
+            found.map(w => `<span class="badge found">${w}</span>`).join('') : 'No matches parsed.';
+
+        document.getElementById('resultPanel').style.display = 'block';
+    }
+</script>
+</body>
+</html>
