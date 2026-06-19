@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service Risk Decoder - Free Document Scanner</title>
+    <style>
+        :root { --primary: #1e3a8a; --primary-hover: #172554; --dark: #0f172a; --secondary: #64748b; --border: #e2e8f0; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: var(--dark); margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 30px; }
+        .panel { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 25px; }
+        textarea { width: 100%; height: 250px; padding: 12px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; }
+        .btn { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 15px; }
+        .result-card { margin-top: 25px; padding: 20px; background: white; border: 1px solid var(--border); border-radius: 12px; display: none; }
+        .risk-bar { height: 12px; width: 100%; background: #e2e8f0; border-radius: 6px; margin-top: 8px; overflow: hidden; }
+        .risk-fill { height: 100%; background: #dc2626; width: 0%; transition: width 0.5s ease; }
+        .flag-item { padding: 10px; border-left: 4px solid #dc2626; background: #fef2f2; margin-bottom: 10px; font-size: 14px; border-radius: 0 4px 4px 0; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Terms of Service Risk Decoder</h1>
+        <p>Deconstruct dense legal policy walls for hidden tracking, auto-billing traps, and data-sharing liabilities instantly.</p>
+    </header>
+    <div class="panel">
+        <h3>Paste Agreement, ToS, or Policy Block</h3>
+        <textarea id="legalInput" placeholder="Paste data privacy documentation segments here to cross-examine core structural metrics..."></textarea>
+        <button class="btn" onclick="decodeLegalText()">Analyze Clause Structure</button>
+    </div>
+
+    <div id="decodeResult" class="result-card">
+        <h3>System Structural Audit Complete</h3>
+        <div style="font-weight:700;">Aggregated Operational Risk Profile: <span id="riskLabel" style="color:#dc2626;">0 / 10</span></div>
+        <div class="risk-bar"><div id="riskIndicator" class="risk-fill"></div></div>
+        
+        <h4 style="margin-top: 20px;">Flagged Tracking Parameters & Clause Interpretations:</h4>
+        <div id="flagContainer"></div>
+    </div>
+</div>
+<script>
+    function decodeLegalText() {
+        const text = document.getElementById('legalInput').value.toLowerCase();
+        const container = document.getElementById('flagContainer');
+        container.innerHTML = "";
+        
+        // Risk assessment definition framework metrics
+        const liabilityRules = [
+            { term: 'third-party', risk: 3, label: 'Data Exportation Hazard', desc: 'Authorizes transfer of collected data assets to unnamed third-party marketing brokers.' },
+            { term: 'auto-renew', risk: 2, label: 'Subscription Trap Vector', desc: 'Enforces automatic balance withdrawals without explicit pre-billing window alerts.' },
+            { term: 'arbitration', risk: 2, label: 'Class Action Limitation Clause', desc: 'Strips consumer rights to pursue standard legal litigation frameworks in favor of private panels.' },
+            { term: 'indemnify', risk: 2, label: 'Liability Transfer Parameter', desc: 'Forces the end user to assume system operational legal costs and damages framework liabilities.' },
+            { term: 'track your location', risk: 1, label: 'Persistent Telemetry Capture', desc: 'Records real-world hardware telemetry positions background parameters.' }
+        ];
+
+        let totalRisk = 0;
+        let triggered = 0;
+
+        liabilityRules.forEach(rule => {
+            if(text.includes(rule.term)) {
+                totalRisk += rule.risk;
+                triggered++;
+                container.innerHTML += `<div class="flag-item"><strong>⚠️ ${rule.label}:</strong> ${rule.desc}</div>`;
+            }
+        });
+
+        if(totalRisk > 10) totalRisk = 10;
+        if(triggered === 0) {
+            container.innerHTML = '<div style="color:#10b981; font-weight:600;">No toxic pattern sequences or corporate traps flagged within current processing sandbox.</div>';
+        }
+
+        document.getElementById('riskLabel').textContent = `${totalRisk} / 10`;
+        document.getElementById('riskIndicator').style.width = `${totalRisk * 10}%`;
+        document.getElementById('decodeResult').style.display = 'block';
+    }
+</script>
+</body>
+</html>
