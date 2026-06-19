@@ -1,185 +1,276 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Anonymizer - Concept Test</title>
+    <title>The Anonymizer - Smart Privacy Vault</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
+            background-color: #f0f4f8;
             color: #333;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
         }
-        h1 { color: #2c3e50; text-align: center; }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 5px; }
+        
+        /* Privacy Badge */
+        .privacy-badge {
+            background-color: #27ae60;
+            color: white;
+            text-align: center;
+            padding: 8px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            max-width: 400px;
+            margin: 0 auto 25px auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
         .container {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
             background: white;
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
         textarea {
             width: 100%;
-            height: 150px;
+            height: 140px;
             padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
             font-size: 16px;
+            box-sizing: border-box;
         }
-        button {
+        textarea:focus { border-color: #3498db; outline: none; }
+        
+        button.main-btn {
             background-color: #3498db;
             color: white;
             border: none;
-            padding: 12px 20px;
-            font-size: 16px;
-            border-radius: 4px;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 6px;
             cursor: pointer;
+            font-weight: bold;
             transition: background 0.2s;
         }
-        button:hover { background-color: #2980b9; }
-        .section-title { font-weight: bold; margin-bottom: 5px; color: #7f8c8d; }
-        .pills-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 10px 0;
-            padding: 10px;
-            background: #f9f9f9;
-            border-radius: 4px;
-            min-height: 40px;
+        button.main-btn:hover { background-color: #2980b9; }
+
+        /* Smart Buckets Layout */
+        .bucket-section {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            display: none;
         }
-        .pill {
-            background: #e74c3c;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            cursor: pointer;
+        .bucket-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .bucket {
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 15px;
+        }
+        .bucket-title { font-weight: bold; color: #475569; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; margin-bottom: 10px; }
+        
+        /* Pill Items */
+        .item-row {
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 14px;
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
+        .item-row input { cursor: pointer; width: 16px; height: 16px; }
+
+        /* Redaction Preview Box */
+        .preview-box {
+            border: 1px solid #cbd5e1;
+            padding: 15px;
+            border-radius: 6px;
+            background: #ffffff;
+            line-height: 1.8;
+            font-size: 16px;
+            min-height: 100px;
+            white-space: pre-wrap;
+        }
+        .redacted-block {
+            background: #000;
+            color: #000;
+            border-radius: 3px;
+            padding: 0 4px;
             user-select: none;
+            cursor: pointer;
+            transition: all 0.2s;
         }
-        .pill.disabled {
-            background: #bdc3c7;
-            text-decoration: line-through;
-        }
+        .redacted-block:hover { background: #e74c3c; color: white; }
     </style>
 </head>
 <body>
 
-    <h1>The Anonymizer (Concept Experiment)</h1>
+    <h1>The Anonymizer</h1>
+    <div class="privacy-badge">🔒 100% Private Mode: Data never leaves your device</div>
     
     <div class="container">
         <div>
-            <div class="section-title">1. Paste your sensitive text here:</div>
-            <textarea id="inputText" placeholder="Example: Call John at 555-123-4567 or email john@company.com about Project Titan ASAP."></textarea>
+            <div style="font-weight: bold; margin-bottom: 8px; color: #334155;">1. Paste your text here:</div>
+            <textarea id="inputText" placeholder="Example: Alice Smith agreed to buy absolute secrets from CompanyX for $50,000. Contact her at alice@smith.com or 555-123-4567."></textarea>
+        </div>
+
+        <button class="main-btn" onclick="scanAndGroup()">Scan & Auto-Detect Secrets</button>
+
+        <div id="bucketSection" class="bucket-section">
+            <div style="font-weight: bold; color: #1e293b; margin-bottom: 5px;">2. Review Found Secrets (Uncheck anything to KEEP/REVEAL it):</div>
+            <div class="bucket-grid">
+                <div class="bucket">
+                    <div class="bucket-title">👤 Names & Companies</div>
+                    <div id="namesBucket">None detected</div>
+                </div>
+                <div class="bucket">
+                    <div class="bucket-title">📞 Contact Info</div>
+                    <div id="contactBucket">None detected</div>
+                </div>
+                <div class="bucket">
+                    <div class="bucket-title">💰 Financials & Keys</div>
+                    <div id="financialBucket">None detected</div>
+                </div>
+            </div>
         </div>
 
         <div>
-            <div class="section-title">2. Custom secret words to wipe out (separated by commas):</div>
-            <input type="text" id="customWords" placeholder="Project Titan, CompanyName" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
-        </div>
-
-        <button onclick="runExperiment()">Scan Text</button>
-
-        <div>
-            <div class="section-title">3. Detected Sensitive Data (Click a pill to KEEP it):</div>
-            <div id="pillsContainer" class="pills-container">Your detected items will appear here as clickable buttons...</div>
+            <div style="font-weight: bold; margin-bottom: 8px; color: #334155;">3. Live Privacy Preview (Hover to see what's hidden):</div>
+            <div id="previewDisplay" class="preview-box">Your secure preview will appear here...</div>
         </div>
 
         <div>
-            <div class="section-title">4. Your Cleaned Text (Ready for ChatGPT):</div>
-            <textarea id="outputText" readonly placeholder="Clean text will appear here..."></textarea>
+            <button class="main-btn" style="background-color: #27ae60;" onclick="copyCleanText()">Copy Clean Text for ChatGPT</button>
         </div>
     </div>
 
     <script>
-        // Global variables to track state during the experiment
-        let detectedItems = [];
-        let currentText = "";
+        let originalText = "";
+        let masterSecretsList = [];
 
-        function runExperiment() {
-            const text = document.getElementById('inputText').value;
-            const customInput = document.getElementById('customWords').value;
-            currentText = text;
-            detectedItems = [];
+        function scanAndGroup() {
+            originalText = document.getElementById('inputText').value;
+            if(!originalText.trim()) return;
 
-            // 1. Match Emails
+            masterSecretsList = [];
+
+            // 1. Regex Rules
             const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
-            const emails = text.match(emailRegex) || [];
-            emails.forEach(item => addDetectedItem(item, 'EMAIL'));
-
-            // 2. Match Phone Numbers (Simple format)
             const phoneRegex = /\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/g;
-            const phones = text.match(phoneRegex) || [];
-            phones.forEach(item => addDetectedItem(item, 'PHONE'));
+            const moneyRegex = /\$[0-9,]+/g;
+            // Catch capitalization blocks (Names/Companies) safely
+            const nameRegex = /\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?\b/g;
 
-            // 3. Match Custom Words
-            if (customInput.trim() !== "") {
-                const words = customInput.split(',').map(w => w.trim()).filter(w => w.length > 0);
-                words.forEach(word => {
-                    const wordRegex = new RegExp(word, 'gi');
-                    const matches = text.match(wordRegex) || [];
-                    matches.forEach(item => addDetectedItem(item, 'CUSTOM'));
-                });
-            }
+            // Find matches
+            const emails = originalText.match(emailRegex) || [];
+            const phones = originalText.match(phoneRegex) || [];
+            const money = originalText.match(moneyRegex) || [];
+            const names = originalText.match(nameRegex) || [];
 
-            renderPills();
-            sanitize();
-        }
-
-        function addDetectedItem(text, type) {
-            // Avoid adding duplicates to our pill selection list
-            if (!detectedItems.some(i => i.text.toLowerCase() === text.toLowerCase())) {
-                detectedItems.push({ text: text, type: type, active: true });
-            }
-        }
-
-        function renderPills() {
-            const container = document.getElementById('pillsContainer');
-            container.innerHTML = "";
-
-            if (detectedItems.length === 0) {
-                container.innerHTML = "<em>No sensitive data detected. Clean to go!</em>";
-                return;
-            }
-
-            detectedItems.forEach((item, index) => {
-                const pill = document.createElement('div');
-                pill.className = `pill ${item.active ? '' : 'disabled'}`;
-                pill.innerHTML = `<span>[${item.type}] ${item.text}</span>`;
-                pill.onclick = () => togglePill(index);
-                container.appendChild(pill);
-            });
-        }
-
-        function togglePill(index) {
-            detectedItems[index].active = !detectedItems[index].active;
-            renderPills();
-            sanitize();
-        }
-
-        function sanitize() {
-            let result = currentText;
-
-            detectedItems.forEach((item, index) => {
-                if (item.active) {
-                    // Escaping regex characters just in case
-                    const safeText = item.text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-                    const regex = new RegExp(safeText, 'gi');
-                    result = result.replace(regex, `[${item.type} ${index + 1}]`);
+            // Add to master list with categories
+            emails.forEach(item => addSecret(item, 'CONTACT', '[EMAIL]'));
+            phones.forEach(item => addSecret(item, 'CONTACT', '[PHONE]'));
+            money.forEach(item => addSecret(item, 'FINANCIAL', '[MONEY]'));
+            
+            // Filter out common starting words or short words for names
+            const skipWords = ["The", "A", "An", "To", "From", "He", "She", "They", "It", "If", "But", "Or"];
+            names.forEach(item => {
+                if(!skipWords.includes(item.split(' ')[0]) && item.length > 2) {
+                    addSecret(item, 'NAME', '[SECRET]');
                 }
             });
 
-            document.getElementById('outputText').value = result;
+            document.getElementById('bucketSection').style.style = "block";
+            document.getElementById('bucketSection').style.display = "block";
+            
+            renderBuckets();
+            processText();
+        }
+
+        function addSecret(value, category, label) {
+            if (!masterSecretsList.some(s => s.value.toLowerCase() === value.toLowerCase())) {
+                masterSecretsList.push({ value: value, category: category, label: label, active: true });
+            }
+        }
+
+        function renderBuckets() {
+            const nameBox = document.getElementById('namesBucket');
+            const contactBox = document.getElementById('contactBucket');
+            const financialBox = document.getElementById('financialBucket');
+
+            nameBox.innerHTML = "";
+            contactBox.innerHTML = "";
+            financialBox.innerHTML = "";
+
+            let counts = { NAME: 0, CONTACT: 0, FINANCIAL: 0 };
+
+            masterSecretsList.forEach((secret, index) => {
+                const row = document.createElement('div');
+                row.className = 'item-row';
+                row.innerHTML = `
+                    <input type="checkbox" id="sec-${index}" ${secret.active ? 'checked' : ''} onchange="toggleSecret(${index})">
+                    <label style="cursor:pointer;" for="sec-${index}">${secret.value}</label>
+                `;
+
+                if(secret.category === 'NAME') { nameBox.appendChild(row); counts.NAME++; }
+                if(secret.category === 'CONTACT') { contactBox.appendChild(row); counts.CONTACT++; }
+                if(secret.category === 'FINANCIAL') { financialBox.appendChild(row); counts.FINANCIAL++; }
+            });
+
+            if(counts.NAME === 0) nameBox.innerText = "None detected";
+            if(counts.CONTACT === 0) contactBox.innerText = "None detected";
+            if(counts.FINANCIAL === 0) financialBox.innerText = "None detected";
+        }
+
+        function toggleSecret(index) {
+            masterSecretsList[index].active = !masterSecretsList[index].active;
+            processText();
+        }
+
+        function processText() {
+            let htmlText = originalText;
+
+            masterSecretsList.forEach((secret) => {
+                if(secret.active) {
+                    const safeWord = secret.value.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                    const regex = new RegExp(safeWord, 'gi');
+                    // Replace with a black span that shows label on hover
+                    htmlText = htmlText.replace(regex, `<span class="redacted-block" title="${secret.label}">${secret.value}</span>`);
+                }
+            });
+
+            document.getElementById('previewDisplay').innerHTML = htmlText;
+        }
+
+        function copyCleanText() {
+            let plainText = originalText;
+            let counter = 1;
+
+            masterSecretsList.forEach((secret) => {
+                if(secret.active) {
+                    const safeWord = secret.value.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                    const regex = new RegExp(safeWord, 'gi');
+                    plainText = plainText.replace(regex, `${secret.label}`);
+                    counter++;
+                }
+            });
+
+            navigator.clipboard.writeText(plainText);
+            alert("Clean text copied to clipboard! You can paste it into ChatGPT now.");
         }
     </script>
 </body>
