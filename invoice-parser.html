@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Invoice Ledger Parser - Extract Invoice Text Online</title>
+    <style>
+        :root { --primary: #1e3a8a; --primary-hover: #172554; --dark: #0f172a; --secondary: #64748b; --border: #e2e8f0; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: var(--dark); margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 30px; }
+        .grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media (min-width: 768px) { .grid { grid-template-columns: 1fr 1fr; } }
+        .panel { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
+        textarea { width: 100%; height: 300px; padding: 12px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; font-family: monospace; resize: vertical; }
+        .btn { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 15px; }
+        .btn:hover { background: var(--primary-hover); }
+        .output-box { background: #f1f5f9; border: 1px solid var(--border); padding: 15px; border-radius: 6px; font-family: monospace; overflow-x: auto; white-space: pre-wrap; height: 300px; box-sizing: border-box; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Invoice Ledger Parser</h1>
+        <p>Convert messy invoice text copy-dumps into structured ledger rows instantly.</p>
+    </header>
+    <div class="grid">
+        <div class="panel">
+            <h3>Paste Unstructured Invoice Text</h3>
+            <textarea id="invoiceInput" placeholder="Example:&#10;Invoice Date: 2026-06-15&#10;Vendor: Tech Supplies Ltd&#10;Total Amount: $1,250.00&#10;Tax Total: $125.00"></textarea>
+            <button class="btn" onclick="parseInvoice()">Parse Text Matrix</button>
+        </div>
+        <div class="panel">
+            <h3>Extracted Spreadsheet Ledger</h3>
+            <div id="invoiceOutput" class="output-box">Structured elements will display here...</div>
+            <button class="btn" style="background:#10b981;" onclick="downloadCSV()">Download CSV Ledger</button>
+        </div>
+    </div>
+</div>
+<script>
+    let csvContent = "";
+    function parseInvoice() {
+        const text = document.getElementById('invoiceInput').value;
+        
+        // Extraction algorithms using regular pattern scanning
+        const dateMatch = text.match(/(?:date|inv-date)[:\s]+([0-9\-\/]+)/i);
+        const totalMatch = text.match(/(?:total|amount due|grand total)[:\s\$\u20AC\u00A3]+([0-9,\.]+)/i);
+        const taxMatch = text.match(/(?:tax|vat|gst)[:\s\$\u20AC\u00A3]+([0-9,\.]+)/i);
+        const vendorMatch = text.match(/(?:vendor|from|company|supplier)[:\s]+([^\n]+)/i);
+
+        const date = dateMatch ? dateMatch[1].trim() : "Not Found";
+        const total = totalMatch ? totalMatch[1].trim() : "Not Found";
+        const tax = taxMatch ? taxMatch[1].trim() : "0.00";
+        const vendor = vendorMatch ? vendorMatch[1].trim() : "Unknown Vendor";
+
+        csvContent = `Vendor,Date,Tax,Total\n"${vendor}","${date}","${tax}","${total}"`;
+        
+        document.getElementById('invoiceOutput').textContent = 
+            `[Extracted Parameters]\n\nVendor: ${vendor}\nDate: ${date}\nTax Asset: ${tax}\nTotal Amount: ${total}`;
+    }
+    function downloadCSV() {
+        if(!csvContent) return alert('Please parse data first.');
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.setAttribute('href', url);
+        a.setAttribute('download', 'invoice_ledger.csv');
+        a.click();
+    }
+</script>
+</body>
+</html>
