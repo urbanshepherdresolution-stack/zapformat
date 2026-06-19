@@ -1,165 +1,466 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anonymizer - Enterprise Data Privacy Tool</title>
+    <style>
+        :root {
+            --primary: #1e3a8a; /* Corporate Navy */
+            --primary-hover: #172554;
+            --secondary: #64748b; /* Slate Gray */
+            --bg-light: #f8fafc;
+            --border-color: #cbd5e1;
+            --danger: #ef4444; /* Redaction Red */
+            --success: #10b981; /* Mint Green */
+        }
 
-<script>
-    let originalText = "";
-    let masterSecretsList = [];
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f1f5f9;
+            color: #1e293b;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            line-height: 1.5;
+        }
 
-    function scanDocument() {
-        originalText = document.getElementById('inputText').value;
-        if(!originalText.trim()) return;
+        h1 { color: var(--primary); text-align: center; margin-bottom: 5px; font-weight: 800; font-size: 2.5rem; letter-spacing: -0.05em; }
+        .tagline { text-align: center; color: var(--secondary); margin-bottom: 25px; font-size: 1.1rem; }
 
-        masterSecretsList = [];
+        .privacy-badge {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 14px;
+            max-width: 500px;
+            margin: 0 auto 30px auto;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
 
-        // 1. FIRST PRIORITY: Process Custom User Input Words (Case-Insensitive)
-        const customRaw = document.getElementById('customInput').value;
-        if (customRaw.trim() !== "") {
-            // Split custom inputs by commas
-            const customWords = customRaw.split(',').map(w => w.trim()).filter(w => w.length > 0);
-            customWords.forEach(word => {
-                const safeWord = word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-                // 'gi' makes it completely case-insensitive (matches falcon, Falcon, FALCON)
-                const wordRegex = new RegExp(safeWord, 'gi'); 
-                const matches = originalText.match(wordRegex) || [];
-                matches.forEach(item => addSecret(item, '[CUSTOM]', 'CUSTOM'));
+        .instruction-banner {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            color: #1e40af;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        label.section-heading { font-weight: 700; font-size: 16px; color: var(--primary); display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+        textarea {
+            width: 100%;
+            height: 160px;
+            padding: 14px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            background-color: var(--bg-light);
+            transition: border-color 0.2s;
+        }
+        textarea:focus { border-color: var(--primary); outline: none; background-color: white; }
+        
+        .control-panel {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            color: #334155;
+            font-size: 15px;
+        }
+        .checkbox-label input { width: 18px; height: 18px; cursor: pointer; }
+        .custom-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 15px;
+        }
+
+        button.main-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        button.main-btn:hover { background-color: var(--primary-hover); }
+
+        .bubble-grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .column-box {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .column-header {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .column-bubbles {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 250px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .bubble-item {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            user-select: none;
+        }
+        .bubble-item.redacted { border-left: 4px solid var(--danger); }
+        .bubble-item.revealed { border-left: 4px solid var(--secondary); color: var(--secondary); opacity: 0.6; }
+        .bubble-item input { cursor: pointer; width: 16px; height: 16px; }
+
+        .preview-box {
+            border: 2px solid var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+            background: #ffffff;
+            line-height: 1.8;
+            font-size: 16px;
+            min-height: 100px;
+            white-space: pre-wrap;
+            color: #334155;
+        }
+
+        .legal-box {
+            background: #fff1f2;
+            border: 1px solid #fecdd3;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        .legal-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #9f1239;
+        }
+        .legal-label input { width: 18px; height: 18px; margin-top: 2px; }
+
+        /* Action Buttons Row */
+        .action-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .action-row button {
+            width: 100%;
+        }
+        button.copy-btn { background-color: var(--success); opacity: 0.5; cursor: not-allowed; }
+        button.download-btn { background-color: #f59e0b; opacity: 0.5; cursor: not-allowed; } /* Amber Yellow */
+    </style>
+</head>
+<body>
+
+    <h1>Anonymizer</h1>
+    <div class="tagline">Enterprise Intelligence File Sanitizer</div>
+    <div class="privacy-badge">🔒 Zero Server Transfers: 100% Client-Side Local Compilation</div>
+    
+    <div class="instruction-banner">
+        <strong>💡 Real-World Usage Instructions & Specifications:</strong>
+        <ul style="margin: 5px 0 0 15px; padding: 0;">
+            <li><strong>Document Size Limit:</strong> Optimized for text under 50 pages. For massive folders, process in sections to avoid browser lag.</li>
+            <li><strong>PDF/Word Conversion Limitation:</strong> To maintain strict local privacy, paste text contents directly. Ensure you verify the output template before final distribution.</li>
+            <li><strong>User Accountability:</strong> Machine compilation patterns are assistive. Ultimate data safety relies on your final bubble verification.</li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div>
+            <label class="section-heading">1. Input Document Content</label>
+            <textarea id="inputText" placeholder="Paste structural text content from contracts, emails, statements or legal files here..."></textarea>
+        </div>
+
+        <div class="control-panel">
+            <label class="section-heading">2. Scan Parameters (Default Classes)</label>
+            <div class="options-grid">
+                <label class="checkbox-label"><input type="checkbox" id="cNames" checked> 👤 Names & Titles</label>
+                <label class="checkbox-label"><input type="checkbox" id="cCompanies" checked> 🏢 Companies & Orgs</label>
+                <label class="checkbox-label"><input type="checkbox" id="cEmails" checked> 📧 Email Addresses</label>
+                <label class="checkbox-label"><input type="checkbox" id="cPhones" checked> 📞 Phone/Fax Numbers</label>
+                <label class="checkbox-label"><input type="checkbox" id="cMoney" checked> 💰 Financial Figures</label>
+                <label class="checkbox-label"><input type="checkbox" id="cAccounts" checked> 💳 Bank Accounts</label>
+                <label class="checkbox-label"><input type="checkbox" id="cIDs" checked> 🆔 Government IDs</label>
+                <label class="checkbox-label"><input type="checkbox" id="cDates" checked> 📅 Specific Dates</label>
+                <label class="checkbox-label"><input type="checkbox" id="cAddresses" checked> 📍 Physical Addresses</label>
+                <label class="checkbox-label"><input type="checkbox" id="cSystem" checked> 📑 System/Case IDs</label>
+            </div>
+            
+            <label class="section-heading" style="margin-top: 15px;">3. Specify Custom Extraction Terms</label>
+            <input type="text" id="customInput" class="custom-input" placeholder="Enter target secret words separated by commas (e.g. Project Falcon, CodeRed)">
+        </div>
+
+        <button class="main-btn" onclick="scanDocument()">Execute Data Scrub &amp; Compile Categories</button>
+
+        <div>
+            <label class="section-heading">4. Peruse Compiled Sensitive Clusters</label>
+            <div class="bubble-grid-layout">
+                <div class="column-box">
+                    <div class="column-header">
+                        <span>Default Flags</span>
+                        <input type="checkbox" id="masterDefault" checked onchange="toggleMasterGroup('DEFAULT', this.checked)">
+                    </div>
+                    <div id="colDefault" class="column-bubbles"></div>
+                </div>
+                <div class="column-box">
+                    <div class="column-header">
+                        <span>Custom Terms</span>
+                        <input type="checkbox" id="masterCustom" checked onchange="toggleMasterGroup('CUSTOM', this.checked)">
+                    </div>
+                    <div id="colCustom" class="column-bubbles"></div>
+                </div>
+                <div class="column-box">
+                    <div class="column-header">
+                        <span>Potential Risks</span>
+                        <input type="checkbox" id="masterRisks" checked onchange="toggleMasterGroup('RISK', this.checked)">
+                    </div>
+                    <div id="colRisks" class="column-bubbles"></div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <label class="section-heading">5. Compiled Immutable Preview</label>
+            <div id="previewDisplay" class="preview-box">Redacted preview output workspace...</div>
+        </div>
+
+        <div class="legal-box">
+            <label class="legal-label">
+                <input type="checkbox" id="legalConfirm" onchange="toggleActionButtons()">
+                <span>I confirm that I have perused the lists above, verified the checked items, and assume total professional responsibility for the distribution of this clean copy.</span>
+            </label>
+        </div>
+
+        <div class="action-row">
+            <button id="finalCopyBtn" class="main-btn copy-btn" disabled onclick="copyCleanText()">Copy Clean Text</button>
+            <button id="finalDownloadBtn" class="main-btn download-btn" disabled onclick="downloadCleanText()">Download Clean .TXT Document</button>
+        </div>
+    </div>
+
+    <script>
+        let originalText = "";
+        let masterSecretsList = [];
+
+        function scanDocument() {
+            originalText = document.getElementById('inputText').value;
+            if(!originalText.trim()) return;
+
+            masterSecretsList = [];
+
+            // 1. FIRST PRIORITY: Custom User Words
+            const customRaw = document.getElementById('customInput').value;
+            if (customRaw.trim() !== "") {
+                const customWords = customRaw.split(',').map(w => w.trim()).filter(w => w.length > 0);
+                customWords.forEach(word => {
+                    const safeWord = word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                    const wordRegex = new RegExp(safeWord, 'gi'); 
+                    (originalText.match(wordRegex) || []).forEach(item => addSecret(item, '[CUSTOM]', 'CUSTOM'));
+                });
+            }
+
+            // 2. SECOND PRIORITY: Checked Classes
+            if (document.getElementById('cEmails').checked) {
+                (originalText.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g) || []).forEach(item => addSecret(item, '[EMAIL]', 'DEFAULT'));
+            }
+            if (document.getElementById('cPhones').checked) {
+                (originalText.match(/\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/g) || []).forEach(item => addSecret(item, '[PHONE]', 'DEFAULT'));
+            }
+            if (document.getElementById('cMoney').checked) {
+                (originalText.match(/\$[0-9,]+/g) || []).forEach(item => addSecret(item, '[FINANCIAL]', 'DEFAULT'));
+            }
+            if (document.getElementById('cAccounts').checked) {
+                (originalText.match(/\b\d{10,16}\b/g) || []).forEach(item => addSecret(item, '[ACCOUNT]', 'DEFAULT'));
+            }
+            if (document.getElementById('cIDs').checked) {
+                (originalText.match(/\b\d{3}-\d{2}-\d{4}\b/g) || []).forEach(item => addSecret(item, '[GOV_ID]', 'DEFAULT'));
+            }
+            if (document.getElementById('cDates').checked) {
+                const dateRegex = /\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+\d{1,2},\s+\d{4}\b/gi;
+                (originalText.match(dateRegex) || []).forEach(item => addSecret(item, '[DATE]', 'DEFAULT'));
+            }
+            if (document.getElementById('cSystem').checked) {
+                const caseRegex = /(?:Case|Order|Ref|Ticket)\s*(?:No\.?|#)?\s*[A-Z0-9-]+/gi;
+                (originalText.match(caseRegex) || []).forEach(item => addSecret(item, '[SYSTEM_ID]', 'DEFAULT'));
+            }
+            if (document.getElementById('cAddresses').checked) {
+                const addressRegex = /\d+\s+[A-Za-z0-9\s]+(?:Street|St|Avenue|Ave|Road|Rd|Highway|Hwy|Boulevard|Blvd|Drive|Dr)\.?/gi;
+                (originalText.match(addressRegex) || []).forEach(item => addSecret(item, '[ADDRESS]', 'DEFAULT'));
+            }
+
+            // 3. THIRD PRIORITY: Capitalization Engine (Proper Nouns)
+            const nameRegex = /\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?\b/g;
+            const capMatches = originalText.match(nameRegex) || [];
+            const skipWords = ["The", "A", "An", "To", "From", "He", "She", "They", "It", "If", "But", "Or", "This", "That", "We", "On", "In", "At", "Our", "My", "Your"];
+
+            capMatches.forEach(item => {
+                if(!skipWords.includes(item.split(' ')[0]) && item.length > 2) {
+                    if (item.toLowerCase().includes('corp') || item.toLowerCase().includes('inc') || item.toLowerCase().includes('llc') || item.toLowerCase().includes('bank')) {
+                        if (document.getElementById('cCompanies').checked) addSecret(item, '[COMPANY]', 'DEFAULT');
+                    } else {
+                        if (document.getElementById('cNames').checked) addSecret(item, '[NAME]', 'RISK');
+                    }
+                }
+            });
+
+            renderGridBoxes();
+            updatePreview();
+        }
+
+        function addSecret(value, label, cluster) {
+            if (!masterSecretsList.some(s => s.value.toLowerCase() === value.toLowerCase())) {
+                masterSecretsList.push({ value: value, label: label, cluster: cluster, active: true });
+            }
+        }
+
+        function renderGridBoxes() {
+            const defCol = document.getElementById('colDefault');
+            const custCol = document.getElementById('colCustom');
+            const riskCol = document.getElementById('colRisks');
+
+            defCol.innerHTML = ""; custCol.innerHTML = ""; riskCol.innerHTML = "";
+
+            masterSecretsList.forEach((secret, index) => {
+                const item = document.createElement('label');
+                item.className = `bubble-item ${secret.active ? 'redacted' : 'revealed'}`;
+                item.innerHTML = `
+                    <input type="checkbox" ${secret.active ? 'checked' : ''} onchange="toggleSingleBubble(${index})">
+                    <span>${secret.value}</span>
+                `;
+
+                if (secret.cluster === 'DEFAULT') defCol.appendChild(item);
+                if (secret.cluster === 'CUSTOM') custCol.appendChild(item);
+                if (secret.cluster === 'RISK') riskCol.appendChild(item);
             });
         }
 
-        // 2. SECOND PRIORITY: Core Default Scanners
-        if (document.getElementById('cEmails').checked) {
-            (originalText.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g) || []).forEach(item => addSecret(item, '[EMAIL]', 'DEFAULT'));
-        }
-        if (document.getElementById('cPhones').checked) {
-            (originalText.match(/\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/g) || []).forEach(item => addSecret(item, '[PHONE]', 'DEFAULT'));
-        }
-        if (document.getElementById('cMoney').checked) {
-            (originalText.match(/\$[0-9,]+/g) || []).forEach(item => addSecret(item, '[FINANCIAL]', 'DEFAULT'));
-        }
-        if (document.getElementById('cAccounts').checked) {
-            (originalText.match(/\b\d{10,16}\b/g) || []).forEach(item => addSecret(item, '[ACCOUNT]', 'DEFAULT'));
-        }
-        if (document.getElementById('cIDs').checked) {
-            (originalText.match(/\b\d{3}-\d{2}-\d{4}\b/g) || []).forEach(item => addSecret(item, '[GOV_ID]', 'DEFAULT'));
-        }
-        if (document.getElementById('cDates').checked) {
-            const dateRegex = /\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+\d{1,2},\s+\d{4}\b/gi;
-            (originalText.match(dateRegex) || []).forEach(item => addSecret(item, '[DATE]', 'DEFAULT'));
-        }
-        if (document.getElementById('cSystem').checked) {
-            const caseRegex = /(?:Case|Order|Ref|Ticket)\s*(?:No\.?|#)?\s*[A-Z0-9-]+/gi;
-            (originalText.match(caseRegex) || []).forEach(item => addSecret(item, '[SYSTEM_ID]', 'DEFAULT'));
-        }
-        if (document.getElementById('cAddresses').checked) {
-            const addressRegex = /\d+\s+[A-Za-z0-9\s]+(?:Street|St|Avenue|Ave|Road|Rd|Highway|Hwy|Boulevard|Blvd|Drive|Dr)\.?/gi;
-            (originalText.match(addressRegex) || []).forEach(item => addSecret(item, '[ADDRESS]', 'DEFAULT'));
+        function toggleSingleBubble(index) {
+            masterSecretsList[index].active = !masterSecretsList[index].active;
+            renderGridBoxes();
+            updatePreview();
         }
 
-        // 3. THIRD PRIORITY: Capitalization Engine (Only grabs items not already claimed by Custom or Default rules)
-        const nameRegex = /\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?\b/g;
-        const capMatches = originalText.match(nameRegex) || [];
-        const skipWords = ["The", "A", "An", "To", "From", "He", "She", "They", "It", "If", "But", "Or", "This", "That", "We", "On", "In", "At", "Our", "My", "Your"];
+        function toggleMasterGroup(cluster, isChecked) {
+            masterSecretsList.forEach(secret => {
+                if(secret.cluster === cluster) secret.active = isChecked;
+            });
+            renderGridBoxes();
+            updatePreview();
+        }
 
-        capMatches.forEach(item => {
-            if(!skipWords.includes(item.split(' ')[0]) && item.length > 2) {
-                if (item.toLowerCase().includes('corp') || item.toLowerCase().includes('inc') || item.toLowerCase().includes('llc') || item.toLowerCase().includes('bank')) {
-                    if (document.getElementById('cCompanies').checked) addSecret(item, '[COMPANY]', 'DEFAULT');
-                } else {
-                    if (document.getElementById('cNames').checked) addSecret(item, '[NAME]', 'RISK');
+        function generateCompiledText(mode) {
+            let out = originalText;
+            const sortedSecrets = [...masterSecretsList].sort((a, b) => b.value.length - a.value.length);
+            sortedSecrets.forEach((secret) => {
+                if(secret.active) {
+                    const safeWord = secret.value.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                    const regex = new RegExp(safeWord, 'gi');
+                    out = out.replace(regex, mode === 'PREVIEW' ? `██████` : secret.label);
                 }
-            }
-        });
-
-        renderGridBoxes();
-        updatePreview();
-    }
-
-    function addSecret(value, label, cluster) {
-        // Core Protection: If a word is already listed in a priority category (like CUSTOM), ignore lower-priority attempts to add it elsewhere
-        if (!masterSecretsList.some(s => s.value.toLowerCase() === value.toLowerCase())) {
-            masterSecretsList.push({ value: value, label: label, cluster: cluster, active: true });
+            });
+            return out;
         }
-    }
 
-    function renderGridBoxes() {
-        const defCol = document.getElementById('colDefault');
-        const custCol = document.getElementById('colCustom');
-        const riskCol = document.getElementById('colRisks');
+        function updatePreview() {
+            document.getElementById('previewDisplay').innerText = generateCompiledText('PREVIEW');
+        }
 
-        defCol.innerHTML = ""; custCol.innerHTML = ""; riskCol.innerHTML = "";
-
-        masterSecretsList.forEach((secret, index) => {
-            const item = document.createElement('label');
-            item.className = `bubble-item ${secret.active ? 'redacted' : 'revealed'}`;
-            item.innerHTML = `
-                <input type="checkbox" ${secret.active ? 'checked' : ''} onchange="toggleSingleBubble(${index})">
-                <span>${secret.value}</span>
-            `;
-
-            if (secret.cluster === 'DEFAULT') defCol.appendChild(item);
-            if (secret.cluster === 'CUSTOM') custCol.appendChild(item);
-            if (secret.cluster === 'RISK') riskCol.appendChild(item);
-        });
-    }
-
-    function toggleSingleBubble(index) {
-        masterSecretsList[index].active = !masterSecretsList[index].active;
-        renderGridBoxes();
-        updatePreview();
-    }
-
-    function toggleMasterGroup(cluster, isChecked) {
-        masterSecretsList.forEach(secret => {
-            if(secret.cluster === cluster) secret.active = isChecked;
-        });
-        renderGridBoxes();
-        updatePreview();
-    }
-
-    function updatePreview() {
-        let displayText = originalText;
-        // Sort secrets by length so long phrases get blacked out before individual short words break them
-        const sortedSecrets = [...masterSecretsList].sort((a, b) => b.value.length - a.value.length);
-        
-        sortedSecrets.forEach((secret) => {
-            if(secret.active) {
-                const safeWord = secret.value.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-                const regex = new RegExp(safeWord, 'gi');
-                displayText = displayText.replace(regex, `██████`);
+        function toggleActionButtons() {
+            const confirmed = document.getElementById('legalConfirm').checked;
+            const copyBtn = document.getElementById('finalCopyBtn');
+            const dlBtn = document.getElementById('finalDownloadBtn');
+            
+            if(confirmed) {
+                copyBtn.removeAttribute('disabled'); copyBtn.style.opacity = "1"; copyBtn.style.cursor = "pointer";
+                dlBtn.removeAttribute('disabled'); dlBtn.style.opacity = "1"; dlBtn.style.cursor = "pointer";
+            } else {
+                copyBtn.setAttribute('disabled', 'true'); copyBtn.style.opacity = "0.5"; copyBtn.style.cursor = "not-allowed";
+                dlBtn.setAttribute('disabled', 'true'); dlBtn.style.opacity = "0.5"; dlBtn.style.cursor = "not-allowed";
             }
-        });
-        document.getElementById('previewDisplay').innerText = displayText;
-    }
+        }
 
-    function toggleCopyButton() {
-        const confirmed = document.getElementById('legalConfirm').checked;
-        const btn = document.getElementById('finalCopyBtn');
-        if(confirmed) {
-            btn.removeAttribute('disabled');
-            btn.style.opacity = "1";
-            btn.style.cursor = "pointer";
-        } else {
-            btn.setAttribute('disabled', 'true');
-            btn.style.opacity = "0.5";
-            btn.style.cursor = "not-allowed";
+        function copyCleanText() {
+            navigator.clipboard.writeText(generateCompiledText('FINAL'));
+            alert("Certified anonymized text successfully copied to secure clipboard!");
             document.getElementById('legalConfirm').checked = false;
+            toggleActionButtons();
         }
-    }
 
-    function copyCleanText() {
-        let finalOutput = originalText;
-        const sortedSecrets = [...masterSecretsList].sort((a, b) => b.value.length - a.value.length);
-
-        sortedSecrets.forEach((secret) => {
-            if(secret.active) {
-                const safeWord = secret.value.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-                const regex = new RegExp(safeWord, 'gi');
-                finalOutput = finalOutput.replace(regex, secret.label);
-            }
-        });
-        navigator.clipboard.writeText(finalOutput);
-        alert("Certified anonymized text successfully copied to secure clipboard!");
-        
-        // Reset agreement checkbox after copying
-        document.getElementById('legalConfirm').checked = false;
-        toggleCopyButton();
-    }
-</script>
+        function downloadCleanText() {
+            const textContent = generateCompiledText('FINAL');
+            const blob = new Blob([textContent], { type: "text/plain;charset=utf-8" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "anonymized_document.txt";
+            link.click();
+            
+            document.getElementById('legalConfirm').checked = false;
+            toggleActionButtons();
+        }
+    </script>
+</body>
+</html>
