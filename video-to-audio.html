@@ -15,22 +15,25 @@
     <title>Free Video to Audio Extractor - Extract MP3 Online</title>
     <style>
         :root { --primary: #1e3a8a; --primary-hover: #172554; --dark: #0f172a; --secondary: #64748b; --border: #e2e8f0; --success: #10b981; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: var(--dark); margin: 0; padding: 20px; }
-        .container { max-width: 600px; margin: 0 auto; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: var(--dark); margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 600px; margin: 60px auto; padding: 0 20px; }
         header { text-align: center; margin-bottom: 30px; }
+        h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 10px; }
+        p { color: var(--secondary); margin: 0; }
         .panel { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); text-align: center; }
-        .upload-zone { border: 2px dashed var(--border); padding: 40px; border-radius: 8px; cursor: pointer; background: #fafafa; margin-bottom: 20px; }
+        .upload-zone { border: 2px dashed var(--border); padding: 40px; border-radius: 8px; cursor: pointer; background: #fafafa; margin-bottom: 20px; transition: all 0.2s; }
         .upload-zone:hover { border-color: var(--primary); background: #f0fdf4; }
-        .btn { background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; display: none; }
+        .btn { background: var(--primary); color: white; border: none; padding: 14px 24px; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer; width: 100%; display: none; transition: background 0.2s; }
         .btn:hover { background: var(--primary-hover); }
-        .status { font-weight: bold; color: #4f46e5; margin-top: 15px; font-size: 14px; line-height: 1.4; }
+        .status { font-weight: bold; color: #4f46e5; margin-top: 15px; font-size: 14px; }
     </style>
 </head>
 <body>
+
 <div class="container">
     <header>
         <h1>Video to Audio Extractor</h1>
-        <p>Isolate and extract core audio tracks directly out of video files with 100% localized sandbox privacy.</p>
+        <p>Isolate and extract audio tracks directly out of video files with 100% localized sandbox privacy.</p>
     </header>
     <div class="panel">
         <div class="upload-zone" onclick="document.getElementById('videoFile').click()">
@@ -38,9 +41,9 @@
             <p>Select or Drop Video File (.mp4, .mov, .webm)</p>
             <input type="file" id="videoFile" accept="video/*" style="display:none;" onchange="fileLoaded()">
         </div>
-        <div id="fileInfo" style="margin-bottom: 15px; font-weight: 600;"></div>
+        <div id="fileInfo" style="margin-bottom: 15px; font-weight: 600; color: var(--dark);"></div>
         <button id="extractBtn" class="btn" onclick="startExtractionPipeline()">Extract Audio Track</button>
-        <div id="status" class="status" style="display:none;">Ready to parse...</div>
+        <div id="status" class="status" style="display:none;">Ready...</div>
     </div>
 </div>
 
@@ -64,7 +67,7 @@
         status.textContent = "⏳ Initializing secure memory context...";
 
         try {
-            // Using an HTML5 invisible audio node prevents loading the whole video into browser RAM
+            // Native elements bypass external network loading loops entirely
             const videoElement = document.createElement('video');
             videoElement.src = URL.createObjectURL(activeFile);
             
@@ -76,7 +79,16 @@
                 const source = audioCtx.createMediaElementSource(videoElement);
                 source.connect(dest);
 
-                const mediaRecorder = new MediaRecorder(dest.stream);
+                // Let the browser choose the native recording container to prevent layout lockups
+                let options = { mimeType: 'audio/webm;codecs=opus' };
+                let extension = '.webm';
+
+                if (MediaRecorder.isTypeSupported('audio/mp4')) {
+                    options = { mimeType: 'audio/mp4' };
+                    extension = '.mp4';
+                }
+
+                const mediaRecorder = new MediaRecorder(dest.stream, options);
                 const audioChunks = [];
 
                 mediaRecorder.ondataavailable = (e) => {
@@ -84,25 +96,25 @@
                 };
 
                 mediaRecorder.onstop = () => {
-                    status.textContent = "✅ Compilation complete! Triggering file download...";
-                    const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
+                    status.textContent = "✅ Compilation complete! Triggering download...";
+                    const audioBlob = new Blob(audioChunks, { type: options.mimeType });
                     const url = URL.createObjectURL(audioBlob);
                     
                     const downloadLink = document.createElement('a');
                     downloadLink.href = url;
-                    downloadLink.download = activeFile.name.replace(/\.[^/.]+$/, "") + ".mp3";
+                    downloadLink.download = activeFile.name.replace(/\.[^/.]+$/, "") + "_extracted" + extension;
                     downloadLink.click();
                     
-                    // Cleanup memory
                     audioCtx.close();
                     URL.revokeObjectURL(videoElement.src);
                 };
 
-                // Fast playback execution stream parsing
+                // Trigger rapid background processing streams
                 mediaRecorder.start();
                 videoElement.play();
-                videoElement.playbackRate = 8.0; // Forces the browser to process it at 8x hardware speed!
-                status.textContent = "⚡ Running 8x hardware-accelerated processing loop...";
+                videoElement.muted = true; // Prevents the video track sound from playing out loud out of your speakers
+                videoElement.playbackRate = 4.0; // Locked at 4x processing speed for absolute stability across old computers
+                status.textContent = "⚡ Running hardware-accelerated processing loop...";
 
                 const completionCheck = setInterval(() => {
                     if (videoElement.ended || videoElement.paused) {
@@ -114,11 +126,11 @@
             };
 
             videoElement.onerror = () => {
-                status.textContent = "❌ The browser cannot read this specific video codec layout format.";
+                status.textContent = "❌ Your specific browser doesn't support reading this file type natively.";
             };
 
         } catch (err) {
-            status.textContent = "❌ Memory threshold exception inside browser sandbox.";
+            status.textContent = "❌ Memory error occurred within the local browser tab.";
         }
     }
 </script>
