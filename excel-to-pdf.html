@@ -87,7 +87,7 @@
             transition: background 0.2s;
         }
         .convert-btn:hover { background: var(--primary-hover); }
-        .loading { display: none; color: var(--secondary); font-weight: 600; text-align: center; margin-top: 15px; }
+        .loading { display: none; color: #4f46e5; font-weight: 600; text-align: center; margin-top: 15px; font-size: 14px; }
     </style>
 </head>
 <body>
@@ -136,14 +136,18 @@
 
     async function processAllFiles() {
         if(queue.length === 0) return;
-        document.getElementById('loadingTracker').style.display = 'block';
+        const tracker = document.getElementById('loadingTracker');
+        tracker.style.display = 'block';
 
+        let fileCount = 1;
         for(let file of queue) {
+            // Live loop counter presentation framework update
+            tracker.innerHTML = `⚡ <span>Processing File ${fileCount} of ${queue.length}:</span> Converting <em>${file.name}</em> into tabular PDF tracks...`;
             await convertSingleExcelToPdf(file);
+            fileCount++;
         }
 
-        document.getElementById('loadingTracker').style.display = 'none';
-        alert('All spreadsheets converted and compiled successfully!');
+        tracker.innerHTML = "<span style='color:#10b981;'>✅ All spreadsheets converted and compiled successfully!</span>";
     }
 
     function convertSingleExcelToPdf(file) {
@@ -154,11 +158,9 @@
                 const data = new Uint8Array(e.target.result);
                 const workbook = XLSX.read(data, {type: 'array'});
                 
-                // Pull out the first tab sheet framework
                 const firstSheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[firstSheetName];
                 
-                // Map worksheet rows to standard structural text arrays
                 const jsonRows = XLSX.utils.sheet_to_json(worksheet, {header: 1});
                 
                 if(jsonRows.length === 0) {
@@ -166,7 +168,6 @@
                     return;
                 }
 
-                // Call local engine parameters to print document elements
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF('p', 'pt', 'a4');
                 
@@ -181,7 +182,7 @@
                     startY: 60,
                     theme: 'grid',
                     styles: { fontSize: 9, font: 'helvetica' },
-                    headStyles: { fillColor: [30, 58, 138] } // Matches your corporate navy theme
+                    headStyles: { fillColor: [30, 58, 138] }
                 });
 
                 doc.save(file.name.replace(/\.[^/.]+$/, "") + ".pdf");
