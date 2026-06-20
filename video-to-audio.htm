@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Video to Audio Extractor - Extract MP3 Online</title>
+    <style>
+        :root { --primary: #1e3a8a; --primary-hover: #172554; --dark: #0f172a; --secondary: #64748b; --border: #e2e8f0; --success: #10b981; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: var(--dark); margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 30px; }
+        .panel { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); text-align: center; }
+        .upload-zone { border: 2px dashed var(--border); padding: 40px; border-radius: 8px; cursor: pointer; background: #fafafa; margin-bottom: 20px; }
+        .upload-zone:hover { border-color: var(--primary); background: #f0fdf4; }
+        .btn { background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; display: none; }
+        .status { font-weight: bold; color: #4f46e5; margin-top: 15px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Video to Audio Extractor</h1>
+        <p>Extract core audio tracks directly out of movie presentations with 100% localized processing privacy.</p>
+    </header>
+    <div class="panel">
+        <div class="upload-zone" onclick="document.getElementById('videoFile').click()">
+            <span style="font-size: 48px;">🎬</span>
+            <p>Select or Drop Video File (.mp4, .mov, .webm)</p>
+            <input type="file" id="videoFile" accept="video/*" style="display:none;" onchange="fileLoaded()">
+        </div>
+        <div id="fileInfo" style="margin-bottom: 15px; font-weight: 600;"></div>
+        <button id="extractBtn" class="btn" onclick="extractAudio()">Isolate &amp; Download Audio Track</button>
+        <div id="status" class="status" style="display:none;">Processing digital audio arrays...</div>
+    </div>
+</div>
+
+<script>
+    let activeFile = null;
+
+    function fileLoaded() {
+        const fileInput = document.getElementById('videoFile');
+        activeFile = fileInput.files[0];
+        if (activeFile) {
+            document.getElementById('fileInfo').textContent = `🎯 Selected: ${activeFile.name}`;
+            document.getElementById('extractBtn').style.display = 'block';
+        }
+    }
+
+    async function extractAudio() {
+        if (!activeFile) return;
+        const status = document.getElementById('status');
+        status.style.display = 'block';
+        status.textContent = "⏳ Demuxing video layers and extracting audio buffer frames...";
+
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const fileReader = new FileReader();
+
+            fileReader.onload = async function(e) {
+                const arrayBuffer = e.target.result;
+                
+                // Decode file elements using local hardware matrix threads
+                audioCtx.decodeAudioData(arrayBuffer, function(buffer) {
+                    status.textContent = "⏳ Rendering raw wave elements...";
+                    
+                    // Convert buffer channel blocks into standard WAV schema format
+                    const wavBlob = bufferToWav(buffer);
+                    const url = window.URL.createObjectURL(wavBlob);
+                    
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = activeFile.name.replace(/\.[^/.]+$/, "") + ".wav";
+                    status.textContent = "✅ Audio Track Extraction Complete!";
+                    a.click();
+                }, function(err) {
+                    status.textContent = "❌ Failed to parse media tracks inside local browser.";
+                });
+            };
+            fileReader.readAsArrayBuffer(activeFile);
+        } catch(e) {
+            status.textContent = "❌ Processing failure inside this device framework.";
+        }
+    }
+
+    // Standard client-side WAV binary compiler function
+    function bufferToWav(buffer) {
+        let numOfChan = buffer.numberOfChannels,
+            length = buffer.length * numOfChan * 2 + 44,
+            bufferArr = new ArrayBuffer(length),
+            view = new DataView(bufferArr),
+            channels = [], i, sample,
+            offset = 0,
+            pos = 0;
+
+        function setUint16(data) { view.setUint16(pos, data, true); pos += 2; }
+        function setUint32(data) { view.setUint32(pos, data, true); pos += 4; }
+
+        setUint32(0x46464952); setUint32(length - 8); setUint32(0x45564157);
+        setUint32(0x20746d66); setUint32(16); setUint16(1); setUint16(numOfChan);
+        setUint32(buffer.sampleRate); setUint32(buffer.sampleRate * 2 * numOfChan);
+        setUint16(numOfChan * 2); setUint16(16); setUint32(0x61746164); setUint32(length - pos - 4);
+
+        for (i = 0; i < buffer.numberOfChannels; i++) channels.push(buffer.getChannelData(i));
+
+        while (pos < length) {
+            for (i = 0; i < numOfChan; i++) {
+                sample = Math.max(-1, Math.min(1, channels[i][offset]));
+                sample = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
+                view.setInt16(pos, sample, true); pos += 2;
+            }
+            offset++;
+        }
+        return new Blob([bufferArr], { type: 'audio/wav' });
+    }
+</script>
+</body>
+</html>
