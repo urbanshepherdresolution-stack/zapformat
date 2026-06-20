@@ -12,7 +12,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Audio to Video Compiler - Create Video Presentations Online</title>
+    <title>Instant Audio to Video Compiler - 100% Free Online Utility</title>
     <style>
         :root { --primary: #1e3a8a; --primary-hover: #172554; --dark: #0f172a; --secondary: #64748b; --border: #e2e8f0; --success: #10b981; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: var(--dark); margin: 0; padding: 20px; }
@@ -22,61 +22,61 @@
         .field { margin-bottom: 20px; }
         label { display: block; font-weight: 600; margin-bottom: 8px; }
         input[type="file"] { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; }
-        .btn { background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; transition: background 0.2s; }
-        .btn:hover { background: var(--primary-hover); }
+        .btn { background: var(--success); color: white; border: none; padding: 14px 24px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; transition: background 0.2s; font-size: 16px; }
+        .btn:hover { background: #059669; }
         .status { font-weight: bold; color: #4f46e5; text-align: center; margin-top: 15px; display: none; }
     </style>
 </head>
 <body>
 <div class="container">
     <header>
-        <h1>High-Speed Audio to Video Compiler</h1>
-        <p>Combine audio files with custom covers instantly using hardware accelerated stream remuxing.</p>
+        <h1>Instant Audio to Video Compiler</h1>
+        <p>Wrap background audio tracks with custom cover designs inside high-speed hardware video containers.</p>
     </header>
     <div class="panel">
         <div class="field">
-            <label>1. Select Audio Track (.mp3, .wav)</label>
-            <input type="file" id="audioInput" accept="audio/*">
+            <label>Select Audio Track (.mp3, .wav)</label>
+            <input type="file" id="audioAsset" accept="audio/*">
         </div>
         <div class="field">
-            <label>2. Select Presentation Cover Image (.jpg, .png)</label>
-            <input type="file" id="imageInput" accept="image/*">
+            <label>Select Cover Presentation Art (.jpg, .png)</label>
+            <input type="file" id="imageAsset" accept="image/*">
         </div>
-        <button class="btn" onclick="compileVideoHighSpeed()">Fast Compile Video</button>
-        <div id="statusTracker" class="status">Initializing...</div>
+        <button class="btn" onclick="executeHighSpeedCompilation()">Generate Video Presentation</button>
+        <div id="statusReport" class="status">Initializing execution loops...</div>
     </div>
 </div>
 
 <script>
-    async function compileVideoHighSpeed() {
-        const audioFile = document.getElementById('audioInput').files[0];
-        const imageFile = document.getElementById('imageInput').files[0];
-        const status = document.getElementById('statusTracker');
+    async function executeHighSpeedCompilation() {
+        const audioFile = document.getElementById('audioAsset').files[0];
+        const imageFile = document.getElementById('imageAsset').files[0];
+        const status = document.getElementById('statusReport');
 
         if (!audioFile || !imageFile) {
-            alert('Please select both files first.');
+            alert('Please pick both file parameters first.');
             return;
         }
 
         status.style.display = 'block';
-        status.textContent = "⏳ Processing files into high-speed memory pipelines...";
+        status.textContent = "⚡ Syncing media parameters directly into local stream wrappers...";
 
         const audioUrl = URL.createObjectURL(audioFile);
         const imageUrl = URL.createObjectURL(imageFile);
 
         const img = new Image();
         img.src = imageUrl;
-        await new Promise(resolve => img.onload = resolve);
+        await new Promise(res => img.onload = res);
 
-        // Create an optimized canvas matching hardware aspect ratios
+        // Instantiating localized rendering frames
         const canvas = document.createElement('canvas');
         canvas.width = 1280;
         canvas.height = 720;
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, 1280, 720);
 
-        // Capture a static canvas frame stream instead of rendering dynamically
-        const stream = canvas.captureStream(1); 
+        // Pipe a zero-entropy static image layer track
+        const videoStream = canvas.captureStream(0); 
         const audioEl = new Audio(audioUrl);
         
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -84,37 +84,37 @@
         const dest = audioCtx.createMediaStreamDestination();
         source.connect(dest);
         
-        dest.stream.getAudioTracks().forEach(track => stream.addTrack(track));
+        dest.stream.getAudioTracks().forEach(track => videoStream.addTrack(track));
 
-        // Request a highly compressed, hardware-friendly bit rate pipeline
-        const recorder = new MediaRecorder(stream, { 
-            mimeType: 'video/webm;codecs=vp8,opus',
-            videoBitsPerSecond: 100000 // Lower video bitrate for static images speeds it up massively
-        });
+        // Let the local browser choose the fastest hardware-supported video container natively
+        let options = { mimeType: 'video/webm;codecs=vp8,opus' };
+        if (MediaRecorder.isTypeSupported('video/mp4;codecs=avc1,mp4a')) {
+            options = { mimeType: 'video/mp4;codecs=avc1,mp4a' };
+        }
+
+        const recorder = new MediaRecorder(videoStream, options);
+        const segments = [];
         
-        const chunks = [];
-        recorder.ondataavailable = e => chunks.push(e.data);
-        
+        recorder.ondataavailable = e => segments.push(e.data);
         recorder.onstop = () => {
-            status.textContent = "✅ Finished in seconds!";
-            const videoBlob = new Blob(chunks, { type: 'video/webm' });
-            const outputUrl = URL.createObjectURL(videoBlob);
-            const link = document.createElement('a');
-            link.href = outputUrl;
-            link.download = audioFile.name.replace(/\.[^/.]+$/, "") + "_video.webm";
-            link.click();
+            status.textContent = "✅ Video Generation Complete!";
+            const fileBlob = new Blob(segments, { type: options.mimeType });
+            const downloadUrl = URL.createObjectURL(fileBlob);
+            
+            const element = document.createElement('a');
+            element.href = downloadUrl;
+            element.download = audioFile.name.replace(/\.[^/.]+$/, "") + "_presentation.mp4";
+            element.click();
             audioCtx.close();
         };
 
-        // Trick the player engine to process audio tracking loops at hyper-speed
         recorder.start();
         audioEl.play();
-        status.textContent = "⚡ Running fast track packaging compilation...";
 
-        // Force a rapid frame check to shut down processing immediately upon file completion
-        const checkEnd = setInterval(() => {
+        // Check file position frequently to complete process immediately when sound track stops
+        const trackingInterval = setInterval(() => {
             if (audioEl.ended || audioEl.paused) {
-                clearInterval(checkEnd);
+                clearInterval(trackingInterval);
                 recorder.stop();
                 audioEl.pause();
             }
