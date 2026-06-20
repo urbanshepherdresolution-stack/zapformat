@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Audio to Video Compiler - Create Video Presentations Online</title>
+    <style>
+        :root { --primary: #1e3a8a; --primary-hover: #172554; --dark: #0f172a; --secondary: #64748b; --border: #e2e8f0; --success: #10b981; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: var(--dark); margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 30px; }
+        .panel { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
+        .field { margin-bottom: 20px; }
+        label { display: block; font-weight: 600; margin-bottom: 8px; }
+        input[type="file"] { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; }
+        .btn { background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; transition: background 0.2s; }
+        .btn:hover { background: var(--primary-hover); }
+        .status { font-weight: bold; color: #4f46e5; text-align: center; margin-top: 15px; display: none; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Audio to Video Compiler</h1>
+        <p>Combine audio files with custom backing structures into downloadable presentation clips safely inside your memory sandbox.</p>
+    </header>
+    <div class="panel">
+        <div class="field">
+            <label>1. Select Audio Track (.mp3, .wav)</label>
+            <input type="file" id="audioInput" accept="audio/*">
+        </div>
+        <div class="field">
+            <label>2. Select Presentation Cover Image (.jpg, .png)</label>
+            <input type="file" id="imageInput" accept="image/*">
+        </div>
+        <button class="btn" onclick="compileVideoFramework()">Compile Presentation Clip</button>
+        <div id="statusTracker" class="status">Initializing canvas recording frames...</div>
+    </div>
+</div>
+
+<script>
+    async function compileVideoFramework() {
+        const audioFile = document.getElementById('audioInput').files[0];
+        const imageFile = document.getElementById('imageInput').files[0];
+        const status = document.getElementById('statusTracker');
+
+        if (!audioFile || !imageFile) {
+            alert('Please provide both an audio track and a backing visual file first.');
+            return;
+        }
+
+        status.style.display = 'block';
+        status.textContent = "⏳ Reading media elements into memory layers...";
+
+        const audioUrl = URL.createObjectURL(audioFile);
+        const imageUrl = URL.createObjectURL(imageFile);
+
+        // Load backing visual canvas resources
+        const img = new Image();
+        img.src = imageUrl;
+        await new Promise(resolve => img.onload = resolve);
+
+        // Instantiating matching audio element models
+        const audio = new Audio();
+        audio.src = audioUrl;
+        
+        // Build an off-screen render canvas framework template
+        const canvas = document.createElement('canvas');
+        canvas.width = 1280; // Standard HD Horizontal Layout
+        canvas.height = 720;
+        const ctx = canvas.getContext('2d');
+
+        // Draw image structure elements over rendering frames
+        ctx.drawImage(img, 0, 0, 1280, 720);
+
+        // Hook background capture streaming variables
+        const stream = canvas.captureStream(25); // capture loop locked at 25FPS
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const source = audioCtx.createMediaElementSource(audio);
+        const dest = audioCtx.createMediaStreamDestination();
+        
+        source.connect(dest);
+        source.connect(audioCtx.destination); // enable monitoring loop parameters
+        
+        // Merge background recording streams cleanly
+        dest.stream.getAudioTracks().forEach(track => stream.addTrack(track));
+
+        const recorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp8,opus' });
+        const chunks = [];
+
+        recorder.ondataavailable = e => chunks.push(e.data);
+        recorder.onstop = () => {
+            status.textContent = "✅ Compilation Successful!";
+            const videoBlob = new Blob(chunks, { type: 'video/webm' });
+            const outputUrl = URL.createObjectURL(videoBlob);
+            
+            const link = document.createElement('a');
+            link.href = outputUrl;
+            link.download = audioFile.name.replace(/\.[^/.]+$/, "") + "_presentation.webm";
+            link.click();
+        };
+
+        // Fire recording cycles synchronized with audio execution tracks
+        audio.play();
+        recorder.start();
+        status.textContent = "⏳ Synchronizing rendering clocks... Recording playback progress loops.";
+
+        // Continuously force frame balance draws during recording cycles
+        const renderLoop = setInterval(() => {
+            ctx.drawImage(img, 0, 0, 1280, 720);
+            if (audio.ended || audio.paused) {
+                clearInterval(renderLoop);
+                recorder.stop();
+                audioCtx.close();
+            }
+        }, 40);
+    }
+</script>
+</body>
+</html>
