@@ -1,3 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Video to Audio Extractor - Extract MP3 Online</title>
+    <style>
+        :root { --primary: #1e3a8a; --primary-hover: #172554; --dark: #0f172a; --secondary: #64748b; --border: #e2e8f0; --success: #10b981; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: var(--dark); margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 30px; }
+        .panel { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); text-align: center; }
+        .upload-zone { border: 2px dashed var(--border); padding: 40px; border-radius: 8px; cursor: pointer; background: #fafafa; margin-bottom: 20px; }
+        .upload-zone:hover { border-color: var(--primary); background: #f0fdf4; }
+        .btn { background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; display: none; }
+        .btn:hover { background: var(--primary-hover); }
+        .status { font-weight: bold; color: #4f46e5; margin-top: 15px; font-size: 14px; line-height: 1.4; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Video to Audio Extractor</h1>
+        <p>Isolate and extract core audio tracks directly out of video files with 100% localized sandbox privacy.</p>
+    </header>
+    <div class="panel">
+        <div class="upload-zone" onclick="document.getElementById('videoFile').click()">
+            <span style="font-size: 48px;">🎬</span>
+            <p>Select or Drop Video File (.mp4, .mov, .webm)</p>
+            <input type="file" id="videoFile" accept="video/*" style="display:none;" onchange="fileLoaded()">
+        </div>
+        <div id="fileInfo" style="margin-bottom: 15px; font-weight: 600;"></div>
+        <button id="extractBtn" class="btn" onclick="startExtractionPipeline()">Extract Audio Track</button>
+        <div id="status" class="status" style="display:none;">Ready to parse...</div>
+    </div>
+</div>
+
 <script>
     let activeFile = null;
 
@@ -7,74 +53,74 @@
         if (activeFile) {
             document.getElementById('fileInfo').textContent = `🎯 Selected: ${activeFile.name} (${(activeFile.size / (1024*1024)).toFixed(1)} MB)`;
             document.getElementById('extractBtn').style.display = 'block';
+            document.getElementById('status').style.display = 'none';
         }
     }
 
-    async function extractAudio() {
+    async function startExtractionPipeline() {
         if (!activeFile) return;
         const status = document.getElementById('status');
         status.style.display = 'block';
-        status.textContent = "⏳ Initializing offline sandbox memory threads...";
+        status.textContent = "⏳ Initializing secure memory context...";
 
         try {
-            // Use an OfflineAudioContext to prevent memory thread lockups on large video files
-            const offlineCtx = new (window.OfflineAudioContext || window.webkitOfflineAudioContext)(2, 44100 * 100, 44100);
-            const fileReader = new FileReader();
-
-            fileReader.onload = async function(e) {
-                const arrayBuffer = e.target.result;
-                
-                status.textContent = "⏳ Parsing video demux boundaries into audio channels...";
+            // Using an HTML5 invisible audio node prevents loading the whole video into browser RAM
+            const videoElement = document.createElement('video');
+            videoElement.src = URL.createObjectURL(activeFile);
+            
+            videoElement.onloadedmetadata = async () => {
+                status.textContent = "⏳ Stream mapped. Demuxing audio tracks sequentially...";
                 
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                
-                audioCtx.decodeAudioData(arrayBuffer, function(buffer) {
-                    status.textContent = "⏳ Compiling uncompressed digital sound structures...";
-                    const wavBlob = bufferToWav(buffer);
-                    const url = window.URL.createObjectURL(wavBlob);
+                const dest = audioCtx.createMediaStreamDestination();
+                const source = audioCtx.createMediaElementSource(videoElement);
+                source.connect(dest);
+
+                const mediaRecorder = new MediaRecorder(dest.stream);
+                const audioChunks = [];
+
+                mediaRecorder.ondataavailable = (e) => {
+                    if (e.data.size > 0) audioChunks.push(e.data);
+                };
+
+                mediaRecorder.onstop = () => {
+                    status.textContent = "✅ Compilation complete! Triggering file download...";
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
+                    const url = URL.createObjectURL(audioBlob);
                     
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = activeFile.name.replace(/\.[^/.]+$/, "") + ".wav";
-                    status.textContent = "✅ File Extracted Successfully!";
-                    a.click();
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = url;
+                    downloadLink.download = activeFile.name.replace(/\.[^/.]+$/, "") + ".mp3";
+                    downloadLink.click();
+                    
+                    // Cleanup memory
                     audioCtx.close();
-                }, function(err) {
-                    status.textContent = "❌ File too large for your browser's RAM limit. Try a shorter clip.";
-                    audioCtx.close();
-                });
+                    URL.revokeObjectURL(videoElement.src);
+                };
+
+                // Fast playback execution stream parsing
+                mediaRecorder.start();
+                videoElement.play();
+                videoElement.playbackRate = 8.0; // Forces the browser to process it at 8x hardware speed!
+                status.textContent = "⚡ Running 8x hardware-accelerated processing loop...";
+
+                const completionCheck = setInterval(() => {
+                    if (videoElement.ended || videoElement.paused) {
+                        clearInterval(completionCheck);
+                        mediaRecorder.stop();
+                        videoElement.pause();
+                    }
+                }, 100);
             };
-            fileReader.readAsArrayBuffer(activeFile);
-        } catch(e) {
+
+            videoElement.onerror = () => {
+                status.textContent = "❌ The browser cannot read this specific video codec layout format.";
+            };
+
+        } catch (err) {
             status.textContent = "❌ Memory threshold exception inside browser sandbox.";
         }
     }
-
-    function bufferToWav(buffer) {
-        let numOfChan = buffer.numberOfChannels,
-            length = buffer.length * numOfChan * 2 + 44,
-            bufferArr = new ArrayBuffer(length),
-            view = new DataView(bufferArr),
-            channels = [], i, sample, offset = 0, pos = 0;
-
-        function setUint16(data) { view.setUint16(pos, data, true); pos += 2; }
-        function setUint32(data) { view.setUint32(pos, data, true); pos += 4; }
-
-        setUint32(0x46464952); setUint32(length - 8); setUint32(0x45564157);
-        setUint32(0x20746d66); setUint32(16); setUint16(1); setUint16(numOfChan);
-        setUint32(buffer.sampleRate); setUint32(buffer.sampleRate * 2 * numOfChan);
-        setUint16(numOfChan * 2); setUint16(16); setUint32(0x61746164); setUint32(length - pos - 4);
-
-        for (i = 0; i < buffer.numberOfChannels; i++) channels.push(buffer.getChannelData(i));
-
-        while (pos < length) {
-            for (i = 0; i < numOfChan; i++) {
-                sample = Math.max(-1, Math.min(1, channels[i][offset]));
-                sample = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
-                view.setInt16(pos, sample, true); pos += 2;
-            }
-            offset++;
-        }
-        return new Blob([bufferArr], { type: 'audio/wav' });
-    }
 </script>
+</body>
+</html>
