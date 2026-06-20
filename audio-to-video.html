@@ -24,7 +24,12 @@
         input[type="file"] { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; }
         .btn { background: var(--success); color: white; border: none; padding: 14px 24px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; transition: background 0.2s; font-size: 16px; }
         .btn:hover { background: #059669; }
-        .status { font-weight: bold; color: #4f46e5; text-align: center; margin-top: 15px; display: none; }
+        
+        /* New Live Progress Indicators */
+        .status-container { margin-top: 20px; display: none; text-align: center; }
+        .status-text { font-weight: bold; color: #4f46e5; font-size: 14px; margin-bottom: 8px; }
+        .progress-bar { height: 10px; width: 100%; background: #e2e8f0; border-radius: 5px; overflow: hidden; position: relative; }
+        .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.1s linear; }
     </style>
 </head>
 <body>
@@ -43,7 +48,13 @@
             <input type="file" id="imageAsset" accept="image/*">
         </div>
         <button class="btn" onclick="executeHighSpeedCompilation()">Generate Video Presentation</button>
-        <div id="statusReport" class="status">Initializing execution loops...</div>
+        
+        <div id="progressWrapper" class="status-container">
+            <div id="statusReport" class="status-text">Initializing execution loops...</div>
+            <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -51,14 +62,18 @@
     async function executeHighSpeedCompilation() {
         const audioFile = document.getElementById('audioAsset').files[0];
         const imageFile = document.getElementById('imageAsset').files[0];
+        const wrapper = document.getElementById('progressWrapper');
         const status = document.getElementById('statusReport');
+        const fill = document.getElementById('progressFill');
 
         if (!audioFile || !imageFile) {
             alert('Please pick both file parameters first.');
             return;
         }
 
-        status.style.display = 'block';
+        // Unroll the visual tracker framework panel
+        wrapper.style.display = 'block';
+        fill.style.width = '0%';
         status.textContent = "⚡ Syncing media parameters directly into local stream wrappers...";
 
         const audioUrl = URL.createObjectURL(audioFile);
@@ -68,14 +83,12 @@
         img.src = imageUrl;
         await new Promise(res => img.onload = res);
 
-        // Instantiating localized rendering frames
         const canvas = document.createElement('canvas');
         canvas.width = 1280;
         canvas.height = 720;
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, 1280, 720);
 
-        // Pipe a zero-entropy static image layer track
         const videoStream = canvas.captureStream(0); 
         const audioEl = new Audio(audioUrl);
         
@@ -86,7 +99,6 @@
         
         dest.stream.getAudioTracks().forEach(track => videoStream.addTrack(track));
 
-        // Let the local browser choose the fastest hardware-supported video container natively
         let options = { mimeType: 'video/webm;codecs=vp8,opus' };
         if (MediaRecorder.isTypeSupported('video/mp4;codecs=avc1,mp4a')) {
             options = { mimeType: 'video/mp4;codecs=avc1,mp4a' };
@@ -98,6 +110,8 @@
         recorder.ondataavailable = e => segments.push(e.data);
         recorder.onstop = () => {
             status.textContent = "✅ Video Generation Complete!";
+            fill.style.width = '100%';
+            
             const fileBlob = new Blob(segments, { type: options.mimeType });
             const downloadUrl = URL.createObjectURL(fileBlob);
             
@@ -108,17 +122,28 @@
             audioCtx.close();
         };
 
-        recorder.start();
-        audioEl.play();
+        // Listen for metadata loading to accurately register total track duration lengths
+        audioEl.onloadedmetadata = () => {
+            const duration = audioEl.duration;
+            
+            recorder.start();
+            audioEl.play();
 
-        // Check file position frequently to complete process immediately when sound track stops
-        const trackingInterval = setInterval(() => {
-            if (audioEl.ended || audioEl.paused) {
-                clearInterval(trackingInterval);
-                recorder.stop();
-                audioEl.pause();
-            }
-        }, 100);
+            // Run an execution loop interval to calculate percent completion parameters
+            const trackingInterval = setInterval(() => {
+                if (audioEl.currentTime && duration) {
+                    const percent = Math.round((audioEl.currentTime / duration) * 100);
+                    fill.style.width = `${percent}%`;
+                    status.textContent = `⏳ Compiling Video Framework Structure: ${percent}% Complete`;
+                }
+
+                if (audioEl.ended || audioEl.paused) {
+                    clearInterval(trackingInterval);
+                    recorder.stop();
+                    audioEl.pause();
+                }
+            }, 50);
+        };
     }
 </script>
 </body>
