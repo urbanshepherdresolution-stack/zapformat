@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Image Resizer & Converter - Resize Photos Online</title>
+    <style>
+        :root { --primary: #1e3a8a; --primary-hover: #172554; --dark: #0f172a; --secondary: #64748b; --border: #e2e8f0; --success: #10b981; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: var(--dark); margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 30px; }
+        .grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media (min-width: 768px) { .grid { grid-template-columns: 1.2fr 0.8fr; } }
+        .panel { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
+        .upload-zone { border: 2px dashed var(--border); padding: 30px; text-align: center; border-radius: 8px; cursor: pointer; background: #fafafa; margin-bottom: 20px; }
+        .upload-zone:hover { border-color: var(--primary); background: #f0fdf4; }
+        .control-group { margin-bottom: 15px; }
+        label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 14px; }
+        input[type="number"], select { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; }
+        .checkbox-container { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 14px; }
+        .preview-box { max-width: 100%; height: auto; border: 1px dashed var(--border); border-radius: 6px; display: block; margin: 15px auto 0 auto; background: #f1f5f9; text-align: center; max-height: 400px; overflow: hidden; }
+        .preview-box img { max-width: 100%; max-height: 400px; object-fit: contain; }
+        .btn { background: var(--primary); color: white; border: none; padding: 14px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 20px; font-size: 15px; }
+        .btn:hover { background: var(--primary-hover); }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Smart Image Resizer &amp; Converter</h1>
+        <p>Modify image dimensions, preserve aspect ratios, and swap output formatting formats in milliseconds.</p>
+    </header>
+    
+    <div class="grid">
+        <div class="panel">
+            <h3>Image Workspace Canvas</h3>
+            <div class="upload-zone" onclick="document.getElementById('imgInput').click()">
+                <span style="font-size:36px;">🖼️</span>
+                <p>Click to browse or drop an image file here</p>
+                <input type="file" id="imgInput" accept="image/*" style="display:none;" onchange="loadImageAsset()">
+            </div>
+            <div id="previewWrapper" class="preview-box">
+                <span style="color: var(--secondary); display:inline-block; padding: 80px 0;">No active image preview selected.</span>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h3>Configuration Parameters</h3>
+            
+            <div class="control-group">
+                <label>Width Dimension (Pixels)</label>
+                <input type="number" id="widthInput" placeholder="Width" oninput="maintainAspect('width')">
+            </div>
+
+            <div class="control-group">
+                <label>Height Dimension (Pixels)</label>
+                <input type="number" id="heightInput" placeholder="Height" oninput="maintainAspect('height')">
+            </div>
+
+            <div class="checkbox-container">
+                <input type="checkbox" id="aspectLock" checked>
+                <label for="aspectLock" style="margin: 0; cursor: pointer;">Lock Aspect Ratio</label>
+            </div>
+
+            <hr style="border:0; height:1px; background:var(--border); margin: 20px 0;">
+
+            <div class="control-group">
+                <label>Convert Export Format To</label>
+                <select id="formatSelect">
+                    <option value="image/jpeg">JPG Document (.jpeg)</option>
+                    <option value="image/png">PNG Alpha Asset (.png)</option>
+                    <option value="image/webp">WEBP Next-Gen Format (.webp)</option>
+                </select>
+            </div>
+
+            <button class="btn" style="background: var(--success);" onclick="processAndDownloadImage()">Process &amp; Download Image</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let rawImage = null;
+    let baseAspectRatio = 1;
+
+    function loadImageAsset() {
+        const file = document.getElementById('imgInput').files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            rawImage = new Image();
+            rawImage.onload = function() {
+                // Calculate and preserve image frame proportions
+                baseAspectRatio = rawImage.width / rawImage.height;
+                
+                document.getElementById('widthInput').value = rawImage.width;
+                document.getElementById('heightInput').value = rawImage.height;
+                
+                // Print high-speed preview display
+                const wrapper = document.getElementById('previewWrapper');
+                wrapper.innerHTML = `<img src="${e.target.result}" id="activePreviewImg" alt="Workspace Target">`;
+            };
+            rawImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function maintainAspect(changedField) {
+        if (!rawImage || !document.getElementById('aspectLock').checked) return;
+
+        const widthInput = document.getElementById('widthInput');
+        const heightInput = document.getElementById('heightInput');
+
+        if (changedField === 'width') {
+            const currentWidth = parseFloat(widthInput.value) || 0;
+            heightInput.value = Math.round(currentWidth / baseAspectRatio);
+        } else {
+            const currentHeight = parseFloat(heightInput.value) || 0;
+            widthInput.value = Math.round(currentHeight * baseAspectRatio);
+        }
+    }
+
+    function processAndDownloadImage() {
+        if (!rawImage) return alert('Please upload an image into your workspace first.');
+
+        const targetWidth = parseInt(document.getElementById('widthInput').value) || rawImage.width;
+        const targetHeight = parseInt(document.getElementById('heightInput').value) || rawImage.height;
+        const exportFormat = document.getElementById('formatSelect').value;
+
+        // Build off-screen structural layout sandbox array frame
+        const canvas = document.createElement('canvas');
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
+        const ctx = canvas.getContext('2d');
+
+        // Draw image down into canvas parameters 
+        ctx.drawImage(rawImage, 0, 0, targetWidth, targetHeight);
+
+        // Map extension types to clean labels
+        let fileExtension = '.jpg';
+        if (exportFormat === 'image/png') fileExtension = '.png';
+        if (exportFormat === 'image/webp') fileExtension = '.webp';
+
+        // Trigger safe instant machine file retrieval pipeline
+        const dataUrl = canvas.toDataURL(exportFormat, 0.9); // Locked at high-fidelity 90% quality allocation
+        const downloadElement = document.createElement('a');
+        downloadElement.href = dataUrl;
+        downloadElement.download = "zaptextcleaner_modified" + fileExtension;
+        downloadElement.click();
+    }
+</script>
+</body>
+</html>
