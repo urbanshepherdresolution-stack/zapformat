@@ -18,7 +18,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
 
     <style>
-        :root { --primary: #1e3a8a; --primary-hover: #172554; --dark: #0f172a; --secondary: #64748b; --border: #e2e8f0; }
+        :root { --primary: #1e3a8a; --primary-hover: #172554; --dark: #0f172a; --secondary: #64748b; --border: #e2e8f0; --success: #10b981; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: var(--dark); margin: 0; padding: 20px; }
         .container { max-width: 1000px; margin: 0 auto; }
         header { text-align: center; margin-bottom: 30px; }
@@ -71,35 +71,44 @@
 
         const status = document.getElementById('statusIndicator');
         status.style.display = 'block';
-        status.textContent = "⏳ Reading file layers locally...";
 
         if (file.type === "application/pdf") {
+            status.innerHTML = "⏳ <span>Stage 1/2: Mapping PDF Document Tree...</span>";
             const fileReader = new FileReader();
             fileReader.onload = async function() {
                 try {
                     const typedarray = new Uint8Array(this.result);
                     const pdf = await pdfjsLib.getDocument(typedarray).promise;
                     let fullText = "";
+                    
+                    status.innerHTML = "⏳ <span>Stage 2/2: Slicing Text Streams into Vectors...</span>";
                     const page = await pdf.getPage(1);
                     const textContent = await page.getTextContent();
                     textContent.items.forEach(item => { fullText += item.str + " "; });
+                    
                     document.getElementById('invoiceInput').value = fullText;
-                    status.textContent = "✅ Text extracted from PDF structure.";
+                    status.innerHTML = "<span style='color:var(--success);'>✅ Text Layers Successfully Extracted!</span>";
                     parseInvoiceText();
                 } catch (err) {
-                    status.textContent = "❌ Direct text reading failed. Please use an image copy.";
+                    status.innerHTML = "<span style='color:#dc2626;'>❌ Direct text reading failed. Please use an image copy.</span>";
                 }
             };
             fileReader.readAsArrayBuffer(file);
         } else {
-            status.textContent = "⏳ Processing image canvas via OCR (this may take up to 10 seconds)...";
-            Tesseract.recognize(file, 'eng')
-                .then(({ data: { text } }) => {
-                    document.getElementById('invoiceInput').value = text;
-                    status.textContent = "✅ OCR analysis complete.";
-                    parseInvoiceText();
-                })
-                .catch(err => { status.textContent = "❌ Error processing image framework."; });
+            status.innerHTML = "⏳ <span>Stage 1/2: Loading Local OCR Canvas...</span>";
+            Tesseract.recognize(file, 'eng', {
+                logger: m => {
+                    if(m.status === 'recognizing text') {
+                        status.innerHTML = `⚡ <span>Stage 2/2: Optical Scan Progress: ${Math.round(m.progress * 100)}%</span>`;
+                    }
+                }
+            })
+            .then(({ data: { text } }) => {
+                document.getElementById('invoiceInput').value = text;
+                status.innerHTML = "<span style='color:var(--success);'>✅ Image OCR Scan Complete!</span>";
+                parseInvoiceText();
+            })
+            .catch(err => { status.innerHTML = "<span style='color:#dc2626;'>❌ Error processing image framework.</span>"; });
         }
     }
 
