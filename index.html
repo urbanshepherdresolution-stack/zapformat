@@ -171,6 +171,45 @@
         .trust-item h3 { font-size: 16px; font-weight: 700; color: var(--dark); margin: 0 0 6px 0; }
         .trust-item p { font-size: 14px; color: var(--secondary); margin: 0; }
 
+        /* SEO Footnote Directory Grid */
+        .seo-directory-section {
+            max-width: 1200px;
+            margin: 60px auto 20px auto;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border);
+        }
+        .seo-directory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .seo-column h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--dark);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            letter-spacing: 0.05em;
+        }
+        .seo-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .seo-column li {
+            margin-bottom: 10px;
+        }
+        .seo-column a {
+            font-size: 13px;
+            color: var(--secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .seo-column a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
         footer {
             text-align: center;
             padding: 40px 20px;
@@ -314,9 +353,64 @@
                 </div>
             </div>
         </section>
+
+        <section class="seo-directory-section">
+            <div class="section-label" style="text-align: left; margin-bottom: 20px;">Platform Target Framework Directory</div>
+            <div class="seo-directory-grid">
+                
+                <div class="seo-column">
+                    <h4>Clean Chaotic Spacing</h4>
+                    <ul>
+                        <li><a href="clean-messy-spaces-from-email.html">Clean Spaces from Email</a></li>
+                        <li><a href="clean-messy-spaces-from-google-docs.html">Clean Spaces from Google Docs</a></li>
+                        <li><a href="clean-messy-spaces-from-kindle.html">Clean Spaces from Kindle</a></li>
+                        <li><a href="clean-messy-spaces-from-pdf.html">Clean Spaces from PDF Sheets</a></li>
+                        <li><a href="clean-messy-spaces-from-website.html">Clean Spaces from Web Scraping</a></li>
+                        <li><a href="clean-messy-spaces-from-word-document.html">Clean Spaces from Word Docs</a></li>
+                    </ul>
+                </div>
+
+                <div class="seo-column">
+                    <h4>Convert to Plain Text</h4>
+                    <ul>
+                        <li><a href="convert-to-plain-text-from-email.html">Email Plain Text Strip</a></li>
+                        <li><a href="convert-to-plain-text-from-google-docs.html">Google Docs Plain Text</a></li>
+                        <li><a href="convert-to-plain-text-from-kindle.html">Kindle Highlights Unformat</a></li>
+                        <li><a href="convert-to-plain-text-from-pdf.html">PDF Text Extractor Strip</a></li>
+                        <li><a href="convert-to-plain-text-from-website.html">Website Rich Text Cleaner</a></li>
+                        <li><a href="convert-to-plain-text-from-word-document.html">Word Doc Raw Text Format</a></li>
+                    </ul>
+                </div>
+
+                <div class="seo-column">
+                    <h4>Remove Layout Formatting</h4>
+                    <ul>
+                        <li><a href="remove-formatting-from-email.html">Remove Email HTML Styles</a></li>
+                        <li><a href="remove-formatting-from-google-docs.html">Strip Google Docs CSS styles</a></li>
+                        <li><a href="remove-formatting-from-kindle.html">Strip Kindle Font Properties</a></li>
+                        <li><a href="remove-formatting-from-pdf.html">Remove PDF Layout Elements</a></li>
+                        <li><a href="remove-formatting-from-website.html">Remove Website Copy Formats</a></li>
+                        <li><a href="remove-formatting-from-word-document.html">Strip Word Document Fonts</a></li>
+                    </ul>
+                </div>
+
+                <div class="seo-column">
+                    <h4>Strip Line Break Arrays</h4>
+                    <ul>
+                        <li><a href="strip-line-breaks-from-email.html">Strip Email Margins & Breaks</a></li>
+                        <li><a href="strip-line-breaks-from-google-docs.html">Fix Google Docs Paragraph Breaks</a></li>
+                        <li><a href="strip-line-breaks-from-kindle.html">Remove Kindle Carriage Returns</a></li>
+                        <li><a href="strip-line-breaks-from-pdf.html">Remove PDF Column Line Breaks</a></li>
+                        <li><a href="strip-line-breaks-from-website.html">Clean Web Code Spacing Breaks</a></li>
+                        <li><a href="strip-line-breaks-from-word-document.html">Fix Word Wrap Spacing Returns</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
     </main>
 
-    <footer style="text-align: center; padding: 40px 20px; font-size: 13px; color: #94a3b8; border-top: 1px solid var(--border); margin-top: 40px;">
+    <footer style="text-align: center; padding: 40px 20px; font-size: 13px; color: #94a3b8; border-top: 1px solid var(--border); margin-top: 20px;">
         <div style="margin-bottom: 15px;">
             <a href="privacy.html" style="color: var(--secondary); text-decoration: none; margin: 0 15px; font-weight: 600;">Data Privacy Manifesto</a> | 
             <a href="guide-ai-data-safety.html" style="color: var(--secondary); text-decoration: none; margin: 0 15px; font-weight: 600;">AI Data Safety Guide</a>
