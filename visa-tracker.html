@@ -1,1 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Day Tracker & Risk Assessment - Zap Text Cleaner</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-hover: #172554;
+            --secondary: #64748b;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f8fafc;
+            color: var(--dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: -0.03em;
+        }
+        .security-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--success);
+            background: #ecfdf5;
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Dashboard Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+        @media (max-width: 850px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
+
+        .panel {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: var(--dark);
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 10px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 15px;
+            box-sizing: border-box;
+            background: var(--light);
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            font-size: 15px;
+            transition: background 0.2s;
+        }
+        .btn:hover { background: var(--primary-hover); }
+
+        /* Trip Log Table */
+        .trip-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .trip-table th, .trip-table td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .trip-table th { background: var(--light); font-weight: 700; }
+        .remove-btn {
+            color: var(--danger);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Status & Summary Badges */
+        .status-box {
+            text-align: center;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 800;
+            font-size: 24px;
+        }
+        .status-safe { background: #ecfdf5; color: var(--success); border: 1px solid #a7f3d0; }
+        .status-warning { background: #fffbeb; color: var(--warning); border: 1px solid #fde68a; }
+        .status-danger { background: #fef2f2; color: var(--danger); border: 1px solid #fca5a5; }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 15px;
+        }
+        .stat-row:last-child { border: none; }
+        .stat-val { font-weight: 700; }
+
+        /* Penalty Risk Alert Panel */
+        .risk-alert {
+            background: #fff7ed;
+            border: 1px solid #ffedd5;
+            border-left: 4px solid var(--warning);
+            border-radius: 6px;
+            padding: 15px;
+            font-size: 14px;
+            color: #9a3412;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 13px;
+            color: #94a3b8;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">ZapTextCleaner</a>
+        <div class="security-status">
+            <span>🛡️ Isolated Client Sandbox Memory Active</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <div style="margin-bottom: 30px;">
+            <h1 style="font-size: 2.5rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 10px;">Visa Day Tracker & Compliance Engine</h1>
+            <p style="color: var(--secondary); margin: 0; font-size: 1.1rem;">Calculate rolling-window allocations, countdown limits, and monitor legal compliance parameters inside an encrypted browser session framework.</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div>
+                <div class="panel">
+                    <h2>1. Define Destination Parameters</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <label for="visa-zone">Visa Rule Profile / Jurisdiction</label>
+                            <select id="visa-zone" onchange="updateRuleProfile()">
+                                <option value="schengen">EU Schengen Zone (90 / 180 Days Rolling)</option>
+                                <option value="uk-tourist">United Kingdom (180 Days Fixed)</option>
+                                <option value="us-esta">United States ESTA (90 Days Entry Window)</option>
+                                <option value="thailand-30">Thailand Tourist (30 Days Entry)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="calculation-date">Calculation Reference Date</label>
+                            <input type="date" id="calculation-date" onchange="calculateVisaStatus()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>2. Logging Protocol Array (Add Trip Dates)</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 140px; gap: 15px; align-items: flex-end;">
+                        <div>
+                            <label for="entry-date">Entry Date</label>
+                            <input type="date" id="entry-date">
+                        </div>
+                        <div>
+                            <label for="exit-date">Exit Date</label>
+                            <input type="date" id="exit-date">
+                        </div>
+                        <div>
+                            <button class="btn" style="margin-bottom: 20px;" onclick="addTripRow()">Log Entry</button>
+                        </div>
+                    </div>
+
+                    <table class="trip-table" id="trip-ledger">
+                        <thead>
+                            <tr>
+                                <th>Country/Zone Context</th>
+                                <th>Entry Date</th>
+                                <th>Exit Date</th>
+                                <th>Duration Calculated</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ledger-rows">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div>
+                <div class="panel" style="position: sticky; top: 20px;">
+                    <h2>Compliance Dashboard</h2>
+                    
+                    <div id="status-badge" class="status-box status-safe">
+                        SAFE COMPLIANCE
+                    </div>
+
+                    <div class="stat-row">
+                        <span>Total Days Allocated:</span>
+                        <span class="stat-val" id="stat-allocated">90 Days</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Days Consumed:</span>
+                        <span class="stat-val" id="stat-consumed">0 Days</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Days Remaining Safely:</span>
+                        <span class="stat-val" id="stat-remaining" style="color: var(--success);">90 Days</span>
+                    </div>
+
+                    <h3 style="font-size: 14px; text-transform: uppercase; margin-top: 30px; margin-bottom: 10px; color: var(--secondary);">Enforcement Risk Notice</h3>
+                    <div class="risk-alert" id="risk-notice-panel">
+                        <strong>Schengen Overstay Risks:</strong> Fines between €100 to €1,200, immediate deportation records added to SIS database, and consecutive 1 to 3-year entry bans throughout all EU territories.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer style="text-align: center; padding: 40px 20px; font-size: 13px; color: #94a3b8; border-top: 1px solid var(--border); margin-top: 40px;">
+        <div style="margin-bottom: 15px;">
+            <a href="privacy.html" style="color: var(--secondary); text-decoration: none; margin: 0 15px; font-weight: 600;">Data Privacy Manifesto</a> | 
+            <a href="guide-ai-data-safety.html" style="color: var(--secondary); text-decoration: none; margin: 0 15px; font-weight: 600;">AI Data Safety Guide</a>
+        </div>
+        &copy; 2026 ZapTextCleaner. All processing frameworks execute client-side. No tracking cookie systems deployed.
+    </footer>
+
+    <script>
+        // Set today's date automatically in the reference module
+        document.getElementById('calculation-date').valueAsDate = new Date();
+
+        let trips = [];
+
+        const jurisdictionRules = {
+            schengen: { allocated: 90, window: 180, risk: "<strong>Schengen Overstay Risks:</strong> Fines between €100 to €1,200, immediate deportation logging into SIS database systems, and explicit 1 to 3-year border entry bans throughout the entirety of the EU." },
+            "uk-tourist": { allocated: 180, window: 365, risk: "<strong>United Kingdom Overstay Penalties:</strong> Infinite daily civil penalty fines, immediate structural deportation tracking, and dynamic standard 10-year visa rejection bans for future immigration clearance parameters." },
+            "us-esta": { allocated: 90, window: 90, risk: "<strong>United States ESTA Risks:</strong> Immediate, permanent revocation of ESTA lifetime registration options, mandatory confinement/detention facilities processing during deportation loop, and long-term 3 to 10-year bars from entering US borders." },
+            "thailand-30": { allocated: 30, window: 30, risk: "<strong>Thailand Overstay Parameters:</strong> Compulsory fine structure of 500 Baht per day (up to 20,000 Baht max limit), legal processing inside Immigration Detention Centers (IDC), and mandatory institutional blacklisting structures." }
+        };
+
+        function updateRuleProfile() {
+            const profileKey = document.getElementById('visa-zone').value;
+            const currentRule = jurisdictionRules[profileKey];
+            document.getElementById('stat-allocated').innerText = currentRule.allocated + " Days";
+            document.getElementById('risk-notice-panel').innerHTML = currentRule.risk;
+            calculateVisaStatus();
+        }
+
+        function addTripRow() {
+            const entryInput = document.getElementById('entry-date').value;
+            const exitInput = document.getElementById('exit-date').value;
+            const zone = document.getElementById('visa-zone').value;
+
+            if(!entryInput || !exitInput) {
+                alert("Please declare fully formed Entry and Exit dates.");
+                return;
+            }
+
+            const start = new Date(entryInput);
+            const end = new Date(exitInput);
+
+            if(end < start) {
+                alert("Exit Date parameter cannot precede Entry Date initialization.");
+                return;
+            }
+
+            const duration = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1; // inclusive calculation
+
+            trips.push({ zone, start: entryInput, end: exitInput, duration });
+            renderLedger();
+            calculateVisaStatus();
+
+            // Clear configuration fields for next input loop
+            document.getElementById('entry-date').value = '';
+            document.getElementById('exit-date').value = '';
+        }
+
+        function removeTrip(index) {
+            trips.splice(index, 1);
+            renderLedger();
+            calculateVisaStatus();
+        }
+
+        function renderLedger() {
+            const rowsContainer = document.getElementById('ledger-rows');
+            rowsContainer.innerHTML = '';
+            
+            trips.forEach((trip, idx) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${trip.zone.toUpperCase()}</td>
+                    <td>${trip.start}</td>
+                    <td>${trip.end}</td>
+                    <td><strong>${trip.duration} Days</strong></td>
+                    <td><button class="remove-btn" onclick="removeTrip(${idx})">Delete</button></td>
+                `;
+                rowsContainer.appendChild(tr);
+            });
+        }
+
+        function calculateVisaStatus() {
+            const profileKey = document.getElementById('visa-zone').value;
+            const refDateVal = document.getElementById('calculation-date').value;
+            if(!refDateVal) return;
+
+            const referenceDate = new Date(refDateVal);
+            const rules = jurisdictionRules[profileKey];
+            
+            let totalConsumed = 0;
+
+            if(profileKey === 'schengen') {
+                // Calculate rolling 180 day parameters backwards from target reference index
+                const windowStart = new Date(referenceDate);
+                windowStart.setDate(windowStart.getDate() - 180);
+
+                trips.forEach(trip => {
+                    if(trip.zone === 'schengen') {
+                        const tripStart = new Date(trip.start);
+                        const tripEnd = new Date(trip.end);
+
+                        // If trip overlaps the target rolling evaluation boundary window
+                        if(tripEnd >= windowStart && tripStart <= referenceDate) {
+                            const activeStart = tripStart < windowStart ? windowStart : tripStart;
+                            const activeEnd = tripEnd > referenceDate ? referenceDate : tripEnd;
+                            const overlappingDays = Math.ceil((activeEnd - activeStart) / (1000 * 60 * 60 * 24)) + 1;
+                            totalConsumed += overlappingDays;
+                        }
+                    }
+                });
+            } else {
+                // Fixed duration simple aggregation context
+                trips.forEach(trip => {
+                    if(trip.zone === profileKey) {
+                        totalConsumed += trip.duration;
+                    }
+                });
+            }
+
+            const remaining = rules.allocated - totalConsumed;
+
+            // Render Dashboard Updates
+            document.getElementById('stat-consumed').innerText = totalConsumed + " Days";
+            const remainingPanel = document.getElementById('stat-remaining');
+            remainingPanel.innerText = remaining + " Days";
+
+            const badge = document.getElementById('status-badge');
+            if(remaining < 0) {
+                badge.innerText = "OVERSTAY PENALTY RISK";
+                badge.className = "status-box status-danger";
+                remainingPanel.style.color = "var(--danger)";
+            } else if (remaining <= 14) {
+                badge.innerText = "WARNING RISK ACTION REQUIRED";
+                badge.className = "status-box status-warning";
+                remainingPanel.style.color = "var(--warning)";
+            } else {
+                badge.innerText = "SAFE COMPLIANCE";
+                badge.className = "status-box status-safe";
+                remainingPanel.style.color = "var(--success)";
+            }
+        }
+    </script>
+</body>
+</html>
