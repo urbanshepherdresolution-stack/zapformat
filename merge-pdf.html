@@ -1,1 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Document Merger - ZapTextCleaner</title>
+    
+    <!-- pdf-lib core engine for local file splicing -->
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-hover: #172554;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f8fafc;
+            color: var(--dark);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 650px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-top: 0;
+            text-align: center;
+        }
+        .upload-area {
+            border: 2px dashed #cbd5e1;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 8px;
+            background: #f8fafc;
+            cursor: pointer;
+            transition: border-color 0.2s;
+            margin-bottom: 20px;
+        }
+        .upload-area:hover {
+            border-color: var(--primary);
+        }
+        input[type="file"] { display: none; }
+        .file-list {
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: #f8fafc;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .file-item:last-child { border-bottom: none; }
+        .file-name { font-weight: 600; color: var(--dark); }
+        .file-size { color: #64748b; font-size: 12px; }
+        .btn {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover { background: var(--primary-hover); }
+        .btn:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .back-link:hover { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>PDF Document Merger</h1>
+    <p style="color: #64748b; text-align: center; font-size: 15px; margin-bottom: 30px;">Select or drop multiple PDF files to combine them into a single, structured document instantly. 100% data safe.</p>
+
+    <div class="upload-area" onclick="document.getElementById('pdf-input').click()">
+        <span style="font-size: 32px;">📑</span>
+        <p style="margin: 10px 0 0 0; font-weight: 600;">Click to select PDF files</p>
+        <p style="margin: 5px 0 0 0; font-size: 13px; color: #64748b;">Files will be merged in the order they are added</p>
+        <input type="file" id="pdf-input" accept="application/pdf" multiple>
+    </div>
+
+    <div class="file-list" id="file-queue" style="display: none;"></div>
+
+    <button class="btn" id="merge-btn" disabled onclick="combinePDFDocuments()">Merge and Download PDF</button>
+
+    <a href="index.html" class="back-link">← Return to Dashboard</a>
+</div>
+
+<script>
+    let uploadedFilesList = [];
+
+    document.getElementById('pdf-input').addEventListener('change', function(e) {
+        const files = Array.from(e.target.files);
+        if (files.length === 0) return;
+
+        uploadedFilesList = [...uploadedFilesList, ...files];
+        renderFileQueue();
+    });
+
+    function renderFileQueue() {
+        const queueBox = document.getElementById('file-queue');
+        if (uploadedFilesList.length === 0) {
+            queueBox.style.display = 'none';
+            document.getElementById('merge-btn').disabled = true;
+            return;
+        }
+
+        queueBox.style.display = 'block';
+        queueBox.innerHTML = '';
+
+        uploadedFilesList.forEach((file, index) => {
+            const sizeInKB = (file.size / 1024).toFixed(1);
+            const item = document.createElement('div');
+            item.className = 'file-item';
+            item.innerHTML = `
+                <div>
+                    <span class="file-name">${index + 1}. ${file.name}</span>
+                    <span class="file-size">(${sizeInKB} KB)</span>
+                </div>
+                <span style="cursor:pointer; color:#ef4444; font-weight:bold; font-size:12px;" onclick="removeFileFromQueue(${index})">Remove</span>
+            `;
+            queueBox.appendChild(item);
+        });
+
+        // Enable merge button if 2 or more files exist
+        document.getElementById('merge-btn').disabled = uploadedFilesList.length < 2;
+    }
+
+    function removeFileFromQueue(index) {
+        uploadedFilesList.splice(index, 1);
+        renderFileQueue();
+    }
+
+    async function combinePDFDocuments() {
+        if (typeof PDFLib === 'undefined') {
+            alert("Splicing core asset library is still loading. Please try again in a second.");
+            return;
+        }
+
+        const { PDFDocument } = PDFLib;
+        const mergeBtn = document.getElementById('merge-btn');
+        
+        mergeBtn.innerText = "Splicing Documents...";
+        mergeBtn.disabled = true;
+
+        try {
+            // Create target empty PDF structure shell
+            const masterPdfDoc = await PDFDocument.create();
+
+            // Intercept and iterate through uploaded sequence
+            for (const fileAsset of uploadedFilesList) {
+                const fileBytesBuffer = await fileAsset.arrayBuffer();
+                const sourcePdfDoc = await PDFDocument.load(fileBytesBuffer);
+                const pageIndices = sourcePdfDoc.getPageIndices();
+                
+                // Extract individual pages out of current loop entity
+                const copiedPagesArray = await masterPdfDoc.copyPages(sourcePdfDoc, pageIndices);
+                
+                // Thread pages sequentially into output file tree
+                copiedPagesArray.forEach((pageObject) => {
+                    masterPdfDoc.addPage(pageObject);
+                });
+            }
+
+            // Export flat compiled byte array stream
+            const compiledPdfBytes = await masterPdfDoc.save();
+
+            // Trigger safe browser window local file download pipeline
+            const blobFile = new Blob([compiledPdfBytes], { type: 'application/pdf' });
+            const temporaryDownloadUrl = URL.createObjectURL(blobFile);
+            
+            const linkMarker = document.createElement('a');
+            linkMarker.href = temporaryDownloadUrl;
+            linkMarker.download = 'merged-document.pdf';
+            document.body.appendChild(linkMarker);
+            linkMarker.click();
+            
+            // Clean local environment canvas allocation metrics
+            document.body.removeChild(linkMarker);
+            URL.revokeObjectURL(temporaryDownloadUrl);
+
+        } catch (error) {
+            console.error("Merge Execution Fault:", error);
+            alert("Could not cleanly merge documents. Ensure target items are not pass-code locked.");
+        }
+
+        mergeBtn.innerText = "Merge and Download PDF";
+        mergeBtn.disabled = false;
+    }
+</script>
+
+</body>
+</html>
