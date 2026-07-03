@@ -1,22 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-7TP5H35738');
-    </script>
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JPEG to PDF Converter - ZapTextCleaner</title>
     
-    <!-- jsPDF Library via CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Using unpkg as an alternate fast CDN script source -->
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
 
     <style>
         :root {
@@ -129,31 +119,52 @@
 </div>
 
 <script>
-    let imageFiles = [];
+    let selectedImagesData = [];
 
     document.getElementById('image-input').addEventListener('change', function(e) {
         const files = Array.from(e.target.files);
         if (files.length === 0) return;
 
-        imageFiles = files;
+        selectedImagesData = [];
         const previewBox = document.getElementById('preview-box');
         previewBox.innerHTML = '';
+
+        let loadedCount = 0;
 
         files.forEach(file => {
             const reader = new FileReader();
             reader.onload = function(event) {
-                const img = document.createElement('img');
+                const img = new Image();
+                img.onload = function() {
+                    selectedImagesData.push({
+                        src: event.target.result,
+                        w: img.naturalWidth || 800,
+                        h: img.naturalHeight || 600
+                    });
+
+                    // Build visual item thumbnail
+                    const previewImg = document.createElement('img');
+                    previewImg.src = event.target.result;
+                    previewImg.className = 'preview-img';
+                    previewBox.appendChild(previewImg);
+
+                    loadedCount++;
+                    if (loadedCount === files.length) {
+                        document.getElementById('convert-btn').disabled = false;
+                    }
+                };
                 img.src = event.target.result;
-                img.className = 'preview-img';
-                previewBox.appendChild(img);
-            }
+            };
             reader.readAsDataURL(file);
         });
-
-        document.getElementById('convert-btn').disabled = false;
     });
 
     function generatePDF() {
+        if (!window.jspdf || !window.jspdf.jsPDF) {
+            alert("Library asset is still initializing. Please wait a brief moment.");
+            return;
+        }
+
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF();
         
@@ -161,26 +172,15 @@
         convertBtn.innerText = "Compiling PDF...";
         convertBtn.disabled = true;
 
-        const previewImages = document.querySelectorAll('.preview-img');
-
-        if (previewImages.length === 0) {
-            alert("Please select your images first.");
-            convertBtn.innerText = "Convert and Download PDF";
-            convertBtn.disabled = false;
-            return;
-        }
-
         try {
-            previewImages.forEach((imgElement, index) => {
-                if (index > 0) {
-                    pdf.addPage();
-                }
+            selectedImagesData.forEach((imgData, index) => {
+                if (index > 0) pdf.addPage();
 
                 const pageWidth = pdf.internal.pageSize.getWidth();
                 const pageHeight = pdf.internal.pageSize.getHeight();
                 
-                let imgWidth = imgElement.naturalWidth || 800;
-                let imgHeight = imgElement.naturalHeight || 600;
+                let imgWidth = imgData.w;
+                let imgHeight = imgData.h;
                 
                 const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
                 
@@ -190,14 +190,14 @@
                 const x = (pageWidth - imgWidth) / 2;
                 const y = (pageHeight - imgHeight) / 2;
 
-                pdf.addImage(imgElement.src, 'JPEG', x, y, imgWidth, imgHeight, undefined, 'FAST');
+                pdf.addImage(imgData.src, 'JPEG', x, y, imgWidth, imgHeight, undefined, 'FAST');
             });
 
             pdf.save('compiled-images.pdf');
 
         } catch (error) {
             console.error("PDF Generation Error:", error);
-            alert("Failed to build PDF. Please check your file formats and try again.");
+            alert("Processing issue encountered during document generation.");
         }
 
         convertBtn.innerText = "Convert and Download PDF";
