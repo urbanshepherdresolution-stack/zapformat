@@ -1,1 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JPEG to PDF Converter - ZapTextCleaner</title>
+    
+    <!-- jsPDF Library via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-hover: #172554;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f8fafc;
+            color: var(--dark);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 650px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-top: 0;
+            text-align: center;
+        }
+        .upload-area {
+            border: 2px dashed #cbd5e1;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 8px;
+            background: #f8fafc;
+            cursor: pointer;
+            transition: border-color 0.2s;
+            margin-bottom: 20px;
+        }
+        .upload-area:hover {
+            border-color: var(--primary);
+        }
+        input[type="file"] { display: none; }
+        .preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        .preview-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+        .btn {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover { background: var(--primary-hover); }
+        .btn:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .back-link:hover { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>JPEG to PDF Converter</h1>
+    <p style="color: #64748b; text-align: center; font-size: 15px; margin-bottom: 30px;">Convert your image files into a compiled PDF document instantly. 100% local processing sandbox protection.</p>
+
+    <div class="upload-area" onclick="document.getElementById('image-input').click()">
+        <span style="font-size: 32px;">🖼️</span>
+        <p style="margin: 10px 0 0 0; font-weight: 600;">Click to select images (JPEG / JPG)</p>
+        <p style="margin: 5px 0 0 0; font-size: 13px; color: #64748b;">Supports multiple file selections</p>
+        <input type="file" id="image-input" accept="image/jpeg, image/jpg" multiple>
+    </div>
+
+    <div class="preview-container" id="preview-box"></div>
+
+    <button class="btn" id="convert-btn" disabled onclick="generatePDF()">Convert and Download PDF</button>
+
+    <a href="index.html" class="back-link">← Return to Dashboard</a>
+</div>
+
+<script>
+    let imageFiles = [];
+
+    document.getElementById('image-input').addEventListener('change', function(e) {
+        const files = Array.from(e.target.files);
+        if (files.length === 0) return;
+
+        imageFiles = files;
+        const previewBox = document.getElementById('preview-box');
+        previewBox.innerHTML = '';
+
+        files.forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = document.createElement('img');
+                img.src = event.target.result;
+                img.className = 'preview-img';
+                previewBox.appendChild(img);
+            }
+            reader.readAsDataURL(file);
+        });
+
+        document.getElementById('convert-btn').disabled = false;
+    });
+
+    async function generatePDF() {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF();
+        
+        const convertBtn = document.getElementById('convert-btn');
+        convertBtn.innerText = "Compiling PDF...";
+        convertBtn.disabled = true;
+
+        for (let i = 0; i < imageFiles.length; i++) {
+            if (i > 0) pdf.addPage();
+            
+            await new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = function() {
+                        const pageWidth = pdf.internal.pageSize.getWidth();
+                        const pageHeight = pdf.internal.pageSize.getHeight();
+                        
+                        // Scale image proportionally to fit standard PDF page dimensions
+                        let imgWidth = img.width;
+                        let imgHeight = img.height;
+                        const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
+                        
+                        imgWidth *= ratio;
+                        imgHeight *= ratio;
+                        
+                        const x = (pageWidth - imgWidth) / 2;
+                        const y = (pageHeight - imgHeight) / 2;
+
+                        pdf.addImage(event.target.result, 'JPEG', x, y, imgWidth, imgHeight);
+                        resolve();
+                    };
+                };
+                reader.readAsArrayBuffer(imageFiles[i]);
+            });
+        }
+
+        pdf.save('compiled-images.pdf');
+        convertBtn.innerText = "Convert and Download PDF";
+        convertBtn.disabled = false;
+    }
+</script>
+
+</body>
+</html>
