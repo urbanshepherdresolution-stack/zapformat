@@ -1,1 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Massive Document to Markdown Converter - Optimize for AI Prompts</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
 
+    <style>
+        :root { --primary: #1e3a8a; --primary-hover: #172554; --dark: #0f172a; --secondary: #64748b; --border: #e2e8f0; --success: #10b981; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: var(--dark); margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 30px; }
+        .grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media (min-width: 768px) { .grid { grid-template-columns: 0.8fr 1.2fr; } }
+        .panel { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
+        .upload-zone { border: 2px dashed var(--border); padding: 40px; text-align: center; border-radius: 8px; cursor: pointer; background: #fafafa; margin-bottom: 20px; }
+        .upload-zone:hover { border-color: var(--primary); background: #f0fdf4; }
+        .btn { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 10px; }
+        .btn:hover { background: var(--primary-hover); }
+        .status-container { margin-top: 15px; display: none; text-align: center; }
+        .progress-bar { height: 8px; width: 100%; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin-top: 6px; }
+        .progress-fill { height: 100%; background: #4f46e5; width: 0%; transition: width 0.1s ease; }
+        textarea { width: 100%; height: 400px; padding: 12px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; font-family: monospace; font-size: 13px; resize: vertical; background: #f8fafc; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Long-Form Document to Markdown Converter</h1>
+        <p>Stream massive multi-page documents safely into optimized Markdown syntax arrays structured explicitly for AI prompting.</p>
+    </header>
+
+    <div class="grid">
+        <div class="panel">
+            <h3>Upload Large File</h3>
+            <div class="upload-zone" onclick="document.getElementById('docFile').click()">
+                <span style="font-size: 40px;">📚</span>
+                <p>Select PDF or TXT File<br><span style="font-size:12px; color:var(--secondary);">Optimized for 100+ page documents</span></p>
+                <input type="file" id="docFile" accept=".pdf,.txt" style="display:none;" onchange="fileSelected()">
+            </div>
+            <div id="fileDetails" style="font-weight:600; font-size:14px; margin-bottom:10px;"></div>
+            
+            <div id="progressContainer" class="status-container">
+                <div id="statusLabel" style="font-size:13px; font-weight:700; color:#4f46e5;">Parsing Document...</div>
+                <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h3>AI-Ready Markdown Preview</h3>
+            <textarea id="markdownOutput" placeholder="# Generated Content Matrix Output..."></textarea>
+            <button class="btn" style="background: var(--success);" onclick="downloadMarkdownFile()">Download Markdown (.md)</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+    let targetFileName = "converted_document";
+
+    function fileSelected() {
+        const file = document.getElementById('docFile').files[0];
+        if (!file) return;
+        
+        document.getElementById('fileDetails').textContent = `🎯 File: ${file.name} (${(file.size / (1024*1024)).toFixed(1)} MB)`;
+        document.getElementById('markdownOutput').value = "";
+        
+        // Start processing immediately upon loading standard file assets
+        processDocumentStream(file);
+    }
+
+    async function processDocumentStream(file) {
+        const pWrapper = document.getElementById('progressContainer');
+        const pLabel = document.getElementById('statusLabel');
+        const pFill = document.getElementById('progressFill');
+        const output = document.getElementById('markdownOutput');
+
+        pWrapper.style.display = 'block';
+        pFill.style.width = '0%';
+        targetFileName = file.name.replace(/\.[^/.]+$/, "");
+
+        if (file.type === "text/plain" || file.name.endsWith('.txt')) {
+            pLabel.textContent = "⏳ Reading large plain text chunks...";
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                output.value = `# Document: ${targetFileName}\n\n${e.target.result}`;
+                pLabel.innerHTML = "<span style='color:var(--success);'>✅ Text Converted Successfully!</span>";
+                pFill.style.width = '100%';
+            };
+            reader.readAsText(file);
+        } else if (file.type === "application/pdf") {
+            const fileReader = new FileReader();
+            fileReader.onload = async function() {
+                try {
+                    const typedarray = new Uint8Array(this.result);
+                    const pdf = await pdfjsLib.getDocument(typedarray).promise;
+                    const totalPages = pdf.numPages;
+                    let compiledMarkdown = `# Document: ${targetFileName}\n*Total Pages Processed: ${totalPages}*\n\n---\n\n`;
+
+                    // Asynchronous streaming loop to process page by page without freezing memory threads
+                    for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+                        const percent = Math.round((pageNum / totalPages) * 100);
+                        pLabel.textContent = `⏳ Streaming Page ${pageNum} of ${totalPages} (${percent}%)`;
+                        pFill.style.width = `${percent}%`;
+
+                        const page = await pdf.getPage(pageNum);
+                        const textContent = await page.getTextContent();
+                        
+                        let lastY = -1;
+                        let pageText = `## Page ${pageNum}\n\n`;
+
+                        textContent.items.forEach(item => {
+                            let text = item.str;
+                            
+                            // Basic structural pattern checking to isolate header scales from text arrays
+                            if (item.transform[0] > 14) { // Large Font size detection rule
+                                text = `\n\n### ${text.trim()}\n`;
+                            } else if (lastY !== -1 && Math.abs(item.transform[5] - lastY) > 12) {
+                                text = `\n${text}`; // Newline separation thresholds
+                            }
+                            
+                            pageText += text + " ";
+                            lastY = item.transform[5];
+                        });
+
+                        compiledMarkdown += pageText + "\n\n---\n\n";
+                        
+                        // Yield thread control back to the browser briefly to keep the UI completely alive
+                        await new Promise(resolve => setTimeout(resolve, 5));
+                    }
+
+                    output.value = compiledMarkdown;
+                    pLabel.innerHTML = "<span style='color:var(--success);'>✅ Document Stream Transformed into Markdown!</span>";
+                } catch (err) {
+                    pLabel.innerHTML = "<span style='color:#dc2626;'>❌ Error processing large PDF blocks.</span>";
+                }
+            };
+            fileReader.readAsArrayBuffer(file);
+        }
+    }
+
+    function downloadMarkdownFile() {
+        const text = document.getElementById('markdownOutput').value;
+        if (!text) return alert("No markdown matrix generated yet.");
+        
+        const blob = new Blob([text], { type: 'text/markdown' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${targetFileName}_ai_ready.md`;
+        a.click();
+    }
+</script>
+</body>
+</html>
