@@ -1,22 +1,105 @@
-<script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word to Markdown Converter - ZapTextCleaner</title>
+    
+    <!-- INSERT YOUR GOOGLE ANALYTICS TAGS HERE -->
+    
+    <!-- We only need Mammoth.js now - it is much faster on its own -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    
+    <style>
+        body { 
+            font-family: system-ui, -apple-system, sans-serif; 
+            max-width: 800px; 
+            margin: 40px auto; 
+            padding: 20px; 
+            color: #333;
+        }
+        /* Corporate Navy Theme Integration */
+        h2 {
+            color: #000080;
+        }
+        .drop-zone { 
+            border: 2px dashed #000080; 
+            padding: 50px; 
+            text-align: center; 
+            background: #f4f7fb; 
+            cursor: pointer; 
+            border-radius: 8px; 
+            transition: background 0.2s;
+            font-weight: 500;
+        }
+        .drop-zone:hover { background: #e6ebf2; }
+        button { 
+            background: #000080; 
+            color: white; 
+            border: none; 
+            padding: 12px 24px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            margin-top: 20px; 
+            font-size: 16px;
+            font-weight: bold;
+        }
+        button:hover { background: #000050; }
+        #status { margin-top: 20px; font-weight: 500; }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #000080;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <!-- Link back to your main grid -->
+    <a href="index.html" class="back-link">← Back to ZapTextCleaner</a>
+
+    <h2>Word to Markdown Converter</h2>
+    <p>Extract pure text from .docx files instantly in your browser.</p>
+
+    <!-- Upload Interface -->
+    <div class="drop-zone" onclick="document.getElementById('fileInput').click()">
+        Click here to upload your Word document (.docx)
+    </div>
+    <input type="file" id="fileInput" accept=".docx" style="display: none;">
+
+    <div id="status"></div>
+    <button id="downloadBtn" style="display: none;">Download Markdown (.md)</button>
+
+    <script>
         let markdownResult = "";
         let uploadedFileName = "converted_document"; 
         
         const fileInput = document.getElementById('fileInput');
         const status = document.getElementById('status');
         const downloadBtn = document.getElementById('downloadBtn');
-        
-        const turndownService = new TurndownService({ headingStyle: 'atx' });
 
         fileInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
 
+            // 1. Safety check for old .doc files
+            if (file.name.toLowerCase().endsWith('.doc')) {
+                status.style.color = "red";
+                status.innerText = "Oops! This tool needs a '.docx' file. A regular '.doc' file is too old for the browser to read.";
+                e.target.value = ''; 
+                downloadBtn.style.display = 'none';
+                return;
+            }
+
+            // 2. Save the name and clear the memory so you can upload again
             uploadedFileName = file.name.replace('.docx', '');
-            e.target.value = ''; // Clear memory so you can upload again
+            e.target.value = '';
 
             status.style.color = "#333";
-            status.innerText = "Reading document... cutting into bite-sized pieces...";
+            status.innerText = "Grabbing pure text from the document...";
             downloadBtn.style.display = 'none';
 
             const reader = new FileReader();
@@ -24,48 +107,28 @@
             reader.onload = function(event) {
                 const arrayBuffer = event.target.result;
                 
-                // Ignore heavy pictures
-                const options = {
-                    convertImage: mammoth.images.imgElement(function(image) {
-                        return Promise.resolve({src: ""}); 
-                    })
-                };
-                
-                mammoth.convertToHtml({arrayBuffer: arrayBuffer}, options)
+                // 3. We use extractRawText to ignore formatting and just get the words
+                mammoth.extractRawText({arrayBuffer: arrayBuffer})
                     .then(function(result) {
-                        status.innerText = "Converting layout to Markdown piece by piece...";
+                        const rawText = result.value;
                         
-                        // This is the Giant Spaghetti Noodle
-                        const giantHtmlText = result.value;
+                        // Add some spacing between paragraphs so the AI can read it easily
+                        markdownResult = rawText.split('\n').join('\n\n');
                         
-                        // 1. Cut the noodle every time a paragraph ends (</p>)
-                        const biteSizedPieces = giantHtmlText.split('</p>');
-                        
-                        markdownResult = "";
-                        
-                        // 2. Feed the pieces to the converter one by one
-                        for (let i = 0; i < biteSizedPieces.length; i++) {
-                            // Only convert if the piece isn't completely empty
-                            if (biteSizedPieces[i].trim() !== "") {
-                                // Add the piece, plus the paragraph tag back, and add some spacing
-                                markdownResult += turndownService.turndown(biteSizedPieces[i] + '</p>') + "\n\n";
-                            }
-                        }
-                        
-                        // 3. We are done!
                         status.style.color = "green";
-                        status.innerText = "Success! Conversion complete.";
+                        status.innerText = "Success! Text extracted cleanly.";
                         downloadBtn.style.display = 'inline-block';
                     })
                     .catch(function(err) {
                         status.style.color = "red";
-                        status.innerText = "Error parsing document: " + err.message;
+                        status.innerText = "Error reading document: " + err.message;
                     });
             };
             
             reader.readAsArrayBuffer(file);
         });
 
+        // 4. Download the file as an .md document
         downloadBtn.addEventListener('click', function() {
             const blob = new Blob([markdownResult], { type: 'text/markdown' });
             const url = URL.createObjectURL(blob);
@@ -78,3 +141,5 @@
             URL.revokeObjectURL(url);
         });
     </script>
+</body>
+</html>
