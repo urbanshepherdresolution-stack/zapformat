@@ -88,6 +88,9 @@
             const file = e.target.files[0];
             if (!file) return;
 
+            // FIX: This clears the file from memory so the button works every single time!
+            e.target.value = '';
+
             status.style.color = "#333";
             status.innerText = "Reading document... parsing pages.";
             downloadBtn.style.display = 'none';
@@ -123,7 +126,8 @@
             const a = document.createElement('a');
             
             a.href = url;
-            const originalName = fileInput.files[0].name.replace('.docx', '');
+            // Name the file based on the original upload, but wrap it in a fallback just in case
+            const originalName = (fileInput.files && fileInput.files[0]) ? fileInput.files[0].name.replace('.docx', '') : 'converted_document';
             a.download = originalName + '.md';
             
             a.click();
