@@ -1,82 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word to Markdown Converter - ZapTextCleaner</title>
-    
-    <!-- INSERT YOUR GOOGLE ANALYTICS TAGS HERE -->
-    
-    <!-- Mammoth.js extracts clean text and formatting from DOCX -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
-    
-    <!-- Turndown.js converts that extracted structure into Markdown -->
-    <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
-    
-    <style>
-        body { 
-            font-family: system-ui, -apple-system, sans-serif; 
-            max-width: 800px; 
-            margin: 40px auto; 
-            padding: 20px; 
-            color: #333;
-        }
-        /* Corporate Navy Theme Integration */
-        h2 {
-            color: #000080;
-        }
-        .drop-zone { 
-            border: 2px dashed #000080; 
-            padding: 50px; 
-            text-align: center; 
-            background: #f4f7fb; 
-            cursor: pointer; 
-            border-radius: 8px; 
-            transition: background 0.2s;
-            font-weight: 500;
-        }
-        .drop-zone:hover { background: #e6ebf2; }
-        button { 
-            background: #000080; 
-            color: white; 
-            border: none; 
-            padding: 12px 24px; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            margin-top: 20px; 
-            font-size: 16px;
-            font-weight: bold;
-        }
-        button:hover { background: #000050; }
-        #status { margin-top: 20px; font-weight: 500; }
-        .back-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #000080;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .back-link:hover { text-decoration: underline; }
-    </style>
-</head>
-<body>
-
-    <!-- Link back to your main grid -->
-    <a href="index.html" class="back-link">← Back to ZapTextCleaner</a>
-
-    <h2>Word to Markdown Converter</h2>
-    <p>Convert large .docx files instantly in your browser. 100% private and secure.</p>
-
-    <!-- Upload Interface -->
-    <div class="drop-zone" onclick="document.getElementById('fileInput').click()">
-        Click here to upload your Word document (.docx)
-    </div>
-    <input type="file" id="fileInput" accept=".docx" style="display: none;">
-
-    <div id="status"></div>
-    <button id="downloadBtn" style="display: none;">Download Markdown (.md)</button>
-
-    <script>
+<script>
         let markdownResult = "";
         let uploadedFileName = "converted_document"; 
         
@@ -90,14 +12,11 @@
             const file = e.target.files[0];
             if (!file) return;
 
-            // 1. Save the name BEFORE we clear the memory
             uploadedFileName = file.name.replace('.docx', '');
-
-            // 2. Clear the input so it works multiple times
-            e.target.value = '';
+            e.target.value = ''; // Clear memory so you can upload again
 
             status.style.color = "#333";
-            status.innerText = "Reading document... ignoring heavy pictures...";
+            status.innerText = "Reading document... cutting into bite-sized pieces...";
             downloadBtn.style.display = 'none';
 
             const reader = new FileReader();
@@ -105,7 +24,7 @@
             reader.onload = function(event) {
                 const arrayBuffer = event.target.result;
                 
-                // NEW RULE: We tell the tool to completely ignore pictures so it doesn't freeze
+                // Ignore heavy pictures
                 const options = {
                     convertImage: mammoth.images.imgElement(function(image) {
                         return Promise.resolve({src: ""}); 
@@ -114,11 +33,26 @@
                 
                 mammoth.convertToHtml({arrayBuffer: arrayBuffer}, options)
                     .then(function(result) {
-                        status.innerText = "Converting layout to Markdown...";
+                        status.innerText = "Converting layout to Markdown piece by piece...";
                         
-                        const html = result.value;
-                        markdownResult = turndownService.turndown(html);
+                        // This is the Giant Spaghetti Noodle
+                        const giantHtmlText = result.value;
                         
+                        // 1. Cut the noodle every time a paragraph ends (</p>)
+                        const biteSizedPieces = giantHtmlText.split('</p>');
+                        
+                        markdownResult = "";
+                        
+                        // 2. Feed the pieces to the converter one by one
+                        for (let i = 0; i < biteSizedPieces.length; i++) {
+                            // Only convert if the piece isn't completely empty
+                            if (biteSizedPieces[i].trim() !== "") {
+                                // Add the piece, plus the paragraph tag back, and add some spacing
+                                markdownResult += turndownService.turndown(biteSizedPieces[i] + '</p>') + "\n\n";
+                            }
+                        }
+                        
+                        // 3. We are done!
                         status.style.color = "green";
                         status.innerText = "Success! Conversion complete.";
                         downloadBtn.style.display = 'inline-block';
@@ -144,5 +78,3 @@
             URL.revokeObjectURL(url);
         });
     </script>
-</body>
-</html>
