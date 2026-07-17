@@ -78,6 +78,8 @@
 
     <script>
         let markdownResult = "";
+        let uploadedFileName = "converted_document"; 
+        
         const fileInput = document.getElementById('fileInput');
         const status = document.getElementById('status');
         const downloadBtn = document.getElementById('downloadBtn');
@@ -88,11 +90,14 @@
             const file = e.target.files[0];
             if (!file) return;
 
-            // FIX: This clears the file from memory so the button works every single time!
+            // 1. Save the name BEFORE we clear the memory
+            uploadedFileName = file.name.replace('.docx', '');
+
+            // 2. Clear the input so it works multiple times
             e.target.value = '';
 
             status.style.color = "#333";
-            status.innerText = "Reading document... parsing pages.";
+            status.innerText = "Reading document... ignoring heavy pictures...";
             downloadBtn.style.display = 'none';
 
             const reader = new FileReader();
@@ -100,7 +105,14 @@
             reader.onload = function(event) {
                 const arrayBuffer = event.target.result;
                 
-                mammoth.convertToHtml({arrayBuffer: arrayBuffer})
+                // NEW RULE: We tell the tool to completely ignore pictures so it doesn't freeze
+                const options = {
+                    convertImage: mammoth.images.imgElement(function(image) {
+                        return Promise.resolve({src: ""}); 
+                    })
+                };
+                
+                mammoth.convertToHtml({arrayBuffer: arrayBuffer}, options)
                     .then(function(result) {
                         status.innerText = "Converting layout to Markdown...";
                         
@@ -126,9 +138,7 @@
             const a = document.createElement('a');
             
             a.href = url;
-            // Name the file based on the original upload, but wrap it in a fallback just in case
-            const originalName = (fileInput.files && fileInput.files[0]) ? fileInput.files[0].name.replace('.docx', '') : 'converted_document';
-            a.download = originalName + '.md';
+            a.download = uploadedFileName + '.md';
             
             a.click();
             URL.revokeObjectURL(url);
