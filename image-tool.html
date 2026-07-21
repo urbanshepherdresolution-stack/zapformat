@@ -8,123 +8,204 @@
       gtag('js', new Date());
       gtag('config', 'G-7TP5H35738');
     </script>
+    
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Image Resizer & Converter - Resize Photos Online</title>
+    <title>Free Image Resizer & Converter Online - ZapFormat</title>
+    <meta name="description" content="Resize photos, adjust aspect ratios, and convert image formats locally in your browser sandbox.">
+
     <style>
-        :root { --primary: #1e3a8a; --primary-hover: #172554; --dark: #0f172a; --secondary: #64748b; --border: #e2e8f0; --success: #10b981; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: var(--dark); margin: 0; padding: 20px; }
-        .container { max-width: 900px; margin: 0 auto; }
-        header { text-align: center; margin-bottom: 30px; }
-        .grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-        @media (min-width: 768px) { .grid { grid-template-columns: 1.2fr 0.8fr; } }
-        .panel { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
-        .upload-zone { border: 2px dashed var(--border); padding: 30px; text-align: center; border-radius: 8px; cursor: pointer; background: #fafafa; margin-bottom: 20px; }
-        .upload-zone:hover { border-color: var(--primary); background: #f0fdf4; }
-        .control-group { margin-bottom: 15px; }
-        label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 14px; }
-        input[type="number"], select { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; }
-        .checkbox-container { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 14px; }
-        .preview-box { max-width: 100%; height: auto; border: 1px dashed var(--border); border-radius: 6px; display: block; margin: 15px auto 0 auto; background: #f1f5f9; text-align: center; max-height: 400px; overflow: hidden; }
-        .preview-box img { max-width: 100%; max-height: 400px; object-fit: contain; }
-        .btn { background: var(--primary); color: white; border: none; padding: 14px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 20px; font-size: 15px; }
-        .btn:hover { background: var(--primary-hover); }
+        :root {
+            --primary: #1e3a8a;
+            --primary-hover: #172554;
+            --dark: #0f172a;
+            --secondary: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --radius: 12px;
+        }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8fafc;
+            color: var(--dark);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+        h1 { margin-top: 0; color: var(--primary); font-size: 26px; }
+        p.subtitle { color: var(--secondary); font-size: 15px; margin-bottom: 25px; }
+
+        .file-drop {
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            background: #fdfdfe;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 25px;
+        }
+        .file-drop:hover { border-color: var(--primary); background: #eff6ff; }
+        .file-drop p { margin: 0; font-weight: 600; color: var(--secondary); }
+
+        .control-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        @media (max-width: 768px) {
+            .control-grid { grid-template-columns: 1fr; }
+        }
+        .field-group { display: flex; flex-direction: column; }
+        label { font-weight: 600; margin-bottom: 8px; font-size: 13px; text-transform: uppercase; color: var(--secondary); letter-spacing: 0.05em; }
+        input[type="number"], select {
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            background: #fff;
+        }
+        input[type="number"]:focus, select:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(30,58,138,0.1); }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+        }
+        button:hover { background-color: var(--primary-hover); }
+
+        .editorial-section {
+            max-width: 900px;
+            width: 100%;
+            margin-top: 30px;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+        .editorial-section h2 { font-size: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: var(--primary); }
+        .editorial-section p { color: var(--secondary); font-size: 14px; }
+
+        footer {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            font-size: 13px;
+            color: var(--secondary);
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        footer a { color: var(--primary); text-decoration: none; }
     </style>
 </head>
 <body>
+
 <div class="container">
-    <header>
-        <h1>Smart Image Resizer &amp; Converter</h1>
-        <p>Modify image dimensions, preserve aspect ratios, and swap output formatting formats in milliseconds.</p>
-    </header>
-    
-    <div class="grid">
-        <div class="panel">
-            <h3>Image Workspace Canvas</h3>
-            <div class="upload-zone" onclick="document.getElementById('imgInput').click()">
-                <span style="font-size:36px;">🖼️</span>
-                <p>Click to browse or drop an image file here</p>
-                <input type="file" id="imgInput" accept="image/*" style="display:none;" onchange="loadImageAsset()">
+    <h1>🖼️ Image Resizer &amp; Format Converter</h1>
+    <p class="subtitle">Resize photos, scale dimensions, and convert image formats locally within your browser sandbox.</p>
+
+    <div class="file-drop" onclick="document.getElementById('imageInput').click()">
+        <p>📂 Click or Drop Image File Here (.jpg, .png, .webp)</p>
+        <input type="file" id="imageInput" accept="image/*" style="display:none" onchange="handleImageSelect(event)">
+    </div>
+
+    <div id="editorControls" style="display:none;">
+        <div class="control-grid">
+            <div class="field-group">
+                <label for="widthInput">Target Width (px)</label>
+                <input type="number" id="widthInput" oninput="constrainDimensions('w')">
             </div>
-            <div id="previewWrapper" class="preview-box">
-                <span style="color: var(--secondary); display:inline-block; padding: 80px 0;">No active image preview selected.</span>
+            <div class="field-group">
+                <label for="heightInput">Target Height (px)</label>
+                <input type="number" id="heightInput" oninput="constrainDimensions('h')">
             </div>
         </div>
 
-        <div class="panel">
-            <h3>Configuration Parameters</h3>
-            
-            <div class="control-group">
-                <label>Width Dimension (Pixels)</label>
-                <input type="number" id="widthInput" placeholder="Width" oninput="maintainAspect('width')">
-            </div>
-
-            <div class="control-group">
-                <label>Height Dimension (Pixels)</label>
-                <input type="number" id="heightInput" placeholder="Height" oninput="maintainAspect('height')">
-            </div>
-
-            <div class="checkbox-container">
-                <input type="checkbox" id="aspectLock" checked>
-                <label for="aspectLock" style="margin: 0; cursor: pointer;">Lock Aspect Ratio</label>
-            </div>
-
-            <hr style="border:0; height:1px; background:var(--border); margin: 20px 0;">
-
-            <div class="control-group">
-                <label>Convert Export Format To</label>
-                <select id="formatSelect">
-                    <option value="image/jpeg">JPG Document (.jpeg)</option>
-                    <option value="image/png">PNG Alpha Asset (.png)</option>
-                    <option value="image/webp">WEBP Next-Gen Format (.webp)</option>
-                </select>
-            </div>
-
-            <button class="btn" style="background: var(--success);" onclick="processAndDownloadImage()">Process &amp; Download Image</button>
+        <div class="field-group" style="margin-bottom: 25px;">
+            <label for="formatSelect">Export Format</label>
+            <select id="formatSelect">
+                <option value="image/jpeg">JPEG (.jpg)</option>
+                <option value="image/png">PNG (.png)</option>
+                <option value="image/webp">WebP (.webp)</option>
+            </select>
         </div>
+
+        <button onclick="processAndDownloadImage()">📥 Process &amp; Download Image</button>
     </div>
 </div>
+
+<div class="editorial-section">
+    <h2>Client-Side Image Processing</h2>
+    <p>Image scaling and conversion scripts run entirely within your local browser memory via HTML5 canvas APIs. Your image files are never uploaded to remote servers.</p>
+</div>
+
+<footer>
+    <span>&copy; 2026 ZapFormat. All rights reserved.</span>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="formatter.html">Hub Dashboard</a>
+</footer>
 
 <script>
     let rawImage = null;
     let baseAspectRatio = 1;
 
-    function loadImageAsset() {
-        const file = document.getElementById('imgInput').files[0];
+    function handleImageSelect(event) {
+        const file = event.target.files[0];
         if (!file) return;
 
         const reader = new FileReader();
         reader.onload = function(e) {
-            rawImage = new Image();
-            rawImage.onload = function() {
-                // Calculate and preserve image frame proportions
-                baseAspectRatio = rawImage.width / rawImage.height;
-                
-                document.getElementById('widthInput').value = rawImage.width;
-                document.getElementById('heightInput').value = rawImage.height;
-                
-                // Print high-speed preview display
-                const wrapper = document.getElementById('previewWrapper');
-                wrapper.innerHTML = `<img src="${e.target.result}" id="activePreviewImg" alt="Workspace Target">`;
+            const img = new Image();
+            img.onload = function() {
+                rawImage = img;
+                baseAspectRatio = img.width / img.height;
+
+                document.getElementById('widthInput').value = img.width;
+                document.getElementById('heightInput').value = img.height;
+                document.getElementById('editorControls').style.display = 'block';
             };
-            rawImage.src = e.target.result;
+            img.src = e.target.result;
         };
         reader.readAsDataURL(file);
     }
 
-    function maintainAspect(changedField) {
-        if (!rawImage || !document.getElementById('aspectLock').checked) return;
-
+    function constrainDimensions(changed) {
         const widthInput = document.getElementById('widthInput');
         const heightInput = document.getElementById('heightInput');
 
-        if (changedField === 'width') {
-            const currentWidth = parseFloat(widthInput.value) || 0;
+        if (changed === 'w') {
+            const currentWidth = parseInt(widthInput.value) || 0;
             heightInput.value = Math.round(currentWidth / baseAspectRatio);
         } else {
-            const currentHeight = parseFloat(heightInput.value) || 0;
+            const currentHeight = parseInt(heightInput.value) || 0;
             widthInput.value = Math.round(currentHeight * baseAspectRatio);
         }
     }
@@ -136,27 +217,24 @@
         const targetHeight = parseInt(document.getElementById('heightInput').value) || rawImage.height;
         const exportFormat = document.getElementById('formatSelect').value;
 
-        // Build off-screen structural layout sandbox array frame
         const canvas = document.createElement('canvas');
         canvas.width = targetWidth;
         canvas.height = targetHeight;
         const ctx = canvas.getContext('2d');
 
-        // Draw image down into canvas parameters 
         ctx.drawImage(rawImage, 0, 0, targetWidth, targetHeight);
 
-        // Map extension types to clean labels
         let fileExtension = '.jpg';
         if (exportFormat === 'image/png') fileExtension = '.png';
         if (exportFormat === 'image/webp') fileExtension = '.webp';
 
-        // Trigger safe instant machine file retrieval pipeline
-        const dataUrl = canvas.toDataURL(exportFormat, 0.9); // Locked at high-fidelity 90% quality allocation
+        const dataUrl = canvas.toDataURL(exportFormat, 0.9);
         const downloadElement = document.createElement('a');
         downloadElement.href = dataUrl;
-        downloadElement.download = "zaptextcleaner_modified" + fileExtension;
+        downloadElement.download = "zapformat_processed" + fileExtension;
         downloadElement.click();
     }
 </script>
+
 </body>
 </html>
