@@ -1,145 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word to Markdown Converter - ZapTextCleaner</title>
-    
-    <!-- INSERT YOUR GOOGLE ANALYTICS TAGS HERE -->
-    
-    <!-- We only need Mammoth.js now - it is much faster on its own -->
+    <title>Word (.docx) to Markdown Converter - Free Online Utility</title>
+    <meta name="description" content="Convert Microsoft Word documents (.docx) directly into clean Markdown format locally in your browser sandbox.">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
-    
+
     <style>
-        body { 
-            font-family: system-ui, -apple-system, sans-serif; 
-            max-width: 800px; 
-            margin: 40px auto; 
-            padding: 20px; 
-            color: #333;
+        :root {
+            --primary: #1e3a8a;
+            --primary-hover: #172554;
+            --dark: #0f172a;
+            --secondary: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --radius: 12px;
         }
-        /* Corporate Navy Theme Integration */
-        h2 {
-            color: #000080;
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8fafc;
+            color: var(--dark);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.6;
         }
-        .drop-zone { 
-            border: 2px dashed #000080; 
-            padding: 50px; 
-            text-align: center; 
-            background: #f4f7fb; 
-            cursor: pointer; 
-            border-radius: 8px; 
-            transition: background 0.2s;
-            font-weight: 500;
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            box-sizing: border-box;
         }
-        .drop-zone:hover { background: #e6ebf2; }
-        button { 
-            background: #000080; 
-            color: white; 
-            border: none; 
-            padding: 12px 24px; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            margin-top: 20px; 
-            font-size: 16px;
-            font-weight: bold;
-        }
-        button:hover { background: #000050; }
-        #status { margin-top: 20px; font-weight: 500; }
-        .back-link {
-            display: inline-block;
+        h1 { margin-top: 0; color: var(--primary); font-size: 26px; }
+        p.subtitle { color: var(--secondary); font-size: 15px; margin-bottom: 25px; }
+
+        .file-drop {
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            background: #fdfdfe;
+            cursor: pointer;
+            transition: all 0.2s;
             margin-bottom: 20px;
-            color: #000080;
-            text-decoration: none;
-            font-weight: bold;
         }
-        .back-link:hover { text-decoration: underline; }
+        .file-drop:hover { border-color: var(--primary); background: #eff6ff; }
+        .file-drop p { margin: 0; font-weight: 600; color: var(--secondary); }
+
+        textarea {
+            width: 100%;
+            height: 300px;
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: Courier, monospace;
+            font-size: 14px;
+            box-sizing: border-box;
+            background-color: #fafafa;
+            resize: vertical;
+        }
+        textarea:focus { outline: none; border-color: var(--primary); background-color: #fff; box-shadow: 0 0 0 3px rgba(30,58,138,0.1); }
+
+        .toolbar { display: flex; gap: 12px; margin-top: 20px; }
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover { background-color: var(--primary-hover); }
+        button.secondary { background-color: #e2e8f0; color: var(--dark); }
+        button.secondary:hover { background-color: #cbd5e1; }
+
+        .status { font-weight: 600; font-size: 14px; margin-top: 10px; color: var(--primary); }
+
+        .editorial-section {
+            max-width: 900px;
+            width: 100%;
+            margin-top: 30px;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+        .editorial-section h2 { font-size: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: var(--primary); }
+        .editorial-section p { color: var(--secondary); font-size: 14px; }
+
+        footer {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            font-size: 13px;
+            color: var(--secondary);
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        footer a { color: var(--primary); text-decoration: none; }
     </style>
 </head>
 <body>
 
-    <!-- Link back to your main grid -->
-    <a href="index.html" class="back-link">← Back to ZapTextCleaner</a>
+<div class="container">
+    <h1>📄 Word (.docx) to Markdown Converter</h1>
+    <p class="subtitle">Extract text and formatting blocks from Microsoft Word files and convert them instantly into clean Markdown.</p>
 
-    <h2>Word to Markdown Converter</h2>
-    <p>Extract pure text from .docx files instantly in your browser.</p>
-
-    <!-- Upload Interface -->
-    <div class="drop-zone" onclick="document.getElementById('fileInput').click()">
-        Click here to upload your Word document (.docx)
+    <div class="file-drop" onclick="document.getElementById('docxInput').click()">
+        <p>📂 Click or Drop Word Document Here (.docx)</p>
+        <input type="file" id="docxInput" accept=".docx" style="display:none" onchange="processWordDoc(this)">
     </div>
-    <input type="file" id="fileInput" accept=".docx" style="display: none;">
 
-    <div id="status"></div>
-    <button id="downloadBtn" style="display: none;">Download Markdown (.md)</button>
+    <div id="statusLabel" class="status"></div>
 
-    <script>
-        let markdownResult = "";
-        let uploadedFileName = "converted_document"; 
-        
-        const fileInput = document.getElementById('fileInput');
-        const status = document.getElementById('status');
-        const downloadBtn = document.getElementById('downloadBtn');
+    <div style="margin-top: 20px;">
+        <label for="markdownOutput" style="font-weight:600; font-size:13px; text-transform:uppercase; color:var(--secondary); display:block; margin-bottom:8px;">Generated Markdown Output</label>
+        <textarea id="markdownOutput" placeholder="Converted markdown will appear here..." readonly></textarea>
+    </div>
 
-        fileInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (!file) return;
+    <div class="toolbar">
+        <button onclick="copyMarkdown()">📋 Copy Markdown</button>
+        <button class="secondary" onclick="downloadMarkdown()">📥 Download .MD File</button>
+    </div>
+</div>
 
-            // 1. Safety check for old .doc files
-            if (file.name.toLowerCase().endsWith('.doc')) {
-                status.style.color = "red";
-                status.innerText = "Oops! This tool needs a '.docx' file. A regular '.doc' file is too old for the browser to read.";
-                e.target.value = ''; 
-                downloadBtn.style.display = 'none';
-                return;
-            }
+<div class="editorial-section">
+    <h2>Client-Side Document Parsing</h2>
+    <p>Word document parsing executes entirely inside your browser virtual memory using client-side JavaScript libraries. Your private enterprise documents are never transmitted to external cloud servers.</p>
+</div>
 
-            // 2. Save the name and clear the memory so you can upload again
-            uploadedFileName = file.name.replace('.docx', '');
-            e.target.value = '';
+<footer>
+    <span>&copy; 2026 ZapFormat. All rights reserved.</span>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="formatter.html">Hub Dashboard</a>
+</footer>
 
-            status.style.color = "#333";
-            status.innerText = "Grabbing pure text from the document...";
-            downloadBtn.style.display = 'none';
+<script>
+    let markdownResult = "";
+    let uploadedFileName = "document";
 
-            const reader = new FileReader();
+    function processWordDoc(input) {
+        const file = input.files[0];
+        if (!file) return;
+
+        uploadedFileName = file.name.replace(/\.[^/.]+$/, "");
+        const status = document.getElementById('statusLabel');
+        status.textContent = "⏳ Reading Word document buffer layers...";
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const arrayBuffer = e.target.result;
             
-            reader.onload = function(event) {
-                const arrayBuffer = event.target.result;
-                
-                // 3. We use extractRawText to ignore formatting and just get the words
-                mammoth.extractRawText({arrayBuffer: arrayBuffer})
-                    .then(function(result) {
-                        const rawText = result.value;
-                        
-                        // Add some spacing between paragraphs so the AI can read it easily
-                        markdownResult = rawText.split('\n').join('\n\n');
-                        
-                        status.style.color = "green";
-                        status.innerText = "Success! Text extracted cleanly.";
-                        downloadBtn.style.display = 'inline-block';
-                    })
-                    .catch(function(err) {
-                        status.style.color = "red";
-                        status.innerText = "Error reading document: " + err.message;
-                    });
-            };
-            
-            reader.readAsArrayBuffer(file);
-        });
+            mammoth.extractRawText({ arrayBuffer: arrayBuffer })
+                .then(function(result) {
+                    const rawText = result.value;
+                    markdownResult = rawText.split('\n').map(line => line.trim()).filter(l => l.length > 0).join('\n\n');
+                    
+                    document.getElementById('markdownOutput').value = markdownResult;
+                    status.innerHTML = "<span style='color:var(--success);'>✅ Word document successfully converted to Markdown!</span>";
+                })
+                .catch(function(err) {
+                    status.innerHTML = `<span style='color:#dc2626;'>❌ Error parsing Word document: ${err.message}</span>`;
+                });
+        };
+        reader.readAsArrayBuffer(file);
+    }
 
-        // 4. Download the file as an .md document
-        downloadBtn.addEventListener('click', function() {
-            const blob = new Blob([markdownResult], { type: 'text/markdown' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            
-            a.href = url;
-            a.download = uploadedFileName + '.md';
-            
-            a.click();
-            URL.revokeObjectURL(url);
-        });
-    </script>
+    async function copyMarkdown() {
+        if (!markdownResult) return alert("No markdown matrix generated yet.");
+        try {
+            await navigator.clipboard.writeText(markdownResult);
+            alert("Markdown copied to secure clipboard!");
+        } catch(e) {
+            alert("Clipboard copy failed.");
+        }
+    }
+
+    function downloadMarkdown() {
+        if (!markdownResult) return alert("No markdown matrix generated yet.");
+        const blob = new Blob([markdownResult], { type: 'text/markdown' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${uploadedFileName}_converted.md`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+</script>
+
 </body>
 </html>
