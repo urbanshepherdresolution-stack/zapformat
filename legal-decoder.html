@@ -8,57 +8,186 @@
       gtag('js', new Date());
       gtag('config', 'G-7TP5H35738');
     </script>
+    
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms of Service Risk Decoder - Free Document Scanner</title>
+    <meta name="description" content="Scan legal contracts, privacy policies, and terms of service agreements to highlight high-risk clauses instantly.">
+
     <style>
-        :root { --primary: #1e3a8a; --primary-hover: #172554; --dark: #0f172a; --secondary: #64748b; --border: #e2e8f0; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: var(--dark); margin: 0; padding: 20px; }
-        .container { max-width: 900px; margin: 0 auto; }
-        header { text-align: center; margin-bottom: 30px; }
-        .panel { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
-        textarea { width: 100%; height: 200px; padding: 12px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; }
-        .btn { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 15px; }
-        .result-card { margin-top: 25px; padding: 25px; background: white; border: 1px solid var(--border); border-radius: 12px; display: none; }
-        .risk-bar { height: 12px; width: 100%; background: #e2e8f0; border-radius: 6px; margin-top: 8px; overflow: hidden; }
-        .risk-fill { height: 100%; background: #dc2626; width: 0%; transition: width 0.5s ease; }
-        .preview-pane { border: 1px solid var(--border); padding: 20px; background: #fafafa; border-radius: 6px; max-height: 300px; overflow-y: auto; line-height: 1.6; font-size: 14px; margin-top: 15px; }
-        .danger-sentence { background: #fee2e2; color: #991b1b; padding: 2px 4px; border-radius: 4px; font-weight: 600; }
+        :root {
+            --primary: #1e3a8a;
+            --primary-hover: #172554;
+            --dark: #0f172a;
+            --secondary: #64748b;
+            --border: #e2e8f0;
+            --danger: #ef4444;
+            --success: #10b981;
+            --radius: 12px;
+        }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8fafc;
+            color: var(--dark);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+        h1 { margin-top: 0; color: var(--primary); font-size: 26px; }
+        p.subtitle { color: var(--secondary); font-size: 15px; margin-bottom: 25px; }
+
+        textarea {
+            width: 100%;
+            height: 220px;
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            background-color: #fafafa;
+            resize: vertical;
+            font-family: inherit;
+        }
+        textarea:focus { outline: none; border-color: var(--primary); background-color: #fff; box-shadow: 0 0 0 3px rgba(30,58,138,0.1); }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            margin-top: 15px;
+        }
+        button:hover { background-color: var(--primary-hover); }
+
+        .result-panel {
+            margin-top: 30px;
+            display: none;
+            border-top: 2px solid var(--border);
+            padding-top: 25px;
+        }
+        .threat-meter {
+            height: 12px;
+            width: 100%;
+            background: #e2e8f0;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 15px 0 25px 0;
+        }
+        .threat-fill {
+            height: 100%;
+            background: var(--danger);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .preview-box {
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 8px;
+            background: #ffffff;
+            line-height: 1.8;
+            font-size: 15px;
+            max-height: 350px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        .danger-sentence {
+            background-color: #fee2e2;
+            color: #991b1b;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .editorial-section {
+            max-width: 900px;
+            width: 100%;
+            margin-top: 30px;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+        .editorial-section h2 { font-size: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: var(--primary); }
+        .editorial-section p { color: var(--secondary); font-size: 14px; }
+
+        footer {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            font-size: 13px;
+            color: var(--secondary);
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        footer a { color: var(--primary); text-decoration: none; }
     </style>
 </head>
 <body>
-<div class="container">
-    <header>
-        <h1>Policy Risk Decoder &amp; Visual Highlighter</h1>
-        <p>Isolate and view predatory clauses and fine-print liabilities instantly with cross-referenced sentence tracking maps.</p>
-    </header>
-    <div class="panel">
-        <h3>Paste Policy or NDA Terms Agreement</h3>
-        <textarea id="legalInput" placeholder="Paste the documentation text blocks here..."></textarea>
-        <button class="btn" onclick="decodeLegalText()">Run Policy Audit</button>
-    </div>
 
-    <div id="decodeResult" class="result-card">
-        <h3>System Structural Audit Complete</h3>
-        <div style="font-weight:700; font-size:18px;">Aggregated Threat Profile: <span id="riskLabel" style="color:#dc2626;">0 / 10</span></div>
-        <div class="risk-bar"><div id="riskIndicator" class="risk-fill"></div></div>
+<div class="container">
+    <h1>⚖️ Terms of Service Risk Decoder</h1>
+    <p class="subtitle">Paste legal terms, software licenses, or privacy agreements below to automatically highlight hidden risk clauses.</p>
+
+    <textarea id="legalInput" placeholder="Paste legal text agreement here..."></textarea>
+    
+    <button onclick="decodeLegalContract()">Scan Contract for Hidden Clauses</button>
+
+    <div id="decodeResult" class="result-panel">
+        <h3 id="riskLabel" style="margin: 0; color: var(--dark);">Threat Rating: 0 / 10</h3>
+        <div class="threat-meter">
+            <div id="riskIndicator" class="threat-fill"></div>
+        </div>
         
-        <h4>Interactive Policy Threat Map Preview:</h4>
-        <div style="font-size:13px; color:var(--secondary); margin-bottom:8px;">High-risk sentences have been automatically highlighted below:</div>
-        <div id="visualPreview" class="preview-pane"></div>
+        <label style="font-weight: 600; font-size: 13px; text-transform: uppercase; color: var(--secondary); display: block; margin-bottom: 8px;">Highlighted Contract Analysis</label>
+        <div id="visualPreview" class="preview-box"></div>
     </div>
 </div>
-<script>
-    function decodeLegalText() {
-        const rawText = document.getElementById('legalInput').value;
-        if(!rawText.trim()) return alert("Please enter an agreement block.");
 
-        // Clean legal mapping variables
+<div class="editorial-section">
+    <h2>Client-Side Contract Analysis</h2>
+    <p>Legal text processing executes entirely inside your browser virtual memory. Your contracts and privacy agreements are never transmitted to external cloud servers.</p>
+</div>
+
+<footer>
+    <span>&copy; 2026 ZapFormat. All rights reserved.</span>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="formatter.html">Hub Dashboard</a>
+</footer>
+
+<script>
+    function decodeLegalContract() {
+        const rawText = document.getElementById('legalInput').value.trim();
+        if (!rawText) return alert('Please paste legal agreement text first.');
+
         const trapTerms = ['third-party', 'waive', 'auto-renew', 'arbitration', 'indemnify', 'sole discretion', 'track your location', 'non-refundable', 'terminate your access'];
         const riskWeights = { 'third-party': 3, 'waive': 3, 'auto-renew': 2, 'arbitration': 2, 'indemnify': 2, 'sole discretion': 2, 'track your location': 1, 'non-refundable': 1, 'terminate your access': 1 };
 
-        // Split text layout by sentence loops
         const sentences = rawText.match(/[^.!?]+[.!?]+/g) || [rawText];
         let totalRisk = 0;
         let mappedOutput = "";
@@ -83,11 +212,13 @@
 
         if (totalRisk > 10) totalRisk = 10;
 
-        document.getElementById('riskLabel').textContent = `${totalRisk} / 10 Threat Rating`;
+        document.getElementById('riskLabeltextContent' in document.createElement('div') ? 'textContent' : 'innerText') = `Threat Rating: ${totalRisk} / 10`;
+        document.getElementById('riskLabel').textContent = `Threat Rating: ${totalRisk} / 10`;
         document.getElementById('riskIndicator').style.width = `${totalRisk * 10}%`;
         document.getElementById('visualPreview').innerHTML = mappedOutput;
         document.getElementById('decodeResult').style.display = 'block';
     }
 </script>
+
 </body>
 </html>
