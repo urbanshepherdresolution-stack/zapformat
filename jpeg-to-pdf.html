@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JPEG to PDF Converter - ZapTextCleaner</title>
-    
-    <!-- Using unpkg as an alternate fast CDN script source -->
-    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <title>Free JPEG to PDF Converter - Combine Images Online</title>
+    <meta name="description" content="Convert and combine multiple JPEG, PNG, or WebP images into a single formatted PDF document locally.">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
         :root {
             --primary: #1e3a8a;
             --primary-hover: #172554;
             --dark: #0f172a;
-            --light: #f8fafc;
+            --secondary: #64748b;
             --border: #e2e8f0;
+            --success: #10b981;
+            --radius: 12px;
         }
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: #f8fafc;
             color: var(--dark);
             margin: 0;
@@ -25,150 +37,166 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            line-height: 1.6;
         }
         .container {
-            max-width: 650px;
+            max-width: 900px;
             width: 100%;
             background: white;
             padding: 40px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
             box-sizing: border-box;
         }
-        h1 {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--primary);
-            margin-top: 0;
-            text-align: center;
-        }
-        .upload-area {
-            border: 2px dashed #cbd5e1;
-            padding: 40px 20px;
-            text-align: center;
+        h1 { margin-top: 0; color: var(--primary); font-size: 26px; }
+        p.subtitle { color: var(--secondary); font-size: 15px; margin-bottom: 25px; }
+
+        .file-drop {
+            border: 2px dashed var(--border);
             border-radius: 8px;
-            background: #f8fafc;
+            padding: 40px;
+            text-align: center;
+            background: #fdfdfe;
             cursor: pointer;
-            transition: border-color 0.2s;
+            transition: all 0.2s;
             margin-bottom: 20px;
         }
-        .upload-area:hover {
-            border-color: var(--primary);
+        .file-drop:hover { border-color: var(--primary); background: #eff6ff; }
+        .file-drop p { margin: 0; font-weight: 600; color: var(--secondary); }
+
+        .preview-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            margin-bottom: 25px;
         }
-        input[type="file"] { display: none; }
-        .preview-container {
+        .thumb-box {
+            position: relative;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+            height: 100px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
+            align-items: center;
             justify-content: center;
         }
-        .preview-img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-        }
-        .btn {
-            background: var(--primary);
+        .thumb-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        button {
+            background-color: var(--primary);
             color: white;
-            width: 100%;
-            padding: 14px;
             border: none;
-            border-radius: 6px;
+            padding: 14px 24px;
+            font-size: 15px;
             font-weight: 600;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
+            transition: background 0.2s;
+            width: 100%;
         }
-        .btn:hover { background: var(--primary-hover); }
-        .btn:disabled {
-            background: #cbd5e1;
-            cursor: not-allowed;
+        button:hover { background-color: var(--primary-hover); }
+
+        .editorial-section {
+            max-width: 900px;
+            width: 100%;
+            margin-top: 30px;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            box-sizing: border-box;
         }
-        .back-link {
-            display: block;
+        .editorial-section h2 { font-size: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: var(--primary); }
+        .editorial-section p { color: var(--secondary); font-size: 14px; }
+
+        footer {
+            max-width: 900px;
+            width: 100%;
             text-align: center;
-            margin-top: 20px;
-            color: #64748b;
-            text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
+            color: var(--secondary);
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
         }
-        .back-link:hover { color: var(--primary); }
+        footer a { color: var(--primary); text-decoration: none; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>JPEG to PDF Converter</h1>
-    <p style="color: #64748b; text-align: center; font-size: 15px; margin-bottom: 30px;">Convert your image files into a compiled PDF document instantly. 100% local processing sandbox protection.</p>
+    <h1>🖼️ JPEG to PDF Converter</h1>
+    <p class="subtitle">Combine multiple image files into a single structured PDF document securely inside your browser.</p>
 
-    <div class="upload-area" onclick="document.getElementById('image-input').click()">
-        <span style="font-size: 32px;">🖼️</span>
-        <p style="margin: 10px 0 0 0; font-weight: 600;">Click to select images (JPEG / JPG)</p>
-        <p style="margin: 5px 0 0 0; font-size: 13px; color: #64748b;">Supports multiple file selections</p>
-        <input type="file" id="image-input" accept="image/jpeg, image/jpg" multiple>
+    <div class="file-drop" onclick="document.getElementById('imageInput').click()">
+        <p>📂 Click or Drop Images Here (.jpg, .png)</p>
+        <input type="file" id="imageInput" accept="image/*" multiple style="display:none" onchange="handleImageSelection(event)">
     </div>
 
-    <div class="preview-container" id="preview-box"></div>
+    <div id="thumbPreview" class="preview-list"></div>
 
-    <button class="btn" id="convert-btn" disabled onclick="generatePDF()">Convert and Download PDF</button>
-
-    <a href="index.html" class="back-link">← Return to Dashboard</a>
+    <button id="convertBtn" onclick="compileImagesToPDF()" disabled style="opacity: 0.5; cursor: not-allowed;">Convert and Download PDF</button>
 </div>
+
+<div class="editorial-section">
+    <h2>Client-Side PDF Compilation</h2>
+    <p>Image compilation executes locally inside your browser memory sandbox. Your private photo files and scanned document pages are never transmitted to external cloud servers.</p>
+</div>
+
+<footer>
+    <span>&copy; 2026 ZapFormat. All rights reserved.</span>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="formatter.html">Hub Dashboard</a>
+</footer>
 
 <script>
     let selectedImagesData = [];
 
-    document.getElementById('image-input').addEventListener('change', function(e) {
-        const files = Array.from(e.target.files);
+    function handleImageSelection(event) {
+        const files = Array.from(event.target.files);
         if (files.length === 0) return;
 
-        selectedImagesData = [];
-        const previewBox = document.getElementById('preview-box');
-        previewBox.innerHTML = '';
-
-        let loadedCount = 0;
+        const previewContainer = document.getElementById('thumbPreview');
 
         files.forEach(file => {
             const reader = new FileReader();
-            reader.onload = function(event) {
+            reader.onload = function(e) {
                 const img = new Image();
                 img.onload = function() {
                     selectedImagesData.push({
-                        src: event.target.result,
-                        w: img.naturalWidth || 800,
-                        h: img.naturalHeight || 600
+                        src: e.target.result,
+                        w: img.width,
+                        h: img.height
                     });
 
-                    // Build visual item thumbnail
-                    const previewImg = document.createElement('img');
-                    previewImg.src = event.target.result;
-                    previewImg.className = 'preview-img';
-                    previewBox.appendChild(previewImg);
+                    const box = document.createElement('div');
+                    box.className = 'thumb-box';
+                    box.innerHTML = `<img src="${e.target.result}">`;
+                    previewContainer.appendChild(box);
 
-                    loadedCount++;
-                    if (loadedCount === files.length) {
-                        document.getElementById('convert-btn').disabled = false;
-                    }
+                    const btn = document.getElementById('convertBtn');
+                    btn.removeAttribute('disabled');
+                    btn.style.opacity = "1";
+                    btn.style.cursor = "pointer";
                 };
-                img.src = event.target.result;
+                img.src = e.target.result;
             };
             reader.readAsDataURL(file);
         });
-    });
+    }
 
-    function generatePDF() {
-        if (!window.jspdf || !window.jspdf.jsPDF) {
-            alert("Library asset is still initializing. Please wait a brief moment.");
-            return;
-        }
+    function compileImagesToPDF() {
+        if (selectedImagesData.length === 0) return alert('Please select image files first.');
 
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF();
         
-        const convertBtn = document.getElementById('convert-btn');
+        const convertBtn = document.getElementById('convertBtn');
         convertBtn.innerText = "Compiling PDF...";
         convertBtn.disabled = true;
 
@@ -183,7 +211,6 @@
                 let imgHeight = imgData.h;
                 
                 const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
-                
                 imgWidth *= ratio;
                 imgHeight *= ratio;
                 
@@ -194,10 +221,9 @@
             });
 
             pdf.save('compiled-images.pdf');
-
         } catch (error) {
             console.error("PDF Generation Error:", error);
-            alert("Processing issue encountered during document generation.");
+            alert("Processing error encountered during compilation.");
         }
 
         convertBtn.innerText = "Convert and Download PDF";
