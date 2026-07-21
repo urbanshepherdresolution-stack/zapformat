@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZapTextCleaner - Free Online Text Normalizer & Formatter</title>
+    <title>ZapTextCleaner Suite - Free Online Text & Document Tools</title>
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
     <style>
         :root {
@@ -38,7 +41,7 @@
             padding: 40px;
             border-radius: var(--radius);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         h1 {
@@ -54,6 +57,41 @@
             color: var(--text-light);
             font-size: 15px;
             margin-bottom: 25px;
+        }
+
+        /* Tabs Navigation */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 15px;
+        }
+
+        .tab-btn {
+            background: #e2e8f0;
+            color: var(--text);
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .tool-panel {
+            display: none;
+        }
+
+        .tool-panel.active {
+            display: block;
         }
 
         .workspace {
@@ -139,6 +177,20 @@
             background-color: #cbd5e1;
         }
 
+        .file-drop {
+            border: 2px dashed var(--border);
+            padding: 30px;
+            text-align: center;
+            border-radius: var(--radius);
+            background: #fdfdfe;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .file-drop:hover {
+            border-color: var(--primary);
+        }
+
         .stats {
             font-size: 12px;
             color: var(--text-light);
@@ -147,7 +199,30 @@
             justify-content: space-between;
         }
 
-        /* Editorial Content Section for AdSense Policy Compliance */
+        .preview-table {
+            width: 100%;
+            max-height: 250px;
+            overflow: auto;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: white;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .preview-table table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .preview-table th, .preview-table td {
+            border: 1px solid #e2e8f0;
+            padding: 6px 10px;
+            text-align: left;
+        }
+
+        /* SEO & Editorial Content Box for AdSense Policy Compliance */
         .content-section {
             width: 100%;
             max-width: 900px;
@@ -203,53 +278,86 @@
 <body>
 
 <div class="container">
-    <h1>⚡ ZapTextCleaner</h1>
-    <p class="subtitle">Instantly strip unwanted formatting, extra spaces, smart quotes, and normalize your text completely in your browser.</p>
+    <h1>⚡ ZapTextCleaner Suite</h1>
+    <p class="subtitle">Professional browser-based text normalization and document transformation tools.</p>
 
-    <div class="workspace">
-        <div class="pane">
-            <label for="inputText">Input Text</label>
-            <textarea id="inputText" placeholder="Paste messy text here..." oninput="updateStats()"></textarea>
-            <div class="stats">
-                <span id="inputChars">0 characters</span>
-                <span id="inputWords">0 words</span>
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('cleaner')">🧹 Text Cleaner</button>
+        <button class="tab-btn" onclick="switchTab('wordConverter')">📄 Word (.docx) to Markdown</button>
+        <button class="tab-btn" onclick="switchTab('excelProcessor')">📊 Excel Data Processor</button>
+    </div>
+
+    <div id="cleaner" class="tool-panel active">
+        <div class="workspace">
+            <div class="pane">
+                <label for="inputText">Input Text</label>
+                <textarea id="inputText" placeholder="Paste messy text here..." oninput="updateStats()"></textarea>
+                <div class="stats">
+                    <span id="inputChars">0 characters</span>
+                    <span id="inputWords">0 words</span>
+                </div>
+            </div>
+            <div class="pane">
+                <label for="outputText">Cleaned Output</label>
+                <textarea id="outputText" placeholder="Cleaned text will appear here..." readonly></textarea>
+                <div class="stats">
+                    <span id="outputChars">0 characters</span>
+                    <span id="outputWords">0 words</span>
+                </div>
             </div>
         </div>
-
-        <div class="pane">
-            <label for="outputText">Cleaned Output</label>
-            <textarea id="outputText" placeholder="Cleaned text will appear here..." readonly></textarea>
-            <div class="stats">
-                <span id="outputChars">0 characters</span>
-                <span id="outputWords">0 words</span>
-            </div>
+        <div class="toolbar">
+            <button onclick="cleanText()">✨ Clean & Normalize</button>
+            <button class="secondary" onclick="copyOutput()">📋 Copy Output</button>
+            <button class="secondary" onclick="clearAll()">🗑️ Clear All</button>
         </div>
     </div>
 
-    <div class="toolbar">
-        <button onclick="cleanText()">✨ Clean & Normalize</button>
-        <button class="secondary" onclick="copyOutput()">📋 Copy Output</button>
-        <button class="secondary" onclick="clearAll()">🗑️ Clear All</button>
+    <div id="wordConverter" class="tool-panel">
+        <div class="file-drop" onclick="document.getElementById('docxFile').click()">
+            <p>📂 Click or Drag a Word (.docx) file here to convert</p>
+            <input type="file" id="docxFile" accept=".docx" style="display:none" onchange="convertDocx(this)">
+        </div>
+        <div class="pane">
+            <label for="markdownOutput">Generated Markdown Output</label>
+            <textarea id="markdownOutput" placeholder="Converted Markdown will appear here..." readonly style="height: 300px;"></textarea>
+        </div>
+        <div class="toolbar">
+            <button class="secondary" onclick="copyMarkdown()">📋 Copy Markdown</button>
+        </div>
+    </div>
+
+    <div id="excelProcessor" class="tool-panel">
+        <div class="file-drop" onclick="document.getElementById('excelFile').click()">
+            <p>📊 Click or Drag an Excel (.xlsx / .xls) file here to process</p>
+            <input type="file" id="excelFile" accept=".xlsx, .xls, .csv" style="display:none" onchange="processExcel(this)">
+        </div>
+        <div class="pane">
+            <label>Parsed Spreadsheet Preview</label>
+            <div id="excelPreview" class="preview-table">
+                <p style="color: var(--text-light); text-align: center; margin: 20px 0;">No spreadsheet uploaded yet.</p>
+            </div>
+        </div>
+        <div class="toolbar">
+            <button class="secondary" onclick="exportExcelAsCSV()">📥 Export as CSV</button>
+        </div>
     </div>
 </div>
 
 <div class="content-section">
-    <h2>About ZapTextCleaner</h2>
-    <p>ZapTextCleaner is a high-performance browser-based text utility designed for writers, editors, programmers, and data processors who frequently deal with messy copy. When copying text from PDFs, legacy word processors, or web pages, hidden formatting characters, mismatched quotation marks, and irregular spacing often disrupt clean publishing or coding workflows.</p>
+    <h2>About ZapTextCleaner Suite</h2>
+    <p>ZapTextCleaner is a high-performance browser-based toolkit designed for writers, editors, programmers, and data processors who manage text conversions locally. By running entirely in your browser via client-side scripts, your private documents never touch an external server.</p>
 
-    <h3>How to Use the Text Normalizer</h3>
+    <h3>Included Utilities</h3>
     <ul>
-        <li><strong>Paste Your Text:</strong> Drop your unformatted or messy clipboard text into the left input box.</li>
-        <li><strong>Automatic Formatting Removal:</strong> Click the <strong>Clean & Normalize</strong> button to instantly strip out non-breaking spaces, standardize line breaks, and convert smart quotes.</li>
-        <li><strong>Copy Results:</strong> Use the copy button to instantly capture your clean text, ready for deployment in content management systems, code editors, or documents.</li>
+        <li><strong>Text Normalizer:</strong> Strips non-breaking spaces, regularizes line breaks, and standardizes punctuation.</li>
+        <li><strong>Word-to-Markdown Converter:</strong> Directly parses Microsoft Word `.docx` documents into structured markdown formats for publishing.</li>
+        <li><strong>Excel Data Processor:</strong> Reads spreadsheet workbooks, previews rows and columns instantly, and converts table structures locally.</li>
     </ul>
 
     <h3>Frequently Asked Questions</h3>
     <h3>Is my data secure?</h3>
-    <p>Yes. All text processing occurs entirely client-side using JavaScript within your web browser. Your text is never uploaded to any external server or stored anywhere outside your active session.</p>
-
-    <h3>What formatting characters does it clean?</h3>
-    <p>ZapTextCleaner strips non-breaking spaces (Unicode \u00A0), normalizes Windows (\r\n) and Unix (\n) line endings, converts curly smart quotes (“” ‘’) into standard straight quotes, and collapses redundant blank lines and spaces.</p>
+    <p>Yes. Processing happens completely client-side in your browser session with zero backend storage or server logging.</p>
 </div>
 
 <footer>
@@ -260,24 +368,27 @@
 </footer>
 
 <script>
+    let currentWorkbookData = null;
+
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tool-panel').forEach(panel => panel.classList.remove('active'));
+        
+        event.target.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+    }
+
     function cleanText() {
         let text = document.getElementById('inputText').value;
-        
         if (!text) {
             document.getElementById('outputText').value = '';
             updateStats();
             return;
         }
-
         text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-        text = text.replace(/[“”]/g, '"')
-                   .replace(/[‘’]/g, "'")
-                   .replace(/[–—]/g, '-')
-                   .replace(/\u00A0/g, ' ');
-
+        text = text.replace(/[“”]/g, '"').replace(/[‘’]/g, "'").replace(/[–—]/g, '-').replace(/\u00A0/g, ' ');
         text = text.split('\n').map(line => line.replace(/[ \t]+/g, ' ').trim()).join('\n');
         text = text.replace(/\n{3,}/g, '\n\n');
-
         document.getElementById('outputText').value = text.trim();
         updateStats();
     }
@@ -285,10 +396,8 @@
     function updateStats() {
         const input = document.getElementById('inputText').value;
         const output = document.getElementById('outputText').value;
-
         document.getElementById('inputChars').innerText = `${input.length} chars`;
         document.getElementById('inputWords').innerText = `${input.trim() ? input.trim().split(/\s+/).length : 0} words`;
-
         document.getElementById('outputChars').innerText = `${output.length} chars`;
         document.getElementById('outputWords').innerText = `${output.trim() ? output.trim().split(/\s+/).length : 0} words`;
     }
@@ -296,7 +405,6 @@
     function copyOutput() {
         const outputText = document.getElementById('outputText');
         if (!outputText.value) return;
-        
         navigator.clipboard.writeText(outputText.value).then(() => {
             const btn = event.target;
             const originalText = btn.innerText;
@@ -309,6 +417,71 @@
         document.getElementById('inputText').value = '';
         document.getElementById('outputText').value = '';
         updateStats();
+    }
+
+    function convertDocx(input) {
+        const file = input.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            mammoth.convertToMarkdown({arrayBuffer: event.target.result})
+                .then(result => {
+                    document.getElementById('markdownOutput').value = result.value;
+                })
+                .catch(err => {
+                    alert("Error parsing Word document: " + err.message);
+                });
+        };
+        reader.readAsArrayBuffer(file);
+    }
+
+    function copyMarkdown() {
+        const output = document.getElementById('markdownOutput');
+        if (!output.value) return;
+        navigator.clipboard.writeText(output.value).then(() => {
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = "✅ Copied!";
+            setTimeout(() => btn.innerText = originalText, 1500);
+        });
+    }
+
+    function processExcel(input) {
+        const file = input.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, {type: 'array'});
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                
+                currentWorkbookData = worksheet;
+                const htmlTable = XLSX.utils.sheet_to_html(worksheet, {header: ""});
+                document.getElementById('excelPreview').innerHTML = htmlTable;
+            } catch (err) {
+                alert("Error processing spreadsheet: " + err.message);
+            }
+        };
+        reader.readAsArrayBuffer(file);
+    }
+
+    function exportExcelAsCSV() {
+        if (!currentWorkbookData) {
+            alert("Please upload an Excel spreadsheet first.");
+            return;
+        }
+        const csvOutput = XLSX.utils.sheet_to_csv(currentWorkbookData);
+        const blob = new Blob([csvOutput], {type: 'text/csv;charset=utf-8;'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'converted_spreadsheet.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     }
 </script>
 
