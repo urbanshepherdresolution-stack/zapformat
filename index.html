@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZapTextCleaner Suite - Free Online Text & Document Tools</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZapTextCleaner Suite - Free Online Text & Document Tools</title>
+    <meta name="description" content="Professional browser-based text normalization, document conversion, PDF manipulation, and privacy tools. 100% client-side security.">
 
     <style>
         :root {
@@ -23,7 +29,7 @@
         }
 
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
@@ -36,12 +42,13 @@
 
         .container {
             width: 100%;
-            max-width: 900px;
+            max-width: 1000px;
             background: var(--card-bg);
             padding: 40px;
             border-radius: var(--radius);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
             margin-bottom: 30px;
+            box-sizing: border-box;
         }
 
         h1 {
@@ -56,181 +63,67 @@
         p.subtitle {
             color: var(--text-light);
             font-size: 15px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
-        /* Tabs Navigation */
-        .tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 25px;
+        .category-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 30px 0 15px 0;
             border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 15px;
+            padding-bottom: 6px;
         }
 
-        .tab-btn {
-            background: #e2e8f0;
-            color: var(--text);
-            border: none;
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .tab-btn.active {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .tool-panel {
-            display: none;
-        }
-
-        .tool-panel.active {
-            display: block;
-        }
-
-        .workspace {
+        .tool-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
         }
 
-        @media (max-width: 768px) {
-            .workspace {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .pane {
+        .tool-card {
+            background: #fdfdfe;
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
             display: flex;
             flex-direction: column;
-        }
-
-        label {
-            font-weight: 600;
-            font-size: 13px;
-            margin-bottom: 8px;
-            color: var(--text);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        textarea {
-            width: 100%;
-            height: 250px;
-            padding: 14px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            font-family: inherit;
-            font-size: 14px;
-            box-sizing: border-box;
-            resize: vertical;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        .toolbar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        button {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.2s, transform 0.1s;
-        }
-
-        button:hover {
-            background-color: var(--primary-hover);
-        }
-
-        button:active {
-            transform: translateY(1px);
-        }
-
-        button.secondary {
-            background-color: #e2e8f0;
-            color: var(--text);
-        }
-
-        button.secondary:hover {
-            background-color: #cbd5e1;
-        }
-
-        .file-drop {
-            border: 2px dashed var(--border);
-            padding: 30px;
-            text-align: center;
-            border-radius: var(--radius);
-            background: #fdfdfe;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-
-        .file-drop:hover {
-            border-color: var(--primary);
-        }
-
-        .stats {
-            font-size: 12px;
-            color: var(--text-light);
-            margin-top: 6px;
-            display: flex;
             justify-content: space-between;
         }
 
-        .preview-table {
-            width: 100%;
-            max-height: 250px;
-            overflow: auto;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            background: white;
-            padding: 10px;
-            box-sizing: border-box;
+        .tool-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
         }
 
-        .preview-table table {
-            width: 100%;
-            border-collapse: collapse;
+        .tool-card h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 17px;
+            margin-bottom: 8px;
+        }
+
+        .tool-card p {
             font-size: 13px;
+            color: var(--text-light);
+            margin: 0;
         }
 
-        .preview-table th, .preview-table td {
-            border: 1px solid #e2e8f0;
-            padding: 6px 10px;
-            text-align: left;
-        }
-
-        /* SEO & Editorial Content Box for AdSense Policy Compliance */
         .content-section {
             width: 100%;
-            max-width: 900px;
+            max-width: 1000px;
             background: var(--card-bg);
             padding: 40px;
             border-radius: var(--radius);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
             margin-bottom: 30px;
+            box-sizing: border-box;
         }
 
         .content-section h2 {
@@ -241,12 +134,6 @@
             padding-bottom: 8px;
         }
 
-        .content-section h3 {
-            color: var(--text);
-            font-size: 16px;
-            margin-top: 20px;
-        }
-
         .content-section p, .content-section li {
             color: var(--text-light);
             font-size: 14px;
@@ -254,7 +141,7 @@
 
         footer {
             width: 100%;
-            max-width: 900px;
+            max-width: 1000px;
             text-align: center;
             font-size: 13px;
             color: var(--text-light);
@@ -263,6 +150,7 @@
             display: flex;
             justify-content: center;
             gap: 20px;
+            box-sizing: border-box;
         }
 
         footer a {
@@ -278,212 +166,90 @@
 <body>
 
 <div class="container">
-    <h1>⚡ ZapTextCleaner Suite</h1>
-    <p class="subtitle">Professional browser-based text normalization and document transformation tools.</p>
+    <h1>⚡ ZapTextCleaner Hub Dashboard</h1>
+    <p class="subtitle">Select a specialized browser utility below. All processing executes 100% locally in your browser sandbox with zero server tracking.</p>
 
-    <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab('cleaner')">🧹 Text Cleaner</button>
-        <button class="tab-btn" onclick="switchTab('wordConverter')">📄 Word (.docx) to Markdown</button>
-        <button class="tab-btn" onclick="switchTab('excelProcessor')">📊 Excel Data Processor</button>
+    <div class="category-title">📝 Text Normalization &amp; Formatting</div>
+    <div class="tool-grid">
+        <a href="formatter.html" class="tool-card">
+            <h3>🧹 Core Text Normalizer</h3>
+            <p>Clean spacing, normalize line breaks, and strip formatting tags instantly.</p>
+        </a>
+        <a href="markdown.html" class="tool-card">
+            <h3>✍️ Markdown Generator</h3>
+            <p>Draft, structuralize, and export Markdown configurations seamlessly.</p>
+        </a>
+        <a href="remove-formatting-from-email.html" class="tool-card">
+            <h3>📧 Email Formatting Stripper</h3>
+            <p>Remove heavy styling blocks pasted from emails instantly.</p>
+        </a>
+        <a href="remove-formatting-from-google-docs.html" class="tool-card">
+            <h3>📋 Google Docs Format Purger</h3>
+            <p>Strip web clipboard styles from Google Doc snippets cleanly.</p>
+        </a>
+        <a href="remove-formatting-from-word-document.html" class="tool-card">
+            <h3>📄 Word Clip Text Cleaner</h3>
+            <p>Normalize text copied directly from legacy Microsoft Word files.</p>
+        </a>
     </div>
 
-    <div id="cleaner" class="tool-panel active">
-        <div class="workspace">
-            <div class="pane">
-                <label for="inputText">Input Text</label>
-                <textarea id="inputText" placeholder="Paste messy text here..." oninput="updateStats()"></textarea>
-                <div class="stats">
-                    <span id="inputChars">0 characters</span>
-                    <span id="inputWords">0 words</span>
-                </div>
-            </div>
-            <div class="pane">
-                <label for="outputText">Cleaned Output</label>
-                <textarea id="outputText" placeholder="Cleaned text will appear here..." readonly></textarea>
-                <div class="stats">
-                    <span id="outputChars">0 characters</span>
-                    <span id="outputWords">0 words</span>
-                </div>
-            </div>
-        </div>
-        <div class="toolbar">
-            <button onclick="cleanText()">✨ Clean & Normalize</button>
-            <button class="secondary" onclick="copyOutput()">📋 Copy Output</button>
-            <button class="secondary" onclick="clearAll()">🗑️ Clear All</button>
-        </div>
+    <div class="category-title">📂 Document &amp; PDF Workflows</div>
+    <div class="tool-grid">
+        <a href="merge-pdf.html" class="tool-card">
+            <h3>📑 PDF Document Merger</h3>
+            <p>Combine multiple PDF files securely inside browser memory.</p>
+        </a>
+        <a href="pdf.html" class="tool-card">
+            <h3>📄 PDF Extraction Snipper</h3>
+            <p>Extract raw text blocks out of digital PDF documents flawlessly.</p>
+        </a>
+        <a href="jpeg-to-pdf.html" class="tool-card">
+            <h3>🖼️ JPEG to PDF Compiler</h3>
+            <p>Convert multiple image files into structured PDF documents.</p>
+        </a>
+        <a href="word-to-markdown.html" class="tool-card">
+            <h3>📦 Word (.docx) to Markdown</h3>
+            <p>Extract pure text from .docx files instantly via mammoth.js.</p>
+        </a>
+        <a href="invoice-parser.html" class="tool-card">
+            <h3>🧾 Invoice to CSV Parser</h3>
+            <p>Extract line items and totals using OCR and PDF vector maps.</p>
+        </a>
     </div>
 
-    <div id="wordConverter" class="tool-panel">
-        <div class="file-drop" onclick="document.getElementById('docxFile').click()">
-            <p>📂 Click or Drag a Word (.docx) file here to convert</p>
-            <input type="file" id="docxFile" accept=".docx" style="display:none" onchange="convertDocx(this)">
-        </div>
-        <div class="pane">
-            <label for="markdownOutput">Generated Markdown Output</label>
-            <textarea id="markdownOutput" placeholder="Converted Markdown will appear here..." readonly style="height: 300px;"></textarea>
-        </div>
-        <div class="toolbar">
-            <button class="secondary" onclick="copyMarkdown()">📋 Copy Markdown</button>
-        </div>
-    </div>
-
-    <div id="excelProcessor" class="tool-panel">
-        <div class="file-drop" onclick="document.getElementById('excelFile').click()">
-            <p>📊 Click or Drag an Excel (.xlsx / .xls) file here to process</p>
-            <input type="file" id="excelFile" accept=".xlsx, .xls, .csv" style="display:none" onchange="processExcel(this)">
-        </div>
-        <div class="pane">
-            <label>Parsed Spreadsheet Preview</label>
-            <div id="excelPreview" class="preview-table">
-                <p style="color: var(--text-light); text-align: center; margin: 20px 0;">No spreadsheet uploaded yet.</p>
-            </div>
-        </div>
-        <div class="toolbar">
-            <button class="secondary" onclick="exportExcelAsCSV()">📥 Export as CSV</button>
-        </div>
+    <div class="category-title">🔒 Privacy, Audit &amp; Productivity</div>
+    <div class="tool-grid">
+        <a href="legal-decoder.html" class="tool-card">
+            <h3>⚖️ Terms of Service Risk Decoder</h3>
+            <p>Scan legal agreements to highlight predatory clauses and fine print.</p>
+        </a>
+        <a href="resume-tailor.html" class="tool-card">
+            <h3>🎯 ATS Resume Tailor</h3>
+            <p>Match career history text against target job descriptions.</p>
+        </a>
+        <a href="visa-tracker.html" class="tool-card">
+            <h3>🛂 Global Visa Day Tracker</h3>
+            <p>Calculate Schengen 90/180 rolling limits and stay countdowns.</p>
+        </a>
+        <a href="video-to-audio.html" class="tool-card">
+            <h3>🎬 Video to Audio Extractor</h3>
+            <p>Demux and download audio tracks out of local video files.</p>
+        </a>
     </div>
 </div>
 
 <div class="content-section">
-    <h2>About ZapTextCleaner Suite</h2>
-    <p>ZapTextCleaner is a high-performance browser-based toolkit designed for writers, editors, programmers, and data processors who manage text conversions locally. By running entirely in your browser via client-side scripts, your private documents never touch an external server.</p>
+    <h2>About ZapTextCleaner Infrastructure Suite</h2>
+    <p>ZapTextCleaner is an enterprise-grade collection of client-side browser tools designed for professionals, developers, and writers who require absolute data confidentiality. By executing everything inside temporary hardware RAM tables, your files never touch an external server.</p>
 
-    <h3>Included Utilities</h3>
-    <ul>
-        <li><strong>Text Normalizer:</strong> Strips non-breaking spaces, regularizes line breaks, and standardizes punctuation.</li>
-        <li><strong>Word-to-Markdown Converter:</strong> Directly parses Microsoft Word `.docx` documents into structured markdown formats for publishing.</li>
-        <li><strong>Excel Data Processor:</strong> Reads spreadsheet workbooks, previews rows and columns instantly, and converts table structures locally.</li>
-    </ul>
-
-    <h3>Frequently Asked Questions</h3>
-    <h3>Is my data secure?</h3>
-    <p>Yes. Processing happens completely client-side in your browser session with zero backend storage or server logging.</p>
+    <h3>Data Security Guarantee</h3>
+    <p>Every utility featured on this dashboard operates entirely offline via client-side JavaScript libraries (such as PDF.js, SheetJS, and Tesseract.js). There are no backend databases or tracking cookies logging your inputs.</p>
 </div>
 
 <footer>
     <span>&copy; 2026 ZapTextCleaner. All rights reserved.</span>
-    <a href="#privacy">Privacy Policy</a>
-    <a href="#terms">Terms of Service</a>
-    <a href="#contact">Contact</a>
+    <a href="privacy.html">Privacy Policy</a>
 </footer>
-
-<script>
-    let currentWorkbookData = null;
-
-    function switchTab(tabId) {
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.tool-panel').forEach(panel => panel.classList.remove('active'));
-        
-        event.target.classList.add('active');
-        document.getElementById(tabId).classList.add('active');
-    }
-
-    function cleanText() {
-        let text = document.getElementById('inputText').value;
-        if (!text) {
-            document.getElementById('outputText').value = '';
-            updateStats();
-            return;
-        }
-        text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-        text = text.replace(/[“”]/g, '"').replace(/[‘’]/g, "'").replace(/[–—]/g, '-').replace(/\u00A0/g, ' ');
-        text = text.split('\n').map(line => line.replace(/[ \t]+/g, ' ').trim()).join('\n');
-        text = text.replace(/\n{3,}/g, '\n\n');
-        document.getElementById('outputText').value = text.trim();
-        updateStats();
-    }
-
-    function updateStats() {
-        const input = document.getElementById('inputText').value;
-        const output = document.getElementById('outputText').value;
-        document.getElementById('inputChars').innerText = `${input.length} chars`;
-        document.getElementById('inputWords').innerText = `${input.trim() ? input.trim().split(/\s+/).length : 0} words`;
-        document.getElementById('outputChars').innerText = `${output.length} chars`;
-        document.getElementById('outputWords').innerText = `${output.trim() ? output.trim().split(/\s+/).length : 0} words`;
-    }
-
-    function copyOutput() {
-        const outputText = document.getElementById('outputText');
-        if (!outputText.value) return;
-        navigator.clipboard.writeText(outputText.value).then(() => {
-            const btn = event.target;
-            const originalText = btn.innerText;
-            btn.innerText = "✅ Copied!";
-            setTimeout(() => btn.innerText = originalText, 1500);
-        });
-    }
-
-    function clearAll() {
-        document.getElementById('inputText').value = '';
-        document.getElementById('outputText').value = '';
-        updateStats();
-    }
-
-    function convertDocx(input) {
-        const file = input.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            mammoth.convertToMarkdown({arrayBuffer: event.target.result})
-                .then(result => {
-                    document.getElementById('markdownOutput').value = result.value;
-                })
-                .catch(err => {
-                    alert("Error parsing Word document: " + err.message);
-                });
-        };
-        reader.readAsArrayBuffer(file);
-    }
-
-    function copyMarkdown() {
-        const output = document.getElementById('markdownOutput');
-        if (!output.value) return;
-        navigator.clipboard.writeText(output.value).then(() => {
-            const btn = event.target;
-            const originalText = btn.innerText;
-            btn.innerText = "✅ Copied!";
-            setTimeout(() => btn.innerText = originalText, 1500);
-        });
-    }
-
-    function processExcel(input) {
-        const file = input.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            try {
-                const data = new Uint8Array(e.target.result);
-                const workbook = XLSX.read(data, {type: 'array'});
-                const firstSheetName = workbook.SheetNames[0];
-                const worksheet = workbook.Sheets[firstSheetName];
-                
-                currentWorkbookData = worksheet;
-                const htmlTable = XLSX.utils.sheet_to_html(worksheet, {header: ""});
-                document.getElementById('excelPreview').innerHTML = htmlTable;
-            } catch (err) {
-                alert("Error processing spreadsheet: " + err.message);
-            }
-        };
-        reader.readAsArrayBuffer(file);
-    }
-
-    function exportExcelAsCSV() {
-        if (!currentWorkbookData) {
-            alert("Please upload an Excel spreadsheet first.");
-            return;
-        }
-        const csvOutput = XLSX.utils.sheet_to_csv(currentWorkbookData);
-        const blob = new Blob([csvOutput], {type: 'text/csv;charset=utf-8;'});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'converted_spreadsheet.csv';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    }
-</script>
 
 </body>
 </html>
