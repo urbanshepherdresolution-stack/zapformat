@@ -1,432 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-7TP5H35738');
-    </script>
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZapTextCleaner - Enterprise Data Privacy & Text Utilities</title>
+    <title>ZapTextCleaner - Free Online Text Normalizer & Formatter</title>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+
     <style>
         :root {
-            --primary: #1e3a8a; /* Corporate Navy */
-            --primary-hover: #172554;
-            --secondary: #64748b; /* Slate Gray */
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --border: #e2e8f0;
-            --success: #10b981;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #cbd5e1;
+            --radius: 12px;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: #f8fafc;
-            color: var(--dark);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
             margin: 0;
-            padding: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             line-height: 1.6;
         }
 
-        /* Header Navigation */
-        header {
-            background: white;
-            border-bottom: 1px solid var(--border);
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--primary);
-            letter-spacing: -0.03em;
-            text-decoration: none;
-        }
-        .security-status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--success);
-            background: #ecfdf5;
-            padding: 6px 14px;
-            border-radius: 20px;
-        }
-
-        /* Hero Section */
-        .hero {
+        .container {
+            width: 100%;
             max-width: 900px;
-            margin: 80px auto 60px auto;
-            text-align: center;
-            padding: 0 20px;
-        }
-        .hero h1 {
-            font-size: 3.2rem;
-            font-weight: 800;
-            color: var(--dark);
-            line-height: 1.1;
-            letter-spacing: -0.04em;
-            margin-bottom: 20px;
-        }
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--secondary);
-            max-width: 650px;
-            margin: 0 auto 30px auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
         }
 
-        /* Core Feature Grid */
-        .grid-section {
-            max-width: 1200px;
-            margin: 0 auto 80px auto;
-            padding: 0 20px;
-        }
-        .section-label {
-            text-align: center;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 13px;
-            letter-spacing: 0.1em;
-            color: var(--primary);
-            margin-bottom: 30px;
-        }
-        .utility-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-        }
-
-        /* Tool Cards */
-        .tool-card {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 35px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
-            transition: all 0.2s ease;
-        }
-        .tool-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 20px -3px rgba(0,0,0,0.05);
-            border-color: var(--primary);
-        }
-        .tool-card h2 {
-            font-size: 22px;
-            font-weight: 700;
-            margin: 0 0 12px 0;
-            color: var(--dark);
+        h1 {
+            margin-top: 0;
+            font-size: 28px;
+            color: var(--text);
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        .tool-card p {
-            color: var(--secondary);
-            font-size: 15px;
-            margin: 0 0 25px 0;
-            flex-grow: 1;
-        }
-        .tool-btn {
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-weight: 600;
-            text-align: center;
-            font-size: 15px;
-            transition: background 0.2s;
-        }
-        .tool-btn:hover { background: var(--primary-hover); }
 
-        /* SEO Footnote Directory Grid */
-        .seo-directory-section {
-            max-width: 1200px;
-            margin: 60px auto 20px auto;
-            padding: 40px 20px;
-            border-top: 1px solid var(--border);
+        p.subtitle {
+            color: var(--text-light);
+            font-size: 15px;
+            margin-bottom: 25px;
         }
-        .seo-directory-grid {
+
+        .workspace {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
-        .seo-column h4 {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--dark);
+
+        @media (max-width: 768px) {
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .pane {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 8px;
+            color: var(--text);
             text-transform: uppercase;
-            margin-bottom: 15px;
             letter-spacing: 0.05em;
         }
-        .seo-column ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+
+        textarea {
+            width: 100%;
+            height: 250px;
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-size: 14px;
+            box-sizing: border-box;
+            resize: vertical;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
-        .seo-column li {
-            margin-bottom: 10px;
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
-        .seo-column a {
-            font-size: 13px;
-            color: var(--secondary);
-            text-decoration: none;
-            transition: color 0.2s;
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
         }
-        .seo-column a:hover {
-            color: var(--primary);
-            text-decoration: underline;
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        button.secondary {
+            background-color: #e2e8f0;
+            color: var(--text);
+        }
+
+        button.secondary:hover {
+            background-color: #cbd5e1;
+        }
+
+        .stats {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 6px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Editorial Content Section for AdSense Policy Compliance */
+        .content-section {
+            width: 100%;
+            max-width: 900px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .content-section h2 {
+            color: var(--text);
+            font-size: 20px;
+            margin-top: 0;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+
+        .content-section h3 {
+            color: var(--text);
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .content-section p, .content-section li {
+            color: var(--text-light);
+            font-size: 14px;
         }
 
         footer {
+            width: 100%;
+            max-width: 900px;
             text-align: center;
-            padding: 40px 20px;
             font-size: 13px;
-            color: #94a3b8;
+            color: var(--text-light);
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="#" class="logo">ZapTextCleaner</a>
-        <div class="security-status">
-            <span>🛡️ End-to-End Client Sandbox Active</span>
+<div class="container">
+    <h1>⚡ ZapTextCleaner</h1>
+    <p class="subtitle">Instantly strip unwanted formatting, extra spaces, smart quotes, and normalize your text completely in your browser.</p>
+
+    <div class="workspace">
+        <div class="pane">
+            <label for="inputText">Input Text</label>
+            <textarea id="inputText" placeholder="Paste messy text here..." oninput="updateStats()"></textarea>
+            <div class="stats">
+                <span id="inputChars">0 characters</span>
+                <span id="inputWords">0 words</span>
+            </div>
         </div>
-    </header>
 
-    <main>
-        <section class="hero">
-            <h1>Sanitize &amp; Format Business Data with Total Immunity</h1>
-            <p>High-volume programmatic tools built explicitly for legal and financial environments. Zero server connections. Zero records kept. 100% compilation inside browser sandbox.</p>
-        </section>
-
-        <section class="grid-section">
-            <div class="section-label">Select Utility Framework</div>
-            <div class="utility-grid">
-                
-                <div class="tool-card">
-                    <div>
-                        <h2>📋 Text Formatter</h2>
-                        <p>Strip formatting styles, clean up chaotic spacing, and align text case. Built for rapid clean-up of messy data columns and copied text segments before team distribution.</p>
-                    </div>
-                    <a href="formatter.html" class="tool-btn">Launch Formatter App</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>👤 Anonymizer</h2>
-                        <p>Automatically scrub corporate records, emails, bank codes, and sensitive parameters out of legal strings. Features an interactive 4-column cluster review panel to eliminate risk.</p>
-                    </div>
-                    <a href="anonymizer.html" class="tool-btn">Launch Anonymizer App</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>📑 PDF Extraction Snipper</h2>
-                        <p>Isolate and map structured sections from legacy text trees and layout arrays directly. Built to convert difficult documents into clean structural models without cloud dependencies.</p>
-                    </div>
-                    <a href="pdf.html" class="tool-btn">Launch PDF Snipper App</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>🛂 Visa Day Tracker &amp; Compliance</h2>
-                        <p>Calculate legal rolling-window stays, monitor entry allocations, and evaluate overstay threshold parameters safely within isolated sandbox local memory models.</p>
-                    </div>
-                    <a href="visa-tracker.html" class="tool-btn">Launch Compliance Tracker</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>📊 CSV to JSON Converter</h2>
-                        <p>Parse raw tabular data and spreadsheet structures into clean, web-ready JSON notation layouts instantly. Perfect for database seeding and non-technical structural alignment.</p>
-                    </div>
-                    <a href="csv-to-json.html" class="tool-btn">Launch CSV Converter App</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>📈 Excel to PDF Converter</h2>
-                        <p>Convert spreadsheets (.xlsx / .xls) into clean corporate PDF reports instantly. Safe batch conversions running entirely inside your local sandbox architecture.</p>
-                    </div>
-                    <a href="excel-to-pdf.html" class="tool-btn">Launch Excel Converter App</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>💸 Invoice Ledger Parser</h2>
-                        <p>Extract vendor data, line items, transaction tax rates, and final ledger totals instantly from unstructured invoice text dumps straight into structured spreadsheets.</p>
-                    </div>
-                    <a href="invoice-parser.html" class="tool-btn">Launch Invoice Parser</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>👔 ATS Resume Keyword Tailor</h2>
-                        <p>Optimize your resume strings against complex corporate job definitions. Scan word weights, pinpoint formatting gaps, and maximize automated scoring parameters locally.</p>
-                    </div>
-                    <a href="resume-tailor.html" class="tool-btn">Launch Resume Tailor</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>⚖️ Terms of Service Risk Decoder</h2>
-                        <p>Scan privacy agreements and terms logs for tracking vulnerabilities, liability traps, and hidden auto-renew configurations instantly using local lexical mapping matrices.</p>
-                    </div>
-                    <a href="legal-decoder.html" class="tool-btn">Launch Legal Decoder</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>🎵 Video to Audio Extractor</h2>
-                        <p>Isolate and extract high-fidelity audio tracks from movie and presentation files (.mp4, .mov) directly into web-ready audio streams instantly.</p>
-                    </div>
-                    <a href="video-to-audio.html" class="tool-btn">Launch Extractor App</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>🎬 Audio to Video Compiler</h2>
-                        <p>Convert podcast segments, music tracks, and voice logs into formatted video presentations featuring static cover art canvas frameworks.</p>
-                    </div>
-                    <a href="audio-to-video.html" class="tool-btn">Launch Compiler App</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>🖼️ Image Resizer &amp; Converter</h2>
-                        <p>Compress pixel dimensions, adjust aspect constraints, and change image formats (.png, .jpg, .webp) instantly without cloud server exposure.</p>
-                    </div>
-                    <a href="image-tool.html" class="tool-btn">Launch Image App</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>📝 Markdown Document Generator</h2>
-                        <p>Draft, structuralize, and compile clean Markdown documentation syntax trees instantly. Features local RAM rendering with absolute zero server-side logs or cloud cookie payloads.</p>
-                    </div>
-                    <a href="markdown.html" class="tool-btn">Launch Markdown App</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>🖼️ JPEG to PDF Converter</h2>
-                        <p>Compile and flatten multiple standalone image layers directly into single document distributions. Runs purely client-side preserving core file asset parameters.</p>
-                    </div>
-                    <a href="jpeg-to-pdf.html" class="tool-btn">Launch Converter App</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>📚 PDF Document Merger</h2>
-                        <p>Combine multiple standalone PDF documents into a unified file structure sequentially. Processes byte data arrays directly inside browser memory without external server exports.</p>
-                    </div>
-                    <a href="merge-pdf.html" class="tool-btn">Launch PDF Merger</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>📚 Long Document to Markdown</h2>
-                        <p>Convert massive, multi-page PDFs and text files into structured Markdown loops sequentially. Outputs crisp, clean typography optimized perfectly for AI prompts.</p>
-                    </div>
-                    <a href="document-to-markdown.html" class="tool-btn">Launch Markdown Converter</a>
-                </div>
-
+        <div class="pane">
+            <label for="outputText">Cleaned Output</label>
+            <textarea id="outputText" placeholder="Cleaned text will appear here..." readonly></textarea>
+            <div class="stats">
+                <span id="outputChars">0 characters</span>
+                <span id="outputWords">0 words</span>
             </div>
-        </section>
-
-        <section class="trust-banner">
-            <div class="section-label" style="margin-bottom: 10px;">Security Protocol Architecture</div>
-            <div class="trust-grid">
-                <div class="trust-item">
-                    <h3>Zero Telemetry</h3>
-                    <p>No analytics engines or corporate session logging scripts track your payload.</p>
-                </div>
-                <div class="trust-item">
-                    <h3>Local Processing</h3>
-                    <p>All data evaluation is handled via JavaScript virtual arrays exclusively inside user RAM.</p>
-                </div>
-                <div class="trust-item">
-                    <h3>No Storage Overhead</h3>
-                    <p>Closing the browser tab immediately wipes all parsed memory structures permanently.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="seo-directory-section">
-            <div class="section-label" style="text-align: left; margin-bottom: 20px;">Platform Target Framework Directory</div>
-            <div class="seo-directory-grid">
-                
-                <div class="seo-column">
-                    <h4>Clean Chaotic Spacing</h4>
-                    <ul>
-                        <li><a href="clean-messy-spaces-from-email.html">Clean Spaces from Email</a></li>
-                        <li><a href="clean-messy-spaces-from-google-docs.html">Clean Spaces from Google Docs</a></li>
-                        <li><a href="clean-messy-spaces-from-kindle.html">Clean Spaces from Kindle</a></li>
-                        <li><a href="clean-messy-spaces-from-pdf.html">Clean Spaces from PDF Sheets</a></li>
-                        <li><a href="clean-messy-spaces-from-website.html">Clean Spaces from Web Scraping</a></li>
-                        <li><a href="clean-messy-spaces-from-word-document.html">Clean Spaces from Word Docs</a></li>
-                    </ul>
-                </div>
-
-                <div class="seo-column">
-                    <h4>Convert to Plain Text</h4>
-                    <ul>
-                        <li><a href="convert-to-plain-text-from-email.html">Email Plain Text Strip</a></li>
-                        <li><a href="convert-to-plain-text-from-google-docs.html">Google Docs Plain Text</a></li>
-                        <li><a href="convert-to-plain-text-from-kindle.html">Kindle Highlights Unformat</a></li>
-                        <li><a href="convert-to-plain-text-from-pdf.html">PDF Text Extractor Strip</a></li>
-                        <li><a href="convert-to-plain-text-from-website.html">Website Rich Text Cleaner</a></li>
-                        <li><a href="convert-to-plain-text-from-word-document.html">Word Doc Raw Text Format</a></li>
-                    </ul>
-                </div>
-
-                <div class="seo-column">
-                    <h4>Remove Layout Formatting</h4>
-                    <ul>
-                        <li><a href="remove-formatting-from-email.html">Remove Email HTML Styles</a></li>
-                        <li><a href="remove-formatting-from-google-docs.html">Strip Google Docs CSS styles</a></li>
-                        <li><a href="remove-formatting-from-kindle.html">Strip Kindle Font Properties</a></li>
-                        <li><a href="remove-formatting-from-pdf.html">Remove PDF Layout Elements</a></li>
-                        <li><a href="remove-formatting-from-website.html">Remove Website Copy Formats</a></li>
-                        <li><a href="remove-formatting-from-word-document.html">Strip Word Document Fonts</a></li>
-                    </ul>
-                </div>
-
-                <div class="seo-column">
-                    <h4>Strip Line Break Arrays</h4>
-                    <ul>
-                        <li><a href="strip-line-breaks-from-email.html">Strip Email Margins & Breaks</a></li>
-                        <li><a href="strip-line-breaks-from-google-docs.html">Fix Google Docs Paragraph Breaks</a></li>
-                        <li><a href="strip-line-breaks-from-kindle.html">Remove Kindle Carriage Returns</a></li>
-                        <li><a href="strip-line-breaks-from-pdf.html">Remove PDF Column Line Breaks</a></li>
-                        <li><a href="strip-line-breaks-from-website.html">Clean Web Code Spacing Breaks</a></li>
-                        <li><a href="strip-line-breaks-from-word-document.html">Fix Word Wrap Spacing Returns</a></li>
-                    </ul>
-                </div>
-
-            </div>
-        </section>
-    </main>
-
-    <footer style="text-align: center; padding: 40px 20px; font-size: 13px; color: #94a3b8; border-top: 1px solid var(--border); margin-top: 40px;">
-        <div style="margin-bottom: 15px;">
-            <a href="privacy.html" style="color: var(--secondary); text-decoration: none; margin: 0 15px; font-weight: 600;">Data Privacy Manifesto</a> | 
-            <a href="guide-ai-data-safety.html" style="color: var(--secondary); text-decoration: none; margin: 0 15px; font-weight: 600;">AI Data Safety Guide</a>
         </div>
-        &copy; 2026 ZapTextCleaner. All processing frameworks execute client-side. No tracking cookie systems deployed.
-    </footer>
+    </div>
+
+    <div class="toolbar">
+        <button onclick="cleanText()">✨ Clean & Normalize</button>
+        <button class="secondary" onclick="copyOutput()">📋 Copy Output</button>
+        <button class="secondary" onclick="clearAll()">🗑️ Clear All</button>
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>About ZapTextCleaner</h2>
+    <p>ZapTextCleaner is a high-performance browser-based text utility designed for writers, editors, programmers, and data processors who frequently deal with messy copy. When copying text from PDFs, legacy word processors, or web pages, hidden formatting characters, mismatched quotation marks, and irregular spacing often disrupt clean publishing or coding workflows.</p>
+
+    <h3>How to Use the Text Normalizer</h3>
+    <ul>
+        <li><strong>Paste Your Text:</strong> Drop your unformatted or messy clipboard text into the left input box.</li>
+        <li><strong>Automatic Formatting Removal:</strong> Click the <strong>Clean & Normalize</strong> button to instantly strip out non-breaking spaces, standardize line breaks, and convert smart quotes.</li>
+        <li><strong>Copy Results:</strong> Use the copy button to instantly capture your clean text, ready for deployment in content management systems, code editors, or documents.</li>
+    </ul>
+
+    <h3>Frequently Asked Questions</h3>
+    <h3>Is my data secure?</h3>
+    <p>Yes. All text processing occurs entirely client-side using JavaScript within your web browser. Your text is never uploaded to any external server or stored anywhere outside your active session.</p>
+
+    <h3>What formatting characters does it clean?</h3>
+    <p>ZapTextCleaner strips non-breaking spaces (Unicode \u00A0), normalizes Windows (\r\n) and Unix (\n) line endings, converts curly smart quotes (“” ‘’) into standard straight quotes, and collapses redundant blank lines and spaces.</p>
+</div>
+
+<footer>
+    <span>&copy; 2026 ZapTextCleaner. All rights reserved.</span>
+    <a href="#privacy">Privacy Policy</a>
+    <a href="#terms">Terms of Service</a>
+    <a href="#contact">Contact</a>
+</footer>
+
+<script>
+    function cleanText() {
+        let text = document.getElementById('inputText').value;
+        
+        if (!text) {
+            document.getElementById('outputText').value = '';
+            updateStats();
+            return;
+        }
+
+        text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+        text = text.replace(/[“”]/g, '"')
+                   .replace(/[‘’]/g, "'")
+                   .replace(/[–—]/g, '-')
+                   .replace(/\u00A0/g, ' ');
+
+        text = text.split('\n').map(line => line.replace(/[ \t]+/g, ' ').trim()).join('\n');
+        text = text.replace(/\n{3,}/g, '\n\n');
+
+        document.getElementById('outputText').value = text.trim();
+        updateStats();
+    }
+
+    function updateStats() {
+        const input = document.getElementById('inputText').value;
+        const output = document.getElementById('outputText').value;
+
+        document.getElementById('inputChars').innerText = `${input.length} chars`;
+        document.getElementById('inputWords').innerText = `${input.trim() ? input.trim().split(/\s+/).length : 0} words`;
+
+        document.getElementById('outputChars').innerText = `${output.length} chars`;
+        document.getElementById('outputWords').innerText = `${output.trim() ? output.trim().split(/\s+/).length : 0} words`;
+    }
+
+    function copyOutput() {
+        const outputText = document.getElementById('outputText');
+        if (!outputText.value) return;
+        
+        navigator.clipboard.writeText(outputText.value).then(() => {
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = "✅ Copied!";
+            setTimeout(() => btn.innerText = originalText, 1500);
+        });
+    }
+
+    function clearAll() {
+        document.getElementById('inputText').value = '';
+        document.getElementById('outputText').value = '';
+        updateStats();
+    }
+</script>
+
 </body>
 </html>
