@@ -3,31 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anonymizer - Enterprise Data Privacy Tool</title>
+    <title>Enterprise Data Privacy & Document Anonymizer - ZapFormat</title>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    
     <style>
         :root {
-            --primary: #1e3a8a; /* Corporate Navy */
+            --primary: #1e3a8a;
             --primary-hover: #172554;
-            --secondary: #64748b; /* Slate Gray */
+            --secondary: #64748b;
             --bg-light: #f8fafc;
             --border-color: #cbd5e1;
-            --danger: #ef4444; /* Redaction Red */
-            --success: #10b981; /* Mint Green */
+            --danger: #ef4444;
+            --success: #10b981;
+            --radius: 12px;
         }
 
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: #f1f5f9;
+            background-color: var(--bg-light);
             color: #1e293b;
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 30px 20px;
-            line-height: 1.5;
+            padding: 40px 20px;
+            line-height: 1.6;
         }
 
-        h1 { color: var(--primary); text-align: center; margin-bottom: 5px; font-weight: 800; font-size: 2.5rem; letter-spacing: -0.05em; }
-        .tagline { text-align: center; color: var(--secondary); margin-bottom: 25px; font-size: 1.1rem; }
+        h1 { color: var(--primary); text-align: center; margin-bottom: 5px; font-weight: 800; font-size: 2.2rem; }
+        .tagline { text-align: center; color: var(--secondary); margin-bottom: 20px; font-size: 1.1rem; }
 
         .privacy-badge {
             background-color: var(--primary);
@@ -37,19 +42,9 @@
             border-radius: 30px;
             font-weight: bold;
             font-size: 14px;
-            max-width: 500px;
+            max-width: 480px;
             margin: 0 auto 30px auto;
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-        }
-
-        .instruction-banner {
-            background: #eff6ff;
-            border-left: 4px solid #3b82f6;
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            font-size: 14px;
-            color: #1e40af;
         }
 
         .container {
@@ -57,14 +52,13 @@
             flex-direction: column;
             gap: 25px;
             background: white;
-            padding: 35px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
         }
 
-        label.section-heading { font-weight: 700; font-size: 16px; color: var(--primary); display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+        label.section-heading { font-weight: 700; font-size: 15px; color: var(--primary); display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
 
-        /* UPGRADED DROP ZONE STYLE */
         .upload-wrapper {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -75,11 +69,11 @@
         }
 
         .drop-zone {
-            border: 3px dashed var(--border-color);
+            border: 2px dashed var(--border-color);
             border-radius: 8px;
             padding: 30px;
             text-align: center;
-            background: var(--bg-light);
+            background: #fdfdfe;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
@@ -88,27 +82,25 @@
             justify-content: center;
             gap: 10px;
         }
-        .drop-zone:hover, .drop-zone.dragover {
-            border-color: var(--primary);
-            background: #eff6ff;
-        }
+        .drop-zone:hover { border-color: var(--primary); background: #eff6ff; }
         .drop-zone p { margin: 0; font-weight: 600; color: var(--secondary); }
         .drop-zone span { font-size: 12px; color: #94a3b8; }
-        .drop-zone .icon { font-size: 40px; color: var(--secondary); }
+        .drop-zone .icon { font-size: 36px; }
 
         textarea {
             width: 100%;
             height: 180px;
             padding: 14px;
-            border: 2px solid var(--border-color);
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            font-size: 15px;
+            font-size: 14px;
             box-sizing: border-box;
-            background-color: var(--bg-light);
+            background-color: #fff;
             transition: border-color 0.2s;
             resize: vertical;
+            font-family: inherit;
         }
-        textarea:focus { border-color: var(--primary); outline: none; background-color: white; }
+        textarea:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(30,58,138,0.1); }
         
         .control-panel {
             background: var(--bg-light);
@@ -129,34 +121,34 @@
             font-weight: 500;
             cursor: pointer;
             color: #334155;
-            font-size: 15px;
+            font-size: 14px;
         }
-        .checkbox-label input { width: 18px; height: 18px; cursor: pointer; }
+        .checkbox-label input { width: 16px; height: 16px; cursor: pointer; }
         .custom-input {
             width: 100%;
             padding: 12px;
             border: 1px solid var(--border-color);
             border-radius: 8px;
             box-sizing: border-box;
-            font-size: 15px;
+            font-size: 14px;
         }
 
         button.main-btn {
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 18px;
+            padding: 14px 24px;
+            font-size: 16px;
             border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
-            transition: all 0.2s;
+            transition: background 0.2s;
         }
         button.main-btn:hover { background-color: var(--primary-hover); }
 
         .bubble-grid-layout {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 15px;
             margin-top: 10px;
         }
@@ -171,10 +163,10 @@
         }
         .column-header {
             font-weight: 700;
-            font-size: 14px;
+            font-size: 13px;
             color: var(--primary);
             border-bottom: 2px solid var(--border-color);
-            padding-bottom: 8px;
+            padding-bottom: 6px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -182,16 +174,16 @@
         .column-bubbles {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            max-height: 250px;
+            gap: 6px;
+            max-height: 220px;
             overflow-y: auto;
-            padding-right: 5px;
+            padding-right: 4px;
         }
 
         .bubble-item {
             background: white;
             border: 1px solid var(--border-color);
-            padding: 8px 12px;
+            padding: 6px 10px;
             border-radius: 6px;
             font-size: 13px;
             display: flex;
@@ -199,19 +191,18 @@
             gap: 8px;
             cursor: pointer;
             font-weight: 600;
-            user-select: none;
         }
         .bubble-item.redacted { border-left: 4px solid var(--danger); }
         .bubble-item.revealed { border-left: 4px solid var(--secondary); color: var(--secondary); opacity: 0.6; }
-        .bubble-item input { cursor: pointer; width: 16px; height: 16px; }
+        .bubble-item input { cursor: pointer; width: 14px; height: 14px; }
 
         .preview-box {
-            border: 2px solid var(--border-color);
+            border: 1px solid var(--border-color);
             padding: 20px;
             border-radius: 8px;
             background: #ffffff;
             line-height: 1.8;
-            font-size: 16px;
+            font-size: 15px;
             min-height: 100px;
             white-space: pre-wrap;
             color: #334155;
@@ -222,18 +213,17 @@
             border: 1px solid #fecdd3;
             padding: 15px 20px;
             border-radius: 8px;
-            margin-top: 10px;
         }
         .legal-label {
             display: flex;
             align-items: flex-start;
             gap: 10px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             color: #9f1239;
         }
-        .legal-label input { width: 18px; height: 18px; margin-top: 2px; }
+        .legal-label input { width: 16px; height: 16px; margin-top: 2px; }
 
         .action-row {
             display: grid;
@@ -245,35 +235,49 @@
         button.download-btn { background-color: #f59e0b; opacity: 0.5; cursor: not-allowed; }
         
         .status-msg { font-size: 13px; font-weight: bold; margin-top: 5px; color: var(--primary); display: none; }
+
+        .editorial-section {
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            margin-top: 30px;
+        }
+        .editorial-section h2 { font-size: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: var(--primary); }
+        .editorial-section p { color: var(--secondary); font-size: 14px; }
+
+        footer {
+            text-align: center;
+            font-size: 13px;
+            color: var(--secondary);
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        footer a { color: var(--primary); text-decoration: none; }
     </style>
 </head>
 <body>
 
-    <h1>Anonymizer</h1>
-    <div class="tagline">Enterprise Intelligence File Sanitizer</div>
-    <div class="privacy-badge">🔒 Zero Server Transfers: 100% Client-Side Local Compilation</div>
+    <h1>Enterprise Data Anonymizer</h1>
+    <div class="tagline">Local Document &amp; Text Privacy Sanitizer</div>
+    <div class="privacy-badge">🔒 Zero Server Transfers: 100% Client-Side Sandbox Processing</div>
     
-    <div class="instruction-banner">
-        <strong>💡 Real-World Usage Instructions & Specifications:</strong>
-        <ul style="margin: 5px 0 0 15px; padding: 0;">
-            <li><strong>Document Size Limit:</strong> Optimized for text and standard PDFs under 50 pages. Process multi-file folders incrementally.</li>
-            <li><strong>Local PDF Extraction Engine:</strong> Drops or uploads process strictly within browser memory space. No external telemetry or logging occurs.</li>
-            <li><strong>User Accountability:</strong> Machine compilation patterns are assistive. Ultimate data safety relies on your final bubble verification.</li>
-        </ul>
-    </div>
-
     <div class="container">
         <div>
-            <label class="section-heading">1. Input Document Content (Upload PDF or Paste Text)</label>
+            <label class="section-heading">1. Input Document Content (PDF or Raw Text)</label>
             <div class="upload-wrapper">
                 <div id="dropZone" class="drop-zone" onclick="document.getElementById('fileInput').click()">
                     <div class="icon">📄</div>
                     <p>Drag &amp; Drop PDF File Here</p>
-                    <span>or click to browse local directory</span>
+                    <span>or click to browse local files</span>
                     <input type="file" id="fileInput" accept="application/pdf" style="display:none" onchange="handleFileSelect(event)">
-                    <div id="uploadStatus" class="status-msg">Extracting document contents...</div>
+                    <div id="uploadStatus" class="status-msg">Extracting document layers...</div>
                 </div>
-                <textarea id="inputText" placeholder="Alternatively, paste raw structural text content from contracts or financial sheets directly here..."></textarea>
+                <textarea id="inputText" placeholder="Alternatively, paste raw text content from contracts or financial sheets directly here..."></textarea>
             </div>
         </div>
 
@@ -283,23 +287,19 @@
                 <label class="checkbox-label"><input type="checkbox" id="cNames" checked> 👤 Names &amp; Titles</label>
                 <label class="checkbox-label"><input type="checkbox" id="cCompanies" checked> 🏢 Companies &amp; Orgs</label>
                 <label class="checkbox-label"><input type="checkbox" id="cEmails" checked> 📧 Email Addresses</label>
-                <label class="checkbox-label"><input type="checkbox" id="cPhones" checked> 📞 Phone/Fax Numbers</label>
+                <label class="checkbox-label"><input type="checkbox" id="cPhones" checked> 📞 Phone Numbers</label>
                 <label class="checkbox-label"><input type="checkbox" id="cMoney" checked> 💰 Financial Figures</label>
                 <label class="checkbox-label"><input type="checkbox" id="cAccounts" checked> 💳 Bank Accounts</label>
-                <label class="checkbox-label"><input type="checkbox" id="cIDs" checked> 🆔 Government IDs</label>
-                <label class="checkbox-label"><input type="checkbox" id="cDates" checked> 📅 Specific Dates</label>
-                <label class="checkbox-label"><input type="checkbox" id="cAddresses" checked> 📍 Physical Addresses</label>
-                <label class="checkbox-label"><input type="checkbox" id="cSystem" checked> 📑 System/Case IDs</label>
             </div>
             
-            <label class="section-heading" style="margin-top: 15px;">3. Specify Custom Extraction Terms</label>
+            <label class="section-heading" style="margin-top: 15px;">3. Custom Extraction Terms</label>
             <input type="text" id="customInput" class="custom-input" placeholder="Enter target secret words separated by commas (e.g. Project Falcon, CodeRed)">
         </div>
 
         <button class="main-btn" onclick="scanDocument()">Execute Data Scrub &amp; Compile Categories</button>
 
         <div>
-            <label class="section-heading">4. Peruse Compiled Sensitive Clusters</label>
+            <label class="section-heading">4. Sensitive Clusters Verification</label>
             <div class="bubble-grid-layout">
                 <div class="column-box">
                     <div class="column-header">
@@ -333,43 +333,49 @@
         <div class="legal-box">
             <label class="legal-label">
                 <input type="checkbox" id="legalConfirm" onchange="toggleActionButtons()">
-                <span>I confirm that I have perused the lists above, verified the checked items, and assume total professional responsibility for the distribution of this clean copy.</span>
+                <span>I confirm that I have verified the checked items above and assume professional responsibility for the distribution of this clean copy.</span>
             </label>
         </div>
 
         <div class="action-row">
             <button id="finalCopyBtn" class="main-btn copy-btn" disabled onclick="copyCleanText()">Copy Clean Text</button>
-            <button id="finalDownloadBtn" class="main-btn download-btn" disabled onclick="downloadCleanText()">Download Clean .TXT Document</button>
+            <button id="finalDownloadBtn" class="main-btn download-btn" disabled onclick="downloadCleanText()">Download Clean .TXT</button>
         </div>
     </div>
 
+    <div class="editorial-section">
+        <h2>About Enterprise Data Anonymization</h2>
+        <p>When preparing sensitive contracts, financial records, or legal documents for external AI analysis or publishing, unverified metadata and PII pose severe privacy risks. This tool runs entirely within your browser's temporary memory, guaranteeing that confidential files never touch remote cloud servers.</p>
+    </div>
+
+    <footer>
+        <span>&copy; 2026 ZapFormat. All rights reserved.</span>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="formatter.html">Hub Dashboard</a>
+    </footer>
+
     <script>
-        // Point Mozilla Engine Workers to public distribution script CDN
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
 
         let originalText = "";
         let masterSecretsList = [];
 
-        // Set up HTML Drag and Drop Visual Listeners
         const zone = document.getElementById('dropZone');
-        zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('dragover'); });
-        zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+        zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.style.borderColor = '#1e3a8a'; });
+        zone.addEventListener('dragleave', () => zone.style.borderColor = '#cbd5e1');
         zone.addEventListener('drop', (e) => {
             e.preventDefault();
-            zone.classList.remove('dragover');
-            if(e.dataTransfer.files.length > 0) {
-                processPDFFile(e.dataTransfer.files[0]);
-            }
+            zone.style.borderColor = '#cbd5e1';
+            if(e.dataTransfer.files.length > 0) processPDFFile(e.dataTransfer.files[0]);
         });
 
         function handleFileSelect(e) {
             if(e.target.files.length > 0) processPDFFile(e.target.files[0]);
         }
 
-        // Native Local PDF Text Stream Compilation Core
         function processPDFFile(file) {
             if(file.type !== "application/pdf") {
-                alert("Invalid format: Please drop a native PDF system file.");
+                alert("Invalid format: Please drop a native PDF file.");
                 return;
             }
             
@@ -380,24 +386,19 @@
             const reader = new FileReader();
             reader.onload = function(ev) {
                 const typedarray = new Uint8Array(ev.target.result);
-                
                 pdfjsLib.getDocument(typedarray).promise.then(function(pdf) {
                     let totalPages = pdf.numPages;
                     let countPromises = [];
                     
                     for (let i = 1; i <= totalPages; i++) {
-                        countPromises.push(pdf.getPage(i).then(function(page) {
-                            return page.getTextContent().then(function(textContent) {
-                                return textContent.items.map(item => item.str).join(" ");
-                            });
-                        }));
+                        countPromises.push(pdf.getPage(i).then(page => page.getTextContent().then(tc => tc.items.map(item => item.str).join(" "))));
                     }
                     
-                    Promise.all(countPromises).then(function(pageTexts) {
+                    Promise.all(countPromises).then(pageTexts => {
                         status.innerText = "Extraction complete! Scanning patterns...";
                         document.getElementById('inputText').value = pageTexts.join("\n\n");
                         setTimeout(() => { status.style.display = "none"; }, 1500);
-                        scanDocument(); // Run scanner loops immediately
+                        scanDocument();
                     });
                 }).catch(err => {
                     status.innerText = "Error parsing local data lines.";
@@ -413,18 +414,14 @@
 
             masterSecretsList = [];
 
-            // 1. Custom User Words (Priority 1)
             const customRaw = document.getElementById('customInput').value;
             if (customRaw.trim() !== "") {
-                const customWords = customRaw.split(',').map(w => w.trim()).filter(w => w.length > 0);
-                customWords.forEach(word => {
+                customRaw.split(',').map(w => w.trim()).filter(w => w.length > 0).forEach(word => {
                     const safeWord = word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-                    const wordRegex = new RegExp(safeWord, 'gi'); 
-                    (originalText.match(wordRegex) || []).forEach(item => addSecret(item, '[CUSTOM]', 'CUSTOM'));
+                    (originalText.match(new RegExp(safeWord, 'gi')) || []).forEach(item => addSecret(item, '[CUSTOM]', 'CUSTOM'));
                 });
             }
 
-            // 2. Default Pattern Matchers (Priority 2)
             if (document.getElementById('cEmails').checked) {
                 (originalText.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g) || []).forEach(item => addSecret(item, '[EMAIL]', 'DEFAULT'));
             }
@@ -432,136 +429,4 @@
                 (originalText.match(/\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/g) || []).forEach(item => addSecret(item, '[PHONE]', 'DEFAULT'));
             }
             if (document.getElementById('cMoney').checked) {
-                (originalText.match(/\$[0-9,]+/g) || []).forEach(item => addSecret(item, '[FINANCIAL]', 'DEFAULT'));
-            }
-            if (document.getElementById('cAccounts').checked) {
-                (originalText.match(/\b\d{10,16}\b/g) || []).forEach(item => addSecret(item, '[ACCOUNT]', 'DEFAULT'));
-            }
-            if (document.getElementById('cIDs').checked) {
-                (originalText.match(/\b\d{3}-\d{2}-\d{4}\b/g) || []).forEach(item => addSecret(item, '[GOV_ID]', 'DEFAULT'));
-            }
-            if (document.getElementById('cDates').checked) {
-                const dateRegex = /\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+\d{1,2},\s+\d{4}\b/gi;
-                (originalText.match(dateRegex) || []).forEach(item => addSecret(item, '[DATE]', 'DEFAULT'));
-            }
-            if (document.getElementById('cSystem').checked) {
-                const caseRegex = /(?:Case|Order|Ref|Ticket)\s*(?:No\.?|#)?\s*[A-Z0-9-]+/gi;
-                (originalText.match(caseRegex) || []).forEach(item => addSecret(item, '[SYSTEM_ID]', 'DEFAULT'));
-            }
-            if (document.getElementById('cAddresses').checked) {
-                const addressRegex = /\d+\s+[A-Za-z0-9\s]+(?:Street|St|Avenue|Ave|Road|Rd|Highway|Hwy|Boulevard|Blvd|Drive|Dr)\.?/gi;
-                (originalText.match(addressRegex) || []).forEach(item => addSecret(item, '[ADDRESS]', 'DEFAULT'));
-            }
-
-            // 3. Proper Noun Scanning Engine (Priority 3)
-            const nameRegex = /\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?\b/g;
-            const capMatches = originalText.match(nameRegex) || [];
-            const skipWords = ["The", "A", "An", "To", "From", "He", "She", "They", "It", "If", "But", "Or", "This", "That", "We", "On", "In", "At", "Our", "My", "Your"];
-
-            capMatches.forEach(item => {
-                if(!skipWords.includes(item.split(' ')[0]) && item.length > 2) {
-                    if (item.toLowerCase().includes('corp') || item.toLowerCase().includes('inc') || item.toLowerCase().includes('llc') || item.toLowerCase().includes('bank')) {
-                        if (document.getElementById('cCompanies').checked) addSecret(item, '[COMPANY]', 'DEFAULT');
-                    } else {
-                        if (document.getElementById('cNames').checked) addSecret(item, '[NAME]', 'RISK');
-                    }
-                }
-            });
-
-            renderGridBoxes();
-            updatePreview();
-        }
-
-        function addSecret(value, label, cluster) {
-            if (!masterSecretsList.some(s => s.value.toLowerCase() === value.toLowerCase())) {
-                masterSecretsList.push({ value: value, label: label, cluster: cluster, active: true });
-            }
-        }
-
-        function renderGridBoxes() {
-            const defCol = document.getElementById('colDefault');
-            const custCol = document.getElementById('colCustom');
-            const riskCol = document.getElementById('colRisks');
-
-            defCol.innerHTML = ""; custCol.innerHTML = ""; riskCol.innerHTML = "";
-
-            masterSecretsList.forEach((secret, index) => {
-                const item = document.createElement('label');
-                item.className = `bubble-item ${secret.active ? 'redacted' : 'revealed'}`;
-                item.innerHTML = `
-                    <input type="checkbox" ${secret.active ? 'checked' : ''} onchange="toggleSingleBubble(${index})">
-                    <span>${secret.value}</span>
-                `;
-
-                if (secret.cluster === 'DEFAULT') defCol.appendChild(item);
-                if (secret.cluster === 'CUSTOM') custCol.appendChild(item);
-                if (secret.cluster === 'RISK') riskCol.appendChild(item);
-            });
-        }
-
-        function toggleSingleBubble(index) {
-            masterSecretsList[index].active = !masterSecretsList[index].active;
-            renderGridBoxes();
-            updatePreview();
-        }
-
-        function toggleMasterGroup(cluster, isChecked) {
-            masterSecretsList.forEach(secret => {
-                if(secret.cluster === cluster) secret.active = isChecked;
-            });
-            renderGridBoxes();
-            updatePreview();
-        }
-
-        function generateCompiledText(mode) {
-            let out = originalText;
-            const sortedSecrets = [...masterSecretsList].sort((a, b) => b.value.length - a.value.length);
-            sortedSecrets.forEach((secret) => {
-                if(secret.active) {
-                    const safeWord = secret.value.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-                    const regex = new RegExp(safeWord, 'gi');
-                    out = out.replace(regex, mode === 'PREVIEW' ? `██████` : secret.label);
-                }
-            });
-            return out;
-        }
-
-        function updatePreview() {
-            document.getElementById('previewDisplay').innerText = generateCompiledText('PREVIEW');
-        }
-
-        function toggleActionButtons() {
-            const confirmed = document.getElementById('legalConfirm').checked;
-            const copyBtn = document.getElementById('finalCopyBtn');
-            const dlBtn = document.getElementById('finalDownloadBtn');
-            
-            if(confirmed) {
-                copyBtn.removeAttribute('disabled'); copyBtn.style.opacity = "1"; copyBtn.style.cursor = "pointer";
-                dlBtn.removeAttribute('disabled'); dlBtn.style.opacity = "1"; dlBtn.style.cursor = "pointer";
-            } else {
-                copyBtn.setAttribute('disabled', 'true'); copyBtn.style.opacity = "0.5"; copyBtn.style.cursor = "not-allowed";
-                dlBtn.setAttribute('disabled', 'true'); dlBtn.style.opacity = "0.5"; dlBtn.style.cursor = "not-allowed";
-            }
-        }
-
-        function copyCleanText() {
-            navigator.clipboard.writeText(generateCompiledText('FINAL'));
-            alert("Certified anonymized text successfully copied to secure clipboard!");
-            document.getElementById('legalConfirm').checked = false;
-            toggleActionButtons();
-        }
-
-        function downloadCleanText() {
-            const textContent = generateCompiledText('FINAL');
-            const blob = new Blob([textContent], { type: "text/plain;charset=utf-8" });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = "anonymized_document.txt";
-            link.click();
-            
-            document.getElementById('legalConfirm').checked = false;
-            toggleActionButtons();
-        }
-    </script>
-</body>
-</html>
+                (originalText.match(/\$[0-9,]+/g) || []).forEach(
