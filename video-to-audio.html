@@ -8,131 +8,243 @@
       gtag('js', new Date());
       gtag('config', 'G-7TP5H35738');
     </script>
+    
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Video to Audio Extractor - Extract MP3 Online</title>
+    <title>Free Video to Audio Extractor - Extract MP3 &amp; WAV Online</title>
+    <meta name="description" content="Extract audio tracks from MP4, WebM, or MOV video files locally in your browser sandbox without server uploads.">
+
     <style>
-        :root { --primary: #1e3a8a; --primary-hover: #172554; --dark: #0f172a; --secondary: #64748b; --border: #e2e8f0; --success: #10b981; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: var(--dark); margin: 0; padding: 0; line-height: 1.6; }
-        .container { max-width: 600px; margin: 60px auto; padding: 0 20px; }
-        header { text-align: center; margin-bottom: 30px; }
-        h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 10px; }
-        p { color: var(--secondary); margin: 0; }
-        .panel { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); text-align: center; }
-        .upload-zone { border: 2px dashed var(--border); padding: 40px; border-radius: 8px; cursor: pointer; background: #fafafa; margin-bottom: 20px; transition: all 0.2s; }
-        .upload-zone:hover { border-color: var(--primary); background: #f0fdf4; }
-        .btn { background: var(--primary); color: white; border: none; padding: 14px 24px; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer; width: 100%; display: none; transition: background 0.2s; }
-        .btn:hover { background: var(--primary-hover); }
-        .status { font-weight: bold; color: #4f46e5; margin-top: 15px; font-size: 14px; }
+        :root {
+            --primary: #1e3a8a;
+            --primary-hover: #172554;
+            --dark: #0f172a;
+            --secondary: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --radius: 12px;
+        }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8fafc;
+            color: var(--dark);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+        h1 { margin-top: 0; color: var(--primary); font-size: 26px; }
+        p.subtitle { color: var(--secondary); font-size: 15px; margin-bottom: 25px; }
+
+        .file-drop {
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            background: #fdfdfe;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 20px;
+        }
+        .file-drop:hover { border-color: var(--primary); background: #eff6ff; }
+        .file-drop p { margin: 0; font-weight: 600; color: var(--secondary); }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 20px 0;
+            display: none;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--success);
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+        }
+        button:hover { background-color: var(--primary-hover); }
+
+        .editorial-section {
+            max-width: 900px;
+            width: 100%;
+            margin-top: 30px;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+        .editorial-section h2 { font-size: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: var(--primary); }
+        .editorial-section p { color: var(--secondary); font-size: 14px; }
+
+        footer {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            font-size: 13px;
+            color: var(--secondary);
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        footer a { color: var(--primary); text-decoration: none; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header>
-        <h1>Video to Audio Extractor</h1>
-        <p>Isolate and extract audio tracks directly out of video files with 100% localized sandbox privacy.</p>
-    </header>
-    <div class="panel">
-        <div class="upload-zone" onclick="document.getElementById('videoFile').click()">
-            <span style="font-size: 48px;">🎬</span>
-            <p>Select or Drop Video File (.mp4, .mov, .webm)</p>
-            <input type="file" id="videoFile" accept="video/*" style="display:none;" onchange="fileLoaded()">
-        </div>
-        <div id="fileInfo" style="margin-bottom: 15px; font-weight: 600; color: var(--dark);"></div>
-        <button id="extractBtn" class="btn" onclick="startExtractionPipeline()">Extract Audio Track</button>
-        <div id="status" class="status" style="display:none;">Ready...</div>
+    <h1>🎬 Video to Audio Extractor</h1>
+    <p class="subtitle">Extract sound tracks from video files locally inside your browser sandbox without remote uploads.</p>
+
+    <div class="file-drop" onclick="document.getElementById('videoInput').click()">
+        <p>📂 Click or Drop Video File Here (.mp4, .webm, .mov)</p>
+        <input type="file" id="videoInput" accept="video/*" style="display:none" onchange="handleVideoSelection(event)">
     </div>
+
+    <div id="statusLabel" class="status" style="font-weight: 600; font-size: 14px; color: var(--primary); margin-top: 10px;"></div>
+    
+    <div id="progressBar" class="progress-bar">
+        <div id="progressFill" class="progress-fill"></div>
+    </div>
+
+    <button id="extractBtn" onclick="extractAudioTrack()" disabled style="opacity: 0.5; cursor: not-allowed; margin-top: 15px;">Extract and Download Audio</button>
 </div>
+
+<div class="editorial-section">
+    <h2>Client-Side Media Processing</h2>
+    <p>Media track extraction runs entirely in your browser memory sandbox. Your video files are never uploaded to remote cloud servers.</p>
+</div>
+
+<footer>
+    <span>&copy; 2026 ZapFormat. All rights reserved.</span>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="formatter.html">Hub Dashboard</a>
+</footer>
 
 <script>
     let activeFile = null;
 
-    function fileLoaded() {
-        const fileInput = document.getElementById('videoFile');
-        activeFile = fileInput.files[0];
-        if (activeFile) {
-            document.getElementById('fileInfo').textContent = `🎯 Selected: ${activeFile.name} (${(activeFile.size / (1024*1024)).toFixed(1)} MB)`;
-            document.getElementById('extractBtn').style.display = 'block';
-            document.getElementById('status').style.display = 'none';
-        }
+    function handleVideoSelection(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        activeFile = file;
+        document.getElementById('statusLabel').textContent = `Loaded: ${file.name} (${Math.round(file.size / 1024 / 1024)} MB)`;
+        
+        const btn = document.getElementById('extractBtn');
+        btn.removeAttribute('disabled');
+        btn.style.opacity = "1";
+        btn.style.cursor = "pointer";
     }
 
-    async function startExtractionPipeline() {
-        if (!activeFile) return;
-        const status = document.getElementById('status');
-        status.style.display = 'block';
-        status.textContent = "⏳ Initializing secure memory context...";
+    async function extractAudioTrack() {
+        if (!activeFile) return alert('Please select a video file first.');
+
+        const status = document.getElementById('statusLabel');
+        const bar = document.getElementById('progressBar');
+        const fill = document.getElementById('progressFill');
+        const extractBtn = document.getElementById('extractBtn');
+
+        bar.style.display = 'block';
+        extractBtn.disabled = true;
+        extractBtn.style.opacity = "0.5";
+        status.textContent = "⏳ Initializing local media stream buffers...";
 
         try {
-            // Native elements bypass external network loading loops entirely
+            const videoUrl = URL.createObjectURL(activeFile);
             const videoElement = document.createElement('video');
-            videoElement.src = URL.createObjectURL(activeFile);
-            
-            videoElement.onloadedmetadata = async () => {
-                status.textContent = "⏳ Stream mapped. Demuxing audio tracks sequentially...";
+            videoElement.src = videoUrl;
+            videoElement.muted = true;
+            videoElement.playsInline = true;
+
+            await new Promise((resolve, reject) => {
+                videoElement.onloadedmetadata = resolve;
+                videoElement.onerror = reject;
+            });
+
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const sourceNode = audioCtx.createMediaElementSource(videoElement);
+            const destinationNode = audioCtx.createMediaStreamDestination();
+            sourceNode.connect(destinationNode);
+            audioCtx.destination ? sourceNode.connect(audioCtx.destination) : null;
+
+            const mediaRecorder = new MediaRecorder(destinationNode.stream, { mimeType: 'audio/webm' });
+            let chunks = [];
+
+            mediaRecorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
+            mediaRecorder.onstop = () => {
+                const blob = new Blob(chunks, { type: 'audio/webm' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = activeFile.name.replace(/\.[^/.]+$/, "") + "_extracted.webm";
+                a.click();
+                URL.revokeObjectURL(url);
+                audioCtx.close();
                 
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const dest = audioCtx.createMediaStreamDestination();
-                const source = audioCtx.createMediaElementSource(videoElement);
-                source.connect(dest);
+                status.innerHTML = "<span style='color:var(--success);'>✅ Audio track extracted and downloaded successfully!</span>";
+                extractBtn.disabled = false;
+                extractBtn.style.opacity = "1";
+            };
 
-                // Let the browser choose the native recording container to prevent layout lockups
-                let options = { mimeType: 'audio/webm;codecs=opus' };
-                let extension = '.webm';
+            mediaRecorder.start();
+            videoElement.playbackRate = 4.0;
+            videoElement.play();
 
-                if (MediaRecorder.isTypeSupported('audio/mp4')) {
-                    options = { mimeType: 'audio/mp4' };
-                    extension = '.mp4';
+            const duration = videoElement.duration;
+            const tracking = setInterval(() => {
+                if (videoElement.currentTime && duration) {
+                    const percent = Math.round((videoElement.currentTime / duration) * 100);
+                    fill.style.width = `${percent}%`;
+                    status.textContent = `⏳ Extracting audio track: ${percent}% Complete`;
                 }
 
-                const mediaRecorder = new MediaRecorder(dest.stream, options);
-                const audioChunks = [];
-
-                mediaRecorder.ondataavailable = (e) => {
-                    if (e.data.size > 0) audioChunks.push(e.data);
-                };
-
-                mediaRecorder.onstop = () => {
-                    status.textContent = "✅ Compilation complete! Triggering download...";
-                    const audioBlob = new Blob(audioChunks, { type: options.mimeType });
-                    const url = URL.createObjectURL(audioBlob);
-                    
-                    const downloadLink = document.createElement('a');
-                    downloadLink.href = url;
-                    downloadLink.download = activeFile.name.replace(/\.[^/.]+$/, "") + "_extracted" + extension;
-                    downloadLink.click();
-                    
-                    audioCtx.close();
-                    URL.revokeObjectURL(videoElement.src);
-                };
-
-                // Trigger rapid background processing streams
-                mediaRecorder.start();
-                videoElement.play();
-                videoElement.muted = true; // Prevents the video track sound from playing out loud out of your speakers
-                videoElement.playbackRate = 4.0; // Locked at 4x processing speed for absolute stability across old computers
-                status.textContent = "⚡ Running hardware-accelerated processing loop...";
-
-                const completionCheck = setInterval(() => {
-                    if (videoElement.ended || videoElement.paused) {
-                        clearInterval(completionCheck);
-                        mediaRecorder.stop();
-                        videoElement.pause();
-                    }
-                }, 100);
-            };
-
-            videoElement.onerror = () => {
-                status.textContent = "❌ Your specific browser doesn't support reading this file type natively.";
-            };
+                if (videoElement.ended || videoElement.paused) {
+                    clearInterval(tracking);
+                    mediaRecorder.stop();
+                    videoElement.pause();
+                }
+            }, 100);
 
         } catch (err) {
-            status.textContent = "❌ Memory error occurred within the local browser tab.";
+            console.error("Extraction Error:", err);
+            status.innerHTML = "<span style='color:#dc2626;'>❌ Error processing media streams.</span>";
+            extractBtn.disabled = false;
+            extractBtn.style.opacity = "1";
         }
     }
 </script>
+
 </body>
 </html>
