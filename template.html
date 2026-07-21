@@ -3,72 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{PAGE_TITLE}}</title>
-    <meta name="description" content="Instantly {{DESCRIPTION}}">
+    <title>ZapFormat - Professional Text & Spacing Normalizer</title>
+    <meta name="description" content="Instantly clean messy spaces, line breaks, and formatting from documents and clipboard text entirely client-side.">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+
     <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --border: #cbd5e1;
+            --success: #10b981;
+            --radius: 12px;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            max-width: 800px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            max-width: 850px;
             margin: 40px auto;
             padding: 0 20px;
-            background-color: #f9f9f9;
-            color: #333;
+            line-height: 1.6;
         }
-        h1 { color: #111; margin-bottom: 8px; }
-        p { color: #666; margin-top: 0; margin-bottom: 24px; }
+
+        .container {
+            background: var(--card);
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 { margin-top: 0; font-size: 26px; color: var(--text); }
+        p.subtitle { color: #64748b; font-size: 15px; margin-bottom: 25px; }
+
         textarea {
             width: 100%;
             height: 250px;
             padding: 16px;
-            border: 2px solid #ddd;
+            border: 1px solid var(--border);
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 15px;
             resize: vertical;
             box-sizing: border-box;
             background: #fff;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            font-family: inherit;
         }
-        textarea:focus { border-color: #0066cc; outline: none; }
-        .btn-group { margin-top: 16px; display: flex; gap: 12px; }
+        textarea:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+
+        .btn-group { margin-top: 20px; display: flex; gap: 12px; }
         button {
             padding: 12px 24px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             transition: background 0.2s;
         }
-        .btn-primary { background-color: #0066cc; color: white; }
-        .btn-primary:hover { background-color: #0052a3; }
-        .btn-secondary { background-color: #e4e4e7; color: #333; }
-        .btn-secondary:hover { background-color: #d4d4d8; }
+        .btn-primary { background-color: var(--primary); color: white; }
+        .btn-primary:hover { background-color: var(--primary-hover); }
+        .btn-secondary { background-color: #e2e8f0; color: var(--text); }
+        .btn-secondary:hover { background-color: #cbd5e1; }
+
         .toast {
-            margin-top: 12px; color: #2e7d32; font-weight: 500; opacity: 0; transition: opacity 0.3s;
+            margin-top: 15px; color: var(--success); font-weight: 600; opacity: 0; transition: opacity 0.3s;
         }
+
+        .editorial-section {
+            margin-top: 40px;
+            background: var(--card);
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+        }
+        .editorial-section h2 { font-size: 18px; color: var(--text); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
+        .editorial-section p { color: #64748b; font-size: 14px; }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px 0;
+            font-size: 13px;
+            color: #64748b;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        footer a { color: var(--primary); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
-    <h1>{{MAIN_HEADING}}</h1>
-    <p>Paste your text below to instantly {{DESCRIPTION}}.</p>
+    <div class="container">
+        <h1>⚡ ZapFormat Text Normalizer</h1>
+        <p class="subtitle">Paste your text below to instantly strip unwanted spaces, line breaks, and normalize formatting.</p>
 
-    <!-- ZapFormat Core Tool Component -->
-    <textarea id="textInput" placeholder="Paste your messy text here..."></textarea>
-    
-    <div class="btn-group">
-        <button class="btn-primary" onclick="cleanText()">Zap Text & Copy</button>
-        <button class="btn-secondary" onclick="clearText()">Clear</button>
+        <textarea id="textInput" placeholder="Paste your messy text here..."></textarea>
+        
+        <div class="btn-group">
+            <button class="btn-primary" onclick="cleanText()">✨ Zap Text & Copy</button>
+            <button class="btn-secondary" onclick="clearText()">🗑️ Clear</button>
+        </div>
+        <div id="toast" class="toast">✅ Text cleaned and copied to secure clipboard!</div>
     </div>
-    <div id="toast" class="toast">Text cleaned and copied to clipboard!</div>
+
+    <div class="editorial-section">
+        <h2>About This Utility</h2>
+        <p>When copying text from PDFs, emails, legacy word processors, or web pages, hidden formatting characters and irregular spacing often disrupt clean publishing. This tool executes 100% client-side inside your browser sandbox to protect your privacy and ensure instantaneous text transformation.</p>
+    </div>
+
+    <footer>
+        <span>&copy; 2026 ZapFormat. All rights reserved.</span>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="index.html">Main Hub</a>
+    </footer>
 
     <script>
         const input = document.getElementById('textInput');
         const toast = document.getElementById('toast');
 
-        function cleanText() {
+        async function cleanText() {
             let text = input.value;
-            
-            // Core ZapFormat Logic: Strip rich formatting, clean up spacing, fix line breaks
+            if (!text.trim()) return;
+
+            // Core robust cleaning matrix
             text = text
                 .replace(/\r\n/g, '\n')      // Normalize line breaks
                 .replace(/[ \t]+/g, ' ')      // Collapse multiple spaces/tabs into a single space
@@ -78,10 +143,11 @@
 
             input.value = text;
             
-            if (text) {
-                // Instantly copy clean text to clipboard
-                navigator.clipboard.writeText(text);
+            try {
+                await navigator.clipboard.writeText(text);
                 showToast();
+            } catch (err) {
+                alert("Text cleaned successfully (manual clipboard copy required).");
             }
         }
 
@@ -91,7 +157,7 @@
 
         function showToast() {
             toast.style.opacity = '1';
-            setTimeout(() => toast.style.opacity = '0', 2000);
+            setTimeout(() => toast.style.opacity = '0', 2500);
         }
     </script>
 </body>
