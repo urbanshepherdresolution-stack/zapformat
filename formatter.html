@@ -42,7 +42,6 @@
   </script>
 
   <style>
-    /* Custom scrollbar for dark UI matching contract anonymizer */
     ::-webkit-scrollbar { width: 8px; height: 8px; }
     ::-webkit-scrollbar-track { background: #090d16; }
     ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
@@ -50,7 +49,6 @@
   </style>
 
   <script>
-    // Suppress harmless ResizeObserver loop notification warnings
     window.addEventListener('error', function(e) {
       if (e.message && e.message.includes('ResizeObserver loop')) {
         e.stopImmediatePropagation();
@@ -58,7 +56,6 @@
       }
     });
 
-    // Safe AdSense initialization engine
     function safeInitAdSense() {
       const adContainers = document.querySelectorAll('.ad-container');
       adContainers.forEach(container => {
@@ -135,7 +132,7 @@
           <span class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-brand-500/10 text-brand-400 border border-brand-500/20">
             Utility Hub
           </span>
-          <span class="text-xs text-slate-400">12 Client-Side Tools Available</span>
+          <span class="text-xs text-slate-400">Client-Side Tools</span>
         </div>
         <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
           ZapFormat Utility Dashboard
@@ -145,16 +142,16 @@
         </p>
       </div>
 
-      <!-- Live Search & Feature Filter -->
       <div class="w-full md:w-80">
         <label for="search-input" class="sr-only">Search Tools</label>
         <div class="relative">
           <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-500 text-sm"></i>
-          <input type="text" id="search-input" oninput="filterTools()" placeholder="Search tools or features (e.g. spaces, NDA, PDF)..." class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-400 transition-colors">
+          <input type="text" id="search-input" oninput="filterTools()" placeholder="Search tools or features..." class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-400 transition-colors">
         </div>
       </div>
     </div>
 
+    <!-- AdSense Banner -->
     <div class="ad-container w-full max-w-5xl mx-auto min-h-[90px] bg-slate-900/40 border border-slate-800/80 rounded-xl overflow-hidden flex items-center justify-center">
       <ins class="adsbygoogle"
            style="display:block; width:100%; min-width:250px;"
@@ -195,14 +192,12 @@
               </p>
             </div>
 
-            <!-- Sub-tools and bundled capabilities -->
             <div class="pt-2">
               <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
               <div class="flex flex-wrap gap-1.5 text-[11px]">
                 <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800">[PARTY_A] Variables</span>
                 <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800">Phone & Email Masking</span>
                 <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800">Currency & SSN</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800">Redaction Audit Ledger</span>
               </div>
             </div>
           </div>
@@ -214,14 +209,14 @@
         </a>
 
         <!-- Enterprise Data Anonymizer Card -->
-        <a href="anonymizer.html" data-keywords="enterprise cluster PII masking database customer log scrubber" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+        <a href="anonymizer.html" data-keywords="enterprise cluster PII masking database customer log scrubber pdf" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
           <div class="space-y-3">
             <div class="flex items-center justify-between">
               <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
                 <i class="fa-solid fa-user-ninja text-lg"></i>
               </div>
               <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400">
-                Data Scrubbing
+                PDF & Data Scrubber
               </span>
             </div>
 
@@ -230,15 +225,14 @@
                 Enterprise Data Anonymizer
               </h3>
               <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                Bulk scrub PII, usernames, and customer identification numbers across JSON logs, database dumps, and CSV files.
+                Bulk scrub PII, usernames, and customer identification numbers across JSON logs, database dumps, and PDF files.
               </p>
             </div>
 
-            <!-- Sub-tools -->
             <div class="pt-2">
               <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
               <div class="flex flex-wrap gap-1.5 text-[11px]">
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">JSON/CSV Scrubber</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">PDF Reader Layer</span>
                 <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Cluster Hash Replacer</span>
                 <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">RegEx Pattern Scrub</span>
               </div>
@@ -272,13 +266,11 @@
               </p>
             </div>
 
-            <!-- Sub-tools -->
             <div class="pt-2">
               <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
               <div class="flex flex-wrap gap-1.5 text-[11px]">
                 <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Clause Flagging</span>
                 <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Arbitration Detector</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Risk Severity Score</span>
               </div>
             </div>
           </div>
@@ -302,8 +294,8 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 
-        <!-- Core Text Normalizer (Explicit Sub-Tools Highlighted) -->
-        <a href="text-normalizer.html" data-keywords="core text normalizer spaces line breaks case upper lower HTML tags accents trim strip duplicate" class="tool-card group bg-slate-900 border border-slate-800 hover:border-brand-500/50 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+        <!-- Core Text Normalizer (Points strictly to text-normalizer.html) -->
+        <a href="text-normalizer.html" data-keywords="core text normalizer spaces line breaks case upper lower HTML tags accents trim strip duplicate email google docs word clip" class="tool-card group bg-slate-900 border border-slate-800 hover:border-brand-500/50 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
           <div class="space-y-3">
             <div class="flex items-center justify-between">
               <div class="p-2.5 rounded-xl bg-brand-500/10 border border-brand-500/20 text-brand-400">
@@ -316,16 +308,15 @@
 
             <div>
               <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
-                Core Text Normalizer
+                Core Text Normalizer Suite
               </h3>
               <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                Complete suite containing 6 integrated text manipulation utilities in one unified editor.
+                Unified suite containing all text cleaning, line break stripping, case conversion, and clipboard purgers in one editor.
               </p>
             </div>
 
-            <!-- EXPLICIT SUB-TOOLS INCLUDED WITHIN CORE NORMALIZER -->
             <div class="pt-2 space-y-1.5">
-              <span class="text-[10px] font-bold text-brand-400 uppercase tracking-wider block">Included Tools Inside:</span>
+              <span class="text-[10px] font-bold text-brand-400 uppercase tracking-wider block">Tools Embedded Inside:</span>
               <div class="grid grid-cols-2 gap-1.5 text-[11px]">
                 <div class="px-2 py-1 rounded bg-slate-950 text-slate-300 border border-slate-800 flex items-center gap-1.5">
                   <i class="fa-solid fa-arrows-to-line text-[10px] text-brand-400"></i> Line Break Remover
@@ -340,23 +331,23 @@
                   <i class="fa-solid fa-code text-[10px] text-brand-400"></i> HTML/Tag Stripper
                 </div>
                 <div class="px-2 py-1 rounded bg-slate-950 text-slate-300 border border-slate-800 flex items-center gap-1.5">
-                  <i class="fa-solid fa-language text-[10px] text-brand-400"></i> Accent Remover
+                  <i class="fa-solid fa-envelope-open text-[10px] text-brand-400"></i> Email Format Stripper
                 </div>
                 <div class="px-2 py-1 rounded bg-slate-950 text-slate-300 border border-slate-800 flex items-center gap-1.5">
-                  <i class="fa-solid fa-list-ol text-[10px] text-brand-400"></i> Duplicate Line Stripper
+                  <i class="fa-solid fa-paste text-[10px] text-brand-400"></i> Docs/Word Purger
                 </div>
               </div>
             </div>
           </div>
 
           <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-400 font-semibold transition-colors">
-            <span>Open All 6 Core Tools</span>
+            <span>Open All Multi-Tools</span>
             <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
           </div>
         </a>
 
         <!-- Markdown Generator -->
-        <a href="markdown.html" data-keywords="markdown headers list tables export draft render formatted text" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+        <a href="markdown.html" data-keywords="markdown headers list tables export draft render formatted text word docx" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
           <div class="space-y-3">
             <div class="flex items-center justify-between">
               <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
@@ -376,127 +367,11 @@
               </p>
             </div>
 
-            <!-- Sub-tools -->
             <div class="pt-2">
               <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
               <div class="flex flex-wrap gap-1.5 text-[11px]">
                 <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Heading Hierarchy</span>
                 <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Table Builder</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Codeblock Format</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-400 font-semibold transition-colors">
-            <span>Launch Tool</span>
-            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-          </div>
-        </a>
-
-        <!-- Email Formatting Stripper -->
-        <a href="email-stripper.html" data-keywords="email thread quote signature strip outlook gmail header" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
-                <i class="fa-solid fa-envelope-open-text text-lg"></i>
-              </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400">
-                Thread Cleaner
-              </span>
-            </div>
-
-            <div>
-              <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
-                Email Formatting Stripper
-              </h3>
-              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                Remove nested email thread replies, signatures, Outlook line artifacts, and heavy HTML markup.
-              </p>
-            </div>
-
-            <!-- Sub-tools -->
-            <div class="pt-2">
-              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
-              <div class="flex flex-wrap gap-1.5 text-[11px]">
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Signature Removal</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Quote Trimmer</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Outlook Prefix Strip</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-400 font-semibold transition-colors">
-            <span>Launch Tool</span>
-            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-          </div>
-        </a>
-
-        <!-- Google Docs Format Purger -->
-        <a href="gdocs-purger.html" data-keywords="google docs clipboard purge rich text style inline spans" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
-                <i class="fa-solid fa-file-word text-lg"></i>
-              </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400">
-                Clipboard Scrub
-              </span>
-            </div>
-
-            <div>
-              <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
-                Google Docs Format Purger
-              </h3>
-              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                Purge hidden HTML formatting, invisible Google font styles, and weird margin artifacts from copied text.
-              </p>
-            </div>
-
-            <!-- Sub-tools -->
-            <div class="pt-2">
-              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
-              <div class="flex flex-wrap gap-1.5 text-[11px]">
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Font Family Removal</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Inline CSS Purge</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Clean Clipboard</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-400 font-semibold transition-colors">
-            <span>Launch Tool</span>
-            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-          </div>
-        </a>
-
-        <!-- Word Clip Text Cleaner -->
-        <a href="word-cleaner.html" data-keywords="word msword clip paste smart quotes hyphens plain text" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
-                <i class="fa-solid fa-paste text-lg"></i>
-              </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400">
-                Word Scrubber
-              </span>
-            </div>
-
-            <div>
-              <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
-                Word Clip Text Cleaner
-              </h3>
-              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                Normalize curly smart quotes, em-dashes, non-breaking spaces, and bullet symbols copied from Microsoft Word.
-              </p>
-            </div>
-
-            <!-- Sub-tools -->
-            <div class="pt-2">
-              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
-              <div class="flex flex-wrap gap-1.5 text-[11px]">
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Smart Quotes Fix</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Em-Dash Standardizer</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Symbol Sanitizer</span>
               </div>
             </div>
           </div>
@@ -509,180 +384,6 @@
 
       </div>
     </section>
-
-    <section class="space-y-4 tool-category">
-      <div class="flex items-center gap-2 pb-1 border-b border-slate-800/80">
-        <i class="fa-solid fa-file-export text-brand-400 text-sm"></i>
-        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-300">
-          DOCUMENT & SPREADSHEET WORKFLOWS
-        </h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-
-        <!-- PDF Document Merger -->
-        <a href="pdf-merger.html" data-keywords="pdf merger combine pdf join documents pages local" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
-                <i class="fa-solid fa-file-pdf text-lg"></i>
-              </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400">
-                PDF Tools
-              </span>
-            </div>
-
-            <div>
-              <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
-                PDF Document Merger
-              </h3>
-              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                Combine multiple PDF files securely inside browser memory without uploading sensitive files to cloud servers.
-              </p>
-            </div>
-
-            <!-- Sub-tools -->
-            <div class="pt-2">
-              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
-              <div class="flex flex-wrap gap-1.5 text-[11px]">
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Drag & Drop Order</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Page Range Select</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Zero Uploads</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-400 font-semibold transition-colors">
-            <span>Launch Tool</span>
-            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-          </div>
-        </a>
-
-        <!-- Word (.docx) to Markdown -->
-        <a href="docx-to-markdown.html" data-keywords="docx word markdown convert document headers lists" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
-                <i class="fa-solid fa-file-lines text-lg"></i>
-              </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400">
-                Converter
-              </span>
-            </div>
-
-            <div>
-              <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
-                Word (.docx) to Markdown
-              </h3>
-              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                Extract text, headings, and lists from Microsoft Word (.docx) files directly into clean Markdown format.
-              </p>
-            </div>
-
-            <!-- Sub-tools -->
-            <div class="pt-2">
-              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
-              <div class="flex flex-wrap gap-1.5 text-[11px]">
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Heading Extractor</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">List Preserver</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Local Parsing</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-400 font-semibold transition-colors">
-            <span>Launch Tool</span>
-            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-          </div>
-        </a>
-
-        <!-- Excel to PDF Converter -->
-        <a href="excel-to-pdf.html" data-keywords="excel pdf sheet csv convert spreadsheet table format" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
-                <i class="fa-solid fa-file-excel text-lg"></i>
-              </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400">
-                Spreadsheets
-              </span>
-            </div>
-
-            <div>
-              <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
-                Excel to PDF Converter
-              </h3>
-              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                Render spreadsheet tables and sheets into clean, print-friendly PDF document reports locally.
-              </p>
-            </div>
-
-            <!-- Sub-tools -->
-            <div class="pt-2">
-              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
-              <div class="flex flex-wrap gap-1.5 text-[11px]">
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Table Auto-Fit</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Print Preview</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">CSV/XLSX Support</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-400 font-semibold transition-colors">
-            <span>Launch Tool</span>
-            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-          </div>
-        </a>
-
-        <!-- Invoice to CSV Parser -->
-        <a href="invoice-parser.html" data-keywords="invoice csv parser extract totals line items vendor receipt" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
-                <i class="fa-solid fa-receipt text-lg"></i>
-              </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400">
-                Extraction
-              </span>
-            </div>
-
-            <div>
-              <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
-                Invoice to CSV Parser
-              </h3>
-              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                Extract billing line items, dates, vendor names, and total amounts from receipts into structured CSV tables.
-              </p>
-            </div>
-
-            <!-- Sub-tools -->
-            <div class="pt-2">
-              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
-              <div class="flex flex-wrap gap-1.5 text-[11px]">
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Line Item Extractor</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Tax & Total Matcher</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">CSV Export</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-400 font-semibold transition-colors">
-            <span>Launch Tool</span>
-            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-          </div>
-        </a>
-
-      </div>
-    </section>
-
-    <div class="ad-container w-full max-w-5xl mx-auto min-h-[90px] bg-slate-900/40 border border-slate-800/80 rounded-xl overflow-hidden flex items-center justify-center">
-      <ins class="adsbygoogle"
-           style="display:block; width:100%; min-width:250px;"
-           data-ad-client="ca-pub-9973919593816896"
-           data-ad-slot="auto"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-    </div>
 
   </main>
 
