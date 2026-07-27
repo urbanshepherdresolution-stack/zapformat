@@ -1,6 +1,404 @@
-<footer style="text-align: center; padding: 30px 20px; font-size: 13px; color: #64748b; border-top: 1px solid #e2e8f0; margin-top: 40px;">
-    <span style="margin-right: 15px;">&copy; 2026 ZapTextCleaner. All rights reserved.</span>
-    <a href="index.html" style="color: #2563eb; text-decoration: none; margin-right: 15px;">Dashboard</a>
-    <a href="privacy.html" style="color: #2563eb; text-decoration: none; margin-right: 15px;">Privacy Policy</a>
-    <a href="guide-ai-data-safety.html" style="color: #2563eb; text-decoration: none;">Instructions &amp; Safety Guide</a>
-</footer>
+<!DOCTYPE html>
+<html lang="en" class="dark h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions — ZapFormat</title>
+  <meta name="description" content="Find answers to common questions about ZapFormat's client-side text tools, contract anonymizer, ATS resume tailor, data privacy guarantees, and browser processing.">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-7TP5H35738');
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom dark scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #090d16; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+  </style>
+
+  <script>
+    window.addEventListener('error', function(e) {
+      if (e.message && e.message.includes('ResizeObserver loop')) {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+      }
+    });
+
+    function safeInitAdSense() {
+      const adContainers = document.querySelectorAll('.ad-container');
+      adContainers.forEach(container => {
+        const ins = container.querySelector('ins.adsbygoogle');
+        if (container.offsetWidth > 0 && ins && ins.offsetWidth > 0 && !container.getAttribute('data-ad-loaded')) {
+          try {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            container.setAttribute('data-ad-loaded', 'true');
+          } catch (e) {
+            console.warn('AdSense push deferred:', e);
+          }
+        }
+      });
+    }
+
+    function observeAdContainers() {
+      if ('ResizeObserver' in window) {
+        const observer = new ResizeObserver(entries => {
+          window.requestAnimationFrame(() => {
+            if (!Array.isArray(entries) || !entries.length) return;
+            entries.forEach(entry => {
+              if (entry.contentRect.width > 0) {
+                safeInitAdSense();
+                if (entry.target && entry.target.getAttribute('data-ad-loaded')) {
+                  observer.unobserve(entry.target);
+                }
+              }
+            });
+          });
+        });
+        document.querySelectorAll('.ad-container').forEach(el => observer.observe(el));
+      } else {
+        window.addEventListener('load', safeInitAdSense);
+        window.addEventListener('resize', safeInitAdSense);
+      }
+    }
+
+    if (document.readyState === 'complete') {
+      observeAdContainers();
+    } else {
+      window.addEventListener('DOMContentLoaded', observeAdContainers);
+    }
+  </script>
+</head>
+<body class="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans antialiased">
+
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-xl font-bold tracking-tight text-white hover:text-brand-400 transition-colors">
+        <i class="fa-solid fa-bolt text-brand-400"></i>
+        <span>Zap<span class="text-brand-400">Format</span></span>
+      </a>
+      
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+        <a href="formatter.html" class="hover:text-white transition-colors">Hub Dashboard</a>
+        <a href="contract-anonymizer.html" class="hover:text-white transition-colors">Contract Anonymizer</a>
+        <a href="ats-resume-tailor.html" class="hover:text-white transition-colors">ATS Resume Tailor</a>
+        <a href="faq.html" class="text-brand-400 font-semibold">FAQ</a>
+        <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <i class="fa-solid fa-shield-halved text-[10px]"></i> 100% In-Browser Privacy
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <div class="text-center max-w-3xl mx-auto space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-bold uppercase tracking-wider">
+        <i class="fa-solid fa-circle-question"></i> Help & Documentation
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+        Frequently Asked Questions
+      </h1>
+      <p class="text-sm sm:text-base text-slate-400">
+        Everything you need to know about our browser-based formatting engine, privacy architecture, and document utilities.
+      </p>
+
+      <!-- Instant FAQ Search Input -->
+      <div class="relative max-w-xl mx-auto pt-2">
+        <i class="fa-solid fa-magnifying-glass absolute left-4 top-6 text-slate-500 text-sm"></i>
+        <input type="text" id="faq-search" oninput="filterFAQs()" placeholder="Search questions (e.g. privacy, ATS, anonymize, offline)..." class="w-full bg-slate-900 border border-slate-800 rounded-2xl pl-11 pr-4 py-3 text-xs sm:text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-400 transition-colors shadow-lg">
+      </div>
+    </div>
+
+    <div class="ad-container w-full max-w-5xl mx-auto min-h-[90px] bg-slate-900/40 border border-slate-800/80 rounded-xl overflow-hidden flex items-center justify-center">
+      <ins class="adsbygoogle"
+           style="display:block; width:100%; min-width:250px;"
+           data-ad-client="ca-pub-9973919593816896"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="flex items-center justify-center flex-wrap gap-2 text-xs font-semibold">
+      <button onclick="setCategory('all')" id="cat-all" class="cat-btn px-4 py-2 rounded-xl bg-brand-500 text-slate-950 font-bold border border-brand-400 transition-all">
+        All Questions
+      </button>
+      <button onclick="setCategory('privacy')" id="cat-privacy" class="cat-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700 transition-all">
+        Privacy & Security
+      </button>
+      <button onclick="setCategory('contract')" id="cat-contract" class="cat-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700 transition-all">
+        Contract Anonymizer
+      </button>
+      <button onclick="setCategory('ats')" id="cat-ats" class="cat-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700 transition-all">
+        ATS Resume Tailor
+      </button>
+      <button onclick="setCategory('general')" id="cat-general" class="cat-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700 transition-all">
+        General Utilities
+      </button>
+    </div>
+
+    <div class="max-w-4xl mx-auto space-y-4" id="faq-list">
+
+      <!-- FAQ Item 1 -->
+      <div class="faq-card bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200" data-category="privacy" data-keywords="privacy safe security server upload client side local browser data storage log zero">
+        <button onclick="toggleFAQ(this)" class="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-slate-800/50 transition-colors">
+          <div class="flex items-center gap-3">
+            <span class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs">
+              <i class="fa-solid fa-shield-halved"></i>
+            </span>
+            <span class="text-sm sm:text-base font-bold text-white">Is my sensitive data or text uploaded to any external server?</span>
+          </div>
+          <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"></i>
+        </button>
+        <div class="faq-answer hidden px-5 pb-5 text-xs sm:text-sm text-slate-400 space-y-2 border-t border-slate-800/60 pt-4 leading-relaxed">
+          <p>
+            <strong class="text-emerald-400">Absolutely not.</strong> Every tool on ZapFormat executes 100% inside your local browser memory (V8 JavaScript runtime).
+          </p>
+          <p>
+            When you paste a contract, resume, or document, the computation happens directly on your device. No data is sent over the network, logged to a database, or shared with external AI APIs. You can even disconnect your internet and the core tools will continue operating seamlessly.
+          </p>
+        </div>
+      </div>
+
+      <!-- FAQ Item 2 -->
+      <div class="faq-card bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200" data-category="contract" data-keywords="contract anonymizer nda ai chatgpt claude redaction pii masking parties replace">
+        <button onclick="toggleFAQ(this)" class="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-slate-800/50 transition-colors">
+          <div class="flex items-center gap-3">
+            <span class="p-2 rounded-lg bg-brand-500/10 text-brand-400 border border-brand-500/20 text-xs">
+              <i class="fa-solid fa-file-contract"></i>
+            </span>
+            <span class="text-sm sm:text-base font-bold text-white">How does the Client Contract Anonymizer prepare text for ChatGPT or Claude?</span>
+          </div>
+          <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"></i>
+        </button>
+        <div class="faq-answer hidden px-5 pb-5 text-xs sm:text-sm text-slate-400 space-y-2 border-t border-slate-800/60 pt-4 leading-relaxed">
+          <p>
+            Public AI tools retain prompts for training unless enterprise opt-outs are configured. The Contract Anonymizer scans your document and swaps sensitive items—such as company names, dollar amounts, emails, phone numbers, and dates—with semantic variables like <code class="text-brand-400">[PARTY_A]</code>, <code class="text-brand-400">[AMOUNT_1]</code>, or <code class="text-brand-400">[EMAIL_1]</code>.
+          </p>
+          <p>
+            This preserves the legal structure and grammar so AI models can review, summarize, or draft clauses without ever exposing real corporate identities or financial terms.
+          </p>
+        </div>
+      </div>
+
+      <!-- FAQ Item 3 -->
+      <div class="faq-card bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200" data-category="ats" data-keywords="ats resume tailor job description match score keywords skills missing bullet generator cv optimize">
+        <button onclick="toggleFAQ(this)" class="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-slate-800/50 transition-colors">
+          <div class="flex items-center gap-3">
+            <span class="p-2 rounded-lg bg-brand-500/10 text-brand-400 border border-brand-500/20 text-xs">
+              <i class="fa-solid fa-file-user"></i>
+            </span>
+            <span class="text-sm sm:text-base font-bold text-white">How does the ATS Resume Tailor compute match percentages?</span>
+          </div>
+          <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"></i>
+        </button>
+        <div class="faq-answer hidden px-5 pb-5 text-xs sm:text-sm text-slate-400 space-y-2 border-t border-slate-800/60 pt-4 leading-relaxed">
+          <p>
+            The ATS Resume Tailor tokenizes the target Job Description (JD) to extract high-density hard skills, tools, and domain keywords while filtering out generic stop words. It then compares this frequency distribution against your resume text.
+          </p>
+          <p>
+            It highlights missing key terms, counts action verbs, inspects contact header formatting, and provides a one-click keyword injection option to draft tailored bullet points instantly.
+          </p>
+        </div>
+      </div>
+
+      <!-- FAQ Item 4 -->
+      <div class="faq-card bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200" data-category="privacy" data-keywords="offline internet connection air gapped network safety PII">
+        <button onclick="toggleFAQ(this)" class="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-slate-800/50 transition-colors">
+          <div class="flex items-center gap-3">
+            <span class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs">
+              <i class="fa-solid fa-wifi"></i>
+            </span>
+            <span class="text-sm sm:text-base font-bold text-white">Can I use ZapFormat utilities offline or in an air-gapped environment?</span>
+          </div>
+          <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"></i>
+        </button>
+        <div class="faq-answer hidden px-5 pb-5 text-xs sm:text-sm text-slate-400 space-y-2 border-t border-slate-800/60 pt-4 leading-relaxed">
+          <p>
+            Yes! Once the HTML and JavaScript assets are loaded in your browser session, the core text manipulation engines, redaction algorithms, and keyword matchers require zero external network calls.
+          </p>
+          <p>
+            You can keep the web app open in an isolated browser window or save the files locally for complete peace of mind.
+          </p>
+        </div>
+      </div>
+
+      <!-- FAQ Item 5 -->
+      <div class="faq-card bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200" data-category="general" data-keywords="cost free payment tier commercial enterprise usage pricing license">
+        <button onclick="toggleFAQ(this)" class="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-slate-800/50 transition-colors">
+          <div class="flex items-center gap-3">
+            <span class="p-2 rounded-lg bg-brand-500/10 text-brand-400 border border-brand-500/20 text-xs">
+              <i class="fa-solid fa-coins"></i>
+            </span>
+            <span class="text-sm sm:text-base font-bold text-white">Is ZapFormat free to use for personal and commercial projects?</span>
+          </div>
+          <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"></i>
+        </button>
+        <div class="faq-answer hidden px-5 pb-5 text-xs sm:text-sm text-slate-400 space-y-2 border-t border-slate-800/60 pt-4 leading-relaxed">
+          <p>
+            Yes, ZapFormat utilities are completely free for individuals, freelancers, job seekers, and corporate professionals. There are no paywalls, hidden limits, or subscription tiers required to unlock full document processing capabilities.
+          </p>
+        </div>
+      </div>
+
+      <!-- FAQ Item 6 -->
+      <div class="faq-card bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200" data-category="general" data-keywords="bug feature request feedback contact support help report update">
+        <button onclick="toggleFAQ(this)" class="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-slate-800/50 transition-colors">
+          <div class="flex items-center gap-3">
+            <span class="p-2 rounded-lg bg-brand-500/10 text-brand-400 border border-brand-500/20 text-xs">
+              <i class="fa-solid fa-bug"></i>
+            </span>
+            <span class="text-sm sm:text-base font-bold text-white">How do I report a issue or suggest a new tool feature?</span>
+          </div>
+          <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"></i>
+        </button>
+        <div class="faq-answer hidden px-5 pb-5 text-xs sm:text-sm text-slate-400 space-y-2 border-t border-slate-800/60 pt-4 leading-relaxed">
+          <p>
+            We actively update ZapFormat based on user feedback. If you discover a bug or want to suggest new redaction patterns or formatting tools, check our privacy policy page or connect with our support channels.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="max-w-4xl mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6 text-center space-y-3 shadow-xl">
+      <div class="p-3 rounded-2xl bg-brand-500/10 border border-brand-500/20 text-brand-400 inline-block">
+        <i class="fa-solid fa-headset text-xl"></i>
+      </div>
+      <h3 class="text-lg font-bold text-white">Still have questions?</h3>
+      <p class="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
+        Explore our comprehensive Hub Dashboard to test our tools live in your browser, or review our Privacy Policy for technical data specifications.
+      </p>
+      <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
+        <a href="formatter.html" class="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-slate-950 font-bold text-xs sm:text-sm rounded-xl transition-colors inline-flex items-center gap-2">
+          <i class="fa-solid fa-rocket text-xs"></i> Launch Hub Dashboard
+        </a>
+        <a href="privacy.html" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs sm:text-sm rounded-xl border border-slate-700 transition-colors inline-flex items-center gap-2">
+          <i class="fa-solid fa-shield-halved text-xs text-emerald-400"></i> Read Privacy Policy
+        </a>
+      </div>
+    </div>
+
+    <!-- Bottom Responsive Ad -->
+    <div class="ad-container w-full max-w-5xl mx-auto min-h-[90px] bg-slate-900/40 border border-slate-800/80 rounded-xl overflow-hidden flex items-center justify-center">
+      <ins class="adsbygoogle"
+           style="display:block; width:100%; min-width:250px;"
+           data-ad-client="ca-pub-9973919593816896"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+  </main>
+
+  <footer class="mt-auto border-t border-slate-800 bg-slate-900/60 py-6 text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <p>&copy; 2026 ZapFormat. All rights reserved. 100% Client-Side Engine.</p>
+      </div>
+      <div class="flex items-center gap-6 font-medium text-slate-400">
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+        <a href="formatter.html" class="hover:text-white transition-colors">Hub Dashboard</a>
+        <a href="contract-anonymizer.html" class="hover:text-white transition-colors">Contract Anonymizer</a>
+        <a href="ats-resume-tailor.html" class="hover:text-white transition-colors">ATS Resume Tailor</a>
+        <a href="faq.html" class="hover:text-white transition-colors">FAQ</a>
+        <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let activeCategory = 'all';
+
+    function toggleFAQ(button) {
+      const card = button.closest('.faq-card');
+      const answer = card.querySelector('.faq-answer');
+      const icon = button.querySelector('.fa-chevron-down');
+
+      const isHidden = answer.classList.contains('hidden');
+
+      // Close all other accordions
+      document.querySelectorAll('.faq-answer').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.fa-chevron-down').forEach(el => el.classList.remove('rotate-180'));
+
+      if (isHidden) {
+        answer.classList.remove('hidden');
+        icon.classList.add('rotate-180');
+      }
+    }
+
+    function setCategory(category) {
+      activeCategory = category;
+
+      // Update button highlights
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.className = 'cat-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700 transition-all';
+      });
+
+      const selectedBtn = document.getElementById(`cat-${category}`);
+      if (selectedBtn) {
+        selectedBtn.className = 'cat-btn px-4 py-2 rounded-xl bg-brand-500 text-slate-950 font-bold border border-brand-400 transition-all';
+      }
+
+      filterFAQs();
+    }
+
+    function filterFAQs() {
+      const query = (document.getElementById('faq-search').value || '').toLowerCase().trim();
+      const cards = document.querySelectorAll('.faq-card');
+
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+        const text = card.innerText.toLowerCase();
+
+        const matchesCat = (activeCategory === 'all' || cat === activeCategory);
+        const matchesQuery = !query || keywords.includes(query) || text.includes(query);
+
+        if (matchesCat && matchesQuery) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
