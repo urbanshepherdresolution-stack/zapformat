@@ -1,345 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark h-full bg-slate-950 text-slate-100">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Client Contract & Legal Doc Anonymizer — 100% Local Processing</title>
+  <title>Client Contract & Legal Doc Anonymizer — ZapFormat</title>
   <meta name="description" content="Safely anonymize legal contracts, NDAs, and corporate docs before pasting into AI models. 100% browser-based redaction with zero server uploads.">
   
-  <!-- Google Analytics -->
+  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-7TP5H35738');
   </script>
 
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
 
-  <style>
-    :root {
-      --bg: #0f172a;
-      --card: #1e293b;
-      --border: #334155;
-      --primary: #38bdf8;
-      --primary-hover: #0284c7;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --success: #22c55e;
-      --tag-bg: #0284c7;
-    }
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      padding: 20px;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    header {
-      margin-bottom: 24px;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 8px;
-      color: var(--text);
-    }
-
-    .subtitle {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    .badge-bar {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 12px;
-    }
-
-    .badge {
-      background: rgba(34, 197, 94, 0.15);
-      color: var(--success);
-      border: 1px solid rgba(34, 197, 94, 0.3);
-      padding: 4px 12px;
-      border-radius: 9999px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .ad-container {
-      margin: 20px 0;
-      text-align: center;
-      background: var(--card);
-      border: 1px dashed var(--border);
-      border-radius: 8px;
-      padding: 10px;
-      min-height: 90px;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .ad-container ins.adsbygoogle {
-      display: block !important;
-      width: 100% !important;
-      min-width: 250px;
-    }
-
-    .main-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-
-    @media (min-width: 900px) {
-      .main-grid {
-        grid-template-columns: 1fr 1fr;
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+            }
+          }
+        }
       }
     }
+  </script>
 
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
+  <style>
+    /* Custom scrollbar for dark UI */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
     }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
+    ::-webkit-scrollbar-track {
+      background: #090d16;
     }
-
-    .card-title {
-      font-size: 1.1rem;
-      font-weight: 600;
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
     }
-
-    textarea {
-      width: 100%;
-      height: 380px;
-      background: #0f172a;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      padding: 12px;
-      font-family: "Courier New", Courier, monospace;
-      font-size: 0.9rem;
-      resize: vertical;
-    }
-
-    textarea:focus {
-      outline: 2px solid var(--primary);
-      border-color: transparent;
-    }
-
-    .controls-panel {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 20px;
-    }
-
-    .options-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .option-label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      color: var(--text-muted);
-    }
-
-    .option-label input[type="checkbox"] {
-      accent-color: var(--primary);
-      width: 16px;
-      height: 16px;
-    }
-
-    .custom-inputs {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .input-field {
-      flex: 1;
-      min-width: 200px;
-      background: #0f172a;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 8px 12px;
-      color: var(--text);
-      font-size: 0.85rem;
-    }
-
-    .btn-group {
-      display: flex;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .btn {
-      background: var(--primary);
-      color: #0f172a;
-      border: none;
-      border-radius: 6px;
-      padding: 10px 18px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .btn:hover {
-      background: var(--primary-hover);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
-
-    .btn-secondary:hover {
-      background: var(--border);
-    }
-
-    .stats-bar {
-      margin-top: 12px;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .copied-toast {
-      display: none;
-      color: var(--success);
-      font-size: 0.85rem;
-      font-weight: 600;
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
     }
   </style>
-</head>
-<body>
-
-  <div class="container">
-    <header>
-      <h1>Client Contract & Legal Doc Anonymizer</h1>
-      <p class="subtitle">Strip client entities, financial figures, and dates before pasting into LLMs/AI tools.</p>
-      <div class="badge-bar">
-        <span class="badge">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          100% Local Browser Processing (Zero Uploads)
-        </span>
-      </div>
-    </header>
-
-    <!-- Top Ad Unit -->
-    <div class="ad-container">
-      <ins class="adsbygoogle"
-           style="display:block; width:100%;"
-           data-ad-client="ca-pub-9973919593816896"
-           data-ad-slot="auto"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-    </div>
-
-    <section class="controls-panel">
-      <div class="options-grid">
-        <label class="option-label">
-          <input type="checkbox" id="opt-emails" checked> Emails & URLs
-        </label>
-        <label class="option-label">
-          <input type="checkbox" id="opt-phones" checked> Phone Numbers
-        </label>
-        <label class="option-label">
-          <input type="checkbox" id="opt-currency" checked> Money & Amounts
-        </label>
-        <label class="option-label">
-          <input type="checkbox" id="opt-dates" checked> Dates & Years
-        </label>
-        <label class="option-label">
-          <input type="checkbox" id="opt-percentages" checked> Percentages
-        </label>
-      </div>
-
-      <div class="custom-inputs">
-        <input type="text" id="custom-parties" class="input-field" placeholder="Custom Party/Company Names (comma-separated, e.g. Acme Corp, John Smith)">
-      </div>
-
-      <div class="btn-group">
-        <button class="btn" onclick="anonymizeText()">Anonymize Contract</button>
-        <button class="btn btn-secondary" onclick="loadSampleText()">Load Sample NDA</button>
-        <button class="btn btn-secondary" onclick="clearFields()">Clear</button>
-      </div>
-    </section>
-
-    <div class="main-grid">
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title">Original Text</span>
-        </div>
-        <textarea id="input-text" placeholder="Paste your original contract, agreement, or doc text here..."></textarea>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title">AI-Ready Anonymized Text</span>
-          <span class="copied-toast" id="toast">Copied to Clipboard!</span>
-        </div>
-        <textarea id="output-text" readonly placeholder="Anonymized text with semantic AI placeholders will appear here..."></textarea>
-        <div class="stats-bar" id="stats-bar">
-          <span>Replacements made: 0</span>
-        </div>
-        <div class="btn-group" style="margin-top: auto;">
-          <button class="btn" onclick="copyOutput()">Copy Anonymized Text</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bottom Ad Unit -->
-    <div class="ad-container">
-      <ins class="adsbygoogle"
-           style="display:block; width:100%;"
-           data-ad-client="ca-pub-9973919593816896"
-           data-ad-slot="auto"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-    </div>
-  </div>
 
   <script>
+    // Suppress harmless ResizeObserver loop notification warnings
+    window.addEventListener('error', function(e) {
+      if (e.message && e.message.includes('ResizeObserver loop')) {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+      }
+    });
+
+    // Safe AdSense initialization engine
     function safeInitAdSense() {
       const adContainers = document.querySelectorAll('.ad-container');
       adContainers.forEach(container => {
-        if (container.offsetWidth > 0 && !container.getAttribute('data-ad-loaded')) {
+        const ins = container.querySelector('ins.adsbygoogle');
+        if (container.offsetWidth > 0 && ins && ins.offsetWidth > 0 && !container.getAttribute('data-ad-loaded')) {
           try {
             (adsbygoogle = window.adsbygoogle || []).push({});
             container.setAttribute('data-ad-loaded', 'true');
@@ -350,80 +84,390 @@
       });
     }
 
-    if (document.readyState === 'complete') {
-      safeInitAdSense();
-    } else {
-      window.addEventListener('load', safeInitAdSense);
+    function observeAdContainers() {
+      if ('ResizeObserver' in window) {
+        const observer = new ResizeObserver(entries => {
+          window.requestAnimationFrame(() => {
+            if (!Array.isArray(entries) || !entries.length) return;
+            entries.forEach(entry => {
+              if (entry.contentRect.width > 0) {
+                safeInitAdSense();
+                if (entry.target && entry.target.getAttribute('data-ad-loaded')) {
+                  observer.unobserve(entry.target);
+                }
+              }
+            });
+          });
+        });
+        document.querySelectorAll('.ad-container').forEach(el => observer.observe(el));
+      } else {
+        window.addEventListener('load', safeInitAdSense);
+        window.addEventListener('resize', safeInitAdSense);
+      }
     }
-    window.addEventListener('resize', safeInitAdSense);
 
+    if (document.readyState === 'complete') {
+      observeAdContainers();
+    } else {
+      window.addEventListener('DOMContentLoaded', observeAdContainers);
+    }
+  </script>
+</head>
+<body class="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans antialiased">
+
+  <!-- ZapFormat Site Header / Navbar -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-xl font-bold tracking-tight text-white hover:text-brand-400 transition-colors">
+        <i class="fa-solid fa-bolt text-brand-400"></i>
+        <span>Zap<span class="text-brand-400">Format</span></span>
+      </a>
+      
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+        <a href="formatter.html" class="hover:text-white transition-colors">Text Tools</a>
+        <a href="contract-anonymizer.html" class="text-brand-400 font-semibold">Contract Anonymizer</a>
+        <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <i class="fa-solid fa-shield-halved text-[10px]"></i> 100% Local Processing
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+
+    <!-- Page Title & Subtitle Banner -->
+    <div class="text-center max-w-3xl mx-auto space-y-2">
+      <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+        Client Contract & Legal Doc Anonymizer
+      </h1>
+      <p class="text-sm sm:text-base text-slate-400">
+        Sanitize NDAs, contracts, and HR documents before copying into AI models (ChatGPT, Claude). Sensitive data is redacted locally in your browser and never sent to any server.
+      </p>
+    </div>
+
+    <!-- Top Responsive Banner Ad -->
+    <div class="ad-container w-full max-w-5xl mx-auto min-h-[90px] bg-slate-900/40 border border-slate-800/80 rounded-xl overflow-hidden flex items-center justify-center">
+      <ins class="adsbygoogle"
+           style="display:block; width:100%; min-width:250px;"
+           data-ad-client="ca-pub-9973919593816896"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+    <!-- Controls & Settings Panel -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pb-4 border-b border-slate-800">
+        
+        <!-- Replacement Mode Dropdown -->
+        <div>
+          <label for="replacement-mode" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+            <i class="fa-solid fa-sliders text-brand-400 mr-1"></i> Redaction Replacement Style
+          </label>
+          <select id="replacement-mode" onchange="anonymizeText()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-brand-400 transition-colors cursor-pointer">
+            <option value="semantic" selected>Semantic AI Placeholders ([PARTY_A], [AMOUNT_1])</option>
+            <option value="generic">Generic Redaction ([REDACTED])</option>
+            <option value="asterisks">Asterisk Masking (***)</option>
+          </select>
+        </div>
+
+        <!-- Custom Party Input -->
+        <div class="md:col-span-2">
+          <label for="custom-parties" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+            <i class="fa-solid fa-user-shield text-brand-400 mr-1"></i> Custom Company & Party Names (Comma-Separated)
+          </label>
+          <input type="text" id="custom-parties" oninput="anonymizeText()" placeholder="e.g. Acme Dynamics Corp, Johnathan Vance, Lexis Tech Ltd" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-brand-400 transition-colors">
+        </div>
+      </div>
+
+      <!-- Entity Toggles -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs font-medium">
+        <label class="flex items-center gap-2 bg-slate-950/60 border border-slate-800 p-2.5 rounded-xl cursor-pointer hover:border-slate-700 transition-colors">
+          <input type="checkbox" id="opt-emails" checked onchange="anonymizeText()" class="rounded border-slate-700 bg-slate-900 text-brand-500 focus:ring-brand-400 h-4 w-4">
+          <span class="text-slate-300">Emails & URLs</span>
+        </label>
+        
+        <label class="flex items-center gap-2 bg-slate-950/60 border border-slate-800 p-2.5 rounded-xl cursor-pointer hover:border-slate-700 transition-colors">
+          <input type="checkbox" id="opt-phones" checked onchange="anonymizeText()" class="rounded border-slate-700 bg-slate-900 text-brand-500 focus:ring-brand-400 h-4 w-4">
+          <span class="text-slate-300">Phone Numbers</span>
+        </label>
+
+        <label class="flex items-center gap-2 bg-slate-950/60 border border-slate-800 p-2.5 rounded-xl cursor-pointer hover:border-slate-700 transition-colors">
+          <input type="checkbox" id="opt-currency" checked onchange="anonymizeText()" class="rounded border-slate-700 bg-slate-900 text-brand-500 focus:ring-brand-400 h-4 w-4">
+          <span class="text-slate-300">Money & Currency</span>
+        </label>
+
+        <label class="flex items-center gap-2 bg-slate-950/60 border border-slate-800 p-2.5 rounded-xl cursor-pointer hover:border-slate-700 transition-colors">
+          <input type="checkbox" id="opt-dates" checked onchange="anonymizeText()" class="rounded border-slate-700 bg-slate-900 text-brand-500 focus:ring-brand-400 h-4 w-4">
+          <span class="text-slate-300">Dates & Years</span>
+        </label>
+
+        <label class="flex items-center gap-2 bg-slate-950/60 border border-slate-800 p-2.5 rounded-xl cursor-pointer hover:border-slate-700 transition-colors">
+          <input type="checkbox" id="opt-percentages" checked onchange="anonymizeText()" class="rounded border-slate-700 bg-slate-900 text-brand-500 focus:ring-brand-400 h-4 w-4">
+          <span class="text-slate-300">Percentages</span>
+        </label>
+
+        <label class="flex items-center gap-2 bg-slate-950/60 border border-slate-800 p-2.5 rounded-xl cursor-pointer hover:border-slate-700 transition-colors">
+          <input type="checkbox" id="opt-ssn" checked onchange="anonymizeText()" class="rounded border-slate-700 bg-slate-900 text-brand-500 focus:ring-brand-400 h-4 w-4">
+          <span class="text-slate-300">Govt ID / SSN</span>
+        </label>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+        <div class="flex items-center gap-2">
+          <button onclick="anonymizeText()" class="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-slate-950 font-bold text-sm rounded-xl transition-all shadow-lg shadow-brand-500/20 flex items-center gap-2">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Anonymize Contract
+          </button>
+          <button onclick="loadSampleText()" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-semibold rounded-xl border border-slate-700 transition-colors flex items-center gap-2">
+            <i class="fa-solid fa-file-lines text-slate-400"></i> Load Sample NDA
+          </button>
+        </div>
+        
+        <button onclick="clearFields()" class="px-3 py-2 text-slate-400 hover:text-rose-400 text-xs font-semibold rounded-lg transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-trash-can"></i> Clear All
+        </button>
+      </div>
+    </section>
+
+    <!-- Two-Column Editor Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      
+      <!-- Input Panel -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col h-[480px]">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+            <i class="fa-solid fa-file-contract text-brand-400"></i> Original Contract Text
+          </span>
+          <span id="input-stats" class="text-xs font-medium text-slate-500">0 words | 0 chars</span>
+        </div>
+        
+        <textarea id="input-text" oninput="anonymizeText()" placeholder="Paste contract, NDA, or HR text here..." class="flex-1 w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm font-mono text-slate-200 focus:outline-none focus:border-brand-400 resize-none leading-relaxed"></textarea>
+      </div>
+
+      <!-- Output Panel -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col h-[480px]">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+            <i class="fa-solid fa-user-ninja text-emerald-400"></i> AI-Ready Anonymized Output
+          </span>
+          <span id="output-stats" class="text-xs font-semibold text-emerald-400">0 redactions made</span>
+        </div>
+
+        <textarea id="output-text" readonly placeholder="Anonymized output will appear here automatically..." class="flex-1 w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm font-mono text-emerald-300/90 focus:outline-none resize-none leading-relaxed"></textarea>
+
+        <!-- Bottom Actions -->
+        <div class="flex items-center justify-between pt-3 mt-2 border-t border-slate-800">
+          <div id="toast" class="hidden text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-check-circle"></i> Copied to clipboard!
+          </div>
+          
+          <div class="flex items-center gap-2 ml-auto">
+            <button onclick="downloadOutput()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg border border-slate-700 transition-colors flex items-center gap-1.5">
+              <i class="fa-solid fa-download text-slate-400"></i> Download .TXT
+            </button>
+            <button onclick="copyOutput()" class="px-4 py-1.5 bg-brand-500 hover:bg-brand-600 text-slate-950 text-xs font-bold rounded-lg transition-colors flex items-center gap-1.5 shadow-md shadow-brand-500/20">
+              <i class="fa-solid fa-copy"></i> Copy Text
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Redaction Audit Ledger -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
+      <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+        <i class="fa-solid fa-list-check text-brand-400"></i> Redaction Audit Ledger
+      </h3>
+      <div id="ledger-list" class="flex flex-wrap gap-2 text-xs">
+        <span class="text-slate-500 italic">No sensitive entities redacted yet. Type or paste contract text above.</span>
+      </div>
+    </section>
+
+    <!-- Bottom Responsive Ad -->
+    <div class="ad-container w-full max-w-5xl mx-auto min-h-[90px] bg-slate-900/40 border border-slate-800/80 rounded-xl overflow-hidden flex items-center justify-center">
+      <ins class="adsbygoogle"
+           style="display:block; width:100%; min-width:250px;"
+           data-ad-client="ca-pub-9973919593816896"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+  </main>
+
+  <!-- ZapFormat Footer -->
+  <footer class="mt-auto border-t border-slate-800 bg-slate-900/60 py-6 text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <p>&copy; 2026 ZapFormat. All rights reserved. Client-side utility engine.</p>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="index.html" class="hover:text-slate-300 transition-colors">Home</a>
+        <a href="formatter.html" class="hover:text-slate-300 transition-colors">Text Tools</a>
+        <a href="privacy.html" class="hover:text-slate-300 transition-colors">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
     function anonymizeText() {
-      let text = document.getElementById('input-text').value;
-      if (!text.trim()) return;
+      const inputEl = document.getElementById('input-text');
+      const outputEl = document.getElementById('output-text');
+      const modeEl = document.getElementById('replacement-mode');
 
-      let replacementCount = 0;
+      if (!inputEl || !outputEl) return;
+
+      const inputText = inputEl.value;
+      const mode = modeEl ? modeEl.value : 'semantic';
+      
+      // Update statistics for original text
+      const words = inputText.trim() ? inputText.trim().split(/\s+/).length : 0;
+      const chars = inputText.length;
+      document.getElementById('input-stats').innerText = `${words} words | ${chars} chars`;
+
+      if (!inputText.trim()) {
+        outputEl.value = '';
+        document.getElementById('output-stats').innerText = '0 replacements';
+        document.getElementById('ledger-list').innerHTML = '<span class="text-slate-500 italic">No sensitive entities redacted yet. Type or paste contract text above.</span>';
+        return;
+      }
+
+      let text = inputText;
+      let totalCount = 0;
+      const replacementsMap = new Map();
+
+      // Helper function to format replacements based on user mode
+      function getReplacementLabel(category, identifier, rawMatch) {
+        if (mode === 'generic') return '[REDACTED]';
+        if (mode === 'asterisks') return '***';
+        return identifier ? `[${category}_${identifier}]` : `[${category}]`;
+      }
 
       // 1. Custom Parties & Companies
-      const customInput = document.getElementById('custom-parties').value;
+      const customPartiesEl = document.getElementById('custom-parties');
+      const customInput = customPartiesEl ? customPartiesEl.value : '';
       if (customInput.trim()) {
         const parties = customInput.split(',').map(p => p.trim()).filter(p => p.length > 0);
         parties.forEach((party, index) => {
           const letter = String.fromCharCode(65 + index); // A, B, C...
           const regex = new RegExp(escapeRegExp(party), 'gi');
           text = text.replace(regex, (match) => {
-            replacementCount++;
-            return `[PARTY_${letter}]`;
+            totalCount++;
+            const label = getReplacementLabel('PARTY', letter, match);
+            replacementsMap.set(label, match);
+            return label;
           });
         });
       }
 
-      // 2. Emails
-      if (document.getElementById('opt-emails').checked) {
-        const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
-        text = text.replace(emailRegex, () => {
-          replacementCount++;
-          return '[EMAIL_ADDRESS]';
+      // 2. Emails & URLs
+      if (document.getElementById('opt-emails')?.checked) {
+        let emailIdx = 1;
+        const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g;
+        text = text.replace(emailRegex, (match) => {
+          totalCount++;
+          const label = getReplacementLabel('EMAIL', emailIdx++, match);
+          replacementsMap.set(label, match);
+          return label;
+        });
+
+        const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g;
+        text = text.replace(urlRegex, (match) => {
+          totalCount++;
+          const label = getReplacementLabel('URL', 'LINK', match);
+          replacementsMap.set(label, match);
+          return label;
         });
       }
 
       // 3. Phone Numbers
-      if (document.getElementById('opt-phones').checked) {
+      if (document.getElementById('opt-phones')?.checked) {
+        let phoneIdx = 1;
         const phoneRegex = /(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/g;
-        text = text.replace(phoneRegex, () => {
-          replacementCount++;
-          return '[PHONE_NUMBER]';
+        text = text.replace(phoneRegex, (match) => {
+          totalCount++;
+          const label = getReplacementLabel('PHONE', phoneIdx++, match);
+          replacementsMap.set(label, match);
+          return label;
         });
       }
 
-      // 4. Money & Currency Amounts
-      if (document.getElementById('opt-currency').checked) {
-        const currencyRegex = /(\$|£|€|USD|GBP|EUR)\s?\d+(?:,\d{3})*(?:\.\d{2})?/gi;
-        text = text.replace(currencyRegex, () => {
-          replacementCount++;
-          return '[MONETARY_AMOUNT]';
+      // 4. Money & Financial Amounts
+      if (document.getElementById('opt-currency')?.checked) {
+        let currIdx = 1;
+        const currencyRegex = /(\$|£|€|USD|GBP|EUR)\s?\d+(?:,\d{3})*(?:\.\d{2})?\b/gi;
+        text = text.replace(currencyRegex, (match) => {
+          totalCount++;
+          const label = getReplacementLabel('AMOUNT', currIdx++, match);
+          replacementsMap.set(label, match);
+          return label;
         });
       }
 
-      // 5. Dates
-      if (document.getElementById('opt-dates').checked) {
-        const dateRegex = /\b(\d{1,2}[\/\.-]\d{1,2}[\/\.-]\d{2,4}|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]* \d{1,2}(?:st|nd|rd|th)?,? \d{4})\b/gi;
-        text = text.replace(dateRegex, () => {
-          replacementCount++;
-          return '[DATE]';
+      // 5. Dates & Timeline
+      if (document.getElementById('opt-dates')?.checked) {
+        let dateIdx = 1;
+        const dateRegex = /\b(\d{1,2}[\/\.-]\d{1,2}[\/\.-]\d{2,4}|(?:Jan|January|Feb|February|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|August|Sep|September|Oct|October|Nov|November|Dec|December)\s+\d{1,2}(?:st|nd|rd|th)?,?\s+\d{4})\b/gi;
+        text = text.replace(dateRegex, (match) => {
+          totalCount++;
+          const label = getReplacementLabel('DATE', dateIdx++, match);
+          replacementsMap.set(label, match);
+          return label;
         });
       }
 
       // 6. Percentages
-      if (document.getElementById('opt-percentages').checked) {
+      if (document.getElementById('opt-percentages')?.checked) {
+        let pctIdx = 1;
         const percentRegex = /\b\d+(?:\.\d+)?%\b/g;
-        text = text.replace(percentRegex, () => {
-          replacementCount++;
-          return '[PERCENTAGE]';
+        text = text.replace(percentRegex, (match) => {
+          totalCount++;
+          const label = getReplacementLabel('PERCENT', pctIdx++, match);
+          replacementsMap.set(label, match);
+          return label;
         });
       }
 
-      document.getElementById('output-text').value = text;
-      document.getElementById('stats-bar').innerHTML = `<span>Total Redactions Made: <strong>${replacementCount}</strong></span>`;
+      // 7. SSN / National Identification Numbers
+      if (document.getElementById('opt-ssn')?.checked) {
+        let ssnIdx = 1;
+        const ssnRegex = /\b\d{3}-\d{2}-\d{4}\b/g;
+        text = text.replace(ssnRegex, (match) => {
+          totalCount++;
+          const label = getReplacementLabel('GOVT_ID', ssnIdx++, match);
+          replacementsMap.set(label, match);
+          return label;
+        });
+      }
+
+      // Update output elements
+      outputEl.value = text;
+      document.getElementById('output-stats').innerText = `${totalCount} redaction${totalCount === 1 ? '' : 's'} made`;
+
+      // Render Replacement Audit Ledger
+      const ledgerContainer = document.getElementById('ledger-list');
+      if (replacementsMap.size === 0) {
+        ledgerContainer.innerHTML = '<span class="text-slate-500 italic">No sensitive items redacted.</span>';
+      } else {
+        let ledgerHTML = '';
+        replacementsMap.forEach((original, token) => {
+          ledgerHTML += `
+            <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-800 text-slate-300">
+              <span class="text-brand-400 font-semibold">${token}</span>
+              <i class="fa-solid fa-arrow-right text-[10px] text-slate-600"></i>
+              <span class="text-slate-400 truncate max-w-[140px]" title="${original}">${original}</span>
+            </div>
+          `;
+        });
+        ledgerContainer.innerHTML = ledgerHTML;
+      }
     }
 
     function escapeRegExp(string) {
@@ -432,26 +476,47 @@
 
     function copyOutput() {
       const output = document.getElementById('output-text');
-      if (!output.value) return;
+      if (!output || !output.value) return;
 
       output.select();
-      navigator.clipboard.writeText(output.value);
+      document.execCommand('copy');
 
       const toast = document.getElementById('toast');
-      toast.style.display = 'inline';
-      setTimeout(() => { toast.style.display = 'none'; }, 2000);
+      if (toast) {
+        toast.classList.remove('hidden');
+        setTimeout(() => { toast.classList.add('hidden'); }, 2200);
+      }
+    }
+
+    function downloadOutput() {
+      const text = document.getElementById('output-text').value;
+      if (!text) return;
+
+      const blob = new Blob([text], { type: 'text/plain' });
+      const anchor = document.createElement('a');
+      anchor.download = 'anonymized-contract.txt';
+      anchor.href = window.URL.createObjectURL(blob);
+      anchor.click();
+      window.URL.revokeObjectURL(anchor.href);
     }
 
     function loadSampleText() {
-      document.getElementById('custom-parties').value = 'Acme Dynamics, Johnathan Doe';
+      document.getElementById('custom-parties').value = 'Acme Dynamics Corp, Johnathan Vance, Lexis Tech Ltd';
       document.getElementById('input-text').value = 
 `MUTUAL NON-DISCLOSURE AGREEMENT
 
-This Agreement is entered into on October 14, 2025, by and between Acme Dynamics, a Delaware corporation ("Disclosing Party"), and Johnathan Doe ("Receiving Party").
+This Non-Disclosure Agreement ("Agreement") is entered into on October 14, 2025, by and between Acme Dynamics Corp, a Delaware corporation ("Disclosing Party"), Johnathan Vance ("Individual Advisor"), and Lexis Tech Ltd ("Receiving Party").
 
-1. Purpose: The parties wish to explore a business opportunity involving a total valuation of $2,500,000.
-2. Confidentiality: Receiving party shall protect all materials. Direct queries can be sent to legal@acmedynamics.com or by phone at (555) 234-5678.
-3. Penalty: Breach of this agreement incurs a 15% late fee penalty.`;
+1. Purpose & Valuation:
+The parties wish to explore a potential technology acquisition involving a total portfolio valuation of $2,500,000 USD and an initial equity deposit of $450,000.
+
+2. Confidentiality & Contact Channels:
+Receiving Party shall protect all confidential communications. Direct inquiries regarding technical IP should be routed to legal@acmedynamics.com or reached via direct line at (555) 234-5678. Reference tax identification SSN: 000-12-3456.
+
+3. Penalties & Warranties:
+Any unauthorized breach of this agreement shall incur a 15% liquidated damages fee payable within 30 days of discovery.
+
+Website Portal: https://secure.acmedynamics.com/portal/v2/docs`;
 
       anonymizeText();
     }
@@ -460,17 +525,8 @@ This Agreement is entered into on October 14, 2025, by and between Acme Dynamics
       document.getElementById('input-text').value = '';
       document.getElementById('output-text').value = '';
       document.getElementById('custom-parties').value = '';
-      document.getElementById('stats-bar').innerHTML = '<span>Replacements made: 0</span>';
+      anonymizeText();
     }
   </script>
 </body>
 </html>
-```
-
-eof
-
----
-
-### What Was Updated
-1. **Google Analytics Script (`G-7TP5H35738`):** Placed in the `<head>` section to ensure proper pageview and user interaction tracking.
-2. **Google AdSense Script (`ca-pub-9973919593816896`):** Added to the `<head>` along with two responsive AdSense placement blocks (above the tool controls and below the main text comparison area).
