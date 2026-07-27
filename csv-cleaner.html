@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en" class="dark h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSV Cleaner & CRM Data Prepper — ZapFormat</title>
+  <meta name="description" content="Clean, standardize, and reformat CSV files locally before importing into QuickBooks, Salesforce, Shopify, or HubSpot. Fix dates, phone numbers, and spacing in your browser.">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-7TP5H35738');
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- PapaParse for robust client-side CSV processing -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom dark scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #090d16; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+  </style>
+
+  <script>
+    window.addEventListener('error', function(e) {
+      if (e.message && e.message.includes('ResizeObserver loop')) {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+      }
+    });
+
+    function safeInitAdSense() {
+      const adContainers = document.querySelectorAll('.ad-container');
+      adContainers.forEach(container => {
+        const ins = container.querySelector('ins.adsbygoogle');
+        if (container.offsetWidth > 0 && ins && ins.offsetWidth > 0 && !container.getAttribute('data-ad-loaded')) {
+          try {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            container.setAttribute('data-ad-loaded', 'true');
+          } catch (e) {
+            console.warn('AdSense push deferred:', e);
+          }
+        }
+      });
+    }
+
+    function observeAdContainers() {
+      if ('ResizeObserver' in window) {
+        const observer = new ResizeObserver(entries => {
+          window.requestAnimationFrame(() => {
+            if (!Array.isArray(entries) || !entries.length) return;
+            entries.forEach(entry => {
+              if (entry.contentRect.width > 0) {
+                safeInitAdSense();
+                if (entry.target && entry.target.getAttribute('data-ad-loaded')) {
+                  observer.unobserve(entry.target);
+                }
+              }
+            });
+          });
+        });
+        document.querySelectorAll('.ad-container').forEach(el => observer.observe(el));
+      } else {
+        window.addEventListener('load', safeInitAdSense);
+        window.addEventListener('resize', safeInitAdSense);
+      }
+    }
+
+    if (document.readyState === 'complete') {
+      observeAdContainers();
+    } else {
+      window.addEventListener('DOMContentLoaded', observeAdContainers);
+    }
+  </script>
+</head>
+<body class="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans antialiased">
+
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-xl font-bold tracking-tight text-white hover:text-brand-400 transition-colors">
+        <i class="fa-solid fa-bolt text-brand-400"></i>
+        <span>Zap<span class="text-brand-400">Format</span></span>
+      </a>
+      
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+        <a href="formatter.html" class="hover:text-white transition-colors">Hub Dashboard</a>
+        <a href="contract-anonymizer.html" class="hover:text-white transition-colors">Contract Anonymizer</a>
+        <a href="ats-resume-tailor.html" class="hover:text-white transition-colors">ATS Resume Tailor</a>
+        <a href="csv-cleaner.html" class="text-brand-400 font-semibold">CSV Import Prepper</a>
+        <a href="faq.html" class="hover:text-white transition-colors">FAQ</a>
+        <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <i class="fa-solid fa-shield-halved text-[10px]"></i> 100% In-Browser Privacy
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+
+    <div class="text-center max-w-3xl mx-auto space-y-2">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-bold uppercase tracking-wider">
+        <i class="fa-solid fa-file-csv"></i> CRM & Accounting CSV Prepper
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+        CSV Cleaner & Software Import Sanitizer
+      </h1>
+      <p class="text-sm sm:text-base text-slate-400">
+        Standardize messy spreadsheet columns, fix dates, clean phone numbers, and remove formatting bugs before uploading into QuickBooks, Salesforce, Shopify, or HubSpot.
+      </p>
+    </div>
+
+    <!-- Top Responsive Ad -->
+    <div class="ad-container w-full max-w-5xl mx-auto min-h-[90px] bg-slate-900/40 border border-slate-800/80 rounded-xl overflow-hidden flex items-center justify-center">
+      <ins class="adsbygoogle"
+           style="display:block; width:100%; min-width:250px;"
+           data-ad-client="ca-pub-9973919593816896"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+    <!-- Control Panel & Target Presets -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pb-4 border-b border-slate-800">
+        
+        <div>
+          <label for="target-preset" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+            <i class="fa-solid fa-sliders text-brand-400 mr-1"></i> Target Platform Preset
+          </label>
+          <select id="target-preset" onchange="runCSVCleanup()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-brand-400 transition-colors cursor-pointer">
+            <option value="quickbooks" selected>QuickBooks / Accounting (MM/DD/YYYY, Clean Numbers)</option>
+            <option value="salesforce">Salesforce CRM (Phone Formatting, Email Trim, Split Names)</option>
+            <option value="shopify">Shopify E-Commerce (SKU Cleanup, Title Case, Numeric Prices)</option>
+            <option value="hubspot">HubSpot CRM (Clean Domains, State Codes, Phone Clean)</option>
+            <option value="custom">General Cleaning (Trim Spaces, Empty Rows, Normalize Case)</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="date-format" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+            <i class="fa-solid fa-calendar text-brand-400 mr-1"></i> Date Standardization
+          </label>
+          <select id="date-format" onchange="runCSVCleanup()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-brand-400 transition-colors cursor-pointer">
+            <option value="MM/DD/YYYY" selected>MM/DD/YYYY (US Standard)</option>
+            <option value="YYYY-MM-DD">YYYY-MM-DD (ISO Standard)</option>
+            <option value="DD/MM/YYYY">DD/MM/YYYY (UK / International)</option>
+            <option value="keep">Keep Original Format</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="phone-format" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+            <i class="fa-solid fa-phone text-brand-400 mr-1"></i> Phone Format Standard
+          </label>
+          <select id="phone-format" onchange="runCSVCleanup()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-brand-400 transition-colors cursor-pointer">
+            <option value="us_formatted" selected>(555) 123-4567</option>
+            <option value="digits_only">Digits Only (5551234567)</option>
+            <option value="e164">+15551234567 (E.164 International)</option>
+            <option value="keep">Keep Original Format</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- Action Rules Checkboxes -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs font-medium">
+        <label class="flex items-center gap-2 bg-slate-950/60 border border-slate-800 p-2.5 rounded-xl cursor-pointer hover:border-slate-700 transition-colors">
+          <input type="checkbox" id="opt-trim" checked onchange="runCSVCleanup()" class="rounded border-slate-700 bg-slate-900 text-brand-500 focus:ring-brand-400 h-4 w-4">
+          <span class="text-slate-300">Trim Extra Spaces</span>
+        </label>
+        
+        <label class="flex items-center gap-2 bg-slate-950/60 border border-slate-800 p-2.5 rounded-xl cursor-pointer hover:border-slate-700 transition-colors">
+          <input type="checkbox" id="opt-empty-rows" checked onchange="runCSVCleanup()" class="rounded border-slate-700 bg-slate-900 text-brand-500 focus:ring-brand-400 h-4 w-4">
+          <span class="text-slate-300">Drop Blank Rows</span>
+        </label>
+
+        <label class="flex items-center gap-2 bg-slate-950/60 border border-slate-800 p-2.5 rounded-xl cursor-pointer hover:border-slate-700 transition-colors">
+          <input type="checkbox" id="opt-clean-emails" checked onchange="runCSVCleanup()" class="rounded border-slate-700 bg-slate-900 text-brand-500 focus:ring-brand-400 h-4 w-4">
+          <span class="text-slate-300">Lowercase Emails</span>
+        </label>
+
+        <label class="flex items-center gap-2 bg-slate-950/60 border border-slate-800 p-2.5 rounded-xl cursor-pointer hover:border-slate-700 transition-colors">
+          <input type="checkbox" id="opt-clean-currency" checked onchange="runCSVCleanup()" class="rounded border-slate-700 bg-slate-900 text-brand-500 focus:ring-brand-400 h-4 w-4">
+          <span class="text-slate-300">Strip $ Symbols</span>
+        </label>
+
+        <label class="flex items-center gap-2 bg-slate-950/60 border border-slate-800 p-2.5 rounded-xl cursor-pointer hover:border-slate-700 transition-colors">
+          <input type="checkbox" id="opt-split-name" onchange="runCSVCleanup()" class="rounded border-slate-700 bg-slate-900 text-brand-500 focus:ring-brand-400 h-4 w-4">
+          <span class="text-slate-300">Split Full Names</span>
+        </label>
+
+        <label class="flex items-center gap-2 bg-slate-950/60 border border-slate-800 p-2.5 rounded-xl cursor-pointer hover:border-slate-700 transition-colors">
+          <input type="checkbox" id="opt-dedupe" onchange="runCSVCleanup()" class="rounded border-slate-700 bg-slate-900 text-brand-500 focus:ring-brand-400 h-4 w-4">
+          <span class="text-slate-300">Deduplicate Rows</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- File Upload and Text Panel Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      
+      <!-- Input Box / Drag & Drop -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col h-[400px]">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+            <i class="fa-solid fa-file-import text-brand-400"></i> Upload CSV File or Paste Data
+          </span>
+          <span id="input-stats" class="text-xs font-medium text-slate-500">0 rows detected</span>
+        </div>
+        
+        <!-- Drag & Drop Zone -->
+        <div id="drop-zone" onclick="document.getElementById('csv-file-input').click()" class="border-2 border-dashed border-slate-800 hover:border-brand-400 rounded-xl p-4 mb-3 text-center cursor-pointer bg-slate-950/60 transition-colors flex flex-col items-center justify-center gap-1.5">
+          <i class="fa-solid fa-cloud-arrow-up text-xl text-brand-400"></i>
+          <p class="text-xs font-bold text-slate-300">Drag & Drop CSV File Here or <span class="text-brand-400">Browse</span></p>
+          <span class="text-[10px] text-slate-500">Supports .csv, .txt tab-delimited or comma-separated tables</span>
+          <input type="file" id="csv-file-input" accept=".csv,.txt" style="display:none" onchange="handleFileSelect(event)">
+        </div>
+
+        <textarea id="raw-csv-input" oninput="runCSVCleanup()" placeholder="Alternatively, paste raw CSV text here..." class="flex-1 w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs font-mono text-slate-200 focus:outline-none focus:border-brand-400 resize-none leading-relaxed"></textarea>
+
+        <div class="flex items-center justify-between pt-3 mt-2 border-t border-slate-800">
+          <button onclick="loadSampleCSV()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-lg border border-slate-700 transition-colors flex items-center gap-1.5">
+            <i class="fa-solid fa-file-lines text-slate-400"></i> Load Sample Messy CSV
+          </button>
+          <button onclick="clearAll()" class="text-xs text-slate-500 hover:text-rose-400 transition-colors">
+            Clear
+          </button>
+        </div>
+      </div>
+
+      <!-- Output / Metrics Panel -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col h-[400px]">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+            <i class="fa-solid fa-wand-magic-sparkles text-emerald-400"></i> Cleaned Output Statistics
+          </span>
+          <span id="cleanup-summary" class="text-xs font-semibold text-emerald-400">0 fixes applied</span>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3 mb-3">
+          <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-center">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Total Rows</span>
+            <span id="stat-rows" class="text-lg font-bold text-slate-200">0</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-center">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Clean Columns</span>
+            <span id="stat-cols" class="text-lg font-bold text-brand-400">0</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-center">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Items Fixed</span>
+            <span id="stat-fixes" class="text-lg font-bold text-emerald-400">0</span>
+          </div>
+        </div>
+
+        <textarea id="cleaned-csv-output" readonly placeholder="Cleaned CSV text output will render here ready for export..." class="flex-1 w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs font-mono text-emerald-300/90 focus:outline-none resize-none leading-relaxed"></textarea>
+
+        <div class="flex items-center justify-between pt-3 mt-2 border-t border-slate-800">
+          <div id="toast" class="hidden text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-check-circle"></i> Copied to clipboard!
+          </div>
+
+          <div class="flex items-center gap-2 ml-auto">
+            <button onclick="downloadCSV()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg border border-slate-700 transition-colors flex items-center gap-1.5">
+              <i class="fa-solid fa-download text-slate-400"></i> Download Clean CSV
+            </button>
+            <button onclick="copyCSV()" class="px-4 py-1.5 bg-brand-500 hover:bg-brand-600 text-slate-950 text-xs font-bold rounded-lg transition-colors flex items-center gap-1.5 shadow-md shadow-brand-500/20">
+              <i class="fa-solid fa-copy"></i> Copy CSV
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Live Preview Data Table -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
+      <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+        <i class="fa-solid fa-table text-brand-400"></i> Cleaned Data Table Preview (First 10 Rows)
+      </h3>
+      <div class="overflow-x-auto border border-slate-800 rounded-xl bg-slate-950 max-h-64">
+        <table id="preview-table" class="w-full text-left text-xs border-collapse">
+          <thead class="bg-slate-900 text-slate-400 sticky top-0 border-b border-slate-800">
+            <tr id="table-head">
+              <th class="p-3 italic text-slate-600">No data loaded yet. Drop a CSV file or click 'Load Sample Messy CSV' above.</th>
+            </tr>
+          </thead>
+          <tbody id="table-body" class="divide-y divide-slate-800 text-slate-300 font-mono">
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Bottom Responsive Ad -->
+    <div class="ad-container w-full max-w-5xl mx-auto min-h-[90px] bg-slate-900/40 border border-slate-800/80 rounded-xl overflow-hidden flex items-center justify-center">
+      <ins class="adsbygoogle"
+           style="display:block; width:100%; min-width:250px;"
+           data-ad-client="ca-pub-9973919593816896"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+  </main>
+
+  <footer class="mt-auto border-t border-slate-800 bg-slate-900/60 py-6 text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <p>&copy; 2026 ZapFormat. All rights reserved. 100% Client-Side Engine.</p>
+      </div>
+      <div class="flex items-center gap-6 font-medium text-slate-400">
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+        <a href="formatter.html" class="hover:text-white transition-colors">Hub Dashboard</a>
+        <a href="contract-anonymizer.html" class="hover:text-white transition-colors">Contract Anonymizer</a>
+        <a href="ats-resume-tailor.html" class="hover:text-white transition-colors">ATS Resume Tailor</a>
+        <a href="csv-cleaner.html" class="hover:text-white transition-colors">CSV Cleaner</a>
+        <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentParsedData = [];
+
+    // Drag and drop setup
+    const dropZone = document.getElementById('drop-zone');
+    if (dropZone) {
+      dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('border-brand-400', 'bg-slate-900');
+      });
+      dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('border-brand-400', 'bg-slate-900');
+      });
+      dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('border-brand-400', 'bg-slate-900');
+        if (e.dataTransfer.files.length > 0) {
+          processCSVFile(e.dataTransfer.files[0]);
+        }
+      });
+    }
+
+    function handleFileSelect(e) {
+      if (e.target.files.length > 0) {
+        processCSVFile(e.target.files[0]);
+      }
+    }
+
+    function processCSVFile(file) {
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        document.getElementById('raw-csv-input').value = evt.target.result;
+        runCSVCleanup();
+      };
+      reader.readAsText(file);
+    }
+
+    function runCSVCleanup() {
+      const rawText = document.getElementById('raw-csv-input').value;
+      
+      if (!rawText.trim()) {
+        resetOutputs();
+        return;
+      }
+
+      // Parse CSV using PapaParse
+      const parsed = Papa.parse(rawText, {
+        header: true,
+        skipEmptyLines: false,
+        dynamicTyping: false
+      });
+
+      if (!parsed.data || parsed.data.length === 0) {
+        resetOutputs();
+        return;
+      }
+
+      let data = parsed.data;
+      let fields = parsed.meta.fields || Object.keys(data[0] || {});
+      let totalFixes = 0;
+
+      const optTrim = document.getElementById('opt-trim')?.checked;
+      const optDropEmpty = document.getElementById('opt-empty-rows')?.checked;
+      const optCleanEmails = document.getElementById('opt-clean-emails')?.checked;
+      const optCleanCurrency = document.getElementById('opt-clean-currency')?.checked;
+      const optSplitName = document.getElementById('opt-split-name')?.checked;
+      const optDedupe = document.getElementById('opt-dedupe')?.checked;
+
+      const dateFormat = document.getElementById('date-format')?.value;
+      const phoneFormat = document.getElementById('phone-format')?.value;
+
+      // 1. Drop Blank Rows
+      if (optDropEmpty) {
+        const initialLen = data.length;
+        data = data.filter(row => {
+          return Object.values(row).some(val => val !== null && val !== undefined && String(val).trim() !== '');
+        });
+        totalFixes += (initialLen - data.length);
+      }
+
+      // 2. Handle Name Splitting if selected
+      if (optSplitName && fields.some(f => /full\s*name|name/i.test(f)) && !fields.includes('First Name')) {
+        const nameField = fields.find(f => /full\s*name|name/i.test(f));
+        data = data.map(row => {
+          if (row[nameField]) {
+            const parts = String(row[nameField]).trim().split(/\s+/);
+            row['First Name'] = parts[0] || '';
+            row['Last Name'] = parts.slice(1).join(' ') || '';
+            totalFixes++;
+          }
+          return row;
+        });
+        fields = Array.from(new Set([...fields, 'First Name', 'Last Name']));
+      }
+
+      // 3. Process Row Values
+      data = data.map(row => {
+        const newRow = {};
+        fields.forEach(field => {
+          let val = row[field] !== undefined && row[field] !== null ? String(row[field]) : '';
+
+          // Trim spaces
+          if (optTrim && val !== val.trim()) {
+            val = val.trim();
+            totalFixes++;
+          }
+
+          // Lowercase Emails
+          if (optCleanEmails && (field.toLowerCase().includes('email') || /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/.test(val))) {
+            const lowerEmail = val.toLowerCase();
+            if (val !== lowerEmail) { val = lowerEmail; totalFixes++; }
+          }
+
+          // Strip Currency Symbols
+          if (optCleanCurrency && (field.toLowerCase().includes('amount') || field.toLowerCase().includes('price') || field.toLowerCase().includes('total') || /^\$\s?\d+/.test(val))) {
+            const cleanCurr = val.replace(/[\$,]/g, '');
+            if (val !== cleanCurr) { val = cleanCurr; totalFixes++; }
+          }
+
+          // Date Standardizing
+          if (dateFormat !== 'keep' && (field.toLowerCase().includes('date') || /\d{1,4}[\/\.-]\d{1,2}[\/\.-]\d{1,4}/.test(val))) {
+            const standardizedDate = formatDate(val, dateFormat);
+            if (standardizedDate && val !== standardizedDate) {
+              val = standardizedDate;
+              totalFixes++;
+            }
+          }
+
+          // Phone Formatting
+          if (phoneFormat !== 'keep' && (field.toLowerCase().includes('phone') || field.toLowerCase().includes('mobile') || /\d{10}/.test(val))) {
+            const standardizedPhone = formatPhoneNumber(val, phoneFormat);
+            if (standardizedPhone && val !== standardizedPhone) {
+              val = standardizedPhone;
+              totalFixes++;
+            }
+          }
+
+          newRow[field] = val;
+        });
+        return newRow;
+      });
+
+      // 4. Deduplicate Rows
+      if (optDedupe) {
+        const initialLen = data.length;
+        const seen = new Set();
+        data = data.filter(row => {
+          const serialized = JSON.stringify(row);
+          if (seen.has(serialized)) return false;
+          seen.add(serialized);
+          return true;
+        });
+        totalFixes += (initialLen - data.length);
+      }
+
+      currentParsedData = data;
+
+      // Unparse back to CSV
+      const outputCSV = Papa.unparse(data, { fields: fields });
+      document.getElementById('cleaned-csv-output').value = outputCSV;
+
+      // Update Statistics
+      document.getElementById('stat-rows').innerText = data.length.toString();
+      document.getElementById('stat-cols').innerText = fields.length.toString();
+      document.getElementById('stat-fixes').innerText = totalFixes.toString();
+      document.getElementById('input-stats').innerText = `${parsed.data.length} original rows`;
+      document.getElementById('cleanup-summary').innerText = `${totalFixes} item${totalFixes === 1 ? '' : 's'} standardized`;
+
+      renderPreviewTable(fields, data.slice(0, 10));
+    }
+
+    function formatDate(val, targetFormat) {
+      const match = val.match(/(\d{1,4})[\/\.-](\d{1,2})[\/\.-](\d{1,4})/);
+      if (!match) return val;
+
+      let year, month, day;
+      if (match[1].length === 4) {
+        year = match[1]; month = match[2].padStart(2, '0'); day = match[3].padStart(2, '0');
+      } else {
+        month = match[1].padStart(2, '0'); day = match[2].padStart(2, '0'); year = match[3];
+        if (year.length === 2) year = '20' + year;
+      }
+
+      if (targetFormat === 'MM/DD/YYYY') return `${month}/${day}/${year}`;
+      if (targetFormat === 'YYYY-MM-DD') return `${year}-${month}-${day}`;
+      if (targetFormat === 'DD/MM/YYYY') return `${day}/${month}/${year}`;
+      return val;
+    }
+
+    function formatPhoneNumber(val, targetFormat) {
+      const digits = val.replace(/\D/g, '');
+      if (digits.length === 10) {
+        if (targetFormat === 'us_formatted') return `(${digits.slice(0,3)}) ${digits.slice(3,6)}-${digits.slice(6)}`;
+        if (targetFormat === 'digits_only') return digits;
+        if (targetFormat === 'e164') return `+1${digits}`;
+      }
+      return val;
+    }
+
+    function renderPreviewTable(fields, rows) {
+      const headEl = document.getElementById('table-head');
+      const bodyEl = document.getElementById('table-body');
+
+      if (!fields || !fields.length) return;
+
+      headEl.innerHTML = fields.map(f => `<th class="p-3 border-b border-slate-800 text-slate-300 font-bold">${f}</th>`).join('');
+
+      if (!rows || rows.length === 0) {
+        bodyEl.innerHTML = '<tr><td class="p-3 text-slate-500 italic" colspan="100%">No rows to display.</td></tr>';
+        return;
+      }
+
+      bodyEl.innerHTML = rows.map(row => {
+        return `<tr>${fields.map(f => `<td class="p-3 whitespace-nowrap overflow-hidden max-w-[200px] truncate">${row[f] || ''}</td>`).join('')}</tr>`;
+      }).join('');
+    }
+
+    function resetOutputs() {
+      document.getElementById('cleaned-csv-output').value = '';
+      document.getElementById('stat-rows').innerText = '0';
+      document.getElementById('stat-cols').innerText = '0';
+      document.getElementById('stat-fixes').innerText = '0';
+      document.getElementById('input-stats').innerText = '0 rows detected';
+      document.getElementById('cleanup-summary').innerText = '0 fixes applied';
+      document.getElementById('table-head').innerHTML = '<th class="p-3 italic text-slate-600">No data loaded yet. Drop a CSV file or click "Load Sample Messy CSV" above.</th>';
+      document.getElementById('table-body').innerHTML = '';
+    }
+
+    function copyCSV() {
+      const output = document.getElementById('cleaned-csv-output');
+      if (!output || !output.value) return;
+
+      output.select();
+      document.execCommand('copy');
+
+      const toast = document.getElementById('toast');
+      if (toast) {
+        toast.classList.remove('hidden');
+        setTimeout(() => { toast.classList.add('hidden'); }, 2200);
+      }
+    }
+
+    function downloadCSV() {
+      const text = document.getElementById('cleaned-csv-output').value;
+      if (!text) return;
+
+      const blob = new Blob([text], { type: 'text/csv;charset=utf-8;' });
+      const anchor = document.createElement('a');
+      anchor.download = 'cleaned_import_data.csv';
+      anchor.href = window.URL.createObjectURL(blob);
+      anchor.click();
+      window.URL.revokeObjectURL(anchor.href);
+    }
+
+    function clearAll() {
+      document.getElementById('raw-csv-input').value = '';
+      resetOutputs();
+    }
+
+    function loadSampleCSV() {
+      document.getElementById('raw-csv-input').value = 
+`Full Name,Email Address,Phone Number,Transaction Date,Amount Due
+ Johnathan Vance , JOHN.VANCE@ACME.COM , (555) 234 5678 , 10/14/2025 , $2500.00 
+  Sarah Connor  , sarah.c@cyberdyne.org , 555-987-6543 , 2025-11-02 , $450.50 
+Michael Scott,mscott@dundermifflin.com,5553492019,01/22/2026,$120.00
+  ,,,,,
+  Johnathan Vance , JOHN.VANCE@ACME.COM , (555) 234 5678 , 10/14/2025 , $2500.00 `;
+
+      runCSVCleanup();
+    }
+  </script>
+</body>
+</html>
