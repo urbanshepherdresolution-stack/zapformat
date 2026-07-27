@@ -1,170 +1,654 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark h-full bg-slate-950 text-slate-100">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-7TP5H35738');
-    </script>
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATS Resume Tailor &amp; Keyword Optimizer Online</title>
-    <meta name="description" content="Optimize your resume for Applicant Tracking Systems (ATS) by matching job description keywords locally.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATS Resume Tailor & Job Match Optimizer — ZapFormat</title>
+  <meta name="description" content="Match your resume against job descriptions in real-time. Uncover missing keywords, improve ATS match percentage, and optimize bullets completely in your browser.">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-7TP5H35738');
+  </script>
 
-    <style>
-        :root {
-            --primary: #1e3a8a;
-            --primary-hover: #172554;
-            --dark: #0f172a;
-            --secondary: #64748b;
-            --border: #e2e8f0;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --radius: 12px;
-        }
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f8fafc;
-            color: var(--dark);
-            margin: 0;
-            padding: 40px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 900px;
-            width: 100%;
-            background: white;
-            padding: 40px;
-            border-radius: var(--radius);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            box-sizing: border-box;
-        }
-        h1 { margin-top: 0; color: var(--primary); font-size: 26px; }
-        p.subtitle { color: var(--secondary); font-size: 15px; margin-bottom: 25px; }
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
 
-        .grid-workspace {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-        @media (max-width: 768px) {
-            .grid-workspace { grid-template-columns: 1fr; }
-        }
-        .pane { display: flex; flex-direction: column; }
-        label { font-weight: 600; margin-bottom: 8px; font-size: 13px; text-transform: uppercase; color: var(--secondary); letter-spacing: 0.05em; }
-        textarea {
-            width: 100%;
-            height: 220px;
-            padding: 14px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 14px;
-            box-sizing: border-box;
-            background-color: #fafafa;
-            resize: vertical;
-            font-family: inherit;
-        }
-        textarea:focus { outline: none; border-color: var(--primary); background-color: #fff; box-shadow: 0 0 0 3px rgba(30,58,138,0.1); }
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        button {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 14px 24px;
-            font-size: 15px;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.2s;
-            width: 100%;
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+            }
+          }
         }
-        button:hover { background-color: var(--primary-hover); }
+      }
+    }
+  </script>
 
-        .results-panel {
-            margin-top: 35px;
-            border-top: 2px solid var(--border);
-            padding-top: 25px;
-            display: none;
-        }
-        .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0; }
-        .badge {
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 600;
-        }
-        .badge.missing { background: #fee2e2; color: #991b1b; }
-        .badge.found { background: #d1fae5; color: #065f46; }
+  <style>
+    /* Custom dark scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #090d16; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+  </style>
 
-        .tip-box {
-            background: #fdf2f8;
-            border: 1px solid #fbcfe8;
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-top: 10px;
-            font-size: 13px;
-            color: #9d174d;
-        }
+  <script>
+    window.addEventListener('error', function(e) {
+      if (e.message && e.message.includes('ResizeObserver loop')) {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+      }
+    });
 
-        .preview-box {
-            border: 1px solid var(--border);
-            padding: 20px;
-            border-radius: 8px;
-            background: #ffffff;
-            line-height: 1.8;
-            font-size: 14px;
-            margin-top: 15px;
-            white-space: pre-wrap;
-            max-height: 300px;
-            overflow-y: auto;
+    function safeInitAdSense() {
+      const adContainers = document.querySelectorAll('.ad-container');
+      adContainers.forEach(container => {
+        const ins = container.querySelector('ins.adsbygoogle');
+        if (container.offsetWidth > 0 && ins && ins.offsetWidth > 0 && !container.getAttribute('data-ad-loaded')) {
+          try {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            container.setAttribute('data-ad-loaded', 'true');
+          } catch (e) {
+            console.warn('AdSense push deferred:', e);
+          }
         }
+      });
+    }
 
-        .editorial-section {
-            max-width: 900px;
-            width: 100%;
-            margin-top: 30px;
-            background: white;
-            padding: 40px;
-            border-radius: var(--radius);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            box-sizing: border-box;
-        }
-        .editorial-section h2 { font-size: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: var(--primary); }
-        .editorial-section p { color: var(--secondary); font-size: 14px; }
+    function observeAdContainers() {
+      if ('ResizeObserver' in window) {
+        const observer = new ResizeObserver(entries => {
+          window.requestAnimationFrame(() => {
+            if (!Array.isArray(entries) || !entries.length) return;
+            entries.forEach(entry => {
+              if (entry.contentRect.width > 0) {
+                safeInitAdSense();
+                if (entry.target && entry.target.getAttribute('data-ad-loaded')) {
+                  observer.unobserve(entry.target);
+                }
+              }
+            });
+          });
+        });
+        document.querySelectorAll('.ad-container').forEach(el => observer.observe(el));
+      } else {
+        window.addEventListener('load', safeInitAdSense);
+        window.addEventListener('resize', safeInitAdSense);
+      }
+    }
 
-        footer {
-            max-width: 900px;
-            width: 100%;
-            text-align: center;
-            font-size: 13px;
-            color: var(--secondary);
-            padding-top: 30px;
-            margin-top: 30px;
-            border-top: 1px solid #e2e8f0;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        footer a { color: var(--primary); text-decoration: none; }
-    </style>
+    if (document.readyState === 'complete') {
+      observeAdContainers();
+    } else {
+      window.addEventListener('DOMContentLoaded', observeAdContainers);
+    }
+  </script>
 </head>
-<body>
+<body class="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans antialiased">
 
-<div class="container">
-    <h1>🎯 ATS Resume Tailor &amp; Optimizer</h1>
-    <p class="subtitle">Match your CV against job target descriptions to identify missing keywords and export optimized PDF files.</p>
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-xl font-bold tracking-tight text-white hover:text-brand-400 transition-colors">
+        <i class="fa-solid fa-bolt text-brand-400"></i>
+        <span>Zap<span class="text-brand-400">Format</span></span>
+      </a>
+      
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+        <a href="formatter.html" class="hover:text-white transition-colors">Hub Dashboard</a>
+        <a href="contract-anonymizer.html" class="hover:text-white transition-colors">Contract Anonymizer</a>
+        <a href="ats-resume-tailor.html" class="text-brand-400 font-semibold">ATS Resume Tailor</a>
+        <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
+      </nav>
 
-    <div class="grid-workspace">
-        <div class="pane">
-            <label for="jobDesc
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <i class="fa-solid fa-shield-halved text-[10px]"></i> 100% In-Browser Privacy
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+
+    <div class="text-center max-w-3xl mx-auto space-y-2">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-bold uppercase tracking-wider">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> ATS CV Matcher & Tailor
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+        ATS Resume Tailor & Job Matcher
+      </h1>
+      <p class="text-sm sm:text-base text-slate-400">
+        Compare your resume against any job description in real-time. Uncover missing keywords, check ATS compliance, and build tailored bullet points locally without server uploads.
+      </p>
+    </div>
+
+    <!-- AdSense Banner -->
+    <div class="ad-container w-full max-w-5xl mx-auto min-h-[90px] bg-slate-900/40 border border-slate-800/80 rounded-xl overflow-hidden flex items-center justify-center">
+      <ins class="adsbygoogle"
+           style="display:block; width:100%; min-width:250px;"
+           data-ad-client="ca-pub-9973919593816896"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      
+      <!-- Resume Input Box -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col h-[420px]">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+            <i class="fa-solid fa-file-user text-brand-400"></i> Your Current Resume (CV)
+          </span>
+          <span id="resume-stats" class="text-xs font-medium text-slate-500">0 words</span>
+        </div>
+        
+        <textarea id="resume-text" oninput="analyzeMatch()" placeholder="Paste your resume text here (experience, skills, summary)..." class="flex-1 w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs sm:text-sm font-mono text-slate-200 focus:outline-none focus:border-brand-400 resize-none leading-relaxed"></textarea>
+
+        <div class="flex items-center justify-between pt-3 mt-2 border-t border-slate-800">
+          <button onclick="loadSampleResume()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-lg border border-slate-700 transition-colors flex items-center gap-1.5">
+            <i class="fa-solid fa-file-lines text-slate-400"></i> Load Sample Resume
+          </button>
+          <button onclick="clearResume()" class="text-xs text-slate-500 hover:text-rose-400 transition-colors">
+            Clear
+          </button>
+        </div>
+      </div>
+
+      <!-- Job Description Input Box -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col h-[420px]">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+            <i class="fa-solid fa-briefcase text-brand-400"></i> Target Job Description (JD)
+          </span>
+          <span id="jd-stats" class="text-xs font-medium text-slate-500">0 words</span>
+        </div>
+
+        <textarea id="jd-text" oninput="analyzeMatch()" placeholder="Paste the target job description or requirements here..." class="flex-1 w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs sm:text-sm font-mono text-slate-200 focus:outline-none focus:border-brand-400 resize-none leading-relaxed"></textarea>
+
+        <div class="flex items-center justify-between pt-3 mt-2 border-t border-slate-800">
+          <button onclick="loadSampleJD()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-lg border border-slate-700 transition-colors flex items-center gap-1.5">
+            <i class="fa-solid fa-briefcase text-slate-400"></i> Load Sample Job Description
+          </button>
+          <button onclick="clearJD()" class="text-xs text-slate-500 hover:text-rose-400 transition-colors">
+            Clear
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
+      
+      <!-- Top Score Header -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-6 pb-6 border-b border-slate-800">
+        <div class="flex items-center gap-4">
+          <div class="relative w-20 h-20 flex items-center justify-center rounded-2xl bg-slate-950 border border-slate-800">
+            <span id="score-percentage" class="text-2xl font-extrabold text-slate-500">0%</span>
+          </div>
+          <div>
+            <h3 id="score-status" class="text-lg font-bold text-white">Paste Resume & Job Description</h3>
+            <p id="score-summary" class="text-xs text-slate-400 mt-1">
+              Analysis runs automatically as you type or modify content.
+            </p>
+          </div>
+        </div>
+
+        <button onclick="analyzeMatch()" class="px-5 py-2.5 bg-brand-500 hover:bg-brand-600 text-slate-950 font-bold text-sm rounded-xl transition-all shadow-lg shadow-brand-500/20 flex items-center gap-2">
+          <i class="fa-solid fa-rotate text-xs"></i> Re-Analyze Now
+        </button>
+      </div>
+
+      <!-- Metric Highlights Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Matched Keywords</span>
+          <span id="stat-matched-count" class="text-xl font-bold text-emerald-400 mt-1 block">0 / 0</span>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Missing High-Impact Skills</span>
+          <span id="stat-missing-count" class="text-xl font-bold text-rose-400 mt-1 block">0</span>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">ATS Parseability</span>
+          <span id="stat-parse-status" class="text-sm font-bold text-slate-300 mt-2 block">Pending Check</span>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Action Verbs Found</span>
+          <span id="stat-verb-count" class="text-xl font-bold text-brand-400 mt-1 block">0</span>
+        </div>
+      </div>
+
+      <!-- Keyword Breakdown Tabs -->
+      <div class="space-y-4">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+          <i class="fa-solid fa-list-check text-brand-400"></i> Keyword Coverage & Missing Skills Analysis
+        </h4>
+
+        <!-- Missing Keywords Pill List -->
+        <div id="missing-keywords-container" class="p-4 rounded-xl bg-slate-950 border border-slate-800 min-h-[80px] space-y-2">
+          <span class="text-xs text-slate-500 italic block">No analysis performed yet. Add text above to extract missing hard skills and keywords.</span>
+        </div>
+      </div>
+
+      <!-- ATS Formatting Warnings -->
+      <div id="formatting-audit-box" class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2 hidden">
+        <h5 class="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2">
+          <i class="fa-solid fa-triangle-exclamation"></i> ATS Format & Structure Findings
+        </h5>
+        <ul id="formatting-warnings-list" class="text-xs space-y-1 text-slate-300 list-disc list-inside">
+        </ul>
+      </div>
+
+    </section>
+
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div>
+          <h3 class="text-sm font-bold uppercase tracking-wider text-white flex items-center gap-2">
+            <i class="fa-solid fa-file-circle-check text-emerald-400"></i> Optimized / Tailored Resume Draft
+          </h3>
+          <p class="text-xs text-slate-400 mt-0.5">Edit your tailored resume draft or insert missing keywords directly into work experience bullets.</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="injectMissingKeywords()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-brand-400 text-xs font-semibold rounded-lg border border-slate-700 transition-colors flex items-center gap-1.5">
+            <i class="fa-solid fa-plus-circle"></i> Inject Top Keywords
+          </button>
+        </div>
+      </div>
+
+      <textarea id="tailored-draft" placeholder="Your optimized resume draft will appear here. Click 'Inject Top Keywords' or copy directly..." class="w-full h-64 bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs sm:text-sm font-mono text-emerald-300/90 focus:outline-none focus:border-brand-400 leading-relaxed"></textarea>
+
+      <div class="flex items-center justify-between pt-2">
+        <div id="toast" class="hidden text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
+          <i class="fa-solid fa-check-circle"></i> Copied to clipboard!
+        </div>
+
+        <div class="flex items-center gap-2 ml-auto">
+          <button onclick="downloadDraft()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg border border-slate-700 transition-colors flex items-center gap-1.5">
+            <i class="fa-solid fa-download text-slate-400"></i> Download Draft (.TXT)
+          </button>
+          <button onclick="copyDraft()" class="px-4 py-1.5 bg-brand-500 hover:bg-brand-600 text-slate-950 text-xs font-bold rounded-lg transition-colors flex items-center gap-1.5 shadow-md shadow-brand-500/20">
+            <i class="fa-solid fa-copy"></i> Copy Draft
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Responsive Ad -->
+    <div class="ad-container w-full max-w-5xl mx-auto min-h-[90px] bg-slate-900/40 border border-slate-800/80 rounded-xl overflow-hidden flex items-center justify-center">
+      <ins class="adsbygoogle"
+           style="display:block; width:100%; min-width:250px;"
+           data-ad-client="ca-pub-9973919593816896"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+  </main>
+
+  <footer class="mt-auto border-t border-slate-800 bg-slate-900/60 py-6 text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <p>&copy; 2026 ZapFormat. All rights reserved. 100% Client-Side Engine.</p>
+      </div>
+      <div class="flex items-center gap-6 font-medium text-slate-400">
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+        <a href="formatter.html" class="hover:text-white transition-colors">Hub Dashboard</a>
+        <a href="contract-anonymizer.html" class="hover:text-white transition-colors">Contract Anonymizer</a>
+        <a href="ats-resume-tailor.html" class="hover:text-white transition-colors">ATS Resume Tailor</a>
+        <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Common English & Corporate Stopwords
+    const STOPWORDS = new Set([
+      'a', 'about', 'above', 'after', 'again', 'against', 'all', 'am', 'an', 'and', 'any', 'are', 'aren\'t', 'as', 'at',
+      'be', 'because', 'been', 'before', 'being', 'below', 'between', 'both', 'but', 'by', 'can', 'can\'t', 'cannot',
+      'could', 'did', 'do', 'does', 'doing', 'down', 'during', 'each', 'few', 'for', 'from', 'further', 'had', 'has',
+      'have', 'having', 'he', 'her', 'here', 'hers', 'herself', 'him', 'himself', 'his', 'how', 'i', 'if', 'in', 'into',
+      'is', 'it', 'its', 'itself', 'just', 'me', 'more', 'most', 'my', 'myself', 'no', 'nor', 'not', 'of', 'off', 'on',
+      'once', 'only', 'or', 'other', 'our', 'ours', 'ourselves', 'out', 'over', 'own', 'same', 'she', 'should', 'so',
+      'some', 'such', 'than', 'that', 'the', 'their', 'theirs', 'them', 'themselves', 'then', 'there', 'these', 'they',
+      'this', 'those', 'through', 'to', 'too', 'under', 'until', 'up', 'very', 'was', 'we', 'were', 'what', 'when',
+      'where', 'which', 'while', 'who', 'whom', 'why', 'with', 'would', 'you', 'your', 'yours', 'yourself', 'yourselves',
+      'work', 'working', 'experience', 'ability', 'must', 'required', 'skills', 'role', 'job', 'team', 'candidate'
+    ]);
+
+    // Common Action Verbs for ATS Checks
+    const ACTION_VERBS = new Set([
+      'engineered', 'developed', 'architected', 'led', 'managed', 'spearheaded', 'orchestrated', 'built',
+      'designed', 'implemented', 'optimized', 'reduced', 'increased', 'scaled', 'delivered', 'automated',
+      'collaborated', 'crafted', 'formulated', 'analyzed', 'streamlined', 'transformed', 'deployed', 'launched'
+    ]);
+
+    let extractedMissingKeywords = [];
+
+    function analyzeMatch() {
+      const resumeRaw = document.getElementById('resume-text').value;
+      const jdRaw = document.getElementById('jd-text').value;
+
+      // Update word counters
+      const resumeWords = resumeRaw.trim() ? resumeRaw.trim().split(/\s+/).length : 0;
+      const jdWords = jdRaw.trim() ? jdRaw.trim().split(/\s+/).length : 0;
+
+      document.getElementById('resume-stats').innerText = `${resumeWords} words`;
+      document.getElementById('jd-stats').innerText = `${jdWords} words`;
+
+      if (!resumeRaw.trim() || !jdRaw.trim()) {
+        resetDashboard();
+        return;
+      }
+
+      // Sync tailored draft initially if empty
+      const draftEl = document.getElementById('tailored-draft');
+      if (!draftEl.value.trim() || draftEl.getAttribute('data-auto-synced') === 'true') {
+        draftEl.value = resumeRaw;
+        draftEl.setAttribute('data-auto-synced', 'true');
+      }
+
+      // 1. Extract Keywords from JD
+      const jdTokens = tokenizeText(jdRaw);
+      const jdFreq = getKeywordFrequencies(jdTokens);
+
+      // Top N keywords from JD
+      const topJDKeywords = Object.entries(jdFreq)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 20)
+        .map(entry => entry[0]);
+
+      // 2. Tokenize Resume
+      const resumeTokensLower = new Set(tokenizeText(resumeRaw));
+
+      // 3. Compute Matches & Misses
+      const matched = [];
+      const missing = [];
+
+      topJDKeywords.forEach(kw => {
+        if (resumeTokensLower.has(kw)) {
+          matched.push(kw);
+        } else {
+          missing.push(kw);
+        }
+      });
+
+      extractedMissingKeywords = missing;
+
+      // Calculate score percentage
+      const totalKey = topJDKeywords.length || 1;
+      const scorePct = Math.round((matched.length / totalKey) * 100);
+
+      // Update Top Status Display
+      const scoreEl = document.getElementById('score-percentage');
+      const statusEl = document.getElementById('score-status');
+      const summaryEl = document.getElementById('score-summary');
+
+      scoreEl.innerText = `${scorePct}%`;
+      
+      if (scorePct >= 75) {
+        scoreEl.className = 'text-2xl font-extrabold text-emerald-400';
+        statusEl.innerText = 'Excellent ATS Compatibility';
+        summaryEl.innerText = 'Your resume aligns strongly with key phrases in this job description.';
+      } else if (scorePct >= 50) {
+        scoreEl.className = 'text-2xl font-extrabold text-brand-400';
+        statusEl.innerText = 'Moderate ATS Compatibility';
+        summaryEl.innerText = 'Good baseline, but missing several crucial hard skills and keywords.';
+      } else {
+        scoreEl.className = 'text-2xl font-extrabold text-rose-400';
+        statusEl.innerText = 'Low ATS Compatibility';
+        summaryEl.innerText = 'High risk of automated filter rejection. Add missing key terms below.';
+      }
+
+      // Update Grid Metrics
+      document.getElementById('stat-matched-count').innerText = `${matched.length} / ${topJDKeywords.length}`;
+      document.getElementById('stat-missing-count').innerText = `${missing.length}`;
+      
+      // Count Action Verbs in Resume
+      let verbCount = 0;
+      resumeTokensLower.forEach(token => {
+        if (ACTION_VERBS.has(token)) verbCount++;
+      });
+      document.getElementById('stat-verb-count').innerText = verbCount.toString();
+
+      // Render Missing Keywords Pills
+      renderMissingKeywords(matched, missing);
+
+      // Perform Formatting & Structure Audit
+      performFormattingAudit(resumeRaw);
+    }
+
+    function tokenizeText(text) {
+      return text
+        .toLowerCase()
+        .replace(/[^a-z0-9+#.-]/g, ' ')
+        .split(/\s+/)
+        .filter(w => w.length > 2 && !STOPWORDS.has(w));
+    }
+
+    function getKeywordFrequencies(tokens) {
+      const freq = {};
+      tokens.forEach(t => {
+        freq[t] = (freq[t] || 0) + 1;
+      });
+      return freq;
+    }
+
+    function renderMissingKeywords(matched, missing) {
+      const container = document.getElementById('missing-keywords-container');
+      
+      if (!matched.length && !missing.length) {
+        container.innerHTML = '<span class="text-xs text-slate-500 italic block">No skills extracted yet.</span>';
+        return;
+      }
+
+      let html = '<div class="space-y-3">';
+
+      if (missing.length > 0) {
+        html += `
+          <div>
+            <span class="text-[11px] font-bold text-rose-400 uppercase tracking-wider block mb-2">Missing High-Impact Skills (${missing.length})</span>
+            <div class="flex flex-wrap gap-2">
+        `;
+        missing.forEach(kw => {
+          html += `
+            <span onclick="appendKeywordToDraft('${kw}')" title="Click to insert into draft" class="cursor-pointer px-2.5 py-1 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300 hover:bg-rose-500/20 text-xs font-semibold flex items-center gap-1.5 transition-colors">
+              <i class="fa-solid fa-plus text-[10px]"></i> ${kw}
+            </span>
+          `;
+        });
+        html += '</div></div>';
+      }
+
+      if (matched.length > 0) {
+        html += `
+          <div>
+            <span class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider block mb-2">Matched Key Terms (${matched.length})</span>
+            <div class="flex flex-wrap gap-2">
+        `;
+        matched.forEach(kw => {
+          html += `
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-semibold flex items-center gap-1.5">
+              <i class="fa-solid fa-check text-[10px]"></i> ${kw}
+            </span>
+          `;
+        });
+        html += '</div></div>';
+      }
+
+      html += '</div>';
+      container.innerHTML = html;
+    }
+
+    function performFormattingAudit(resumeText) {
+      const auditBox = document.getElementById('formatting-audit-box');
+      const listEl = document.getElementById('formatting-warnings-list');
+      const parseStatusEl = document.getElementById('stat-parse-status');
+
+      const warnings = [];
+
+      // Check contact info presence
+      const hasEmail = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/.test(resumeText);
+      const hasPhone = /(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/.test(resumeText);
+      
+      if (!hasEmail) warnings.push('Missing Email Address. Ensure your direct contact email is in plain text.');
+      if (!hasPhone) warnings.push('Missing Phone Number. Standard ATS scanners search top headers for phone lines.');
+
+      // Check Standard Headings
+      const lower = resumeText.toLowerCase();
+      if (!lower.includes('experience') && !lower.includes('employment') && !lower.includes('work history')) {
+        warnings.push('No clear "Experience" or "Work History" header detected.');
+      }
+      if (!lower.includes('education') && !lower.includes('academic')) {
+        warnings.push('No clear "Education" header detected.');
+      }
+      if (!lower.includes('skills')) {
+        warnings.push('Missing dedicated "Skills" or "Technical Skills" section.');
+      }
+
+      if (warnings.length === 0) {
+        auditBox.classList.add('hidden');
+        parseStatusEl.innerText = 'Passed (Clean)';
+        parseStatusEl.className = 'text-sm font-bold text-emerald-400 mt-2 block';
+      } else {
+        auditBox.classList.remove('hidden');
+        parseStatusEl.innerText = `${warnings.length} Warning${warnings.length > 1 ? 's' : ''}`;
+        parseStatusEl.className = 'text-sm font-bold text-amber-400 mt-2 block';
+
+        listEl.innerHTML = warnings.map(w => `<li>${w}</li>`).join('');
+      }
+    }
+
+    function injectMissingKeywords() {
+      if (!extractedMissingKeywords.length) return;
+      const draftEl = document.getElementById('tailored-draft');
+      const textToAdd = `\n\n[CORE SKILLS & TECHNOLOGIES ADDED FOR ATS]:\n` + extractedMissingKeywords.join(', ');
+      draftEl.value = draftEl.value + textToAdd;
+      draftEl.removeAttribute('data-auto-synced');
+    }
+
+    function appendKeywordToDraft(keyword) {
+      const draftEl = document.getElementById('tailored-draft');
+      draftEl.value = draftEl.value + `\n• Proficient in ${keyword} and application in team workflow.`;
+      draftEl.removeAttribute('data-auto-synced');
+    }
+
+    function resetDashboard() {
+      document.getElementById('score-percentage').innerText = '0%';
+      document.getElementById('score-percentage').className = 'text-2xl font-extrabold text-slate-500';
+      document.getElementById('score-status').innerText = 'Paste Resume & Job Description';
+      document.getElementById('score-summary').innerText = 'Analysis runs automatically as you type or modify content.';
+      document.getElementById('stat-matched-count').innerText = '0 / 0';
+      document.getElementById('stat-missing-count').innerText = '0';
+      document.getElementById('stat-verb-count').innerText = '0';
+      document.getElementById('stat-parse-status').innerText = 'Pending Check';
+      document.getElementById('stat-parse-status').className = 'text-sm font-bold text-slate-300 mt-2 block';
+      document.getElementById('missing-keywords-container').innerHTML = '<span class="text-xs text-slate-500 italic block">No analysis performed yet. Add text above to extract missing hard skills and keywords.</span>';
+      document.getElementById('formatting-audit-box').classList.add('hidden');
+    }
+
+    function copyDraft() {
+      const draft = document.getElementById('tailored-draft');
+      if (!draft || !draft.value) return;
+
+      draft.select();
+      document.execCommand('copy');
+
+      const toast = document.getElementById('toast');
+      if (toast) {
+        toast.classList.remove('hidden');
+        setTimeout(() => { toast.classList.add('hidden'); }, 2200);
+      }
+    }
+
+    function downloadDraft() {
+      const text = document.getElementById('tailored-draft').value;
+      if (!text) return;
+
+      const blob = new Blob([text], { type: 'text/plain' });
+      const anchor = document.createElement('a');
+      anchor.download = 'tailored-resume.txt';
+      anchor.href = window.URL.createObjectURL(blob);
+      anchor.click();
+      window.URL.revokeObjectURL(anchor.href);
+    }
+
+    function clearResume() {
+      document.getElementById('resume-text').value = '';
+      analyzeMatch();
+    }
+
+    function clearJD() {
+      document.getElementById('jd-text').value = '';
+      analyzeMatch();
+    }
+
+    function loadSampleResume() {
+      document.getElementById('resume-text').value = 
+`ALEXANDER R. MORGAN
+Software Engineer | alexander.morgan@email.com | (555) 349-2019 | San Francisco, CA
+
+PROFESSIONAL SUMMARY:
+Full-stack developer with 5 years of experience building web applications using JavaScript, React, and Node.js. Adept at database management and microservices.
+
+WORK EXPERIENCE:
+Senior Frontend Developer — Nexa Cloud Systems (2022 – Present)
+• Led development of user-facing web applications using React and Tailwind CSS.
+• Optimized frontend web bundle sizes by 35% to improve user experience.
+• Collaborated with backend engineers to integrate REST API endpoints.
+
+Software Engineer — Apex Solutions (2020 – 2022)
+• Developed scalable JavaScript microservices using Node.js and Express.
+• Maintained PostgreSQL databases and wrote automated unit test suites.
+
+EDUCATION & SKILLS:
+B.S. in Computer Science — University of California, Berkeley
+Skills: JavaScript, React, Node.js, Express, HTML, CSS, Git, PostgreSQL, REST APIs`;
+
+      analyzeMatch();
+    }
+
+    function loadSampleJD() {
+      document.getElementById('jd-text').value = 
+`JOB TITLE: Senior Full Stack Engineer (TypeScript & Cloud Native)
+
+RESPONSIBILITIES:
+• Architect, build, and deploy scalable SaaS products using React, TypeScript, and Python.
+• Lead cloud deployments on AWS using Docker, Kubernetes, and CI/CD pipelines.
+• Collaborate with product managers to deliver GraphQL APIs and microservices.
+• Spearhead automated testing, code reviews, and performance optimization.
+
+REQUIREMENTS:
+• 4+ years of professional engineering experience.
+• Strong expertise in TypeScript, React, Python, and GraphQL.
+• Hands-on experience with AWS, Docker, Kubernetes, and CI/CD integration.
+• Demonstrated track record in database optimization (PostgreSQL, Redis).`;
+
+      analyzeMatch();
+    }
+  </script>
+</body>
+</html>
