@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Contract & Legal Doc Anonymizer — 100% Local Processing</title>
+  <meta name="description" content="Safely anonymize legal contracts, NDAs, and corporate docs before pasting into AI models. 100% browser-based redaction with zero server uploads.">
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-7TP5H35738');
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --border: #334155;
+      --primary: #38bdf8;
+      --primary-hover: #0284c7;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --success: #22c55e;
+      --tag-bg: #0284c7;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .badge-bar {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .badge {
+      background: rgba(34, 197, 94, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ad-container {
+      margin: 20px 0;
+      text-align: center;
+      background: var(--card);
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      min-height: 90px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .ad-container ins.adsbygoogle {
+      display: block !important;
+      width: 100% !important;
+      min-width: 250px;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 900px) {
+      .main-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    textarea {
+      width: 100%;
+      height: 380px;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      padding: 12px;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.9rem;
+      resize: vertical;
+    }
+
+    textarea:focus {
+      outline: 2px solid var(--primary);
+      border-color: transparent;
+    }
+
+    .controls-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    .option-label input[type="checkbox"] {
+      accent-color: var(--primary);
+      width: 16px;
+      height: 16px;
+    }
+
+    .custom-inputs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .input-field {
+      flex: 1;
+      min-width: 200px;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 12px;
+      color: var(--text);
+      font-size: 0.85rem;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: #0f172a;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: var(--border);
+    }
+
+    .stats-bar {
+      margin-top: 12px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .copied-toast {
+      display: none;
+      color: var(--success);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Client Contract & Legal Doc Anonymizer</h1>
+      <p class="subtitle">Strip client entities, financial figures, and dates before pasting into LLMs/AI tools.</p>
+      <div class="badge-bar">
+        <span class="badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          100% Local Browser Processing (Zero Uploads)
+        </span>
+      </div>
+    </header>
+
+    <!-- Top Ad Unit -->
+    <div class="ad-container">
+      <ins class="adsbygoogle"
+           style="display:block; width:100%;"
+           data-ad-client="ca-pub-9973919593816896"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+    <section class="controls-panel">
+      <div class="options-grid">
+        <label class="option-label">
+          <input type="checkbox" id="opt-emails" checked> Emails & URLs
+        </label>
+        <label class="option-label">
+          <input type="checkbox" id="opt-phones" checked> Phone Numbers
+        </label>
+        <label class="option-label">
+          <input type="checkbox" id="opt-currency" checked> Money & Amounts
+        </label>
+        <label class="option-label">
+          <input type="checkbox" id="opt-dates" checked> Dates & Years
+        </label>
+        <label class="option-label">
+          <input type="checkbox" id="opt-percentages" checked> Percentages
+        </label>
+      </div>
+
+      <div class="custom-inputs">
+        <input type="text" id="custom-parties" class="input-field" placeholder="Custom Party/Company Names (comma-separated, e.g. Acme Corp, John Smith)">
+      </div>
+
+      <div class="btn-group">
+        <button class="btn" onclick="anonymizeText()">Anonymize Contract</button>
+        <button class="btn btn-secondary" onclick="loadSampleText()">Load Sample NDA</button>
+        <button class="btn btn-secondary" onclick="clearFields()">Clear</button>
+      </div>
+    </section>
+
+    <div class="main-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Original Text</span>
+        </div>
+        <textarea id="input-text" placeholder="Paste your original contract, agreement, or doc text here..."></textarea>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">AI-Ready Anonymized Text</span>
+          <span class="copied-toast" id="toast">Copied to Clipboard!</span>
+        </div>
+        <textarea id="output-text" readonly placeholder="Anonymized text with semantic AI placeholders will appear here..."></textarea>
+        <div class="stats-bar" id="stats-bar">
+          <span>Replacements made: 0</span>
+        </div>
+        <div class="btn-group" style="margin-top: auto;">
+          <button class="btn" onclick="copyOutput()">Copy Anonymized Text</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Ad Unit -->
+    <div class="ad-container">
+      <ins class="adsbygoogle"
+           style="display:block; width:100%;"
+           data-ad-client="ca-pub-9973919593816896"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+  </div>
+
+  <script>
+    function safeInitAdSense() {
+      const adContainers = document.querySelectorAll('.ad-container');
+      adContainers.forEach(container => {
+        if (container.offsetWidth > 0 && !container.getAttribute('data-ad-loaded')) {
+          try {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            container.setAttribute('data-ad-loaded', 'true');
+          } catch (e) {
+            console.warn('AdSense push deferred:', e);
+          }
+        }
+      });
+    }
+
+    if (document.readyState === 'complete') {
+      safeInitAdSense();
+    } else {
+      window.addEventListener('load', safeInitAdSense);
+    }
+    window.addEventListener('resize', safeInitAdSense);
+
+    function anonymizeText() {
+      let text = document.getElementById('input-text').value;
+      if (!text.trim()) return;
+
+      let replacementCount = 0;
+
+      // 1. Custom Parties & Companies
+      const customInput = document.getElementById('custom-parties').value;
+      if (customInput.trim()) {
+        const parties = customInput.split(',').map(p => p.trim()).filter(p => p.length > 0);
+        parties.forEach((party, index) => {
+          const letter = String.fromCharCode(65 + index); // A, B, C...
+          const regex = new RegExp(escapeRegExp(party), 'gi');
+          text = text.replace(regex, (match) => {
+            replacementCount++;
+            return `[PARTY_${letter}]`;
+          });
+        });
+      }
+
+      // 2. Emails
+      if (document.getElementById('opt-emails').checked) {
+        const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+        text = text.replace(emailRegex, () => {
+          replacementCount++;
+          return '[EMAIL_ADDRESS]';
+        });
+      }
+
+      // 3. Phone Numbers
+      if (document.getElementById('opt-phones').checked) {
+        const phoneRegex = /(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/g;
+        text = text.replace(phoneRegex, () => {
+          replacementCount++;
+          return '[PHONE_NUMBER]';
+        });
+      }
+
+      // 4. Money & Currency Amounts
+      if (document.getElementById('opt-currency').checked) {
+        const currencyRegex = /(\$|£|€|USD|GBP|EUR)\s?\d+(?:,\d{3})*(?:\.\d{2})?/gi;
+        text = text.replace(currencyRegex, () => {
+          replacementCount++;
+          return '[MONETARY_AMOUNT]';
+        });
+      }
+
+      // 5. Dates
+      if (document.getElementById('opt-dates').checked) {
+        const dateRegex = /\b(\d{1,2}[\/\.-]\d{1,2}[\/\.-]\d{2,4}|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]* \d{1,2}(?:st|nd|rd|th)?,? \d{4})\b/gi;
+        text = text.replace(dateRegex, () => {
+          replacementCount++;
+          return '[DATE]';
+        });
+      }
+
+      // 6. Percentages
+      if (document.getElementById('opt-percentages').checked) {
+        const percentRegex = /\b\d+(?:\.\d+)?%\b/g;
+        text = text.replace(percentRegex, () => {
+          replacementCount++;
+          return '[PERCENTAGE]';
+        });
+      }
+
+      document.getElementById('output-text').value = text;
+      document.getElementById('stats-bar').innerHTML = `<span>Total Redactions Made: <strong>${replacementCount}</strong></span>`;
+    }
+
+    function escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function copyOutput() {
+      const output = document.getElementById('output-text');
+      if (!output.value) return;
+
+      output.select();
+      navigator.clipboard.writeText(output.value);
+
+      const toast = document.getElementById('toast');
+      toast.style.display = 'inline';
+      setTimeout(() => { toast.style.display = 'none'; }, 2000);
+    }
+
+    function loadSampleText() {
+      document.getElementById('custom-parties').value = 'Acme Dynamics, Johnathan Doe';
+      document.getElementById('input-text').value = 
+`MUTUAL NON-DISCLOSURE AGREEMENT
+
+This Agreement is entered into on October 14, 2025, by and between Acme Dynamics, a Delaware corporation ("Disclosing Party"), and Johnathan Doe ("Receiving Party").
+
+1. Purpose: The parties wish to explore a business opportunity involving a total valuation of $2,500,000.
+2. Confidentiality: Receiving party shall protect all materials. Direct queries can be sent to legal@acmedynamics.com or by phone at (555) 234-5678.
+3. Penalty: Breach of this agreement incurs a 15% late fee penalty.`;
+
+      anonymizeText();
+    }
+
+    function clearFields() {
+      document.getElementById('input-text').value = '';
+      document.getElementById('output-text').value = '';
+      document.getElementById('custom-parties').value = '';
+      document.getElementById('stats-bar').innerHTML = '<span>Replacements made: 0</span>';
+    }
+  </script>
+</body>
+</html>
+```
+
+eof
+
+---
+
+### What Was Updated
+1. **Google Analytics Script (`G-7TP5H35738`):** Placed in the `<head>` section to ensure proper pageview and user interaction tracking.
+2. **Google AdSense Script (`ca-pub-9973919593816896`):** Added to the `<head>` along with two responsive AdSense placement blocks (above the tool controls and below the main text comparison area).
