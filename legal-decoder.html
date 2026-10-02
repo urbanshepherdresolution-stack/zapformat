@@ -13,8 +13,9 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms of Service Risk Decoder - Free Document Scanner</title>
-    <meta name="description" content="Scan legal contracts, privacy policies, and terms of service agreements to highlight high-risk clauses instantly.">
+    <title>Terms of Service Risk Decoder - Free Client-Side Legal Scanner | ZapTextCleaner</title>
+    <meta name="description" content="Scan legal contracts, privacy agreements, SaaS terms of service, and NDAs to detect forced arbitration, tracking traps, and liability waivers with 100% in-browser privacy.">
+    <link rel="canonical" href="https://zaptextcleaner.com/legal-decoder.html">
 
     <style>
         :root {
@@ -22,14 +23,19 @@
             --primary-hover: #172554;
             --dark: #0f172a;
             --secondary: #64748b;
-            --border: #e2e8f0;
+            --border: #cbd5e1;
             --danger: #ef4444;
+            --warning: #f59e0b;
             --success: #10b981;
+            --bg-light: #f8fafc;
             --radius: 12px;
         }
+
+        * { box-sizing: border-box; }
+
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f8fafc;
+            background-color: var(--bg-light);
             color: var(--dark);
             margin: 0;
             padding: 40px 20px;
@@ -38,6 +44,7 @@
             align-items: center;
             line-height: 1.6;
         }
+
         .container {
             max-width: 900px;
             width: 100%;
@@ -45,39 +52,73 @@
             padding: 40px;
             border-radius: var(--radius);
             box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            box-sizing: border-box;
+            border: 1px solid #e2e8f0;
         }
-        h1 { margin-top: 0; color: var(--primary); font-size: 26px; }
-        p.subtitle { color: var(--secondary); font-size: 15px; margin-bottom: 25px; }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            margin: 0 0 8px 0;
+            color: var(--primary);
+            font-size: 2.2rem;
+            font-weight: 800;
+        }
+
+        header p {
+            color: var(--secondary);
+            font-size: 1.05rem;
+            margin: 0 0 15px 0;
+        }
+
+        .privacy-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
 
         textarea {
             width: 100%;
-            height: 220px;
+            height: 240px;
             padding: 14px;
             border: 1px solid var(--border);
             border-radius: 8px;
             font-size: 14px;
-            box-sizing: border-box;
             background-color: #fafafa;
             resize: vertical;
             font-family: inherit;
         }
-        textarea:focus { outline: none; border-color: var(--primary); background-color: #fff; box-shadow: 0 0 0 3px rgba(30,58,138,0.1); }
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(30,58,138,0.1);
+        }
 
-        button {
+        button.scan-btn {
             background-color: var(--primary);
             color: white;
             border: none;
             padding: 14px 24px;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             border-radius: 8px;
             cursor: pointer;
             transition: background 0.2s;
             width: 100%;
             margin-top: 15px;
         }
-        button:hover { background-color: var(--primary-hover); }
+        button.scan-btn:hover { background-color: var(--primary-hover); }
 
         .result-panel {
             margin-top: 30px;
@@ -85,13 +126,21 @@
             border-top: 2px solid var(--border);
             padding-top: 25px;
         }
+
+        .score-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
         .threat-meter {
             height: 12px;
             width: 100%;
             background: #e2e8f0;
             border-radius: 6px;
             overflow: hidden;
-            margin: 15px 0 25px 0;
+            margin: 10px 0 20px 0;
         }
         .threat-fill {
             height: 100%;
@@ -100,37 +149,93 @@
             transition: width 0.4s ease;
         }
 
+        .category-breakdown {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .cat-tag {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: #f1f5f9;
+            color: #334155;
+            font-weight: 600;
+            border: 1px solid var(--border);
+        }
+        .cat-tag.flagged {
+            background: #fee2e2;
+            color: #991b1b;
+            border-color: #fecdd3;
+        }
+
+        label.box-label {
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            color: var(--dark);
+            display: block;
+            margin-bottom: 8px;
+            letter-spacing: 0.03em;
+        }
+
         .preview-box {
             border: 1px solid var(--border);
             padding: 20px;
             border-radius: 8px;
             background: #ffffff;
             line-height: 1.8;
-            font-size: 15px;
-            max-height: 350px;
+            font-size: 14.5px;
+            max-height: 380px;
             overflow-y: auto;
             white-space: pre-wrap;
+            color: #334155;
         }
         .danger-sentence {
             background-color: #fee2e2;
             color: #991b1b;
-            padding: 2px 4px;
+            padding: 2px 6px;
             border-radius: 4px;
-            font-weight: 500;
+            font-weight: 600;
+            border-bottom: 1px solid #f87171;
         }
 
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .back-link:hover { color: var(--primary); }
+
+        /* Rich Content & Technical Documentation */
         .editorial-section {
             max-width: 900px;
             width: 100%;
-            margin-top: 30px;
+            margin-top: 35px;
             background: white;
             padding: 40px;
             border-radius: var(--radius);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            box-sizing: border-box;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            border: 1px solid #e2e8f0;
         }
-        .editorial-section h2 { font-size: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: var(--primary); }
-        .editorial-section p { color: var(--secondary); font-size: 14px; }
+
+        .editorial-section h2 {
+            font-size: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+            margin-top: 24px;
+        }
+        .editorial-section h2:first-of-type { margin-top: 0; }
+        .editorial-section h3 { font-size: 16px; color: var(--dark); margin-top: 20px; margin-bottom: 6px; }
+        .editorial-section p { color: #475569; font-size: 14.5px; line-height: 1.7; }
+        .editorial-section ul { color: #475569; font-size: 14.5px; line-height: 1.7; padding-left: 20px; }
+        .editorial-section code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: var(--dark); }
 
         footer {
             max-width: 900px;
@@ -139,82 +244,176 @@
             font-size: 13px;
             color: var(--secondary);
             padding-top: 30px;
-            margin-top: 30px;
+            margin-top: 40px;
             border-top: 1px solid #e2e8f0;
             display: flex;
             justify-content: center;
             gap: 20px;
         }
-        footer a { color: var(--primary); text-decoration: none; }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>⚖️ Terms of Service Risk Decoder</h1>
-    <p class="subtitle">Paste legal terms, software licenses, or privacy agreements below to automatically highlight hidden risk clauses.</p>
+    <header>
+        <div class="privacy-badge">🔒 100% Client-Side Contract Analysis • Zero Server Logging</div>
+        <h1>Terms of Service Risk Decoder</h1>
+        <p>Paste software licenses, corporate vendor agreements, or privacy policies below to immediately detect forced arbitration, data tracking clauses, and liability traps.</p>
+    </header>
 
-    <textarea id="legalInput" placeholder="Paste legal text agreement here..."></textarea>
+    <textarea id="legalInput" placeholder="Paste Terms of Service, Privacy Policy, or Software License agreement text here..."></textarea>
     
-    <button onclick="decodeLegalContract()">Scan Contract for Hidden Clauses</button>
+    <button class="scan-btn" onclick="decodeLegalContract()">Scan Agreement for Hidden Clauses</button>
 
     <div id="decodeResult" class="result-panel">
-        <h3 id="riskLabel" style="margin: 0; color: var(--dark);">Threat Rating: 0 / 10</h3>
+        <div class="score-header">
+            <h3 id="riskLabel" style="margin: 0; font-size: 18px; color: var(--dark);">Threat Rating: 0 / 10</h3>
+            <span id="riskVerdict" style="font-weight: 700; font-size: 13px; text-transform: uppercase;"></span>
+        </div>
+        
         <div class="threat-meter">
             <div id="riskIndicator" class="threat-fill"></div>
         </div>
+
+        <div class="category-breakdown" id="categoryFlags"></div>
         
-        <label style="font-weight: 600; font-size: 13px; text-transform: uppercase; color: var(--secondary); display: block; margin-bottom: 8px;">Highlighted Contract Analysis</label>
+        <label class="box-label">Annotated Contract Analysis &amp; High-Risk Passages</label>
         <div id="visualPreview" class="preview-box"></div>
     </div>
+
+    <a href="index.html" class="back-link">← Return to Dashboard</a>
 </div>
 
+<!-- SEO Rich Content & Technical Documentation -->
 <div class="editorial-section">
-    <h2>Client-Side Contract Analysis</h2>
-    <p>Legal text processing executes entirely inside your browser virtual memory. Your contracts and privacy agreements are never transmitted to external cloud servers.</p>
+    <h2>How In-Browser Legal Contract Analysis Works</h2>
+    <p>Modern software licenses, consumer terms of service (ToS), and enterprise SaaS agreements often span dozens of pages of dense legalese designed to discourage scrutiny. Concealed within these documents are binding provisions that waive basic consumer rights, surrender perpetual intellectual property licenses, or authorize undisclosed data brokers to monetize personal information. The <strong>ZapTextCleaner Terms of Service Risk Decoder</strong> analyzes agreements instantly using deterministic lexical heuristics executed entirely within your browser session.</p>
+
+    <h3>Why Client-Side Legal Auditing Protects Confidentiality</h3>
+    <p>Reviewing pre-execution contracts, negotiated vendor master service agreements (MSAs), or draft NDAs through cloud-based text processors creates significant legal exposure. Uploading non-public commercial terms to third-party servers breaks attorney-client privilege and risks breaching mutual confidentiality covenants. Our architecture guarantees complete security:</p>
+    <ul>
+        <li><strong>Privilege Preservation:</strong> Your agreement text remains exclusively in your device's virtual memory (RAM). Not a single word is transmitted over a network or stored on remote hardware.</li>
+        <li><strong>Forced Arbitration &amp; Class Action Waivers:</strong> Highlights clauses that bar judicial review and compel dispute resolution in binding, private arbitration panels.</li>
+        <li><strong>Broad IP &amp; Content Licensing:</strong> Detects language granting providers "worldwide, perpetual, royalty-free, irrevocable" licenses to user data or uploaded content.</li>
+        <li><strong>Unilateral Amendment Clauses:</strong> Flags provisions permitting companies to alter contractual terms at their "sole discretion" without prior individual notice.</li>
+    </ul>
+
+    <h3>Best Practices for Auditing Commercial Terms</h3>
+    <p>To conduct a thorough risk evaluation:</p>
+    <ul>
+        <li><strong>Paste Comprehensive Sections:</strong> Include the Dispute Resolution, Limitation of Liability, Termination, and Intellectual Property sections for full-spectrum scanning.</li>
+        <li><strong>Review Highlighted Snippets in Context:</strong> Automated scanners flag high-risk lexical patterns; always evaluate highlighted provisions within their governing clause definitions.</li>
+        <li><strong>Complement Professional Counsel:</strong> This utility highlights statistical contract risks for rapid discovery; it is an analysis tool, not a substitute for formal legal representation.</li>
+    </ul>
 </div>
 
 <footer>
-    <span>&copy; 2026 ZapFormat. All rights reserved.</span>
+    <span>&copy; 2026 ZapTextCleaner. All rights reserved.</span>
     <a href="privacy.html">Privacy Policy</a>
-    <a href="formatter.html">Hub Dashboard</a>
+    <a href="index.html">Hub Dashboard</a>
 </footer>
 
 <script>
     function decodeLegalContract() {
         const rawText = document.getElementById('legalInput').value.trim();
-        if (!rawText) return alert('Please paste legal agreement text first.');
+        if (!rawText) {
+            alert('Please paste agreement or contract text before scanning.');
+            return;
+        }
 
-        const trapTerms = ['third-party', 'waive', 'auto-renew', 'arbitration', 'indemnify', 'sole discretion', 'track your location', 'non-refundable', 'terminate your access'];
-        const riskWeights = { 'third-party': 3, 'waive': 3, 'auto-renew': 2, 'arbitration': 2, 'indemnify': 2, 'sole discretion': 2, 'track your location': 1, 'non-refundable': 1, 'terminate your access': 1 };
+        // Categorized risk dictionary
+        const categories = {
+            arbitration: {
+                label: 'Forced Arbitration / Class Waiver',
+                terms: ['arbitration', 'class action waiver', 'waive any right', 'jury trial', 'binding arbitration'],
+                weight: 4,
+                flagged: false
+            },
+            dataRights: {
+                label: 'Perpetual Data & IP Rights',
+                terms: ['perpetual', 'royalty-free', 'worldwide license', 'irrevocable license', 'track your location', 'third-party partners'],
+                weight: 3,
+                flagged: false
+            },
+            unilateralChanges: {
+                label: 'Unilateral Changes & Termination',
+                terms: ['sole discretion', 'without prior notice', 'modify these terms', 'terminate your access', 'at any time'],
+                weight: 2,
+                flagged: false
+            },
+            disclaimers: {
+                label: 'Liability & Refund Disclaimers',
+                terms: ['as is', 'indemnify', 'hold harmless', 'non-refundable', 'auto-renew', 'limitation of liability'],
+                weight: 2,
+                flagged: false
+            }
+        };
 
-        const sentences = rawText.match(/[^.!?]+[.!?]+/g) || [rawText];
-        let totalRisk = 0;
+        const sentences = rawText.match(/[^.!?\n]+[.!?\n]+/g) || [rawText];
+        let totalScore = 0;
         let mappedOutput = "";
 
         sentences.forEach(sentence => {
-            let lowerSentence = sentence.toLowerCase();
-            let isDangerous = false;
+            const lower = sentence.toLowerCase();
+            let isHighRisk = false;
 
-            trapTerms.forEach(term => {
-                if (lowerSentence.includes(term)) {
-                    if (!isDangerous) { totalRisk += riskWeights[term]; }
-                    isDangerous = true;
+            for (const key in categories) {
+                const cat = categories[key];
+                for (const term of cat.terms) {
+                    if (lower.includes(term)) {
+                        if (!cat.flagged) {
+                            totalScore += cat.weight;
+                            cat.flagged = true;
+                        }
+                        isHighRisk = true;
+                    }
                 }
-            });
+            }
 
-            if (isDangerous) {
+            if (isHighRisk) {
                 mappedOutput += `<span class="danger-sentence">${sentence.trim()}</span> `;
             } else {
                 mappedOutput += `<span>${sentence.trim()}</span> `;
             }
         });
 
-        if (totalRisk > 10) totalRisk = 10;
+        const normalizedScore = Math.min(Math.round(totalScore), 10);
 
-        document.getElementById('riskLabeltextContent' in document.createElement('div') ? 'textContent' : 'innerText') = `Threat Rating: ${totalRisk} / 10`;
-        document.getElementById('riskLabel').textContent = `Threat Rating: ${totalRisk} / 10`;
-        document.getElementById('riskIndicator').style.width = `${totalRisk * 10}%`;
+        // Update score indicators
+        const riskLabel = document.getElementById('riskLabel');
+        const riskVerdict = document.getElementById('riskVerdict');
+        const riskIndicator = document.getElementById('riskIndicator');
+
+        riskLabel.textContent = `Threat Rating: ${normalizedScore} / 10`;
+        riskIndicator.style.width = `${normalizedScore * 10}%`;
+
+        if (normalizedScore >= 7) {
+            riskIndicator.style.backgroundColor = '#ef4444';
+            riskVerdict.textContent = 'High Contract Exposure';
+            riskVerdict.style.color = '#ef4444';
+        } else if (normalizedScore >= 4) {
+            riskIndicator.style.backgroundColor = '#f59e0b';
+            riskVerdict.textContent = 'Moderate Standard Clauses';
+            riskVerdict.style.color = '#f59e0b';
+        } else {
+            riskIndicator.style.backgroundColor = '#10b981';
+            riskVerdict.textContent = 'Low Clause Risk';
+            riskVerdict.style.color = '#10b981';
+        }
+
+        // Render category pill tags
+        const categoryFlags = document.getElementById('categoryFlags');
+        categoryFlags.innerHTML = '';
+        for (const key in categories) {
+            const cat = categories[key];
+            const tag = document.createElement('span');
+            tag.className = 'cat-tag ' + (cat.flagged ? 'flagged' : '');
+            tag.textContent = (cat.flagged ? '⚠️ ' : '✓ ') + cat.label;
+            categoryFlags.appendChild(tag);
+        }
+
         document.getElementById('visualPreview').innerHTML = mappedOutput;
         document.getElementById('decodeResult').style.display = 'block';
     }
