@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Sorter & Deduplicator Online - ZapTextCleaner</title>
+    <meta name="description" content="Sort lists alphabetically, remove duplicate lines, trim whitespace, and reverse order instantly in your browser. 100% private with zero server logging.">
+    <link rel="canonical" href="https://zaptextcleaner.com/list-sorter.html">
+
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-hover: #172554;
+            --dark: #0f172a;
+            --secondary: #64748b;
+            --border: #cbd5e1;
+            --success: #10b981;
+            --bg-light: #f8fafc;
+            --radius: 12px;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--dark);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            margin: 0 0 8px 0;
+            color: var(--primary);
+            font-size: 2.2rem;
+            font-weight: 800;
+        }
+
+        header p {
+            color: var(--secondary);
+            font-size: 1.05rem;
+            margin: 0 0 15px 0;
+        }
+
+        .privacy-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .editor-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 768px) {
+            .editor-grid { grid-template-columns: 1fr; }
+        }
+
+        .field-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            color: var(--dark);
+            letter-spacing: 0.03em;
+            margin-bottom: 8px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 280px;
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 13.5px;
+            background-color: #fafafa;
+            resize: vertical;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            line-height: 1.5;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(30,58,138,0.1);
+        }
+
+        .options-panel {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #334155;
+            cursor: pointer;
+        }
+        .checkbox-label input {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .btn-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s;
+            color: white;
+            background-color: var(--primary);
+            width: 100%;
+        }
+        button:hover { background-color: var(--primary-hover); }
+        .btn-success { background-color: var(--success); }
+        .btn-success:hover { background-color: #059669; }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .back-link:hover { color: var(--primary); }
+
+        .editorial-section {
+            max-width: 900px;
+            width: 100%;
+            margin-top: 35px;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            border: 1px solid #e2e8f0;
+        }
+
+        .editorial-section h2 {
+            font-size: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+            margin-top: 24px;
+        }
+        .editorial-section h2:first-of-type { margin-top: 0; }
+        .editorial-section h3 { font-size: 16px; color: var(--dark); margin-top: 20px; margin-bottom: 6px; }
+        .editorial-section p { color: #475569; font-size: 14.5px; line-height: 1.7; }
+        .editorial-section ul { color: #475569; font-size: 14.5px; line-height: 1.7; padding-left: 20px; }
+        .editorial-section code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: var(--dark); }
+
+        footer {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            font-size: 13px;
+            color: var(--secondary);
+            padding-top: 30px;
+            margin-top: 40px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="privacy-badge">🔒 100% Client-Side Sandbox • Zero Server Telemetry</div>
+        <h1>List Sorter &amp; Deduplicator</h1>
+        <p>Sort lines alphabetically, remove duplicate entries, strip whitespace, and reverse order instantly in your browser.</p>
+    </header>
+
+    <div class="editor-grid">
+        <div class="field-group">
+            <label for="listInput">Raw Input List</label>
+            <textarea id="listInput" placeholder="Paste unsorted list items here...&#10;banana&#10;apple&#10;orange&#10;apple"></textarea>
+        </div>
+        <div class="field-group">
+            <label for="listOutput">Processed Output List</label>
+            <textarea id="listOutput" placeholder="Sorted and deduplicated list will appear here..." readonly></textarea>
+        </div>
+    </div>
+
+    <div class="options-panel">
+        <label class="checkbox-label">
+            <input type="checkbox" id="optDeduplicate" checked> Remove duplicate items
+        </label>
+        <label class="checkbox-label">
+            <input type="checkbox" id="optTrimLines" checked> Trim whitespace per line
+        </label>
+        <label class="checkbox-label">
+            <input type="checkbox" id="optRemoveBlank" checked> Remove empty lines
+        </label>
+    </div>
+
+    <div class="btn-row">
+        <button onclick="sortList('asc')">🔤 Sort A → Z</button>
+        <button onclick="sortList('desc')">🔡 Sort Z → A</button>
+        <button onclick="sortList('reverse')">🔄 Reverse Order</button>
+        <button class="btn-success" onclick="copyList()">📋 Copy Output</button>
+    </div>
+
+    <a href="index.html" class="back-link">← Return to Dashboard</a>
+</div>
+
+<!-- SEO Technical Editorial Section -->
+<div class="editorial-section">
+    <h2>Why Client-Side List Processing Ensures Complete Privacy</h2>
+    <p>Marketers, developers, and data analysts frequently process large keyword lists, email subscriber databases, inventory logs, and array structures. Handling these datasets using cloud utilities risks leaking proprietary business data or customer contact lists. Processing lists locally in browser RAM eliminates all security risks.</p>
+
+    <p>Common list sorting challenges include:</p>
+    <ul>
+        <li><strong>Duplicate Elimination:</strong> Removing redundant entries across thousands of records without altering primary ordering.</li>
+        <li><strong>Whitespace Normalization:</strong> Stripping trailing spaces and carriage returns that cause invisible formatting discrepancies.</li>
+        <li><strong>Case-Insensitive Sorting:</strong> Ensuring alphabetic sorting ignores capital letter weighting mismatches.</li>
+    </ul>
+
+    <h3>How This Tool Operates</h3>
+    <p>The <strong>ZapTextCleaner List Sorter</strong> splits input text by newline delimiters, applies configurable filters (deduplication via JavaScript Sets, whitespace trimming, blank line pruning), sorts the resulting array using locale-aware comparison algorithms, and outputs a clean text stream.</p>
+</div>
+
+<footer>
+    <span>&copy; 2026 ZapTextCleaner. All rights reserved.</span>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="index.html">Hub Dashboard</a>
+</footer>
+
+<script>
+    function sortList(direction) {
+        const input = document.getElementById('listInput').value;
+        if (!input.trim()) {
+            alert('Please enter some list items to sort.');
+            return;
+        }
+
+        const deduplicate = document.getElementById('optDeduplicate').checked;
+        const trimLines = document.getElementById('optTrimLines').checked;
+        const removeBlank = document.getElementById('optRemoveBlank').checked;
+
+        let lines = input.split('\n');
+
+        if (trimLines) {
+            lines = lines.map(l => l.trim());
+        }
+
+        if (removeBlank) {
+            lines = lines.filter(l => l.length > 0);
+        }
+
+        if (direction === 'asc') {
+            lines.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'accent', numeric: true }));
+        } else if (direction === 'desc') {
+            lines.sort((a, b) => b.localeCompare(a, undefined, { sensitivity: 'accent', numeric: true }));
+        } else if (direction === 'reverse') {
+            lines.reverse();
+        }
+
+        if (deduplicate) {
+            lines = [...new Set(lines)];
+        }
+
+        document.getElementById('listOutput').value = lines.join('\n');
+    }
+
+    function copyList() {
+        const out = document.getElementById('listOutput').value;
+        if (!out) return;
+        navigator.clipboard.writeText(out).then(() => {
+            alert('Processed list copied to clipboard!');
+        });
+    }
+</script>
+
+</body>
+</html>
