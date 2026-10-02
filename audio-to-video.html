@@ -9,142 +9,441 @@
       gtag('config', 'G-7TP5H35738');
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instant Audio to Video Compiler - 100% Free Online Utility</title>
+    <title>Instant Audio to Video Compiler - ZapTextCleaner</title>
+    <meta name="description" content="Convert audio files (MP3, WAV) and cover art images into high-definition video files directly inside your browser. 100% private, client-side video compilation.">
+    <link rel="canonical" href="https://zaptextcleaner.com/audio-to-video.html">
+
     <style>
-        :root { --primary: #1e3a8a; --primary-hover: #172554; --dark: #0f172a; --secondary: #64748b; --border: #e2e8f0; --success: #10b981; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: var(--dark); margin: 0; padding: 20px; }
-        .container { max-width: 600px; margin: 0 auto; }
-        header { text-align: center; margin-bottom: 30px; }
-        .panel { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
-        .field { margin-bottom: 20px; }
-        label { display: block; font-weight: 600; margin-bottom: 8px; }
-        input[type="file"] { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; }
-        .btn { background: var(--success); color: white; border: none; padding: 14px 24px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; transition: background 0.2s; font-size: 16px; }
-        .btn:hover { background: #059669; }
-        
-        /* New Live Progress Indicators */
-        .status-container { margin-top: 20px; display: none; text-align: center; }
-        .status-text { font-weight: bold; color: #4f46e5; font-size: 14px; margin-bottom: 8px; }
-        .progress-bar { height: 10px; width: 100%; background: #e2e8f0; border-radius: 5px; overflow: hidden; position: relative; }
-        .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.1s linear; }
+        :root {
+            --primary: #1e3a8a;
+            --primary-hover: #172554;
+            --dark: #0f172a;
+            --secondary: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --radius: 12px;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f8fafc;
+            color: var(--dark);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin: 0 0 8px 0;
+        }
+
+        header p {
+            color: var(--secondary);
+            font-size: 1.05rem;
+            margin: 0 0 20px 0;
+        }
+
+        .privacy-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .panel {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 35px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--dark);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: #fdfdfe;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .preview-img {
+            max-width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-top: 10px;
+            display: none;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .btn:hover:not(:disabled) {
+            background: var(--primary-hover);
+        }
+
+        .btn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .status-container {
+            margin-top: 25px;
+            display: none;
+            text-align: center;
+        }
+
+        .status-text {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            height: 12px;
+            width: 100%;
+            background: #e2e8f0;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+        }
+
+        /* Rich Content & Technical Documentation */
+        .editorial-section {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 35px;
+            margin-top: 35px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+        }
+
+        .editorial-section h2 {
+            font-size: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+            margin-top: 24px;
+        }
+
+        .editorial-section h2:first-of-type {
+            margin-top: 0;
+        }
+
+        .editorial-section h3 {
+            font-size: 16px;
+            color: var(--dark);
+            margin-top: 20px;
+            margin-bottom: 6px;
+        }
+
+        .editorial-section p {
+            color: #475569;
+            font-size: 14.5px;
+            line-height: 1.7;
+        }
+
+        .editorial-section ul {
+            color: #475569;
+            font-size: 14.5px;
+            line-height: 1.7;
+            padding-left: 20px;
+        }
+
+        .editorial-section code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: var(--dark);
+        }
+
+        footer {
+            text-align: center;
+            font-size: 13px;
+            color: var(--secondary);
+            padding-top: 30px;
+            margin-top: 40px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
+
 <div class="container">
     <header>
+        <div class="privacy-badge">🔒 100% Client-Side Video Rendering</div>
         <h1>Instant Audio to Video Compiler</h1>
-        <p>Wrap background audio tracks with custom cover designs inside high-speed hardware video containers.</p>
+        <p>Package audio podcasts, lectures, and musical tracks into video formats with high-resolution cover artwork directly in your browser.</p>
     </header>
+
     <div class="panel">
         <div class="field">
-            <label>Select Audio Track (.mp3, .wav)</label>
+            <label>1. Select Audio Track (.mp3, .wav, .aac, .m4a)</label>
             <input type="file" id="audioAsset" accept="audio/*">
         </div>
+
         <div class="field">
-            <label>Select Cover Presentation Art (.jpg, .png)</label>
-            <input type="file" id="imageAsset" accept="image/*">
+            <label>2. Select Cover Art (.jpg, .png, .webp)</label>
+            <input type="file" id="imageAsset" accept="image/*" onchange="previewSelectedImage(event)">
+            <img id="imagePreview" class="preview-img" alt="Cover Art Preview">
         </div>
-        <button class="btn" onclick="executeHighSpeedCompilation()">Generate Video Presentation</button>
+
+        <button id="compileBtn" class="btn" onclick="executeHighSpeedCompilation()">Generate Video Presentation</button>
         
         <div id="progressWrapper" class="status-container">
-            <div id="statusReport" class="status-text">Initializing execution loops...</div>
+            <div id="statusReport" class="status-text">Initializing local media hardware...</div>
             <div class="progress-bar">
                 <div id="progressFill" class="progress-fill"></div>
             </div>
         </div>
+
+        <a href="index.html" class="back-link">← Return to Dashboard</a>
     </div>
+
+    <!-- SEO Rich Text & Technical Guide Section -->
+    <div class="editorial-section">
+        <h2>How In-Browser Audio to Video Conversion Works</h2>
+        <p>Distributing pure audio files across modern social channels, video hosting platforms, and presentation boards is often blocked by strict container requirements: video platforms demand a valid visual stream multiplexed with standard audio tracks. The <strong>ZapTextCleaner Audio to Video Compiler</strong> provides a direct, zero-upload solution by utilizing your browser's internal <strong>MediaStream Recording API</strong> and hardware graphics acceleration.</p>
+
+        <h3>Why Client-Side Synthesis Beats Cloud Video Converters</h3>
+        <p>Traditional audio-to-video conversion websites require you to upload multi-megabyte sound tracks and graphics to a remote web server. This process is slow, exposes proprietary podcasts or confidential voice recordings to third parties, and often imposes strict file size limits or watermarks. Our utility runs entirely within your device's browser memory (RAM):</p>
+        <ul>
+            <li><strong>Zero Server Uploads:</strong> Large media files never leave your machine; rendering occurs through the HTML5 <code>&lt;canvas&gt;</code> engine.</li>
+            <li><strong>Hardware Video Multiplexing:</strong> Automatically selects between standard <code>video/webm</code> and hardware-accelerated <code>video/mp4</code> based on your operating system and browser support.</li>
+            <li><strong>Standard 16:9 Presentation Format:</strong> Automatically rescales and centers cover art to high-definition 720p (1280x720) video dimensions, ready for immediate publishing.</li>
+        </ul>
+
+        <h3>Best Practices for Compiling High-Quality Video Presentations</h3>
+        <p>To produce the cleanest output video:</p>
+        <ul>
+            <li><strong>Aspect Ratio:</strong> Use a landscape cover image (preferably 1280x720 or 1920x1080) to prevent black bars or letterboxing.</li>
+            <li><strong>Audio Fidelity:</strong> Standard 320 kbps MP3 or 16-bit 44.1 kHz WAV files produce clean sound reproduction during canvas stream multiplexing.</li>
+            <li><strong>Keep the Tab Active:</strong> Because browser engines throttle background tabs to conserve battery, please keep this window active until the progress bar reaches 100%.</li>
+        </ul>
+    </div>
+
+    <footer>
+        <span>&copy; 2026 ZapTextCleaner. All rights reserved.</span>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="index.html">Hub Dashboard</a>
+    </footer>
 </div>
 
 <script>
+    function previewSelectedImage(event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById('imagePreview');
+        if (file) {
+            const url = URL.createObjectURL(file);
+            preview.src = url;
+            preview.style.display = 'block';
+        } else {
+            preview.style.display = 'none';
+        }
+    }
+
     async function executeHighSpeedCompilation() {
         const audioFile = document.getElementById('audioAsset').files[0];
         const imageFile = document.getElementById('imageAsset').files[0];
         const wrapper = document.getElementById('progressWrapper');
         const status = document.getElementById('statusReport');
         const fill = document.getElementById('progressFill');
+        const compileBtn = document.getElementById('compileBtn');
 
         if (!audioFile || !imageFile) {
-            alert('Please pick both file parameters first.');
+            alert('Please select both an audio file and a cover art image before proceeding.');
             return;
         }
 
-        // Unroll the visual tracker framework panel
+        compileBtn.disabled = true;
         wrapper.style.display = 'block';
         fill.style.width = '0%';
-        status.textContent = "⚡ Syncing media parameters directly into local stream wrappers...";
+        status.textContent = "⚡ Initializing local media hardware & canvas stream...";
 
         const audioUrl = URL.createObjectURL(audioFile);
         const imageUrl = URL.createObjectURL(imageFile);
 
         const img = new Image();
         img.src = imageUrl;
-        await new Promise(res => img.onload = res);
+        await new Promise(res => { img.onload = res; });
 
         const canvas = document.createElement('canvas');
         canvas.width = 1280;
         canvas.height = 720;
         const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, 1280, 720);
 
-        const videoStream = canvas.captureStream(0); 
+        // Draw cover image fitted and centered to standard 16:9 canvas
+        const hRatio = canvas.width / img.width;
+        const vRatio = canvas.height / img.height;
+        const ratio = Math.max(hRatio, vRatio);
+        const centerShiftX = (canvas.width - img.width * ratio) / 2;
+        const centerShiftY = (canvas.height - img.height * ratio) / 2;
+
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, img.width, img.height, centerShiftX, centerShiftY, img.width * ratio, img.height * ratio);
+
+        const videoStream = canvas.captureStream(30); 
         const audioEl = new Audio(audioUrl);
         
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        const audioCtx = new AudioContextClass();
         const source = audioCtx.createMediaElementSource(audioEl);
         const dest = audioCtx.createMediaStreamDestination();
         source.connect(dest);
         
         dest.stream.getAudioTracks().forEach(track => videoStream.addTrack(track));
 
-        let options = { mimeType: 'video/webm;codecs=vp8,opus' };
+        let mimeType = 'video/webm;codecs=vp8,opus';
+        let extension = '.webm';
         if (MediaRecorder.isTypeSupported('video/mp4;codecs=avc1,mp4a')) {
-            options = { mimeType: 'video/mp4;codecs=avc1,mp4a' };
+            mimeType = 'video/mp4;codecs=avc1,mp4a';
+            extension = '.mp4';
         }
 
-        const recorder = new MediaRecorder(videoStream, options);
+        const recorder = new MediaRecorder(videoStream, { mimeType: mimeType });
         const segments = [];
         
-        recorder.ondataavailable = e => segments.push(e.data);
+        recorder.ondataavailable = e => {
+            if (e.data && e.data.size > 0) segments.push(e.data);
+        };
+
         recorder.onstop = () => {
-            status.textContent = "✅ Video Generation Complete!";
+            status.textContent = "✅ Compilation Complete! Downloading your file...";
             fill.style.width = '100%';
             
-            const fileBlob = new Blob(segments, { type: options.mimeType });
+            const fileBlob = new Blob(segments, { type: mimeType });
             const downloadUrl = URL.createObjectURL(fileBlob);
             
             const element = document.createElement('a');
             element.href = downloadUrl;
-            element.download = audioFile.name.replace(/\.[^/.]+$/, "") + "_presentation.mp4";
+            element.download = audioFile.name.replace(/\.[^/.]+$/, "") + "_presentation" + extension;
+            document.body.appendChild(element);
             element.click();
-            audioCtx.close();
+            document.body.removeChild(element);
+
+            // Clean up temporary memory references
+            setTimeout(() => {
+                URL.revokeObjectURL(downloadUrl);
+                URL.revokeObjectURL(audioUrl);
+                URL.revokeObjectURL(imageUrl);
+                audioCtx.close();
+                compileBtn.disabled = false;
+                status.textContent = "✅ Ready for new export";
+            }, 1000);
         };
 
-        // Listen for metadata loading to accurately register total track duration lengths
         audioEl.onloadedmetadata = () => {
             const duration = audioEl.duration;
-            
-            recorder.start();
+            recorder.start(1000);
             audioEl.play();
 
-            // Run an execution loop interval to calculate percent completion parameters
             const trackingInterval = setInterval(() => {
                 if (audioEl.currentTime && duration) {
-                    const percent = Math.round((audioEl.currentTime / duration) * 100);
+                    const percent = Math.min(Math.round((audioEl.currentTime / duration) * 100), 100);
                     fill.style.width = `${percent}%`;
-                    status.textContent = `⏳ Compiling Video Framework Structure: ${percent}% Complete`;
+                    status.textContent = `⏳ Multiplexing Video Framework: ${percent}% Complete`;
                 }
 
                 if (audioEl.ended || audioEl.paused) {
                     clearInterval(trackingInterval);
-                    recorder.stop();
-                    audioEl.pause();
+                    if (recorder.state === "recording") {
+                        recorder.stop();
+                    }
                 }
-            }, 50);
+            }, 100);
         };
     }
 </script>
+
 </body>
 </html>
