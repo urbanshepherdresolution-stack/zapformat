@@ -1,98 +1,384 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remove Formatting From Google Docs Online | ZapFormat</title>
-    <meta name="description" content="Instantly remove formatting from your google docs clipping, leaving behind completely clean plain text ready to paste anywhere.">
+    <title>Remove Formatting from Google Docs Online - ZapTextCleaner</title>
+    <meta name="description" content="Remove rich formatting, font styles, colors, and HTML artifacts from Google Docs text. Clean clipboard artifacts and normalize paragraph spacing in your browser.">
+    <link rel="canonical" href="https://zaptextcleaner.com/remove-formatting-from-google-docs.html">
+
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
-            background-color: #f9f9f9;
-            color: #333;
+        :root {
+            --primary: #1e3a8a;
+            --primary-hover: #172554;
+            --dark: #0f172a;
+            --secondary: #64748b;
+            --border: #cbd5e1;
+            --success: #10b981;
+            --bg-light: #f8fafc;
+            --radius: 12px;
         }
-        h1 { color: #111; margin-bottom: 8px; }
-        p { color: #666; margin-top: 0; margin-bottom: 24px; }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--dark);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            margin: 0 0 8px 0;
+            color: var(--primary);
+            font-size: 2.2rem;
+            font-weight: 800;
+        }
+
+        header p {
+            color: var(--secondary);
+            font-size: 1.05rem;
+            margin: 0 0 15px 0;
+        }
+
+        .privacy-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .editor-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 768px) {
+            .editor-grid { grid-template-columns: 1fr; }
+        }
+
+        .field-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            color: var(--dark);
+            letter-spacing: 0.03em;
+            margin-bottom: 8px;
+        }
+
         textarea {
             width: 100%;
-            height: 250px;
-            padding: 16px;
-            border: 2px solid #ddd;
+            height: 280px;
+            padding: 14px;
+            border: 1px solid var(--border);
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 14px;
+            background-color: #fafafa;
             resize: vertical;
-            box-sizing: border-box;
-            background: #fff;
+            font-family: inherit;
+            line-height: 1.6;
         }
-        textarea:focus { border-color: #0066cc; outline: none; }
-        .btn-group { margin-top: 16px; display: flex; gap: 12px; }
-        button {
-            padding: 12px 24px;
-            font-size: 16px;
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(30,58,138,0.1);
+        }
+
+        .options-panel {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13.5px;
             font-weight: 600;
-            border: none;
-            border-radius: 6px;
+            color: #334155;
             cursor: pointer;
-            transition: background 0.2s;
         }
-        .btn-primary { background-color: #0066cc; color: white; }
-        .btn-primary:hover { background-color: #0052a3; }
-        .btn-secondary { background-color: #e4e4e7; color: #333; }
-        .btn-secondary:hover { background-color: #d4d4d8; }
-        .toast {
-            margin-top: 12px; color: #2e7d32; font-weight: 500; opacity: 0; transition: opacity 0.3s;
+        .checkbox-label input {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
         }
+
+        .btn-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 12px;
+        }
+        @media (max-width: 600px) {
+            .btn-row { grid-template-columns: 1fr; }
+        }
+
+        button {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s;
+            width: 100%;
+        }
+        .btn-clean {
+            background-color: var(--primary);
+            color: white;
+        }
+        .btn-clean:hover { background-color: var(--primary-hover); }
+
+        .btn-copy {
+            background-color: var(--success);
+            color: white;
+        }
+        .btn-copy:hover:not(:disabled) { background-color: #059669; }
+        .btn-copy:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .back-link:hover { color: var(--primary); }
+
+        /* Technical Editorial Section */
+        .editorial-section {
+            max-width: 900px;
+            width: 100%;
+            margin-top: 35px;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            border: 1px solid #e2e8f0;
+        }
+
+        .editorial-section h2 {
+            font-size: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+            margin-top: 24px;
+        }
+        .editorial-section h2:first-of-type { margin-top: 0; }
+        .editorial-section h3 { font-size: 16px; color: var(--dark); margin-top: 20px; margin-bottom: 6px; }
+        .editorial-section p { color: #475569; font-size: 14.5px; line-height: 1.7; }
+        .editorial-section ul { color: #475569; font-size: 14.5px; line-height: 1.7; padding-left: 20px; }
+        .editorial-section code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: var(--dark); }
+
+        footer {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            font-size: 13px;
+            color: var(--secondary);
+            padding-top: 30px;
+            margin-top: 40px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
-    <h1>Remove Formatting From Google Docs</h1>
-    <p>Paste your text below to instantly {{DESCRIPTION}}.</p>
+<div class="container">
+    <header>
+        <div class="privacy-badge">🔒 100% Client-Side Sandbox • Zero Server Telemetry</div>
+        <h1>Remove Formatting from Google Docs</h1>
+        <p>Strip fonts, colors, inline CSS spans, non-breaking spaces, and hidden zero-width characters from Google Docs text directly in your browser.</p>
+    </header>
 
-    <!-- ZapFormat Core Tool Component -->
-    <textarea id="textInput" placeholder="Paste your messy text here..."></textarea>
-    
-    <div class="btn-group">
-        <button class="btn-primary" onclick="cleanText()">Zap Text & Copy</button>
-        <button class="btn-secondary" onclick="clearText()">Clear</button>
+    <div class="editor-grid">
+        <div class="field-group">
+            <label for="docsInput">Raw Formatted Google Docs Text</label>
+            <textarea id="docsInput" placeholder="Paste rich-text content copied directly from Google Docs here..."></textarea>
+        </div>
+        <div class="field-group">
+            <label for="docsOutput">Clean Unformatted Output</label>
+            <textarea id="docsOutput" placeholder="Clean, unstyled plain text will appear here..." readonly></textarea>
+        </div>
     </div>
-    <div id="toast" class="toast">Text cleaned and copied to clipboard!</div>
 
-    <script>
-        const input = document.getElementById('textInput');
-        const toast = document.getElementById('toast');
+    <div class="options-panel">
+        <label class="checkbox-label">
+            <input type="checkbox" id="optStripHtml" checked> Strip HTML formatting tags &amp; spans
+        </label>
+        <label class="checkbox-label">
+            <input type="checkbox" id="optStripZeroWidth" checked> Purge zero-width spaces &amp; hyphens
+        </label>
+        <label class="checkbox-label">
+            <input type="checkbox" id="optSmartQuotes" checked> Standardize smart curly quotes
+        </label>
+        <label class="checkbox-label">
+            <input type="checkbox" id="optTrimWhitespace" checked> Trim whitespace &amp; normalize breaks
+        </label>
+    </div>
 
-        function cleanText() {
-            let text = input.value;
-            
-            // Core ZapFormat Logic: Strip rich formatting, clean up spacing, fix line breaks
+    <div class="btn-row">
+        <button class="btn-clean" onclick="removeDocsFormatting()">⚡ Remove Formatting</button>
+        <button class="btn-copy" id="copyBtn" onclick="copyCleanText()" disabled>📋 Copy Clean Text</button>
+    </div>
+
+    <a href="index.html" class="back-link">← Return to Dashboard</a>
+</div>
+
+<!-- SEO Technical Editorial Section -->
+<div class="editorial-section">
+    <h2>Why Google Docs Copies Unwanted Formatting Layers</h2>
+    <p>Google Docs simplifies real-time document collaboration, but copying text from its editor often carries persistent formatting issues. Pasting into content management systems, code editors, terminal windows, or database inputs frequently introduces unwanted styling overrides, strange background tints, and invisible layout characters. This happens because Google Docs renders its canvas using a custom rendering engine known as Kix.</p>
+
+    <p>When you copy text from Google Docs, the clipboard captures extensive HTML and CSS wrapper layers designed to maintain layout fidelity within Google Workspace:</p>
+    <ul>
+        <li><strong>Inline Style Spans:</strong> Text runs are broken up by dozens of <code>&lt;span style="font-family:...; font-size:...; color:...; background-color:..."&gt;</code> tags. When pasted into web editors, these inline styles override global CSS rules and produce inconsistent typography.</li>
+        <li><strong>Invisible Zero-Width Characters (<code>\u200B</code>) and Soft Hyphens (<code>\u00AD</code>):</strong> Google Docs inserts zero-width characters to manage automated word-breaking and layout boundaries. These invisible marks often break string search indexing, regex pattern matches, and database queries.</li>
+        <li><strong>Non-Breaking Spaces (<code>&amp;nbsp;</code> / <code>\u00A0</code>):</strong> Collaborative paragraph alignment relies on non-breaking spaces, which prevent words from wrapping naturally in code editors, command lines, and plain text.</li>
+        <li><strong>Smart Typographic Quotes:</strong> Neutral ASCII quotes are converted automatically to curly quotes (<code>“ ” ‘ ’</code>), which corrupt syntax in programming languages, configuration files, and SQL databases.</li>
+    </ul>
+
+    <h3>How This Client-Side Tool Strips Formatting</h3>
+    <p>The <strong>ZapTextCleaner Google Docs Formatting Remover</strong> strips all hidden formatting layers directly in your browser memory. It purges nested HTML spans and styles, eliminates invisible zero-width boundary markers, translates smart quotes into clean ASCII equivalents, converts non-breaking spaces into standard whitespace, and normalizes paragraph breaks.</p>
+
+    <h3>Zero-Server Privacy Guarantee</h3>
+    <p>Confidential research, corporate meeting notes, proprietary project specs, and legal drafts are frequently authored inside Google Docs. Unlike third-party cloud utilities that send your clipboard data across external networks, this tool operates 100% inside your local web browser session memory (RAM). Your document text is never stored, indexed, or transmitted over any network.</p>
+</div>
+
+<footer>
+    <span>&copy; 2026 ZapTextCleaner. All rights reserved.</span>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="index.html">Hub Dashboard</a>
+</footer>
+
+<script>
+    function removeDocsFormatting() {
+        const input = document.getElementById('docsInput').value;
+        if (!input.trim()) {
+            alert('Please paste some Google Docs text to clean.');
+            return;
+        }
+
+        let text = input;
+
+        // 1. Strip HTML tags, spans, and styles
+        if (document.getElementById('optStripHtml').checked) {
             text = text
-                .replace(/\r\n/g, '\n')      // Normalize line breaks
-                .replace(/[ \t]+/g, ' ')      // Collapse multiple spaces/tabs into a single space
-                .replace(/^ +| +$/gm, '')     // Trim spaces from beginning/end of lines
-                .replace(/\n{3,}/g, '\n\n')   // Collapse excessive consecutive blank lines
-                .trim();                      // Trim entire string boundary
-
-            input.value = text;
-            
-            if (text) {
-                // Instantly copy clean text to clipboard
-                navigator.clipboard.writeText(text);
-                showToast();
-            }
+                .replace(/<style[\s\S]*?<\/style>/gi, '')
+                .replace(/<script[\s\S]*?<\/script>/gi, '')
+                .replace(/<br\s*[\/]?>/gi, '\n')
+                .replace(/<\/p>/gi, '\n\n')
+                .replace(/<\/div>/gi, '\n')
+                .replace(/<li[^>]*>/gi, '• ')
+                .replace(/<\/li>/gi, '\n')
+                .replace(/<[^>]+>/g, '');
         }
 
-        function clearText() {
-            input.value = '';
+        // 2. Purge zero-width spaces, joiners, and soft hyphens
+        if (document.getElementById('optStripZeroWidth').checked) {
+            text = text.replace(/[\u200B-\u200D\uFEFF\u00AD]/g, '');
         }
 
-        function showToast() {
-            toast.style.opacity = '1';
-            setTimeout(() => toast.style.opacity = '0', 2000);
+        // 3. Normalize non-breaking spaces and unicode spaces
+        text = text.replace(/[\u00A0\u1680\u180e\u2000-\u200a\u202f\u205f\u3000]/g, ' ');
+
+        // 4. Standardize smart quotes to standard ASCII
+        if (document.getElementById('optSmartQuotes').checked) {
+            text = text
+                .replace(/[\u2018\u2019]/g, "'")
+                .replace(/[\u201C\u201D]/g, '"')
+                .replace(/[\u2013\u2014]/g, '-');
         }
-    </script>
+
+        // 5. Trim whitespace and excessive blank lines
+        if (document.getElementById('optTrimWhitespace').checked) {
+            text = text.replace(/[ \t]{2,}/g, ' ');
+            text = text.split('\n').map(l => l.trim()).join('\n');
+            text = text.replace(/\n{3,}/g, '\n\n');
+        }
+
+        text = text.trim();
+
+        document.getElementById('docsOutput').value = text;
+        const copyBtn = document.getElementById('copyBtn');
+        copyBtn.disabled = false;
+        copyBtn.innerText = "📋 Copy Clean Text";
+    }
+
+    function copyCleanText() {
+        const output = document.getElementById('docsOutput').value;
+        if (!output) return;
+
+        navigator.clipboard.writeText(output).then(() => {
+            const copyBtn = document.getElementById('copyBtn');
+            copyBtn.innerText = "✓ Copied Clean Text!";
+            setTimeout(() => {
+                copyBtn.innerText = "📋 Copy Clean Text";
+            }, 2000);
+        });
+    }
+</script>
+
 </body>
 </html>
