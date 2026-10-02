@@ -8,308 +8,463 @@
       gtag('js', new Date());
       gtag('config', 'G-7TP5H35738');
     </script>
+    
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZapTextCleaner - Client-Side Text Utilities & Document Converters</title>
-    <meta name="description" content="Enterprise-grade text cleaner, PDF merger, image converter, and data anonymizer running 100% locally in your browser sandbox with zero telemetry.">
+    <title>ZapTextCleaner - Free Client-Side Text Cleaning & Sanitization Suite</title>
+    <meta name="description" content="Free, 100% client-side text sanitization suite. Strip line breaks, remove formatting, clean irregular whitespace, and convert PDF, Word, Kindle, and web text without server tracking.">
     <link rel="canonical" href="https://zaptextcleaner.com/">
 
     <style>
         :root {
             --primary: #1e3a8a;
             --primary-hover: #172554;
-            --secondary: #64748b;
             --dark: #0f172a;
-            --light: #f8fafc;
-            --border: #e2e8f0;
+            --secondary: #64748b;
+            --border: #cbd5e1;
+            --bg-light: #f8fafc;
+            --card-bg: #ffffff;
+            --radius: 12px;
+            --accent: #2563eb;
             --success: #10b981;
         }
+
         * { box-sizing: border-box; }
+
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--light);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-light);
             color: var(--dark);
             margin: 0;
-            padding: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             line-height: 1.6;
         }
+
+        .container {
+            max-width: 1040px;
+            width: 100%;
+        }
+
         header {
-            background: #ffffff;
-            border-bottom: 1px solid var(--border);
-            padding: 18px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            text-align: center;
+            margin-bottom: 35px;
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: var(--radius);
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
         }
-        .logo {
-            font-size: 22px;
-            font-weight: 800;
+
+        h1 {
+            margin: 0 0 10px 0;
             color: var(--primary);
-            text-decoration: none;
-            letter-spacing: -0.03em;
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
         }
-        .security-badge {
-            display: flex;
+
+        header p {
+            color: var(--secondary);
+            font-size: 1.15rem;
+            max-width: 760px;
+            margin: 0 auto 18px auto;
+        }
+
+        .privacy-badge {
+            display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--success);
             background: #ecfdf5;
-            padding: 6px 14px;
-            border-radius: 20px;
+            color: #065f46;
             border: 1px solid #a7f3d0;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 13.5px;
+            font-weight: 700;
         }
-        .hero {
-            max-width: 900px;
-            margin: 60px auto 40px auto;
-            text-align: center;
-            padding: 0 20px;
+
+        .search-box-wrap {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
         }
-        .hero h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            line-height: 1.15;
-            letter-spacing: -0.03em;
+
+        .search-input {
+            max-width: 480px;
+            width: 100%;
+            padding: 12px 18px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30,58,138,0.1);
+        }
+
+        .category-section {
+            margin-top: 35px;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             margin-bottom: 16px;
         }
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--secondary);
-            max-width: 680px;
-            margin: 0 auto;
-        }
-        .grid-section {
-            max-width: 1200px;
-            margin: 0 auto 60px auto;
-            padding: 0 20px;
-        }
-        .section-label {
-            text-align: center;
+
+        .category-header h2 {
+            font-size: 1.35rem;
+            color: var(--dark);
+            margin: 0;
             font-weight: 700;
-            text-transform: uppercase;
-            font-size: 13px;
-            letter-spacing: 0.1em;
-            color: var(--primary);
-            margin-bottom: 25px;
         }
-        .utility-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-        }
-        .tool-card {
-            background: #ffffff;
-            border: 1px solid var(--border);
+
+        .category-badge {
+            font-size: 12px;
+            font-weight: 700;
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 3px 10px;
             border-radius: 12px;
-            padding: 28px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 22px;
+            text-decoration: none;
+            color: inherit;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
         }
-        .tool-card:hover {
-            transform: translateY(-3px);
+
+        .card:hover {
+            transform: translateY(-2px);
             box-shadow: 0 10px 15px -3px rgba(0,0,0,0.06);
-            border-color: var(--primary);
+            border-color: var(--accent);
         }
-        .tool-card h2 {
-            font-size: 19px;
+
+        .card h3 {
+            margin: 0 0 8px 0;
+            font-size: 1.05rem;
+            color: var(--primary);
             font-weight: 700;
-            margin: 0 0 10px 0;
-            color: var(--dark);
         }
-        .tool-card p {
+
+        .card p {
+            margin: 0 0 14px 0;
+            font-size: 0.88rem;
             color: var(--secondary);
-            font-size: 14px;
-            margin: 0 0 22px 0;
-            flex-grow: 1;
+            line-height: 1.5;
         }
-        .tool-btn {
-            background: var(--primary);
-            color: #ffffff;
-            text-decoration: none;
-            padding: 11px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            text-align: center;
-            font-size: 14px;
-            transition: background 0.15s;
+
+        .card .action-label {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
-        .tool-btn:hover { background: var(--primary-hover); }
-        .trust-banner {
-            background: #ffffff;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            padding: 40px 20px;
-            text-align: center;
+
+        /* Editorial & Technical Architecture Section */
+        .editorial-section {
+            margin-top: 45px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: var(--radius);
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
         }
-        .trust-grid {
-            max-width: 900px;
-            margin: 20px auto 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 30px;
+
+        .editorial-section h2 {
+            font-size: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+            margin-top: 24px;
         }
-        .trust-item h3 { font-size: 16px; margin: 0 0 6px 0; }
-        .trust-item p { font-size: 14px; color: var(--secondary); margin: 0; }
+        .editorial-section h2:first-of-type { margin-top: 0; }
+        .editorial-section h3 { font-size: 16px; color: var(--dark); margin-top: 20px; margin-bottom: 6px; }
+        .editorial-section p { color: #475569; font-size: 14.5px; line-height: 1.7; }
+        .editorial-section ul { color: #475569; font-size: 14.5px; line-height: 1.7; padding-left: 20px; }
+        .editorial-section code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: var(--dark); }
+
         footer {
-            text-align: center;
-            padding: 40px 20px;
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-size: 13px;
-            color: #94a3b8;
+            color: var(--secondary);
+            flex-wrap: wrap;
+            gap: 15px;
         }
-        footer a { color: var(--secondary); text-decoration: none; margin: 0 10px; font-weight: 600; }
-        footer a:hover { color: var(--primary); }
+
+        footer nav {
+            display: flex;
+            gap: 18px;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
+<div class="container">
     <header>
-        <a href="index.html" class="logo">ZapTextCleaner</a>
-        <div class="security-badge">
-            <span>🛡️ 100% Client-Side Sandbox</span>
+        <div class="privacy-badge">🔒 100% Client-Side Architecture • Zero Server Telemetry</div>
+        <h1>ZapTextCleaner</h1>
+        <p>A specialized, zero-telemetry suite of single-purpose text processing tools designed to strip formatting artifacts, re-stitch broken line wraps, normalize spaces, and convert documents in browser memory.</p>
+        
+        <div class="search-box-wrap">
+            <input type="text" id="toolSearch" class="search-input" placeholder="Search clean tools (e.g. PDF, Kindle, Word, Quotes)..." onkeyup="filterTools()">
         </div>
     </header>
 
-    <main>
-        <section class="hero">
-            <h1>Zero-Server Document & Text Sanitization</h1>
-            <p>Private, high-performance browser utilities built for sensitive legal, financial, and development data. Zero server telemetry. Zero data retention.</p>
-        </section>
-
-        <section class="grid-section">
-            <div class="section-label">Active Utility Frameworks</div>
-            <div class="utility-grid">
-
-                <div class="tool-card">
-                    <div>
-                        <h2>📋 Text Formatter</h2>
-                        <p>Normalize irregular line breaks, eliminate chaotic multi-space padding, strip unwanted styling, and fix letter casing instantly.</p>
-                    </div>
-                    <a href="formatter.html" class="tool-btn">Launch Formatter</a>
+    <!-- Strip Line Breaks Suite -->
+    <section class="category-section">
+        <div class="category-header">
+            <h2>Strip Line Breaks Suite</h2>
+            <span class="category-badge">6 Tools</span>
+        </div>
+        <div class="grid">
+            <a href="strip-line-breaks-from-email.html" class="card tool-card">
+                <div>
+                    <h3>Strip Line Breaks from Email</h3>
+                    <p>Remove RFC 2822 78-character hard line wraps, strip nested reply quote carets (&gt;), and rejoin email sentences.</p>
                 </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="strip-line-breaks-from-google-docs.html" class="card tool-card">
+                <div>
+                    <h3>Strip Line Breaks from Google Docs</h3>
+                    <p>Clean accidental soft line breaks (Shift+Enter), eliminate zero-width spaces, and restore smooth paragraph flow.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="strip-line-breaks-from-kindle.html" class="card tool-card">
+                <div>
+                    <h3>Strip Line Breaks from Kindle</h3>
+                    <p>Strip screen boundary line breaks, stitch split hyphens, and remove location stamps from Kindle clippings.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="strip-line-breaks-from-pdf.html" class="card tool-card">
+                <div>
+                    <h3>Strip Line Breaks from PDF</h3>
+                    <p>Reconstruct natural paragraphs from 2D coordinate text streams, rejoin hyphenated word endings, and purge column breaks.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="strip-line-breaks-from-website.html" class="card tool-card">
+                <div>
+                    <h3>Strip Line Breaks from Website</h3>
+                    <p>Eliminate CSS margin breaks, decode HTML character entities, and flatten web DOM fragments into continuous prose.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="strip-line-breaks-from-word-document.html" class="card tool-card">
+                <div>
+                    <h3>Strip Line Breaks from Word Document</h3>
+                    <p>Remove DOCX manual line breaks (&lt;w:br&gt;), strip proprietary MSO tags, and rejoin split sentences.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+        </div>
+    </section>
 
-                <div class="tool-card">
-                    <div>
-                        <h2>👤 Text & PII Anonymizer</h2>
-                        <p>Scrub names, emails, IP addresses, credit cards, and sensitive identifiers from unstructured corporate transcripts locally.</p>
-                    </div>
-                    <a href="anonymizer.html" class="tool-btn">Launch Anonymizer</a>
+    <!-- Convert to Plain Text Suite -->
+    <section class="category-section">
+        <div class="category-header">
+            <h2>Convert to Plain Text Suite</h2>
+            <span class="category-badge">6 Tools</span>
+        </div>
+        <div class="grid">
+            <a href="convert-to-plain-text-from-email.html" class="card tool-card">
+                <div>
+                    <h3>Convert Email to Plain Text</h3>
+                    <p>Extract unstyled plain text from rich email messages, decode MIME structures, and strip nested quote markers.</p>
                 </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="convert-to-plain-text-from-google-docs.html" class="card tool-card">
+                <div>
+                    <h3>Convert Google Docs to Plain Text</h3>
+                    <p>Strip Kix HTML wrappers, purge hidden zero-width marks (\u200B), and convert smart typography to ASCII.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="convert-to-plain-text-from-kindle.html" class="card tool-card">
+                <div>
+                    <h3>Convert Kindle to Plain Text</h3>
+                    <p>Convert raw 'My Clippings.txt' files into clean book quotations ready for Markdown note vaults.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="convert-to-plain-text-from-pdf.html" class="card tool-card">
+                <div>
+                    <h3>Convert PDF to Plain Text</h3>
+                    <p>Extract, de-hyphenate, and transform fragmented PDF clipboard selections into continuous UTF-8 plain text.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="convert-to-plain-text-from-website.html" class="card tool-card">
+                <div>
+                    <h3>Convert Website to Plain Text</h3>
+                    <p>Strip web markup tags, unroll hyperlinks into markdown syntax, and decode all character entities.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="convert-to-plain-text-from-word-document.html" class="card tool-card">
+                <div>
+                    <h3>Convert Word to Plain Text</h3>
+                    <p>Strip Office Open XML artifacts, convert curved quotes to ASCII, and flatten Word tables into plain text.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+        </div>
+    </section>
 
-                <div class="tool-card">
-                    <div>
-                        <h2>📚 PDF Document Merger</h2>
-                        <p>Sequentially combine multiple PDF documents into a unified, lightweight distribution directly inside browser RAM.</p>
-                    </div>
-                    <a href="merge-pdf.html" class="tool-btn">Launch PDF Merger</a>
+    <!-- Remove Formatting Suite -->
+    <section class="category-section">
+        <div class="category-header">
+            <h2>Remove Formatting Suite</h2>
+            <span class="category-badge">6 Tools</span>
+        </div>
+        <div class="grid">
+            <a href="remove-formatting-from-email.html" class="card tool-card">
+                <div>
+                    <h3>Remove Formatting from Email</h3>
+                    <p>Purge inline CSS color spans, background highlight tints, and unwanted typography from email drafts.</p>
                 </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="remove-formatting-from-google-docs.html" class="card tool-card">
+                <div>
+                    <h3>Remove Formatting from Google Docs</h3>
+                    <p>Remove nested font spans, background shading, and margin overrides copied from the Google Docs canvas.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="remove-formatting-from-kindle.html" class="card tool-card">
+                <div>
+                    <h3>Remove Formatting from Kindle</h3>
+                    <p>Strip Amazon Kindle metadata headers, equal-sign dividers, and soft hyphens from e-reader notes.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="remove-formatting-from-pdf.html" class="card tool-card">
+                <div>
+                    <h3>Remove Formatting from PDF</h3>
+                    <p>Strip fixed coordinate wrapping, join split words, and eliminate excessive whitespace from PDF text.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="remove-formatting-from-website.html" class="card tool-card">
+                <div>
+                    <h3>Remove Formatting from Website</h3>
+                    <p>Strip inline styling attributes, CSS background properties, and nested block margins from copied web pages.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="remove-formatting-from-word-document.html" class="card tool-card">
+                <div>
+                    <h3>Remove Formatting from Word Document</h3>
+                    <p>Remove proprietary MSO styles, Office Open XML namespaces, and smart typography from Word clipboard clips.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+        </div>
+    </section>
 
-                <div class="tool-card">
-                    <div>
-                        <h2>🖼️ JPEG to PDF Converter</h2>
-                        <p>Batch convert and compress multiple JPEG/JPG images into a single clean PDF document with custom margins.</p>
-                    </div>
-                    <a href="jpeg-to-pdf.html" class="tool-btn">Launch JPEG to PDF</a>
+    <!-- Clean Messy Spaces Suite & Utilities -->
+    <section class="category-section">
+        <div class="category-header">
+            <h2>Clean Messy Spaces Suite &amp; Utilities</h2>
+            <span class="category-badge">6 Tools</span>
+        </div>
+        <div class="grid">
+            <a href="clean-messy-spaces-from-word-document.html" class="card tool-card">
+                <div>
+                    <h3>Clean Messy Spaces from Word</h3>
+                    <p>Normalize non-breaking spaces (\u00A0), collapse multiple consecutive tabs, and clean Word formatting.</p>
                 </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="visa-tracker.html" class="card tool-card">
+                <div>
+                    <h3>Schengen &amp; Travel Visa Tracker</h3>
+                    <p>Track 90/180-day rolling Schengen visa limits and travel durations with 100% local browser calculation.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+        </div>
+    </section>
 
-                <div class="tool-card">
-                    <div>
-                        <h2>📝 Markdown Generator</h2>
-                        <p>Draft, convert, and format Markdown files with real-time browser preview and syntax assistance without cloud dependencies.</p>
-                    </div>
-                    <a href="markdown.html" class="tool-btn">Launch Markdown Tool</a>
-                </div>
+    <!-- Technical Architecture & Privacy Editorial -->
+    <article class="editorial-section">
+        <h2>Technical Architecture &amp; The Zero-Telemetry Guarantee</h2>
+        <p>Text cleaning utilities are frequently used to sanitize legal briefs, proprietary codebase fragments, sensitive financial records, private email correspondence, and personal manuscripts. Most online string-processing tools pass user text to backend server architectures via REST endpoints or WebSocket streams. This presents severe data privacy vulnerabilities, creates compliance exposures under GDPR and CCPA, and risks data leakage into centralized logging pools.</p>
 
-                <div class="tool-card">
-                    <div>
-                        <h2>📑 PDF Extraction Snipper</h2>
-                        <p>Isolate text layers and extract tabular data blocks from PDFs without transmitting document payloads over the internet.</p>
-                    </div>
-                    <a href="pdf.html" class="tool-btn">Launch PDF Snipper</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>📊 CSV to JSON Converter</h2>
-                        <p>Convert tabular spreadsheets and comma-separated records into clean, well-formatted JSON notation ready for database seeding.</p>
-                    </div>
-                    <a href="csv-to-json.html" class="tool-btn">Launch CSV Converter</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>📈 Excel to PDF Converter</h2>
-                        <p>Render spreadsheet sheets (.xlsx / .xls) into standard PDF reports with automatic column alignment.</p>
-                    </div>
-                    <a href="excel-to-pdf.html" class="tool-btn">Launch Excel to PDF</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>💸 Invoice Ledger Parser</h2>
-                        <p>Extract line items, tax numbers, and invoice totals from raw text dumps into clean, exportable tables.</p>
-                    </div>
-                    <a href="invoice-parser.html" class="tool-btn">Launch Invoice Parser</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>👔 ATS Resume Keyword Tailor</h2>
-                        <p>Compare resume text against corporate job descriptions to identify missing keywords and boost parsing metrics.</p>
-                    </div>
-                    <a href="resume-tailor.html" class="tool-btn">Launch Resume Tailor</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>⚖️ Terms of Service Risk Decoder</h2>
-                        <p>Scan privacy agreements and terms of service text to highlight hidden clauses, arbitration traps, and tracking risks.</p>
-                    </div>
-                    <a href="legal-decoder.html" class="tool-btn">Launch Terms Decoder</a>
-                </div>
-
-                <div class="tool-card">
-                    <div>
-                        <h2>🎵 Video to Audio Extractor</h2>
-                        <p>Extract and isolate sound tracks from MP4/MOV video files directly into web-ready audio files without external servers.</p>
-                    </div>
-                    <a href="video-to-audio.html" class="tool-btn">Launch Video to Audio</a>
-                </div>
-
-            </div>
-        </section>
-
-        <section class="trust-banner">
-            <div class="section-label" style="margin-bottom: 5px;">Client-Side Security Model</div>
-            <div class="trust-grid">
-                <div class="trust-item">
-                    <h3>Zero Telemetry</h3>
-                    <p>No backend database. No server-side storage. Your document contents are never logged.</p>
-                </div>
-                <div class="trust-item">
-                    <h3>In-Memory Execution</h3>
-                    <p>Calculations occur entirely within your local browser JavaScript engine.</p>
-                </div>
-                <div class="trust-item">
-                    <h3>Immediate Ephemerality</h3>
-                    <p>Closing the browser tab completely wipes all memory buffers instantly.</p>
-                </div>
-            </div>
-        </section>
-    </main>
+        <p><strong>ZapTextCleaner</strong> is engineered with a strict <strong>100% Client-Side Architecture</strong>. Every tool in this suite runs entirely within the local execution context of your web browser's JavaScript V8 or SpiderMonkey engine:</p>
+        <ul>
+            <li><strong>Zero Server Transmission:</strong> When you paste text and click an action button, the text string is processed entirely in local random access memory (RAM). No HTTP POST request, JSON payload, or external telemetry ping is ever generated.</li>
+            <li><strong>Document Object Model Isolation:</strong> Input sanitization utilizes native DOMParser instances and deterministic regular expression matrices isolated inside your browser sandbox, eliminating risk of cross-tab memory exposure.</li>
+            <li><strong>Full Offline Capability:</strong> Because execution requires zero external API communication, these tools operate seamlessly without an active internet connection once the page assets are cached in your browser.</li>
+            <li><strong>Targeted Artifact Normalization:</strong> Rather than relying on naive string stripping, our engines address format-specific serialization artifacts—including RFC 2822 email line folding, PDF Cartesian glyph coordinate fragmentation, Google Docs Kix boundary tokens, and Office Open XML namespaces.</li>
+        </ul>
+    </article>
 
     <footer>
-        <div style="margin-bottom: 12px;">
-            <a href="privacy.html">Privacy Manifesto</a> | 
-            <a href="guide-ai-data-safety.html">AI Data Safety Guide</a>
-        </div>
-        &copy; 2026 ZapTextCleaner. All tools execute client-side.
+        <div>&copy; 2026 ZapTextCleaner. All rights reserved. Built for security, speed, and privacy.</div>
+        <nav>
+            <a href="index.html">Hub Home</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="sitemap.xml">XML Sitemap</a>
+        </nav>
     </footer>
+</div>
+
+<script>
+    function filterTools() {
+        const query = document.getElementById('toolSearch').value.toLowerCase().trim();
+        const cards = document.querySelectorAll('.tool-card');
+        
+        cards.forEach(card => {
+            const text = card.textContent.toLowerCase();
+            if (text.includes(query)) {
+                card.style.display = "flex";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    }
+</script>
 
 </body>
 </html>
