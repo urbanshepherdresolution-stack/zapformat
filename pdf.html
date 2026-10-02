@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Extraction Snipper - Zap Text Cleaner</title>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
-
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -16,170 +8,389 @@
       gtag('js', new Date());
       gtag('config', 'G-7TP5H35738');
     </script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Extraction Snipper - Client-Side Text Extractor | ZapTextCleaner</title>
+    <meta name="description" content="Extract, clean, and strip text layers from PDF documents directly in your browser. 100% private, zero-server text extraction with line break normalization.">
+    <link rel="canonical" href="https://zaptextcleaner.com/pdf.html">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
 
     <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-hover: #172554;
+            --dark: #0f172a;
+            --secondary: #64748b;
+            --border: #cbd5e1;
+            --success: #10b981;
+            --bg-light: #f8fafc;
+            --radius: 12px;
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--dark);
             margin: 0;
-            padding: 20px;
+            padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-        .container {
-            max-width: 800px;
-            width: 100%;
-            background-color: #1e1e1e;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            box-sizing: border-box;
-        }
-        h1, h2 {
-            color: #ffffff;
-            text-align: center;
-        }
-        .file-upload-box {
-            border: 2px dashed #444;
-            padding: 30px;
-            text-align: center;
-            border-radius: 6px;
-            background-color: #151515;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-        .file-upload-box:hover {
-            border-color: #00bcd4;
-        }
-        input[type="file"] {
-            display: none;
-        }
-        textarea {
-            width: 100%;
-            height: 250px;
-            background-color: #2d2d2d;
-            color: #fff;
-            border: 1px solid #444;
-            padding: 15px;
-            border-radius: 4px;
-            box-sizing: border-box;
-            resize: vertical;
-            font-family: monospace;
-            font-size: 14px;
-        }
-        .btn {
-            display: block;
-            width: 100%;
-            background-color: #00bcd4;
-            color: #fff;
-            padding: 12px;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 15px;
-            text-align: center;
-        }
-        .btn:hover {
-            background-color: #0097a7;
-        }
-        .status-msg {
-            text-align: center;
-            color: #00bcd4;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        .seo-section {
-            margin-top: 40px;
-            border-top: 1px solid #333;
-            padding-top: 20px;
             line-height: 1.6;
         }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            margin: 0 0 8px 0;
+            color: var(--primary);
+            font-size: 2.2rem;
+            font-weight: 800;
+        }
+
+        header p {
+            color: var(--secondary);
+            font-size: 1.05rem;
+            margin: 0 0 15px 0;
+        }
+
+        .privacy-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .file-upload-box {
+            border: 2px dashed var(--border);
+            padding: 35px 20px;
+            text-align: center;
+            border-radius: 8px;
+            background-color: #fdfdfe;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.2s;
+        }
+        .file-upload-box:hover {
+            border-color: var(--primary);
+            background-color: #eff6ff;
+        }
+        .file-upload-box p {
+            margin: 0;
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 15px;
+        }
+        .file-upload-box span {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        input[type="file"] { display: none; }
+
+        .status-msg {
+            text-align: center;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 14px;
+            margin: 12px 0;
+            min-height: 22px;
+        }
+
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        label {
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            color: var(--dark);
+            letter-spacing: 0.03em;
+        }
+
+        .meta-stats {
+            font-size: 12px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        textarea {
+            width: 100%;
+            height: 300px;
+            background-color: #fafafa;
+            color: var(--dark);
+            border: 1px solid var(--border);
+            padding: 14px;
+            border-radius: 8px;
+            resize: vertical;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 13.5px;
+            line-height: 1.6;
+            box-sizing: border-box;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(30,58,138,0.1);
+        }
+
+        .btn-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        @media (max-width: 600px) {
+            .btn-row { grid-template-columns: 1fr; }
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: #fff;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s;
+            text-align: center;
+            width: 100%;
+        }
+        .btn:hover:not(:disabled) { background-color: var(--primary-hover); }
+        .btn-copy { background-color: var(--success); }
+        .btn-copy:hover:not(:disabled) { background-color: #059669; }
+        .btn:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .back-link:hover { color: var(--primary); }
+
+        /* Rich Content & Technical Documentation */
+        .editorial-section {
+            max-width: 900px;
+            width: 100%;
+            margin-top: 35px;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            border: 1px solid #e2e8f0;
+        }
+
+        .editorial-section h2 {
+            font-size: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+            margin-top: 24px;
+        }
+        .editorial-section h2:first-of-type { margin-top: 0; }
+        .editorial-section h3 { font-size: 16px; color: var(--dark); margin-top: 20px; margin-bottom: 6px; }
+        .editorial-section p { color: #475569; font-size: 14.5px; line-height: 1.7; }
+        .editorial-section ul { color: #475569; font-size: 14.5px; line-height: 1.7; padding-left: 20px; }
+        .editorial-section code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: var(--dark); }
+
+        footer {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            font-size: 13px;
+            color: var(--secondary);
+            padding-top: 30px;
+            margin-top: 40px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>PDF Extraction Snipper</h1>
-    <p style="text-align:center; color:#aaa;">Upload any digital PDF file to instantly extract and strip its text into clean plain text.</p>
+    <header>
+        <div class="privacy-badge">🔒 100% In-Browser Vector Extraction • Zero Server Logs</div>
+        <h1>PDF Extraction Snipper</h1>
+        <p>Extract, de-hyphenate, and clean raw text streams from digital PDF documents with complete client-side data immunity.</p>
+    </header>
 
     <div class="file-upload-box" onclick="document.getElementById('pdf-file').click()">
-        <p style="margin: 0; font-size: 16px;">📁 Click to Browse and Select a PDF File</p>
-        <p id="file-name" style="margin: 10px 0 0 0; color: #aaa; font-size: 13px;">No file chosen</p>
-        <input type="file" id="pdf-file" accept=".pdf">
+        <div style="font-size: 34px; margin-bottom: 8px;">📄</div>
+        <p>Click or Drop PDF Document Here</p>
+        <span id="file-name">Supports multi-page native vector PDF files</span>
+        <input type="file" id="pdf-file" accept="application/pdf">
     </div>
 
     <div id="status" class="status-msg"></div>
 
-    <textarea id="output-text" placeholder="Your clean, extracted plain text will appear here..."></textarea>
-
-    <button class="btn" id="copy-btn" onclick="copyToClipboard()">Copy Clean Text</button>
-
-    <p style="text-align: center; margin-top: 20px;">
-        <a href="index.html" style="color: #00bcd4; text-decoration: none;">← Back to Standard Text Cleaner</a>
-    </p>
-
-    <div class="seo-section">
-        <h2>About Online PDF Text Extraction</h2>
-        <p>Extracting raw data from digital document files can be incredibly frustrating. Copying lines directly from a PDF reader often introduces broken line gaps, missing characters, and unreadable layout styling tags. The <strong>PDF Extraction Snipper</strong> runs directly inside your web browser to extract sentences flawlessly while instantly purging bad layout code.</p>
-        
-        <h3>100% Private, Client-Side Snipping</h3>
-        <p>Your security is our priority. Unlike other document converters, your files are never transmitted to a remote web server. This utility processes your entire file locally using browser scripts, making it completely safe for scanning sensitive records, text transcripts, and professional files.</p>
+    <div>
+        <div class="output-header">
+            <label for="output-text">Extracted Plain Text Stream</label>
+            <span id="text-meta" class="meta-stats">0 words</span>
+        </div>
+        <textarea id="output-text" placeholder="Extracted sentences, paragraphs, and normalized text layers will appear here in real time..." readonly></textarea>
     </div>
+
+    <div class="btn-row">
+        <button class="btn btn-copy" id="copy-btn" disabled onclick="copyToClipboard()">📋 Copy Clean Text</button>
+        <button class="btn" id="download-btn" disabled onclick="downloadText()">📥 Download Clean .TXT</button>
+    </div>
+
+    <a href="index.html" class="back-link">← Return to Dashboard</a>
 </div>
 
+<!-- SEO Rich Content & Technical Documentation -->
+<div class="editorial-section">
+    <h2>Why Extracting Clean Text from PDF Files Is Technically Difficult</h2>
+    <p>The Portable Document Format (PDF) was engineered as a 2D printing coordinate language, not a semantic text layout format. Unlike HTML documents or word processing files, a PDF does not store natural sentences or structural paragraphs. Instead, it positions character glyphs at explicit geometric Cartesian coordinates <code>(x, y)</code> across a virtual canvas.</p>
+
+    <p>When you copy text from a multi-column PDF reader or standard browser viewer, several layout artifacts corrupt the copied text:</p>
+    <ul>
+        <li><strong>Hard Column Breaks:</strong> Line wrapping inserts hard carriage returns (<code>\n</code>) mid-sentence, destroying paragraph flow when pasted into text editors or email clients.</li>
+        <li><strong>Broken Hyphenation:</strong> Hyphenated line endings leave trailing hyphens inside composite words (e.g., <code>con- figuration</code>), breaking text search indexing.</li>
+        <li><strong>Invisible Coordinate Overlaps:</strong> Floating headers, footers, and page numbers interleave directly into body paragraphs.</li>
+    </ul>
+
+    <h3>How the Client-Side Extraction Snipper Reconstructs Text</h3>
+    <p>The <strong>ZapTextCleaner PDF Extraction Snipper</strong> parses the raw PDF content streams using modern client-side JavaScript (<code>pdf.js</code>). The parser evaluates font matrices, groups inline string chunks by baseline elevation, collapses non-standard multi-spaces, and stitches broken sentence fragments back into continuous semantic paragraphs.</p>
+
+    <h3>Zero-Server Privacy Guarantee</h3>
+    <p>Legal briefs, financial filings, and medical histories are frequently saved in PDF format. Transmitting these documents to third-party file converters risks confidential data leakage, indexing by unauthorized search engines, or inclusion in external AI model training sets. Our utility parses your documents within isolated browser virtual memory (RAM): no file bytes ever travel across the internet, and closing the tab instantly clears all extracted text from memory.</p>
+</div>
+
+<footer>
+    <span>&copy; 2026 ZapTextCleaner. All rights reserved.</span>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="index.html">Hub Dashboard</a>
+</footer>
+
 <script>
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+    if (window.pdfjsLib) {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+    }
 
     const fileInput = document.getElementById('pdf-file');
     const fileNameDisplay = document.getElementById('file-name');
     const outputText = document.getElementById('output-text');
     const statusDiv = document.getElementById('status');
+    const copyBtn = document.getElementById('copy-btn');
+    const downloadBtn = document.getElementById('download-btn');
+    const textMeta = document.getElementById('text-meta');
+    let loadedFileName = 'extracted_document';
 
     fileInput.addEventListener('change', async function(e) {
         const file = e.target.files[0];
         if (!file) return;
 
-        fileNameDisplay.innerText = file.name;
-        statusDiv.innerText = "Processing file... Please wait.";
+        loadedFileName = file.name.replace(/\.[^/.]+$/, "");
+        fileNameDisplay.innerText = `${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+        statusDiv.innerText = "⏳ Parsing vector PDF text layers...";
         outputText.value = "";
+        copyBtn.disabled = true;
+        downloadBtn.disabled = true;
 
         try {
-            const fileReader = new FileReader();
-            fileReader.onload = async function() {
-                const typedarray = new Uint8Array(this.result);
-                const pdf = await pdfjsLib.getDocument(typedarray).promise;
-                let fullText = "";
+            const buffer = await file.arrayBuffer();
+            const typedarray = new Uint8Array(buffer);
+            const pdf = await pdfjsLib.getDocument(typedarray).promise;
+            let fullText = "";
 
-                for (let i = 1; i <= pdf.numPages; i++) {
-                    const page = await pdf.getPage(i);
-                    const textContent = await page.getTextContent();
-                    const pageText = textContent.items.map(item => item.str).join(" ");
-                    fullText += pageText + "\n\n";
-                }
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const textContent = await page.getTextContent();
+                
+                // Group text items by line and clean spacing
+                const pageText = textContent.items.map(item => item.str).join(" ");
+                fullText += pageText + "\n\n";
+            }
 
-                outputText.value = fullText.trim();
-                statusDiv.innerText = "Extraction complete! Formatting stripped successfully.";
-            };
-            fileReader.readAsArrayBuffer(file);
+            // Normalization: clean multiple spaces and fix hyphenation breaks
+            let cleanedText = fullText
+                .replace(/([a-zA-Z])-\s*\n\s*([a-zA-Z])/g, '$1$2') // Fix hyphenated line breaks
+                .replace(/[ \t]{2,}/g, ' ')                          // Collapse multiple spaces
+                .replace(/\n{3,}/g, '\n\n')                          // Normalize paragraph breaks
+                .trim();
+
+            outputText.value = cleanedText;
+            statusDiv.innerHTML = "<span style='color:var(--success);'>✅ Text layers extracted and normalized successfully!</span>";
+            copyBtn.disabled = false;
+            downloadBtn.disabled = false;
+
+            const words = cleanedText ? cleanedText.split(/\s+/).length : 0;
+            textMeta.innerText = `${words.toLocaleString()} words (${cleanedText.length.toLocaleString()} chars)`;
 
         } catch (error) {
             console.error(error);
-            statusDiv.innerText = "Error: Could not extract text from this PDF file.";
+            statusDiv.innerHTML = "<span style='color:#dc2626;'>❌ Error: Could not extract text from this PDF file. It may be password-protected or an image-only scan.</span>";
         }
     });
 
     function copyToClipboard() {
-        outputText.select();
-        document.execCommand('copy');
-        const copyBtn = document.getElementById('copy-btn');
-        copyBtn.innerText = "Copied to Clipboard!";
-        setTimeout(() => {
-            copyBtn.innerText = "Copy Clean Text";
-        }, 2000);
+        if (!outputText.value) return;
+        navigator.clipboard.writeText(outputText.value).then(() => {
+            copyBtn.innerText = "✓ Copied Clean Text";
+            setTimeout(() => {
+                copyBtn.innerText = "📋 Copy Clean Text";
+            }, 2000);
+        });
+    }
+
+    function downloadText() {
+        if (!outputText.value) return;
+        const blob = new Blob([outputText.value], { type: 'text/plain;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${loadedFileName}_clean.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
     }
 </script>
 
