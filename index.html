@@ -13,8 +13,8 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZapTextCleaner - Free Client-Side Text Cleaning & Sanitization Suite</title>
-    <meta name="description" content="Free, 100% client-side text sanitization suite. Strip line breaks, remove formatting, clean irregular whitespace, and convert PDF, Word, Kindle, and web text without server tracking.">
+    <title>ZapTextCleaner - Free Client-Side Text Cleaning &amp; Conversion Suite</title>
+    <meta name="description" content="Free, 100% client-side text sanitization and media conversion suite. Strip line breaks, convert HEIC/images, preview markdown, resize photos, and clean documents without server tracking.">
     <link rel="canonical" href="https://zaptextcleaner.com/">
 
     <style>
@@ -184,7 +184,6 @@
             gap: 4px;
         }
 
-        /* Editorial & Technical Architecture Section */
         .editorial-section {
             margin-top: 45px;
             background: var(--card-bg);
@@ -239,12 +238,64 @@
     <header>
         <div class="privacy-badge">🔒 100% Client-Side Architecture • Zero Server Telemetry</div>
         <h1>ZapTextCleaner</h1>
-        <p>A specialized, zero-telemetry suite of single-purpose text processing tools designed to strip formatting artifacts, re-stitch broken line wraps, normalize spaces, and convert documents in browser memory.</p>
+        <p>A specialized, zero-telemetry suite of single-purpose text processing, document conversion, and media optimization tools running entirely in browser RAM.</p>
         
         <div class="search-box-wrap">
-            <input type="text" id="toolSearch" class="search-input" placeholder="Search clean tools (e.g. PDF, Kindle, Word, Quotes)..." onkeyup="filterTools()">
+            <input type="text" id="toolSearch" class="search-input" placeholder="Search clean tools (e.g. PDF, HEIC, Markdown, Resizer)..." onkeyup="filterTools()">
         </div>
     </header>
+
+    <!-- Media & Conversion Utilities (NEW) -->
+    <section class="category-section">
+        <div class="category-header">
+            <h2>Media &amp; Conversion Utilities</h2>
+            <span class="category-badge">6 Tools</span>
+        </div>
+        <div class="grid">
+            <a href="image-converter.html" class="card tool-card">
+                <div>
+                    <h3>Image Format Converter</h3>
+                    <p>Convert HEIC, PNG, JPEG, and WebP images instantly in browser memory using HTML5 Canvas.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="markdown-to-html.html" class="card tool-card">
+                <div>
+                    <h3>Markdown to HTML Previewer</h3>
+                    <p>Live split-pane CommonMark Markdown editor with instant HTML rendering and copy support.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="image-resizer.html" class="card tool-card">
+                <div>
+                    <h3>Image Resizer &amp; Compressor</h3>
+                    <p>Resize pixel dimensions and compress image file sizes locally before CMS publishing.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="video-to-audio.html" class="card tool-card">
+                <div>
+                    <h3>Video to Audio Extractor</h3>
+                    <p>Demux MP4, WebM, and MOV containers and extract uncompressed WAV audio tracks locally.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="document-to-markdown.html" class="card tool-card">
+                <div>
+                    <h3>Document to Markdown</h3>
+                    <p>Convert Word, Google Docs, and rich text snippets to clean GitHub Flavored Markdown.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="word-to-markdown.html" class="card tool-card">
+                <div>
+                    <h3>Word to Markdown Converter</h3>
+                    <p>Strip Office Open XML markup, MSO tags, and convert Word clipboard text to CommonMark.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+        </div>
+    </section>
 
     <!-- Strip Line Breaks Suite -->
     <section class="category-section">
@@ -402,11 +453,11 @@
         </div>
     </section>
 
-    <!-- Clean Messy Spaces Suite & Utilities -->
+    <!-- Utilities & Sanitizers -->
     <section class="category-section">
         <div class="category-header">
-            <h2>Clean Messy Spaces Suite &amp; Utilities</h2>
-            <span class="category-badge">6 Tools</span>
+            <h2>Sanitizers &amp; Professional Utilities</h2>
+            <span class="category-badge">4 Tools</span>
         </div>
         <div class="grid">
             <a href="clean-messy-spaces-from-word-document.html" class="card tool-card">
@@ -416,27 +467,46 @@
                 </div>
                 <span class="action-label">Open Tool →</span>
             </a>
+            <a href="text-batch-sanitizer.html" class="card tool-card">
+                <div>
+                    <h3>Text Batch Sanitizer</h3>
+                    <p>Clean, normalize, and sanitize multiple document snippets or records simultaneously in bulk.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="contract-anonymizer.html" class="card tool-card">
+                <div>
+                    <h3>Contract &amp; Legal Anonymizer</h3>
+                    <p>Redact party names, financial sums, dates, and contact PII from legal agreements.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="csv-cleaner.html" class="card tool-card">
+                <div>
+                    <h3>CSV Cleaner &amp; Formatter</h3>
+                    <p>Trim cell whitespace, remove blank rows, deduplicate records, and fix RFC 4180 CSV delimiters.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
             <a href="visa-tracker.html" class="card tool-card">
                 <div>
                     <h3>Schengen &amp; Travel Visa Tracker</h3>
-                    <p>Track 90/180-day rolling Schengen visa limits and travel durations with 100% local browser calculation.</p>
+                    <p>Track 90/180-day rolling Schengen visa limits and travel durations with 100% local calculation.</p>
                 </div>
                 <span class="action-label">Open Tool →</span>
             </a>
         </div>
     </section>
 
-    <!-- Technical Architecture & Privacy Editorial -->
     <article class="editorial-section">
         <h2>Technical Architecture &amp; The Zero-Telemetry Guarantee</h2>
-        <p>Text cleaning utilities are frequently used to sanitize legal briefs, proprietary codebase fragments, sensitive financial records, private email correspondence, and personal manuscripts. Most online string-processing tools pass user text to backend server architectures via REST endpoints or WebSocket streams. This presents severe data privacy vulnerabilities, creates compliance exposures under GDPR and CCPA, and risks data leakage into centralized logging pools.</p>
+        <p>Text sanitization, document formatting, and media conversion utilities are frequently used to process confidential financial records, proprietary codebases, legal agreements, and personal photos. Most online utility websites pass user payloads to backend servers via REST APIs or cloud storage buckets, exposing sensitive data to security vulnerabilities.</p>
 
         <p><strong>ZapTextCleaner</strong> is engineered with a strict <strong>100% Client-Side Architecture</strong>. Every tool in this suite runs entirely within the local execution context of your web browser's JavaScript V8 or SpiderMonkey engine:</p>
         <ul>
-            <li><strong>Zero Server Transmission:</strong> When you paste text and click an action button, the text string is processed entirely in local random access memory (RAM). No HTTP POST request, JSON payload, or external telemetry ping is ever generated.</li>
-            <li><strong>Document Object Model Isolation:</strong> Input sanitization utilizes native DOMParser instances and deterministic regular expression matrices isolated inside your browser sandbox, eliminating risk of cross-tab memory exposure.</li>
-            <li><strong>Full Offline Capability:</strong> Because execution requires zero external API communication, these tools operate seamlessly without an active internet connection once the page assets are cached in your browser.</li>
-            <li><strong>Targeted Artifact Normalization:</strong> Rather than relying on naive string stripping, our engines address format-specific serialization artifacts—including RFC 2822 email line folding, PDF Cartesian glyph coordinate fragmentation, Google Docs Kix boundary tokens, and Office Open XML namespaces.</li>
+            <li><strong>Zero Server Transmission:</strong> When you paste text or drop media files, data is processed locally in system RAM. No HTTP POST payload or external telemetry ping is ever generated.</li>
+            <li><strong>Browser Sandbox Isolation:</strong> Operations utilize native DOMParser, HTML5 Canvas, and Web Audio APIs isolated inside your browser tab.</li>
+            <li><strong>Full Offline Capability:</strong> Because execution requires zero external API communication, these tools operate seamlessly without an active internet connection once cached.</li>
         </ul>
     </article>
 
