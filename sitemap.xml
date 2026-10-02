@@ -1,73 +1,152 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <!-- Core Hub & Utilities -->
     <url>
         <loc>https://zaptextcleaner.com/</loc>
         <lastmod>2026-10-02</lastmod>
-        <priority>1.0</priority>
+        <changefreq>weekly</changefreq>
+        <priority>1.00</priority>
     </url>
     <url>
-        <loc>https://zaptextcleaner.com/formatter.html</loc>
+        <loc>https://zaptextcleaner.com/index.html</loc>
         <lastmod>2026-10-02</lastmod>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://zaptextcleaner.com/anonymizer.html</loc>
-        <lastmod>2026-10-02</lastmod>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://zaptextcleaner.com/merge-pdf.html</loc>
-        <lastmod>2026-10-02</lastmod>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://zaptextcleaner.com/jpeg-to-pdf.html</loc>
-        <lastmod>2026-10-02</lastmod>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://zaptextcleaner.com/markdown.html</loc>
-        <lastmod>2026-10-02</lastmod>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://zaptextcleaner.com/pdf.html</loc>
-        <lastmod>2026-10-02</lastmod>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://zaptextcleaner.com/csv-to-json.html</loc>
-        <lastmod>2026-10-02</lastmod>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://zaptextcleaner.com/excel-to-pdf.html</loc>
-        <lastmod>2026-10-02</lastmod>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://zaptextcleaner.com/invoice-parser.html</loc>
-        <lastmod>2026-10-02</lastmod>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://zaptextcleaner.com/resume-tailor.html</loc>
-        <lastmod>2026-10-02</lastmod>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://zaptextcleaner.com/legal-decoder.html</loc>
-        <lastmod>2026-10-02</lastmod>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://zaptextcleaner.com/video-to-audio.html</loc>
-        <lastmod>2026-10-02</lastmod>
-        <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
+        <priority>0.90</priority>
     </url>
     <url>
         <loc>https://zaptextcleaner.com/privacy.html</loc>
         <lastmod>2026-10-02</lastmod>
-        <priority>0.5</priority>
+        <changefreq>yearly</changefreq>
+        <priority>0.30</priority>
     </url>
+    <url>
+        <loc>https://zaptextcleaner.com/visa-tracker.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+
+    <!-- Strip Line Breaks Suite -->
+    <url>
+        <loc>https://zaptextcleaner.com/strip-line-breaks-from-email.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/strip-line-breaks-from-google-docs.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/strip-line-breaks-from-kindle.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/strip-line-breaks-from-pdf.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/strip-line-breaks-from-website.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/strip-line-breaks-from-word-document.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+
+    <!-- Convert to Plain Text Suite -->
+    <url>
+        <loc>https://zaptextcleaner.com/convert-to-plain-text-from-email.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/convert-to-plain-text-from-google-docs.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/convert-to-plain-text-from-kindle.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/convert-to-plain-text-from-pdf.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/convert-to-plain-text-from-website.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/convert-to-plain-text-from-word-document.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+
+    <!-- Remove Formatting Suite -->
+    <url>
+        <loc>https://zaptextcleaner.com/remove-formatting-from-email.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/remove-formatting-from-google-docs.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/remove-formatting-from-kindle.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/remove-formatting-from-pdf.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/remove-formatting-from-website.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/remove-formatting-from-word-document.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+
+    <!-- Clean Messy Spaces Suite -->
+    <url>
+        <loc>https://zaptextcleaner.com/clean-messy-spaces-from-word-document.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+
 </urlset>
