@@ -13,8 +13,8 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZapTextCleaner - Free Client-Side Text Cleaning &amp; Conversion Suite</title>
-    <meta name="description" content="Free, 100% client-side text sanitization and media conversion suite. Strip line breaks, convert HEIC/images, preview markdown, resize photos, and clean documents without server tracking.">
+    <title>ZapTextCleaner - Free Client-Side Text Cleaning, Conversion &amp; Developer Suite</title>
+    <meta name="description" content="Free, 100% client-side text sanitization, media conversion, and developer utilities suite. Format JSON, encode Base64, clean line breaks, and convert images without server tracking.">
     <link rel="canonical" href="https://zaptextcleaner.com/">
 
     <style>
@@ -238,14 +238,66 @@
     <header>
         <div class="privacy-badge">🔒 100% Client-Side Architecture • Zero Server Telemetry</div>
         <h1>ZapTextCleaner</h1>
-        <p>A specialized, zero-telemetry suite of single-purpose text processing, document conversion, and media optimization tools running entirely in browser RAM.</p>
+        <p>A specialized, zero-telemetry suite of single-purpose text processing, document conversion, media optimization, and developer tools running entirely in browser RAM.</p>
         
         <div class="search-box-wrap">
-            <input type="text" id="toolSearch" class="search-input" placeholder="Search clean tools (e.g. PDF, HEIC, Markdown, Resizer)..." onkeyup="filterTools()">
+            <input type="text" id="toolSearch" class="search-input" placeholder="Search clean tools (e.g. JSON, Base64, HEIC, Slug, Markdown)..." onkeyup="filterTools()">
         </div>
     </header>
 
-    <!-- Media & Conversion Utilities (NEW) -->
+    <!-- Developer & Data Utilities (NEW) -->
+    <section class="category-section">
+        <div class="category-header">
+            <h2>Developer &amp; Data Utilities</h2>
+            <span class="category-badge">6 Tools</span>
+        </div>
+        <div class="grid">
+            <a href="json-formatter.html" class="card tool-card">
+                <div>
+                    <h3>JSON Formatter &amp; Validator</h3>
+                    <p>Beautify, validate, minify, and inspect JSON payloads securely in browser memory.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="base64-converter.html" class="card tool-card">
+                <div>
+                    <h3>Base64 Encoder &amp; Decoder</h3>
+                    <p>Encode plain text strings into Base64 or decode Base64 strings back instantly.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="url-slug-generator.html" class="card tool-card">
+                <div>
+                    <h3>URL Slug Generator</h3>
+                    <p>Convert article headings and product titles into clean, SEO-friendly URL slugs.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="case-converter.html" class="card tool-card">
+                <div>
+                    <h3>Text Case Converter</h3>
+                    <p>Transform text blocks instantly into UPPERCASE, lowercase, Title Case, camelCase, and more.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="html-entity-converter.html" class="card tool-card">
+                <div>
+                    <h3>URL &amp; HTML Entity Encoder</h3>
+                    <p>Safely escape special characters for web deployment and URL parameters.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+            <a href="jwt-debugger.html" class="card tool-card">
+                <div>
+                    <h3>JWT (JSON Web Token) Debugger</h3>
+                    <p>Decode and inspect header and payload claims of JSON web tokens locally in RAM.</p>
+                </div>
+                <span class="action-label">Open Tool →</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Media & Conversion Utilities -->
     <section class="category-section">
         <div class="category-header">
             <h2>Media &amp; Conversion Utilities</h2>
@@ -457,7 +509,7 @@
     <section class="category-section">
         <div class="category-header">
             <h2>Sanitizers &amp; Professional Utilities</h2>
-            <span class="category-badge">4 Tools</span>
+            <span class="category-badge">5 Tools</span>
         </div>
         <div class="grid">
             <a href="clean-messy-spaces-from-word-document.html" class="card tool-card">
@@ -500,7 +552,7 @@
 
     <article class="editorial-section">
         <h2>Technical Architecture &amp; The Zero-Telemetry Guarantee</h2>
-        <p>Text sanitization, document formatting, and media conversion utilities are frequently used to process confidential financial records, proprietary codebases, legal agreements, and personal photos. Most online utility websites pass user payloads to backend servers via REST APIs or cloud storage buckets, exposing sensitive data to security vulnerabilities.</p>
+        <p>Text sanitization, document formatting, and developer utilities are frequently used to process confidential financial records, proprietary codebases, legal agreements, and personal data. Most online utility websites pass user payloads to backend servers via REST APIs or cloud storage buckets, exposing sensitive data to security vulnerabilities.</p>
 
         <p><strong>ZapTextCleaner</strong> is engineered with a strict <strong>100% Client-Side Architecture</strong>. Every tool in this suite runs entirely within the local execution context of your web browser's JavaScript V8 or SpiderMonkey engine:</p>
         <ul>
