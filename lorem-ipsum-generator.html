@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lorem Ipsum Placeholder Text Generator Online - ZapTextCleaner</title>
+    <meta name="description" content="Generate customizable paragraphs, lists, and words of placeholder text for designers and developers. 100% private client-side generator.">
+    <link rel="canonical" href="https://zaptextcleaner.com/lorem-ipsum-generator.html">
+
+    <style>
+        :root { --primary: #1e3a8a; --primary-hover: #172554; --dark: #0f172a; --secondary: #64748b; --border: #cbd5e1; --success: #10b981; --bg-light: #f8fafc; --radius: 12px; }
+        * { box-sizing: border-box; }
+        body { font-family: system-ui, -apple-system, sans-serif; background-color: var(--bg-light); color: var(--dark); margin: 0; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; line-height: 1.6; }
+        .container { max-width: 900px; width: 100%; background: white; padding: 40px; border-radius: var(--radius); border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); }
+        header { text-align: center; margin-bottom: 25px; }
+        h1 { margin: 0 0 8px 0; color: var(--primary); font-size: 2.2rem; font-weight: 800; }
+        header p { color: var(--secondary); font-size: 1.05rem; margin: 0 0 15px 0; }
+        .privacy-badge { display: inline-flex; align-items: center; gap: 8px; background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+        .controls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; background: var(--bg-light); border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
+        @media (max-width: 768px) { .controls-grid { grid-template-columns: 1fr; } }
+        .control-group { display: flex; flex-direction: column; gap: 6px; }
+        label { font-weight: 700; font-size: 12.5px; text-transform: uppercase; color: var(--dark); }
+        input[type="number"] { padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; background: white; outline: none; }
+        input[type="number"]:focus { border-color: var(--primary); }
+        .field-group { display: flex; flex-direction: column; margin-bottom: 20px; }
+        textarea { width: 100%; height: 260px; padding: 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; background-color: #fafafa; resize: vertical; line-height: 1.6; }
+        textarea:focus { outline: none; border-color: var(--primary); background-color: #fff; box-shadow: 0 0 0 3px rgba(30,58,138,0.1); }
+        .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        button { padding: 14px 20px; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.15s; width: 100%; }
+        .btn-generate { background-color: var(--primary); color: white; } .btn-generate:hover { background-color: var(--primary-hover); }
+        .btn-copy { background-color: var(--success); color: white; } .btn-copy:hover { background-color: #059669; }
+        .back-link { display: block; text-align: center; margin-top: 25px; color: var(--secondary); text-decoration: none; font-size: 14px; font-weight: 600; }
+        .back-link:hover { color: var(--primary); }
+        .editorial-section { max-width: 900px; width: 100%; margin-top: 35px; background: white; padding: 40px; border-radius: var(--radius); border: 1px solid #e2e8f0; }
+        .editorial-section h2 { font-size: 20px; color: var(--primary); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-top: 24px; }
+        .editorial-section p { color: #475569; font-size: 14.5px; line-height: 1.7; }
+        footer { max-width: 900px; width: 100%; text-align: center; font-size: 13px; color: var(--secondary); padding-top: 30px; margin-top: 40px; border-top: 1px solid #e2e8f0; display: flex; justify-content: center; gap: 20px; }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="privacy-badge">🔒 100% Client-Side Sandbox • Zero Server Telemetry</div>
+        <h1>Lorem Ipsum Generator</h1>
+        <p>Generate customizable paragraphs of placeholder text instantly for UI wireframes and design mockups.</p>
+    </header>
+
+    <div class="controls-grid">
+        <div class="control-group">
+            <label for="paraCount">Number of Paragraphs</label>
+            <input type="number" id="paraCount" value="3" min="1" max="20">
+        </div>
+    </div>
+
+    <div class="field-group">
+        <label for="outputBox">Generated Placeholder Text</label>
+        <textarea id="outputBox" placeholder="Click generate to create placeholder text..." readonly></textarea>
+    </div>
+
+    <div class="btn-row">
+        <button class="btn-generate" onclick="generateLorem()">⚡ Generate Paragraphs</button>
+        <button class="btn-copy" onclick="copyText()">📋 Copy Text</button>
+    </div>
+
+    <a href="index.html" class="back-link">← Return to Dashboard</a>
+</div>
+
+<div class="editorial-section">
+    <h2>Standardizing Design Mockups with Placeholder Text</h2>
+    <p>Lorem Ipsum has been the industry standard dummy text ever since the 1500s. This generator runs entirely in your browser to instantly supply layouts with clean, balanced prose.</p>
+</div>
+
+<footer>
+    <span>&copy; 2026 ZapTextCleaner. All rights reserved.</span>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="index.html">Hub Dashboard</a>
+</footer>
+
+<script>
+    const loremPool = [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "Curabitur pretium tincidunt lacus. Nulla gravida orci a odio.",
+        "Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.",
+        "Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula.",
+        "Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis."
+    ];
+
+    function generateLorem() {
+        const count = parseInt(document.getElementById('paraCount').value) || 3;
+        let result = [];
+        for (let i = 0; i < count; i++) {
+            // Shuffle or pick random pool sentences
+            let shuffled = [...loremPool].sort(() => 0.5 - Math.random());
+            result.push(shuffled.slice(0, 4).join(' '));
+        }
+        document.getElementById('outputBox').value = result.join('\n\n');
+    }
+
+    function copyText() {
+        const text = document.getElementById('outputBox').value;
+        if (!text) return;
+        navigator.clipboard.writeText(text).then(() => alert('Copied to clipboard!'));
+    }
+
+    window.onload = generateLorem;
+</script>
+
+</body>
+</html>
