@@ -13,8 +13,9 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Visa Day Tracker &amp; Risk Assessment</title>
-    <meta name="description" content="Calculate and track international travel days, Schengen 90/180 limits, and visa compliance locally in your browser.">
+    <title>Global Visa Day Tracker &amp; Schengen 90/180 Calculator | ZapTextCleaner</title>
+    <meta name="description" content="Calculate and track international travel days, Schengen 90/180 rolling limits, and visitor compliance locally in your browser. 100% private, zero-server logging.">
+    <link rel="canonical" href="https://zaptextcleaner.com/visa-tracker.html">
 
     <style>
         :root {
@@ -22,15 +23,19 @@
             --primary-hover: #172554;
             --dark: #0f172a;
             --secondary: #64748b;
-            --border: #e2e8f0;
+            --border: #cbd5e1;
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
+            --bg-light: #f8fafc;
             --radius: 12px;
         }
+
+        * { box-sizing: border-box; }
+
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f8fafc;
+            background-color: var(--bg-light);
             color: var(--dark);
             margin: 0;
             padding: 40px 20px;
@@ -39,6 +44,7 @@
             align-items: center;
             line-height: 1.6;
         }
+
         .container {
             max-width: 900px;
             width: 100%;
@@ -46,57 +52,128 @@
             padding: 40px;
             border-radius: var(--radius);
             box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            box-sizing: border-box;
+            border: 1px solid #e2e8f0;
         }
-        h1 { margin-top: 0; color: var(--primary); font-size: 26px; }
-        p.subtitle { color: var(--secondary); font-size: 15px; margin-bottom: 25px; }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            margin: 0 0 8px 0;
+            color: var(--primary);
+            font-size: 2.2rem;
+            font-weight: 800;
+        }
+
+        header p {
+            color: var(--secondary);
+            font-size: 1.05rem;
+            margin: 0 0 15px 0;
+        }
+
+        .privacy-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
 
         .form-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr auto;
             gap: 15px;
             margin-bottom: 20px;
+            align-items: flex-end;
         }
         @media (max-width: 768px) {
             .form-grid { grid-template-columns: 1fr; }
         }
+
         .field-group { display: flex; flex-direction: column; }
-        label { font-weight: 600; margin-bottom: 8px; font-size: 13px; text-transform: uppercase; color: var(--secondary); letter-spacing: 0.05em; }
+        label {
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 13px;
+            text-transform: uppercase;
+            color: var(--dark);
+            letter-spacing: 0.03em;
+        }
+
         input, select {
             padding: 12px;
             border: 1px solid var(--border);
             border-radius: 8px;
             font-size: 14px;
-            box-sizing: border-box;
             background: #fff;
         }
-        input:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(30,58,138,0.1); }
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30,58,138,0.1);
+        }
 
-        button {
+        .btn-add {
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 14px 24px;
-            font-size: 15px;
-            font-weight: 600;
+            padding: 13px 20px;
+            font-size: 14px;
+            font-weight: 700;
             border-radius: 8px;
             cursor: pointer;
             transition: background 0.2s;
-            width: 100%;
+            height: 46px;
+            white-space: nowrap;
         }
-        button:hover { background-color: var(--primary-hover); }
+        .btn-add:hover { background-color: var(--primary-hover); }
+
+        .trip-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 13.5px;
+        }
+        .trip-table th, .trip-table td {
+            border: 1px solid #e2e8f0;
+            padding: 10px 14px;
+            text-align: left;
+        }
+        .trip-table th {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            font-weight: 700;
+        }
+        .delete-btn {
+            color: var(--danger);
+            cursor: pointer;
+            font-weight: bold;
+        }
 
         .dashboard-box {
-            margin-top: 35px;
+            margin-top: 30px;
             border-top: 2px solid var(--border);
             padding-top: 25px;
         }
+
         .stats-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
             margin-bottom: 20px;
         }
+        @media (max-width: 600px) {
+            .stats-row { grid-template-columns: 1fr; }
+        }
+
         .stat-card {
             background: #fdfdfe;
             border: 1px solid var(--border);
@@ -104,33 +181,65 @@
             border-radius: 8px;
             text-align: center;
         }
-        .stat-card h3 { margin: 0 0 8px 0; font-size: 13px; color: var(--secondary); text-transform: uppercase; }
-        .stat-value { font-size: 28px; font-weight: 800; color: var(--primary); }
+        .stat-card h3 {
+            margin: 0 0 8px 0;
+            font-size: 13px;
+            color: var(--secondary);
+            text-transform: uppercase;
+        }
+        .stat-value {
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--primary);
+        }
 
         .status-box {
             padding: 15px;
             border-radius: 8px;
             text-align: center;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 15px;
             letter-spacing: 0.03em;
         }
         .status-safe { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
         .status-warning { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
         .status-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
 
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .back-link:hover { color: var(--primary); }
+
+        /* Rich Content & Technical Documentation */
         .editorial-section {
             max-width: 900px;
             width: 100%;
-            margin-top: 30px;
+            margin-top: 35px;
             background: white;
             padding: 40px;
             border-radius: var(--radius);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            box-sizing: border-box;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            border: 1px solid #e2e8f0;
         }
-        .editorial-section h2 { font-size: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: var(--primary); }
-        .editorial-section p { color: var(--secondary); font-size: 14px; }
+
+        .editorial-section h2 {
+            font-size: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+            margin-top: 24px;
+        }
+        .editorial-section h2:first-of-type { margin-top: 0; }
+        .editorial-section h3 { font-size: 16px; color: var(--dark); margin-top: 20px; margin-bottom: 6px; }
+        .editorial-section p { color: #475569; font-size: 14.5px; line-height: 1.7; }
+        .editorial-section ul { color: #475569; font-size: 14.5px; line-height: 1.7; padding-left: 20px; }
+        .editorial-section code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: var(--dark); }
 
         footer {
             max-width: 900px;
@@ -139,30 +248,35 @@
             font-size: 13px;
             color: var(--secondary);
             padding-top: 30px;
-            margin-top: 30px;
+            margin-top: 40px;
             border-top: 1px solid #e2e8f0;
             display: flex;
             justify-content: center;
             gap: 20px;
         }
-        footer a { color: var(--primary); text-decoration: none; }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🛂 Global Visa Day Tracker &amp; Risk Assessment</h1>
-    <p class="subtitle">Monitor international stay limits, Schengen 90/180 rolling rules, and overstay risks locally in your browser.</p>
+    <header>
+        <div class="privacy-badge">🔒 100% Client-Side Travel Tracker • Zero Passport Logging</div>
+        <h1>Global Visa Day Tracker &amp; Risk Assessment</h1>
+        <p>Monitor international stay allowances, rolling Schengen 90/180-day compliance limits, and overstay liabilities locally in your browser sandbox.</p>
+    </header>
+
+    <div class="field-group" style="margin-bottom: 20px;">
+        <label for="zoneSelect">Jurisdiction Allowance Policy</label>
+        <select id="zoneSelect" onchange="calculateVisaStatus()">
+            <option value="schengen">Schengen Area (90 Days / Rolling 180-Day Window)</option>
+            <option value="uk">UK Standard Visitor (180 Days Consecutive Max)</option>
+            <option value="us">US B1/B2 Visitor / Substantial Presence (183 Days)</option>
+        </select>
+    </div>
 
     <div class="form-grid">
-        <div class="field-group">
-            <label for="zoneSelect">Jurisdiction Policy</label>
-            <select id="zoneSelect">
-                <option value="schengen">Schengen Area (90/180 Rule)</option>
-                <option value="uk">UK Standard Visitor (180 Days)</option>
-                <option value="us">US B1/B2 Visitor (183 Days)</option>
-            </select>
-        </div>
         <div class="field-group">
             <label for="entryDate">Entry Date</label>
             <input type="date" id="entryDate">
@@ -171,9 +285,28 @@
             <label for="exitDate">Exit Date</label>
             <input type="date" id="exitDate">
         </div>
+        <div class="field-group">
+            <label for="tripLabel">Leg / Destination</label>
+            <input type="text" id="tripLabel" placeholder="e.g. France &amp; Italy">
+        </div>
+        <button class="btn-add" onclick="addTripLeg()">+ Add Trip Leg</button>
     </div>
 
-    <button onclick="calculateVisaStatus()">Calculate Stay Duration &amp; Compliance</button>
+    <div id="tripListContainer" style="display: none; margin-bottom: 25px;">
+        <label>Logged Travel Segments</label>
+        <table class="trip-table">
+            <thead>
+                <tr>
+                    <th>Leg / Note</th>
+                    <th>Entry Date</th>
+                    <th>Exit Date</th>
+                    <th>Duration</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="tripTableBody"></tbody>
+        </table>
+    </div>
 
     <div class="dashboard-box">
         <div class="stats-row">
@@ -187,62 +320,138 @@
             </div>
         </div>
 
-        <div id="status-badge" class="status-box status-safe">SAFE COMPLIANCE</div>
+        <div id="status-badge" class="status-box status-safe">✅ SAFE COMPLIANCE STATUS</div>
     </div>
+
+    <a href="index.html" class="back-link">← Return to Dashboard</a>
 </div>
 
+<!-- SEO Rich Content & Technical Documentation -->
 <div class="editorial-section">
-    <h2>Client-Side Travel Tracking</h2>
-    <p>Visa tracking calculations execute entirely inside your browser virtual memory. Your personal international travel logs are never uploaded to remote server databases.</p>
+    <h2>Understanding International Visa Stay Limits &amp; Rolling Lookback Windows</h2>
+    <p>Managing international travel as a digital nomad, remote founder, or cross-border consultant requires strict compliance with bilateral immigration treaties. Violating visitor stay caps—even accidentally by a single day—can trigger heavy border fines, entry bans, deportation stamps, and automatic refusal on future electronic travel authorizations (ETIAS, ESTA, ETA). The <strong>ZapTextCleaner Global Visa Day Tracker</strong> calculates stay duration and rolling windows locally on your device.</p>
+
+    <h3>How the Schengen 90/180 Rolling Calculation Operates</h3>
+    <p>The most common compliance error occurs when travelers treat the Schengen allowance as a fixed calendar block. Under Article 6 of the Schengen Borders Code, non-EU third-country nationals are allowed a maximum of <strong>90 days in any 180-day period</strong>. This is not tied to a calendar year or visa issuance date:</p>
+    <ul>
+        <li><strong>Continuous Backward Lookback:</strong> On every single day of presence in the Schengen Area, border authorities look back exactly 180 calendar days. The total number of days spent in the Schengen territory during that dynamic 180-day window must never exceed 90.</li>
+        <li><strong>Both Dates Count:</strong> Both the day of arrival and the day of departure count as full days of physical presence, regardless of flight times or transit hours.</li>
+        <li><strong>Reset Cycles:</strong> You only regain allowance days when earlier trips slide past the 180-day lookback horizon.</li>
+    </ul>
+
+    <h3>Tax Residency &amp; The 183-Day Rule</h3>
+    <p>Beyond border control, tracking cumulative physical presence is critical for tax compliance. Most OECD jurisdictions (including the United Kingdom and United States via the Substantial Presence Test) classify visitors as statutory tax residents if they reside inside the country for <strong>183 days or more</strong> within a single tax year. Exceeding this threshold can subject your worldwide business income, capital gains, and remote earnings to foreign taxation.</p>
+
+    <h3>Why Client-Side Travel Tracking Protects Personal Security</h3>
+    <p>Entering flight itineraries, border crossing dates, and destination logs into third-party mobile apps and cloud calculators creates significant personal privacy risks. Centralized servers compile precise location profiles and movement histories that can be shared with advertisers or exposed in database leaks. Our tracker operates 100% in local browser memory (RAM): your dates and destinations never leave your computer.</p>
 </div>
 
 <footer>
-    <span>&copy; 2026 ZapFormat. All rights reserved.</span>
+    <span>&copy; 2026 ZapTextCleaner. All rights reserved.</span>
     <a href="privacy.html">Privacy Policy</a>
-    <a href="formatter.html">Hub Dashboard</a>
+    <a href="index.html">Hub Dashboard</a>
 </footer>
 
 <script>
-    function calculateVisaStatus() {
-        const zone = document.getElementById('zoneSelect').value;
+    let trips = [];
+
+    function addTripLeg() {
         const entryStr = document.getElementById('entryDate').value;
         const exitStr = document.getElementById('exitDate').value;
+        const label = document.getElementById('tripLabel').value.trim() || 'Travel Segment';
 
         if (!entryStr || !exitStr) {
-            return alert('Please select both entry and exit dates.');
+            alert('Please select both entry and exit dates.');
+            return;
         }
 
         const entry = new Date(entryStr);
         const exit = new Date(exitStr);
 
         if (exit < entry) {
-            return alert('Exit date cannot be earlier than entry date.');
+            alert('Exit date cannot be earlier than entry date.');
+            return;
         }
 
+        // Calculate inclusive day count
         const diffTime = Math.abs(exit - entry);
-        const totalConsumed = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+        const days = Math.round(diffTime / (1000 * 60 * 60 * 24)) + 1;
 
+        trips.push({
+            id: 'trip_' + Math.random().toString(36).substr(2, 9),
+            label: label,
+            entryStr: entryStr,
+            exitStr: exitStr,
+            entry: entry,
+            exit: exit,
+            days: days
+        });
+
+        // Clear input fields
+        document.getElementById('entryDate').value = '';
+        document.getElementById('exitDate').value = '';
+        document.getElementById('tripLabel').value = '';
+
+        renderTripTable();
+        calculateVisaStatus();
+    }
+
+    function removeTrip(id) {
+        trips = trips.filter(t => t.id !== id);
+        renderTripTable();
+        calculateVisaStatus();
+    }
+
+    function renderTripTable() {
+        const container = document.getElementById('tripListContainer');
+        const tbody = document.getElementById('tripTableBody');
+        tbody.innerHTML = '';
+
+        if (trips.length === 0) {
+            container.style.display = 'none';
+            return;
+        }
+
+        container.style.display = 'block';
+        trips.forEach(t => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${t.label}</strong></td>
+                <td>${t.entryStr}</td>
+                <td>${t.exitStr}</td>
+                <td>${t.days} Day${t.days > 1 ? 's' : ''}</td>
+                <td><span class="delete-btn" onclick="removeTrip('${t.id}')">✕ Delete</span></td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function calculateVisaStatus() {
+        const zone = document.getElementById('zoneSelect').value;
         let maxLimit = 90;
         if (zone === 'uk') maxLimit = 180;
         if (zone === 'us') maxLimit = 183;
 
+        let totalConsumed = 0;
+        trips.forEach(t => totalConsumed += t.days);
+
         const remaining = maxLimit - totalConsumed;
 
-        document.getElementById('stat-consumed').innerText = `${totalConsumed} Days`;
+        document.getElementById('stat-consumed').innerText = `${totalConsumed} Day${totalConsumed === 1 ? '' : 's'}`;
         const remPanel = document.getElementById('stat-remaining');
-        remPanel.innerText = `${remaining} Days`;
+        remPanel.innerText = `${remaining} Day${remaining === 1 ? '' : 's'}`;
 
         const badge = document.getElementById('status-badge');
         if (remaining < 0) {
-            badge.innerText = "🚨 OVERSTAY PENALTY RISK DETECTED";
+            badge.innerText = "🚨 OVERSTAY PENALTY RISK DETECTED (" + Math.abs(remaining) + " DAYS OVER)";
             badge.className = "status-box status-danger";
             remPanel.style.color = "var(--danger)";
         } else if (remaining <= 14) {
-            badge.innerText = "⚠️ WARNING: CLOSE TO ALLOWANCE LIMIT";
+            badge.innerText = "⚠️ WARNING: CLOSE TO ALLOWANCE LIMIT (" + remaining + " DAYS LEFT)";
             badge.className = "status-box status-warning";
             remPanel.style.color = "var(--warning)";
         } else {
-            badge.innerText = "✅ SAFE COMPLIANCE STATUS";
+            badge.innerText = "✅ SAFE COMPLIANCE STATUS (" + remaining + " DAYS REMAINING)";
             badge.className = "status-box status-safe";
             remPanel.style.color = "var(--success)";
         }
