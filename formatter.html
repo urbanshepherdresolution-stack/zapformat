@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hub Dashboard — ZapFormat</title>
-  <meta name="description" content="Complete suite of 100% client-side browser utilities for text formatting, contract anonymization, document conversions, CSV cleaning, and visa tracking.">
+  <title>Hub Dashboard — ZapTextCleaner</title>
+  <meta name="description" content="Complete suite of 100% client-side browser utilities for text formatting, contract anonymization, PDF merging, spreadsheet conversions, and document sanitization.">
+  <link rel="canonical" href="https://zaptextcleaner.com/formatter.html">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
@@ -42,6 +43,7 @@
   </script>
 
   <style>
+    /* Custom dark scrollbar */
     ::-webkit-scrollbar { width: 8px; height: 8px; }
     ::-webkit-scrollbar-track { background: #090d16; }
     ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
@@ -107,15 +109,15 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <a href="index.html" class="flex items-center gap-2 text-xl font-bold tracking-tight text-white hover:text-brand-400 transition-colors">
         <i class="fa-solid fa-bolt text-brand-400"></i>
-        <span>Zap<span class="text-brand-400">Format</span></span>
+        <span>Zap<span class="text-brand-400">TextCleaner</span></span>
       </a>
       
       <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
         <a href="index.html" class="hover:text-white transition-colors">Home</a>
         <a href="formatter.html" class="text-brand-400 font-semibold">Hub Dashboard</a>
-        <a href="contract-anonymizer.html" class="hover:text-white transition-colors">Contract Anonymizer</a>
-        <a href="text-batch-sanitizer.html" class="hover:text-white transition-colors">Bulk Sanitizer</a>
-        <a href="csv-cleaner.html" class="hover:text-white transition-colors">CSV Cleaner</a>
+        <a href="anonymizer.html" class="hover:text-white transition-colors">Anonymizer</a>
+        <a href="merge-pdf.html" class="hover:text-white transition-colors">PDF Merger</a>
+        <a href="csv-to-json.html" class="hover:text-white transition-colors">CSV to JSON</a>
         <a href="visa-tracker.html" class="hover:text-white transition-colors">Visa Tracker</a>
         <a href="faq.html" class="hover:text-white transition-colors">FAQ</a>
         <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
@@ -137,13 +139,13 @@
           <span class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-brand-500/10 text-brand-400 border border-brand-500/20">
             Utility Hub
           </span>
-          <span class="text-xs text-slate-400">Client-Side Tools</span>
+          <span class="text-xs text-slate-400">Client-Side Architecture</span>
         </div>
         <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-          ZapFormat Utility Dashboard
+          ZapTextCleaner Utility Dashboard
         </h1>
         <p class="text-sm sm:text-base text-slate-400">
-          All processing runs in browser memory. Zero external server transmissions, zero data logging.
+          All document conversions, formatting sweeps, and redactions execute exclusively inside your device memory. Zero server uploads.
         </p>
       </div>
 
@@ -166,91 +168,16 @@
            data-full-width-responsive="true"></ins>
     </div>
 
-    <!-- STREAMING_CHUNK:Rendering Category 1 - Data & Text Sanitizers... -->
-    <!-- Category 1: SEO, CRM & Data Cleaners -->
+    <!-- Category 1: Document & Text Sanitization -->
     <section class="space-y-4 tool-category">
       <div class="flex items-center gap-2 pb-1 border-b border-slate-800/80">
         <i class="fa-solid fa-wand-magic-sparkles text-brand-400 text-sm"></i>
         <h2 class="text-xs font-bold uppercase tracking-wider text-slate-300">
-          TEXT SANITIZATION, SEO & BATCH DATA UTILITIES
+          TEXT SANITIZATION, SPREADSHEETS &amp; BATCH DATA UTILITIES
         </h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-
-        <!-- Bulk String & Text Batch Sanitizer Card -->
-        <a href="text-batch-sanitizer.html" data-keywords="bulk string text batch sanitizer extract urls emails purge unicode zero width deduplicate sort prefix suffix slugify" class="tool-card group bg-slate-900 border-2 border-brand-500/80 hover:border-brand-400 rounded-2xl p-5 shadow-lg hover:shadow-brand-500/10 transition-all flex flex-col justify-between relative overflow-hidden">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <div class="p-2.5 rounded-xl bg-brand-500/10 border border-brand-500/20 text-brand-400">
-                <i class="fa-solid fa-list-check text-lg"></i>
-              </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-brand-500/10 text-brand-400 border border-brand-500/20">
-                SEO & Dev Batch
-              </span>
-            </div>
-
-            <div>
-              <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
-                Bulk String & Text Batch Sanitizer
-              </h3>
-              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                Purge hidden Unicode characters, extract list data (URLs/Emails), deduplicate rows, slugify text, and append line prefixes/suffixes in batch.
-              </p>
-            </div>
-
-            <div class="pt-2">
-              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
-              <div class="flex flex-wrap gap-1.5 text-[11px]">
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800">URL & Email Extractor</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800">Zero-Width Purge</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800">Dedupe & Sort</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-brand-400 font-semibold">
-            <span>Launch Tool</span>
-            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-          </div>
-        </a>
-
-        <!-- CSV Cleaner Card -->
-        <a href="csv-cleaner.html" data-keywords="csv cleaner crm import prepper quickbooks salesforce shopify hubspot dates phone formatting sanitize spreadsheet" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
-                <i class="fa-solid fa-file-csv text-lg"></i>
-              </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400">
-                CRM Prepper
-              </span>
-            </div>
-
-            <div>
-              <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
-                CSV Cleaner & Import Sanitizer
-              </h3>
-              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                Standardize spreadsheet columns, fix date formats, clean phone numbers, and split full names for QuickBooks, Salesforce, and Shopify.
-              </p>
-            </div>
-
-            <div class="pt-2">
-              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
-              <div class="flex flex-wrap gap-1.5 text-[11px]">
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Date Fixer</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Phone Clean</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Split Names</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-400 font-semibold transition-colors">
-            <span>Launch Tool</span>
-            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-          </div>
-        </a>
 
         <!-- Core Text Normalizer Suite -->
         <a href="index.html" data-keywords="core text normalizer spaces line breaks case upper lower HTML tags accents trim strip duplicate email google docs word clip index" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
@@ -269,7 +196,7 @@
                 Core Text Normalizer Suite
               </h3>
               <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                Unified suite containing all single-block text cleaning, line break stripping, case conversion, and clipboard purgers.
+                Unified suite containing single-block text cleaning, line break stripping, case conversion, and clipboard format purgers.
               </p>
             </div>
 
@@ -289,52 +216,126 @@
           </div>
         </a>
 
-      </div>
-    </section>
-
-    <!-- STREAMING_CHUNK:Rendering Category 2 - Legal Privacy & Career... -->
-    <!-- Category 2: Legal Privacy, Redaction & Career -->
-    <section class="space-y-4 tool-category">
-      <div class="flex items-center gap-2 pb-1 border-b border-slate-800/80">
-        <i class="fa-solid fa-user-shield text-brand-400 text-sm"></i>
-        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-300">
-          LEGAL PRIVACY, REDACTION & CAREER
-        </h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        
-        <!-- Contract Anonymizer Card -->
-        <a href="contract-anonymizer.html" data-keywords="nda legal contract anonymize redact ChatGPT party names amounts ssn phone" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+        <!-- CSV to JSON Converter -->
+        <a href="csv-to-json.html" data-keywords="csv to json converter tabular database excel crm import api json array parse spreadsheet" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
           <div class="space-y-3">
             <div class="flex items-center justify-between">
               <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
-                <i class="fa-solid fa-file-contract text-lg"></i>
+                <i class="fa-solid fa-file-csv text-lg"></i>
               </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                AI Ready
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400">
+                Data Transformer
               </span>
             </div>
-            
+
             <div>
               <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
-                Client Contract Anonymizer
+                CSV to JSON Converter
               </h3>
               <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                Sanitize NDAs, agreements, and corporate docs before pasting into ChatGPT/Claude. Replaces sensitive info with semantic variables.
+                Transform comma-separated spreadsheets and TSV records into structured, pretty-printed JSON notation for API development and data seeding.
               </p>
             </div>
 
             <div class="pt-2">
               <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
               <div class="flex flex-wrap gap-1.5 text-[11px]">
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">[PARTY_A] Variables</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Phone & Email Masking</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">RFC-4180 Escaping</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Auto Type Detection</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Beautify JSON</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-400 font-semibold transition-colors">
+            <span>Launch Tool</span>
+            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- Excel to PDF Converter -->
+        <a href="excel-to-pdf.html" data-keywords="excel to pdf xlsx xls converter spreadsheets workbooks accounting tables documents" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-emerald-400">
+                <i class="fa-solid fa-file-excel text-lg"></i>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                Workbook Engine
+              </span>
+            </div>
+
+            <div>
+              <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
+                Excel to PDF Converter
+              </h3>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
+                Render multi-tab Excel workbooks (.xlsx, .xls) into professional, responsive PDF reports with automatic portrait and landscape alignment.
+              </p>
+            </div>
+
+            <div class="pt-2">
+              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
+              <div class="flex flex-wrap gap-1.5 text-[11px]">
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Multi-Sheet Picker</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Auto Orientation</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Vector Table Grid</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-400 font-semibold transition-colors">
+            <span>Launch Tool</span>
+            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Category 2: Legal Privacy, Redaction & Career -->
+    <section class="space-y-4 tool-category">
+      <div class="flex items-center gap-2 pb-1 border-b border-slate-800/80">
+        <i class="fa-solid fa-user-shield text-brand-400 text-sm"></i>
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-300">
+          LEGAL PRIVACY, REDACTION &amp; CAREER
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        
+        <!-- Enterprise Data Anonymizer Card -->
+        <a href="anonymizer.html" data-keywords="enterprise cluster PII masking database customer log scrubber pdf contract anonymize redact ChatGPT party names amounts ssn phone" class="tool-card group bg-slate-900 border-2 border-brand-500/80 hover:border-brand-400 rounded-2xl p-5 shadow-lg hover:shadow-brand-500/10 transition-all flex flex-col justify-between relative overflow-hidden">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="p-2.5 rounded-xl bg-brand-500/10 border border-brand-500/20 text-brand-400">
+                <i class="fa-solid fa-user-shield text-lg"></i>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-brand-500/10 text-brand-400 border border-brand-500/20">
+                Privacy Suite
+              </span>
+            </div>
+            
+            <div>
+              <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
+                Document &amp; PII Anonymizer
+              </h3>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
+                Scrub confidential PII, financial figures, emails, and proprietary terms across text and PDF files. Ideal for preparing records for external LLMs.
+              </p>
+            </div>
+
+            <div class="pt-2">
+              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
+              <div class="flex flex-wrap gap-1.5 text-[11px]">
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800">PDF Layer Extraction</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800">Cluster Bubbles</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800">Custom Terms</span>
               </div>
             </div>
           </div>
           
-          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-400 font-semibold transition-colors">
+          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-brand-400 font-semibold">
             <span>Launch Tool</span>
             <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
           </div>
@@ -354,10 +355,10 @@
 
             <div>
               <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
-                ATS Resume Tailor & Optimizer
+                ATS Resume Keyword Tailor
               </h3>
               <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                Compare your resume against any job description. Analyze keyword match scores, uncover missing skills, and generate ATS bullets.
+                Compare your resume against corporate job listings. Analyze keyword density match rates, discover missing skills, and build targeted bullet points.
               </p>
             </div>
 
@@ -365,123 +366,9 @@
               <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
               <div class="flex flex-wrap gap-1.5 text-[11px]">
                 <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Match % Score</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Missing Skills Extractor</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Missing Keyword Scan</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">100% In-Memory</span>
               </div>
-            </div>
-          </div>
-
-          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-400 font-semibold transition-colors">
-            <span>Launch Tool</span>
-            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-          </div>
-        </a>
-
-        <!-- Enterprise Data Anonymizer Card -->
-        <a href="anonymizer.html" data-keywords="enterprise cluster PII masking database customer log scrubber pdf" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
-                <i class="fa-solid fa-user-ninja text-lg"></i>
-              </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400">
-                PDF Scrubber
-              </span>
-            </div>
-
-            <div>
-              <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
-                Enterprise Data Anonymizer
-              </h3>
-              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                Bulk scrub PII, usernames, and customer identification numbers across JSON logs, database dumps, and PDF files.
-              </p>
-            </div>
-
-            <div class="pt-2">
-              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
-              <div class="flex flex-wrap gap-1.5 text-[11px]">
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">PDF Reader Layer</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">RegEx Pattern Scrub</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-400 font-semibold transition-colors">
-            <span>Launch Tool</span>
-            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-          </div>
-        </a>
-
-      </div>
-    </section>
-
-    <!-- STREAMING_CHUNK:Rendering Category 3 - Business Traveler & Travel Utilities... -->
-    <!-- Category 3: Business Traveler & Remote Founder Utilities -->
-    <section class="space-y-4 tool-category">
-      <div class="flex items-center gap-2 pb-1 border-b border-slate-800/80">
-        <i class="fa-solid fa-plane-departure text-brand-400 text-sm"></i>
-        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-300">
-          BUSINESS TRAVELER & REMOTE FOUNDER UTILITIES
-        </h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-
-        <!-- Global Visa Day Tracker -->
-        <a href="visa-tracker.html" data-keywords="visa tracker global stay schengen 90 180 rolling limit digital nomad founder travel calculator passport" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
-                <i class="fa-solid fa-passport text-lg text-brand-400"></i>
-              </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400">
-                Travel Compliance
-              </span>
-            </div>
-
-            <div>
-              <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
-                Global Visa Day Tracker
-              </h3>
-              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                Track rolling Schengen 90/180-day stay limits, passport entry allowances, and international stay countdowns for remote founders.
-              </p>
-            </div>
-
-            <div class="pt-2">
-              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
-              <div class="flex flex-wrap gap-1.5 text-[11px]">
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Schengen 90/180 Calc</span>
-                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Rolling Allowance</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-400 font-semibold transition-colors">
-            <span>Launch Tool</span>
-            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-          </div>
-        </a>
-
-        <!-- PDF Merger -->
-        <a href="merge-pdf.html" data-keywords="pdf document merger combine join multiple files local memory merge-pdf" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
-                <i class="fa-solid fa-file-circle-plus text-lg"></i>
-              </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400">
-                PDF Utility
-              </span>
-            </div>
-
-            <div>
-              <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
-                PDF Document Merger
-              </h3>
-              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                Combine multiple PDF files securely inside your browser memory with zero external uploads.
-              </p>
             </div>
           </div>
 
@@ -492,7 +379,7 @@
         </a>
 
         <!-- Terms of Service Risk Decoder -->
-        <a href="legal-decoder.html" data-keywords="tos terms of service legal audit arbitration privacy clause warning legal-decoder" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+        <a href="legal-decoder.html" data-keywords="tos terms of service legal audit arbitration privacy clause warning legal-decoder agreements contracts" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
           <div class="space-y-3">
             <div class="flex items-center justify-between">
               <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
@@ -508,8 +395,17 @@
                 Terms of Service Risk Decoder
               </h3>
               <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                Scan online contracts and legal agreements to flag forced arbitration and data licensing risks.
+                Scan online contracts, privacy policies, and SaaS agreements to highlight forced arbitration, unilateral renewals, and commercial data licensing terms.
               </p>
+            </div>
+
+            <div class="pt-2">
+              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
+              <div class="flex flex-wrap gap-1.5 text-[11px]">
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Arbitration Detector</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Data Sharing Flags</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Lexical Scan</span>
+              </div>
             </div>
           </div>
 
@@ -522,20 +418,250 @@
       </div>
     </section>
 
+    <!-- Category 3: PDF, Media & Compliance Utilities -->
+    <section class="space-y-4 tool-category">
+      <div class="flex items-center gap-2 pb-1 border-b border-slate-800/80">
+        <i class="fa-solid fa-layer-group text-brand-400 text-sm"></i>
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-300">
+          PDF, MEDIA ENCODING &amp; COMPLIANCE UTILITIES
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <!-- PDF Document Merger -->
+        <a href="merge-pdf.html" data-keywords="pdf document merger combine join multiple files local memory merge-pdf pages splice" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
+                <i class="fa-solid fa-file-circle-plus text-lg"></i>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400">
+                PDF Splicer
+              </span>
+            </div>
+
+            <div>
+              <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
+                PDF Document Merger
+              </h3>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
+                Combine multiple standalone PDF files sequentially into a unified document inside browser memory with zero cloud file uploads.
+              </p>
+            </div>
+
+            <div class="pt-2">
+              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
+              <div class="flex flex-wrap gap-1.5 text-[11px]">
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Sequential Sorting</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">RAM Stream Splicing</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Zero Server Upload</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-400 font-semibold transition-colors">
+            <span>Launch Tool</span>
+            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- JPEG to PDF Converter -->
+        <a href="jpeg-to-pdf.html" data-keywords="jpeg to pdf jpg images photo converter document compile client side" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
+                <i class="fa-solid fa-file-image text-lg"></i>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400">
+                Image Compiler
+              </span>
+            </div>
+
+            <div>
+              <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
+                JPEG to PDF Converter
+              </h3>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
+                Compile and flatten multiple JPEG and JPG image files directly into a consolidated, clean PDF distribution locally.
+              </p>
+            </div>
+
+            <div class="pt-2">
+              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
+              <div class="flex flex-wrap gap-1.5 text-[11px]">
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Multi-File Batch</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Proportional Scaling</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">100% In-Browser</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-400 font-semibold transition-colors">
+            <span>Launch Tool</span>
+            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- Global Visa Day Tracker -->
+        <a href="visa-tracker.html" data-keywords="visa tracker global stay schengen 90 180 rolling limit digital nomad founder travel calculator passport compliance" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
+                <i class="fa-solid fa-passport text-lg text-brand-400"></i>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400">
+                Travel Compliance
+              </span>
+            </div>
+
+            <div>
+              <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
+                Global Visa Day Tracker
+              </h3>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
+                Track rolling Schengen 90/180-day stay limits, passport entry allowances, and international travel countdowns for remote workers.
+              </p>
+            </div>
+
+            <div class="pt-2">
+              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
+              <div class="flex flex-wrap gap-1.5 text-[11px]">
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Schengen 90/180 Calc</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Rolling Window Engine</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Local Privacy</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-400 font-semibold transition-colors">
+            <span>Launch Tool</span>
+            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- Audio to Video Compiler -->
+        <a href="audio-to-video.html" data-keywords="audio to video mp3 to mp4 podcast compiler cover art presentation hardware media recorder" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
+                <i class="fa-solid fa-film text-lg"></i>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400">
+                Media Compiler
+              </span>
+            </div>
+
+            <div>
+              <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
+                Audio to Video Compiler
+              </h3>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
+                Package audio tracks (MP3, WAV) with custom cover art directly into web-ready video presentations using client-side canvas rendering.
+              </p>
+            </div>
+
+            <div class="pt-2">
+              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
+              <div class="flex flex-wrap gap-1.5 text-[11px]">
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Canvas Stream Synthesis</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">WebM &amp; MP4 Support</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Hardware Render</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-400 font-semibold transition-colors">
+            <span>Launch Tool</span>
+            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- Markdown Document Generator -->
+        <a href="markdown.html" data-keywords="markdown document generator md syntax text tree preview documentation" class="tool-card group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
+                <i class="fa-brands fa-markdown text-lg"></i>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400">
+                Docs Engine
+              </span>
+            </div>
+
+            <div>
+              <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors">
+                Markdown Document Generator
+              </h3>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
+                Draft, structure, and convert Markdown syntax trees with live visual previews and instant plain-text downloads.
+              </p>
+            </div>
+
+            <div class="pt-2">
+              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Bundled Features:</span>
+              <div class="flex flex-wrap gap-1.5 text-[11px]">
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Live Dual Preview</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Clean MD Export</span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">Zero Server Storage</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-brand-400 font-semibold transition-colors">
+            <span>Launch Tool</span>
+            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Comprehensive Technical Architecture & Editorial Documentation -->
+    <section class="bg-slate-900/60 border border-slate-800 rounded-2xl p-8 space-y-6 text-slate-300">
+      <div class="border-b border-slate-800 pb-4">
+        <h2 class="text-xl font-bold text-white">Understanding Client-Side Data Sanitization Architecture</h2>
+        <p class="text-sm text-slate-400 mt-1">Why local execution models provide stronger security guarantees than traditional cloud converters.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm leading-relaxed">
+        <div class="space-y-3">
+          <h3 class="text-base font-semibold text-brand-400">Zero Server Telemetry &amp; In-Memory Execution</h3>
+          <p>
+            Standard web utilities and file transformation websites typically upload user payloads to remote cloud servers (such as AWS, Google Cloud, or Azure compute clusters). During this transfer, file contents, corporate accounting ledgers, proprietary software scripts, and legal contracts pass through load balancers, temporary caching layers, and diagnostic server access logs.
+          </p>
+          <p>
+            The <strong>ZapTextCleaner</strong> architecture takes a fundamentally different path: 100% of the lexical parsing, regex matching, byte splicing, and format conversions execute within your local machine's web browser environment (utilizing modern V8, WebKit, and SpiderMonkey JavaScript runtimes).
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-base font-semibold text-brand-400">Enterprise Compliance &amp; Ephemeral Memory</h3>
+          <p>
+            For compliance frameworks including HIPAA, GDPR, SOC-2, and internal corporate non-disclosure agreements (NDAs), routing sensitive materials through third-party formatting services represents an unacceptable compliance liability.
+          </p>
+          <p>
+            Because all ZapTextCleaner tools run locally inside isolated browser memory buffers, closing your browser tab permanently purges all active variables and document streams. No data is stored, cached on persistent drives, or utilized for generative AI model training.
+          </p>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <footer class="mt-auto border-t border-slate-800 bg-slate-900/60 py-6 text-xs text-slate-500">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div>
-        <p>&copy; 2026 ZapFormat. All rights reserved. Client-side browser processing engine.</p>
+        <p>&copy; 2026 ZapTextCleaner. All rights reserved. 100% Client-Side Engine.</p>
       </div>
       <div class="flex items-center gap-6 font-medium text-slate-400">
         <a href="index.html" class="hover:text-white transition-colors">Home</a>
         <a href="formatter.html" class="hover:text-white transition-colors">Hub Dashboard</a>
-        <a href="contract-anonymizer.html" class="hover:text-white transition-colors">Contract Anonymizer</a>
-        <a href="text-batch-sanitizer.html" class="hover:text-white transition-colors">Bulk Sanitizer</a>
-        <a href="csv-cleaner.html" class="hover:text-white transition-colors">CSV Cleaner</a>
+        <a href="anonymizer.html" class="hover:text-white transition-colors">Anonymizer</a>
+        <a href="merge-pdf.html" class="hover:text-white transition-colors">PDF Merger</a>
+        <a href="csv-to-json.html" class="hover:text-white transition-colors">CSV to JSON</a>
         <a href="visa-tracker.html" class="hover:text-white transition-colors">Visa Tracker</a>
+        <a href="faq.html" class="hover:text-white transition-colors">FAQ</a>
         <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
       </div>
     </div>
@@ -563,5 +689,3 @@
   </script>
 </body>
 </html>
-```eof
-
