@@ -23,6 +23,30 @@
 
     <!-- Developer & Data Utilities -->
     <url>
+        <loc>https://zaptextcleaner.com/sql-formatter.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/list-sorter.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/diff-checker.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/css-generator.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
         <loc>https://zaptextcleaner.com/json-formatter.html</loc>
         <lastmod>2026-10-02</lastmod>
         <changefreq>monthly</changefreq>
@@ -58,8 +82,26 @@
         <changefreq>monthly</changefreq>
         <priority>0.85</priority>
     </url>
+    <url>
+        <loc>https://zaptextcleaner.com/lorem-ipsum-generator.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/hash-password-generator.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
 
     <!-- Media & Conversion Utilities -->
+    <url>
+        <loc>https://zaptextcleaner.com/qr-code-generator.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
     <url>
         <loc>https://zaptextcleaner.com/image-converter.html</loc>
         <lastmod>2026-10-02</lastmod>
@@ -212,6 +254,18 @@
     </url>
 
     <!-- Professional Utilities & Sanitizers -->
+    <url>
+        <loc>https://zaptextcleaner.com/timestamp-converter.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/markdown-table-generator.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
     <url>
         <loc>https://zaptextcleaner.com/clean-messy-spaces-from-word-document.html</loc>
         <lastmod>2026-10-02</lastmod>
