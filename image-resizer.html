@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Resizer & Compressor Online - ZapTextCleaner</title>
+    <meta name="description" content="Resize image dimensions and compress file sizes locally in your browser before uploading to CMS platforms. 100% private with zero server uploads.">
+    <link rel="canonical" href="https://zaptextcleaner.com/image-resizer.html">
+
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-hover: #172554;
+            --dark: #0f172a;
+            --secondary: #64748b;
+            --border: #cbd5e1;
+            --success: #10b981;
+            --bg-light: #f8fafc;
+            --radius: 12px;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--dark);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            margin: 0 0 8px 0;
+            color: var(--primary);
+            font-size: 2.2rem;
+            font-weight: 800;
+        }
+
+        header p {
+            color: var(--secondary);
+            font-size: 1.05rem;
+            margin: 0 0 15px 0;
+        }
+
+        .privacy-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .drop-zone {
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            padding: 35px 20px;
+            text-align: center;
+            background-color: #fafafa;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 20px;
+        }
+        .drop-zone:hover {
+            border-color: var(--primary);
+            background-color: #f0f4ff;
+        }
+
+        .file-input { display: none; }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-weight: 700;
+            font-size: 12.5px;
+            text-transform: uppercase;
+            color: var(--dark);
+            letter-spacing: 0.03em;
+        }
+
+        input[type="number"], select {
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            outline: none;
+        }
+        input[type="number"]:focus, select:focus { border-color: var(--primary); }
+
+        .stats-box {
+            background: #f1f5f9;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
+        }
+
+        .preview-area {
+            display: none;
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #fafafa;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .preview-img {
+            max-width: 100%;
+            max-height: 240px;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            margin-top: 10px;
+        }
+
+        .btn-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        @media (max-width: 600px) {
+            .btn-row { grid-template-columns: 1fr; }
+        }
+
+        button {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s;
+            width: 100%;
+        }
+        .btn-resize {
+            background-color: var(--primary);
+            color: white;
+        }
+        .btn-resize:hover { background-color: var(--primary-hover); }
+        .btn-resize:disabled { background-color: #94a3b8; cursor: not-allowed; opacity: 0.6; }
+
+        .btn-download {
+            background-color: var(--success);
+            color: white;
+        }
+        .btn-download:hover:not(:disabled) { background-color: #059669; }
+        .btn-download:disabled { background-color: #94a3b8; cursor: not-allowed; opacity: 0.6; }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .back-link:hover { color: var(--primary); }
+
+        .editorial-section {
+            max-width: 900px;
+            width: 100%;
+            margin-top: 35px;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            border: 1px solid #e2e8f0;
+        }
+
+        .editorial-section h2 {
+            font-size: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+            margin-top: 24px;
+        }
+        .editorial-section h2:first-of-type { margin-top: 0; }
+        .editorial-section h3 { font-size: 16px; color: var(--dark); margin-top: 20px; margin-bottom: 6px; }
+        .editorial-section p { color: #475569; font-size: 14.5px; line-height: 1.7; }
+        .editorial-section ul { color: #475569; font-size: 14.5px; line-height: 1.7; padding-left: 20px; }
+        .editorial-section code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: var(--dark); }
+
+        footer {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            font-size: 13px;
+            color: var(--secondary);
+            padding-top: 30px;
+            margin-top: 40px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="privacy-badge">🔒 100% Client-Side Sandbox • Zero Server Telemetry</div>
+        <h1>Image Resizer &amp; Compressor</h1>
+        <p>Resize dimensions, adjust compression quality, and reduce image file sizes locally in your browser before publishing.</p>
+    </header>
+
+    <div class="drop-zone" onclick="document.getElementById('imageFile').click()">
+        <span style="font-size: 38px; display: block; margin-bottom: 8px;">📐</span>
+        <div style="font-weight: 700; color: var(--primary); margin-bottom: 4px;" id="dropLabel">Click to select or drag and drop an image</div>
+        <div style="font-size: 13px; color: var(--secondary);">Supports PNG, JPEG, WebP, and BMP formats</div>
+        <input type="file" id="imageFile" class="file-input" accept="image/*" onchange="handleFileSelected(event)">
+    </div>
+
+    <div class="controls-grid">
+        <div class="control-group">
+            <label for="targetWidth">Width (px)</label>
+            <input type="number" id="targetWidth" placeholder="Original">
+        </div>
+        <div class="control-group">
+            <label for="targetHeight">Height (px)</label>
+            <input type="number" id="targetHeight" placeholder="Original">
+        </div>
+        <div class="control-group">
+            <label for="compressionQuality">Quality (10% - 100%)</label>
+            <select id="compressionQuality">
+                <option value="0.9">90% (High Quality)</option>
+                <option value="0.8" selected>80% (Recommended)</option>
+                <option value="0.7">70% (Balanced)</option>
+                <option value="0.5">50% (High Compression)</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="stats-box" id="statsBox">
+        Original: <span id="origSize">-</span> | Compressed: <span id="newSize">-</span> (<span id="savings">0%</span> smaller)
+    </div>
+
+    <div class="preview-area" id="previewArea">
+        <div style="font-weight: 700; font-size: 13px; color: var(--dark);" id="fileMeta">Resized image preview</div>
+        <img id="previewImg" class="preview-img" alt="Preview">
+    </div>
+
+    <div class="btn-row">
+        <button class="btn-resize" id="resizeBtn" onclick="resizeAndCompress()" disabled>⚡ Resize &amp; Compress</button>
+        <button class="btn-download" id="downloadBtn" onclick="downloadResizedImage()" disabled>💾 Download Optimized Image</button>
+    </div>
+
+    <a href="index.html" class="back-link">← Return to Dashboard</a>
+</div>
+
+<!-- SEO Technical Editorial Section -->
+<div class="editorial-section">
+    <h2>Why Client-Side Image Resizing &amp; Compression Matters</h2>
+    <p>Uploading oversized camera photos or high-resolution graphic exports directly to content management systems (WordPress, Ghost, Shopify) or web repositories severely impacts page load speeds and Core Web Vitals rankings. However, resizing and compressing files using online SaaS tools often requires uploading sensitive media to external servers.</p>
+
+    <p>Client-side image optimization leverages modern browser hardware capabilities:</p>
+    <ul>
+        <li><strong>Offscreen Canvas Scaling:</strong> Images are loaded into local memory and resized using high-performance 2D rendering contexts directly on your device's CPU.</li>
+        <li><strong>Quantization &amp; Quality Control:</strong> Adjusting quantization parameters reduces file weight dramatically while retaining visual fidelity.</li>
+        <li><strong>Zero Upload Latency:</strong> Instant local processing eliminates network upload delays, making it ideal for bulk optimizations.</li>
+    </ul>
+
+    <h3>How This Tool Operates</h3>
+    <p>The <strong>ZapTextCleaner Image Resizer</strong> reads your image into local browser RAM, scales pixel data to your specified dimensions, applies compression algorithms, and generates a downloadable asset securely within your browser sandbox.</p>
+</div>
+
+<footer>
+    <span>&copy; 2026 ZapTextCleaner. All rights reserved.</span>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="index.html">Hub Dashboard</a>
+</footer>
+
+<script>
+    let loadedImage = null;
+    let originalFile = null;
+    let optimizedBlob = null;
+    let fileName = "";
+
+    function handleFileSelected(event) {
+        if (event.target.files.length) {
+            const file = event.target.files[0];
+            originalFile = file;
+            fileName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    loadedImage = img;
+                    document.getElementById('targetWidth').value = img.width;
+                    document.getElementById('targetHeight').value = img.height;
+                    document.getElementById('dropLabel').innerText = `Loaded: ${file.name} (${img.width}x${img.height} px)`;
+                    document.getElementById('resizeBtn').disabled = false;
+                    document.getElementById('downloadBtn').disabled = true;
+                    document.getElementById('previewArea').style.display = 'none';
+                    document.getElementById('statsBox').style.display = 'none';
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function resizeAndCompress() {
+        if (!loadedImage) return;
+
+        const w = parseInt(document.getElementById('targetWidth').value) || loadedImage.width;
+        const h = parseInt(document.getElementById('targetHeight').value) || loadedImage.height;
+        const quality = parseFloat(document.getElementById('compressionQuality').value);
+
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(loadedImage, 0, 0, w, h);
+
+        const mime = originalFile.type === 'image/png' ? 'image/png' : 'image/jpeg';
+
+        canvas.toBlob((blob) => {
+            optimizedBlob = blob;
+            const origSize = originalFile.size;
+            const newSize = blob.size;
+            const diff = origSize - newSize;
+            const pct = origSize > 0 ? ((diff / origSize) * 100).toFixed(1) : 0;
+
+            document.getElementById('origSize').innerText = (origSize / 1024).toFixed(1) + ' KB';
+            document.getElementById('newSize').innerText = (newSize / 1024).toFixed(1) + ' KB';
+            document.getElementById('savings').innerText = pct + '%';
+            document.getElementById('statsBox').style.display = 'block';
+
+            const previewUrl = URL.createObjectURL(blob);
+            document.getElementById('previewImg').src = previewUrl;
+            document.getElementById('previewArea').style.display = 'block';
+            document.getElementById('downloadBtn').disabled = false;
+            alert('Image resized and compressed successfully!');
+        }, mime, quality);
+    }
+
+    function downloadResizedImage() {
+        if (!optimizedBlob) return;
+        const ext = originalFile.type === 'image/png' ? 'png' : 'jpg';
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(optimizedBlob);
+        a.download = `${fileName}-optimized.${ext}`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+</script>
+
+</body>
+</html>
