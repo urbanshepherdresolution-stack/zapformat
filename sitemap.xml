@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-    <!-- Core Hub & Utilities -->
+    <!-- Core Hub & Legal -->
     <url>
         <loc>https://zaptextcleaner.com/</loc>
         <lastmod>2026-10-02</lastmod>
@@ -20,8 +20,40 @@
         <changefreq>yearly</changefreq>
         <priority>0.30</priority>
     </url>
+
+    <!-- Media & Conversion Utilities -->
     <url>
-        <loc>https://zaptextcleaner.com/visa-tracker.html</loc>
+        <loc>https://zaptextcleaner.com/image-converter.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/markdown-to-html.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/image-resizer.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/video-to-audio.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/document-to-markdown.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/word-to-markdown.html</loc>
         <lastmod>2026-10-02</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.80</priority>
@@ -141,9 +173,33 @@
         <priority>0.80</priority>
     </url>
 
-    <!-- Clean Messy Spaces Suite -->
+    <!-- Professional Utilities & Sanitizers -->
     <url>
         <loc>https://zaptextcleaner.com/clean-messy-spaces-from-word-document.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/text-batch-sanitizer.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/contract-anonymizer.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/csv-cleaner.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/visa-tracker.html</loc>
         <lastmod>2026-10-02</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.80</priority>
