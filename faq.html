@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Frequently Asked Questions — ZapFormat</title>
-  <meta name="description" content="Find answers to common questions about ZapFormat's client-side text tools, contract anonymizer, ATS resume tailor, data privacy guarantees, and browser processing.">
+  <title>Frequently Asked Questions — ZapTextCleaner</title>
+  <meta name="description" content="Frequently asked questions about ZapTextCleaner's client-side text sanitizers, PDF merger, document anonymizer, ATS resume tailor, and zero-server privacy architecture.">
+  <link rel="canonical" href="https://zaptextcleaner.com/faq.html">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
@@ -17,6 +18,48 @@
 
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+
+  <!-- Google FAQ Schema for Search Rich Results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is my sensitive data or text uploaded to any external server?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Every utility on ZapTextCleaner executes 100% inside your local browser memory (V8 JavaScript engine). No document bytes, contracts, or spreadsheets ever leave your device or touch a cloud server."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the Document Anonymizer protect confidential records before AI analysis?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Anonymizer scans unstructured text and PDFs to replace identifying PII—including individual names, emails, financial amounts, and account numbers—with standardized tokens (e.g., [PARTY_A], [EMAIL_1]), preventing confidential leaks when using external AI tools like ChatGPT or Claude."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use ZapTextCleaner offline or in an air-gapped environment?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Once the web application loads, all parsing, formatting, and file generation engines operate locally without requiring ongoing internet connectivity."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do the PDF Merger and JPEG to PDF tools preserve data privacy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Unlike traditional PDF converters that process files on remote backends, our tools compile byte streams and render canvas layers directly inside your device RAM, guaranteeing complete confidentiality."
+        }
+      }
+    ]
+  }
+  </script>
 
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -107,14 +150,15 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <a href="index.html" class="flex items-center gap-2 text-xl font-bold tracking-tight text-white hover:text-brand-400 transition-colors">
         <i class="fa-solid fa-bolt text-brand-400"></i>
-        <span>Zap<span class="text-brand-400">Format</span></span>
+        <span>Zap<span class="text-brand-400">TextCleaner</span></span>
       </a>
       
       <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
         <a href="index.html" class="hover:text-white transition-colors">Home</a>
-        <a href="formatter.html" class="hover:text-white transition-colors">Hub Dashboard</a>
-        <a href="contract-anonymizer.html" class="hover:text-white transition-colors">Contract Anonymizer</a>
-        <a href="ats-resume-tailor.html" class="hover:text-white transition-colors">ATS Resume Tailor</a>
+        <a href="formatter.html" class="hover:text-white transition-colors">Text Formatter</a>
+        <a href="anonymizer.html" class="hover:text-white transition-colors">Anonymizer</a>
+        <a href="merge-pdf.html" class="hover:text-white transition-colors">PDF Merger</a>
+        <a href="resume-tailor.html" class="hover:text-white transition-colors">Resume Tailor</a>
         <a href="faq.html" class="text-brand-400 font-semibold">FAQ</a>
         <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
       </nav>
@@ -131,22 +175,23 @@
 
     <div class="text-center max-w-3xl mx-auto space-y-4">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-bold uppercase tracking-wider">
-        <i class="fa-solid fa-circle-question"></i> Help & Documentation
+        <i class="fa-solid fa-circle-question"></i> Help &amp; Documentation
       </div>
       <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
         Frequently Asked Questions
       </h1>
       <p class="text-sm sm:text-base text-slate-400">
-        Everything you need to know about our browser-based formatting engine, privacy architecture, and document utilities.
+        Everything you need to know about our client-side architecture, document sanitization utilities, and zero-telemetry privacy guarantees.
       </p>
 
       <!-- Instant FAQ Search Input -->
       <div class="relative max-w-xl mx-auto pt-2">
         <i class="fa-solid fa-magnifying-glass absolute left-4 top-6 text-slate-500 text-sm"></i>
-        <input type="text" id="faq-search" oninput="filterFAQs()" placeholder="Search questions (e.g. privacy, ATS, anonymize, offline)..." class="w-full bg-slate-900 border border-slate-800 rounded-2xl pl-11 pr-4 py-3 text-xs sm:text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-400 transition-colors shadow-lg">
+        <input type="text" id="faq-search" oninput="filterFAQs()" placeholder="Search questions (e.g. privacy, PDF, ATS, anonymize, offline)..." class="w-full bg-slate-900 border border-slate-800 rounded-2xl pl-11 pr-4 py-3 text-xs sm:text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-400 transition-colors shadow-lg">
       </div>
     </div>
 
+    <!-- Top Ad Banner -->
     <div class="ad-container w-full max-w-5xl mx-auto min-h-[90px] bg-slate-900/40 border border-slate-800/80 rounded-xl overflow-hidden flex items-center justify-center">
       <ins class="adsbygoogle"
            style="display:block; width:100%; min-width:250px;"
@@ -156,28 +201,33 @@
            data-full-width-responsive="true"></ins>
     </div>
 
+    <!-- Category Filter Buttons -->
     <div class="flex items-center justify-center flex-wrap gap-2 text-xs font-semibold">
       <button onclick="setCategory('all')" id="cat-all" class="cat-btn px-4 py-2 rounded-xl bg-brand-500 text-slate-950 font-bold border border-brand-400 transition-all">
         All Questions
       </button>
       <button onclick="setCategory('privacy')" id="cat-privacy" class="cat-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700 transition-all">
-        Privacy & Security
+        Privacy &amp; Security
       </button>
       <button onclick="setCategory('contract')" id="cat-contract" class="cat-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700 transition-all">
-        Contract Anonymizer
+        Data Anonymizer
+      </button>
+      <button onclick="setCategory('pdf')" id="cat-pdf" class="cat-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700 transition-all">
+        PDF &amp; File Utilities
       </button>
       <button onclick="setCategory('ats')" id="cat-ats" class="cat-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700 transition-all">
         ATS Resume Tailor
       </button>
       <button onclick="setCategory('general')" id="cat-general" class="cat-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700 transition-all">
-        General Utilities
+        General Usage
       </button>
     </div>
 
+    <!-- FAQ Accordion List -->
     <div class="max-w-4xl mx-auto space-y-4" id="faq-list">
 
       <!-- FAQ Item 1 -->
-      <div class="faq-card bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200" data-category="privacy" data-keywords="privacy safe security server upload client side local browser data storage log zero">
+      <div class="faq-card bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200" data-category="privacy" data-keywords="privacy safe security server upload client side local browser data storage log zero cloud">
         <button onclick="toggleFAQ(this)" class="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-slate-800/50 transition-colors">
           <div class="flex items-center gap-3">
             <span class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs">
@@ -189,126 +239,130 @@
         </button>
         <div class="faq-answer hidden px-5 pb-5 text-xs sm:text-sm text-slate-400 space-y-2 border-t border-slate-800/60 pt-4 leading-relaxed">
           <p>
-            <strong class="text-emerald-400">Absolutely not.</strong> Every tool on ZapFormat executes 100% inside your local browser memory (V8 JavaScript runtime).
+            <strong class="text-emerald-400">Strictly no.</strong> Every utility on ZapTextCleaner executes 100% inside your local browser memory (V8 JavaScript engine).
           </p>
           <p>
-            When you paste a contract, resume, or document, the computation happens directly on your device. No data is sent over the network, logged to a database, or shared with external AI APIs. You can even disconnect your internet and the core tools will continue operating seamlessly.
+            When you paste confidential text, upload a spreadsheet, or compile PDFs, computation happens entirely on your machine. No document payloads or clipboard strings are ever transmitted over the network, saved in backend databases, or accessed by third-party tracking engines.
           </p>
         </div>
       </div>
 
       <!-- FAQ Item 2 -->
-      <div class="faq-card bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200" data-category="contract" data-keywords="contract anonymizer nda ai chatgpt claude redaction pii masking parties replace">
+      <div class="faq-card bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200" data-category="contract" data-keywords="contract anonymizer nda ai chatgpt claude redaction pii masking parties replace confidential pii">
         <button onclick="toggleFAQ(this)" class="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-slate-800/50 transition-colors">
           <div class="flex items-center gap-3">
             <span class="p-2 rounded-lg bg-brand-500/10 text-brand-400 border border-brand-500/20 text-xs">
-              <i class="fa-solid fa-file-contract"></i>
+              <i class="fa-solid fa-user-shield"></i>
             </span>
-            <span class="text-sm sm:text-base font-bold text-white">How does the Client Contract Anonymizer prepare text for ChatGPT or Claude?</span>
+            <span class="text-sm sm:text-base font-bold text-white">How does the Document Anonymizer prepare text for ChatGPT or Claude?</span>
           </div>
           <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"></i>
         </button>
         <div class="faq-answer hidden px-5 pb-5 text-xs sm:text-sm text-slate-400 space-y-2 border-t border-slate-800/60 pt-4 leading-relaxed">
           <p>
-            Public AI tools retain prompts for training unless enterprise opt-outs are configured. The Contract Anonymizer scans your document and swaps sensitive items—such as company names, dollar amounts, emails, phone numbers, and dates—with semantic variables like <code class="text-brand-400">[PARTY_A]</code>, <code class="text-brand-400">[AMOUNT_1]</code>, or <code class="text-brand-400">[EMAIL_1]</code>.
+            Public AI platforms often retain prompts for model retraining. The ZapTextCleaner Anonymizer scans text and PDFs locally to swap sensitive entities—including company names, individual identities, financial values, emails, and account numbers—with structured tokens like <code class="text-brand-400">[PARTY_A]</code>, <code class="text-brand-400">[FINANCIAL_1]</code>, or <code class="text-brand-400">[EMAIL_1]</code>.
           </p>
           <p>
-            This preserves the legal structure and grammar so AI models can review, summarize, or draft clauses without ever exposing real corporate identities or financial terms.
+            This preserves syntactic structure and contractual grammar so AI models can review, summarize, or draft without exposing proprietary corporate identifiers.
           </p>
         </div>
       </div>
 
       <!-- FAQ Item 3 -->
+      <div class="faq-card bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200" data-category="pdf" data-keywords="pdf merge jpeg to pdf combine images converter splicing client side safe">
+        <button onclick="toggleFAQ(this)" class="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-slate-800/50 transition-colors">
+          <div class="flex items-center gap-3">
+            <span class="p-2 rounded-lg bg-brand-500/10 text-brand-400 border border-brand-500/20 text-xs">
+              <i class="fa-solid fa-file-pdf"></i>
+            </span>
+            <span class="text-sm sm:text-base font-bold text-white">How do the PDF Merger and JPEG to PDF tools operate without servers?</span>
+          </div>
+          <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"></i>
+        </button>
+        <div class="faq-answer hidden px-5 pb-5 text-xs sm:text-sm text-slate-400 space-y-2 border-t border-slate-800/60 pt-4 leading-relaxed">
+          <p>
+            Traditional document tools upload your files to external cloud servers to merge or compress them. In contrast, ZapTextCleaner uses client-side libraries (<code class="text-brand-400">pdf-lib</code> and <code class="text-brand-400">jsPDF</code>) running directly inside your browser.
+          </p>
+          <p>
+            The browser reads the raw binary array buffers, reconstructs the document trees in memory, and triggers a direct local file download. Your documents remain entirely private within your workstation.
+          </p>
+        </div>
+      </div>
+
+      <!-- FAQ Item 4 -->
       <div class="faq-card bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200" data-category="ats" data-keywords="ats resume tailor job description match score keywords skills missing bullet generator cv optimize">
         <button onclick="toggleFAQ(this)" class="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-slate-800/50 transition-colors">
           <div class="flex items-center gap-3">
             <span class="p-2 rounded-lg bg-brand-500/10 text-brand-400 border border-brand-500/20 text-xs">
               <i class="fa-solid fa-file-user"></i>
             </span>
-            <span class="text-sm sm:text-base font-bold text-white">How does the ATS Resume Tailor compute match percentages?</span>
+            <span class="text-sm sm:text-base font-bold text-white">How does the ATS Resume Tailor calculate match scoring?</span>
           </div>
           <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"></i>
         </button>
         <div class="faq-answer hidden px-5 pb-5 text-xs sm:text-sm text-slate-400 space-y-2 border-t border-slate-800/60 pt-4 leading-relaxed">
           <p>
-            The ATS Resume Tailor tokenizes the target Job Description (JD) to extract high-density hard skills, tools, and domain keywords while filtering out generic stop words. It then compares this frequency distribution against your resume text.
+            The ATS Resume Tailor tokenizes the target Job Description (JD) to extract high-density hard skills, technical requirements, and domain terminology while filtering out common stop words. It then cross-references this frequency distribution against your resume text.
           </p>
           <p>
-            It highlights missing key terms, counts action verbs, inspects contact header formatting, and provides a one-click keyword injection option to draft tailored bullet points instantly.
-          </p>
-        </div>
-      </div>
-
-      <!-- FAQ Item 4 -->
-      <div class="faq-card bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200" data-category="privacy" data-keywords="offline internet connection air gapped network safety PII">
-        <button onclick="toggleFAQ(this)" class="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-slate-800/50 transition-colors">
-          <div class="flex items-center gap-3">
-            <span class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs">
-              <i class="fa-solid fa-wifi"></i>
-            </span>
-            <span class="text-sm sm:text-base font-bold text-white">Can I use ZapFormat utilities offline or in an air-gapped environment?</span>
-          </div>
-          <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"></i>
-        </button>
-        <div class="faq-answer hidden px-5 pb-5 text-xs sm:text-sm text-slate-400 space-y-2 border-t border-slate-800/60 pt-4 leading-relaxed">
-          <p>
-            Yes! Once the HTML and JavaScript assets are loaded in your browser session, the core text manipulation engines, redaction algorithms, and keyword matchers require zero external network calls.
-          </p>
-          <p>
-            You can keep the web app open in an isolated browser window or save the files locally for complete peace of mind.
+            It highlights missing core terms, evaluates action verb density, verifies contact header cleanliness, and generates targeted bullet point suggestions.
           </p>
         </div>
       </div>
 
       <!-- FAQ Item 5 -->
-      <div class="faq-card bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200" data-category="general" data-keywords="cost free payment tier commercial enterprise usage pricing license">
+      <div class="faq-card bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200" data-category="privacy" data-keywords="offline internet connection air gapped network safety PII sandbox">
         <button onclick="toggleFAQ(this)" class="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-slate-800/50 transition-colors">
           <div class="flex items-center gap-3">
-            <span class="p-2 rounded-lg bg-brand-500/10 text-brand-400 border border-brand-500/20 text-xs">
-              <i class="fa-solid fa-coins"></i>
+            <span class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs">
+              <i class="fa-solid fa-wifi"></i>
             </span>
-            <span class="text-sm sm:text-base font-bold text-white">Is ZapFormat free to use for personal and commercial projects?</span>
+            <span class="text-sm sm:text-base font-bold text-white">Can I use ZapTextCleaner utilities offline or in an air-gapped network?</span>
           </div>
           <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"></i>
         </button>
         <div class="faq-answer hidden px-5 pb-5 text-xs sm:text-sm text-slate-400 space-y-2 border-t border-slate-800/60 pt-4 leading-relaxed">
           <p>
-            Yes, ZapFormat utilities are completely free for individuals, freelancers, job seekers, and corporate professionals. There are no paywalls, hidden limits, or subscription tiers required to unlock full document processing capabilities.
+            Yes. Once the web application assets are loaded into your browser session, the core text manipulation engines, redaction algorithms, and file compilation pipelines execute without making network requests.
+          </p>
+          <p>
+            You can keep the page open in an offline or air-gapped environment for high-security workflows.
           </p>
         </div>
       </div>
 
       <!-- FAQ Item 6 -->
-      <div class="faq-card bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200" data-category="general" data-keywords="bug feature request feedback contact support help report update">
+      <div class="faq-card bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200" data-category="general" data-keywords="cost free payment tier commercial enterprise usage pricing license corporate">
         <button onclick="toggleFAQ(this)" class="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-slate-800/50 transition-colors">
           <div class="flex items-center gap-3">
             <span class="p-2 rounded-lg bg-brand-500/10 text-brand-400 border border-brand-500/20 text-xs">
-              <i class="fa-solid fa-bug"></i>
+              <i class="fa-solid fa-coins"></i>
             </span>
-            <span class="text-sm sm:text-base font-bold text-white">How do I report a issue or suggest a new tool feature?</span>
+            <span class="text-sm sm:text-base font-bold text-white">Is ZapTextCleaner free for personal and commercial projects?</span>
           </div>
           <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"></i>
         </button>
         <div class="faq-answer hidden px-5 pb-5 text-xs sm:text-sm text-slate-400 space-y-2 border-t border-slate-800/60 pt-4 leading-relaxed">
           <p>
-            We actively update ZapFormat based on user feedback. If you discover a bug or want to suggest new redaction patterns or formatting tools, check our privacy policy page or connect with our support channels.
+            Yes. ZapTextCleaner utilities are completely free for individuals, freelancers, job candidates, and enterprise teams. There are no paywalls, hidden tiers, or registration requirements to access any document converter.
           </p>
         </div>
       </div>
 
     </div>
 
+    <!-- Call to Action Card -->
     <div class="max-w-4xl mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6 text-center space-y-3 shadow-xl">
       <div class="p-3 rounded-2xl bg-brand-500/10 border border-brand-500/20 text-brand-400 inline-block">
         <i class="fa-solid fa-headset text-xl"></i>
       </div>
       <h3 class="text-lg font-bold text-white">Still have questions?</h3>
       <p class="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
-        Explore our comprehensive Hub Dashboard to test our tools live in your browser, or review our Privacy Policy for technical data specifications.
+        Explore our complete suite of client-side tools on the main hub, or review our Privacy Policy for technical data specifications.
       </p>
       <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
-        <a href="formatter.html" class="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-slate-950 font-bold text-xs sm:text-sm rounded-xl transition-colors inline-flex items-center gap-2">
-          <i class="fa-solid fa-rocket text-xs"></i> Launch Hub Dashboard
+        <a href="index.html" class="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-slate-950 font-bold text-xs sm:text-sm rounded-xl transition-colors inline-flex items-center gap-2">
+          <i class="fa-solid fa-rocket text-xs"></i> Launch Platform Hub
         </a>
         <a href="privacy.html" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs sm:text-sm rounded-xl border border-slate-700 transition-colors inline-flex items-center gap-2">
           <i class="fa-solid fa-shield-halved text-xs text-emerald-400"></i> Read Privacy Policy
@@ -331,13 +385,14 @@
   <footer class="mt-auto border-t border-slate-800 bg-slate-900/60 py-6 text-xs text-slate-500">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div>
-        <p>&copy; 2026 ZapFormat. All rights reserved. 100% Client-Side Engine.</p>
+        <p>&copy; 2026 ZapTextCleaner. All rights reserved. 100% Client-Side Engine.</p>
       </div>
       <div class="flex items-center gap-6 font-medium text-slate-400">
         <a href="index.html" class="hover:text-white transition-colors">Home</a>
-        <a href="formatter.html" class="hover:text-white transition-colors">Hub Dashboard</a>
-        <a href="contract-anonymizer.html" class="hover:text-white transition-colors">Contract Anonymizer</a>
-        <a href="ats-resume-tailor.html" class="hover:text-white transition-colors">ATS Resume Tailor</a>
+        <a href="formatter.html" class="hover:text-white transition-colors">Formatter</a>
+        <a href="anonymizer.html" class="hover:text-white transition-colors">Anonymizer</a>
+        <a href="merge-pdf.html" class="hover:text-white transition-colors">PDF Merger</a>
+        <a href="resume-tailor.html" class="hover:text-white transition-colors">Resume Tailor</a>
         <a href="faq.html" class="hover:text-white transition-colors">FAQ</a>
         <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
       </div>
