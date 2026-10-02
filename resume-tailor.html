@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ATS Resume Tailor & Job Match Optimizer — ZapFormat</title>
+  <title>ATS Resume Tailor & Job Match Optimizer — ZapTextCleaner</title>
   <meta name="description" content="Match your resume against job descriptions in real-time. Uncover missing keywords, improve ATS match percentage, and optimize bullets completely in your browser.">
+  <link rel="canonical" href="https://zaptextcleaner.com/resume-tailor.html">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
@@ -107,14 +108,16 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <a href="index.html" class="flex items-center gap-2 text-xl font-bold tracking-tight text-white hover:text-brand-400 transition-colors">
         <i class="fa-solid fa-bolt text-brand-400"></i>
-        <span>Zap<span class="text-brand-400">Format</span></span>
+        <span>Zap<span class="text-brand-400">TextCleaner</span></span>
       </a>
       
       <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
         <a href="index.html" class="hover:text-white transition-colors">Home</a>
         <a href="formatter.html" class="hover:text-white transition-colors">Hub Dashboard</a>
-        <a href="contract-anonymizer.html" class="hover:text-white transition-colors">Contract Anonymizer</a>
-        <a href="ats-resume-tailor.html" class="text-brand-400 font-semibold">ATS Resume Tailor</a>
+        <a href="anonymizer.html" class="hover:text-white transition-colors">Anonymizer</a>
+        <a href="resume-tailor.html" class="text-brand-400 font-semibold">ATS Resume Tailor</a>
+        <a href="merge-pdf.html" class="hover:text-white transition-colors">PDF Merger</a>
+        <a href="faq.html" class="hover:text-white transition-colors">FAQ</a>
         <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
       </nav>
 
@@ -130,10 +133,10 @@
 
     <div class="text-center max-w-3xl mx-auto space-y-2">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-bold uppercase tracking-wider">
-        <i class="fa-solid fa-wand-magic-sparkles"></i> ATS CV Matcher & Tailor
+        <i class="fa-solid fa-wand-magic-sparkles"></i> ATS CV Matcher &amp; Tailor
       </div>
       <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-        ATS Resume Tailor & Job Matcher
+        ATS Resume Keyword Tailor &amp; Job Matcher
       </h1>
       <p class="text-sm sm:text-base text-slate-400">
         Compare your resume against any job description in real-time. Uncover missing keywords, check ATS compliance, and build tailored bullet points locally without server uploads.
@@ -205,7 +208,7 @@
             <span id="score-percentage" class="text-2xl font-extrabold text-slate-500">0%</span>
           </div>
           <div>
-            <h3 id="score-status" class="text-lg font-bold text-white">Paste Resume & Job Description</h3>
+            <h3 id="score-status" class="text-lg font-bold text-white">Paste Resume &amp; Job Description</h3>
             <p id="score-summary" class="text-xs text-slate-400 mt-1">
               Analysis runs automatically as you type or modify content.
             </p>
@@ -243,7 +246,7 @@
       <!-- Keyword Breakdown Tabs -->
       <div class="space-y-4">
         <h4 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-          <i class="fa-solid fa-list-check text-brand-400"></i> Keyword Coverage & Missing Skills Analysis
+          <i class="fa-solid fa-list-check text-brand-400"></i> Keyword Coverage &amp; Missing Skills Analysis
         </h4>
 
         <!-- Missing Keywords Pill List -->
@@ -255,7 +258,7 @@
       <!-- ATS Formatting Warnings -->
       <div id="formatting-audit-box" class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2 hidden">
         <h5 class="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2">
-          <i class="fa-solid fa-triangle-exclamation"></i> ATS Format & Structure Findings
+          <i class="fa-solid fa-triangle-exclamation"></i> ATS Format &amp; Structure Findings
         </h5>
         <ul id="formatting-warnings-list" class="text-xs space-y-1 text-slate-300 list-disc list-inside">
         </ul>
@@ -297,6 +300,46 @@
       </div>
     </section>
 
+    <!-- Comprehensive Technical SEO & Editorial Documentation -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 text-slate-300 shadow-xl">
+      <div class="border-b border-slate-800 pb-4">
+        <h2 class="text-xl font-bold text-white">How Applicant Tracking Systems (ATS) Evaluate Resumes</h2>
+        <p class="text-sm text-slate-400 mt-1">Understanding semantic keyword scoring, structural document parsing, and local candidate privacy.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm leading-relaxed">
+        <div class="space-y-3">
+          <h3 class="text-base font-semibold text-brand-400">Algorithmic Resume Filtering &amp; TF-IDF Analysis</h3>
+          <p>
+            Over 95% of Fortune 500 corporations and leading technology companies utilize Applicant Tracking Systems—such as Workday, Taleo, Greenhouse, and Lever—to filter candidate applications prior to human recruiter review. These platforms employ automated natural language parsing (NLP) algorithms to convert raw resumes into structured database entities.
+          </p>
+          <p>
+            When a recruiter issues an opening, the ATS extracts keyword frequencies from the job description using Term Frequency-Inverse Document Frequency (TF-IDF) models. Candidate CVs lacking exact-match technical skills, industry frameworks, or standardized certifications are ranked at the bottom of the applicant pipeline or automatically disqualified.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-base font-semibold text-brand-400">Structural Parsing Rules &amp; Zero Cloud Exposure</h3>
+          <p>
+            ATS parsers often fail when reading multi-column tables, text boxes, non-standard icon headers, or graphics-heavy PDF templates. To maximize parseability, resumes must feature clear textual hierarchies: standard header labels (such as "Work Experience", "Education", and "Technical Skills"), chronological dates, and plain-text contact information.
+          </p>
+          <p>
+            Uploading sensitive career histories, corporate references, phone numbers, and home addresses to third-party cloud resume optimizers exposes your personal data to recruiter harvesting networks and telemetry databases. The <strong>ZapTextCleaner ATS Resume Tailor</strong> performs all tokenization, keyword extraction, and score calculations locally within your browser sandbox, keeping your employment records completely confidential.
+          </p>
+        </div>
+      </div>
+
+      <div class="border-t border-slate-800 pt-4">
+        <h4 class="text-sm font-semibold text-white mb-2">Key Steps for Optimizing Your Resume Match Rate:</h4>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-400 list-disc list-inside">
+          <li>Extract hard technical skills from the target job requirements.</li>
+          <li>Incorporate exact-match phrasing inside your bullet points.</li>
+          <li>Quantify professional accomplishments with numbers and metrics.</li>
+          <li>Ensure contact headers contain valid plain-text emails and phone numbers.</li>
+        </ul>
+      </div>
+    </section>
+
     <!-- Bottom Responsive Ad -->
     <div class="ad-container w-full max-w-5xl mx-auto min-h-[90px] bg-slate-900/40 border border-slate-800/80 rounded-xl overflow-hidden flex items-center justify-center">
       <ins class="adsbygoogle"
@@ -312,13 +355,15 @@
   <footer class="mt-auto border-t border-slate-800 bg-slate-900/60 py-6 text-xs text-slate-500">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div>
-        <p>&copy; 2026 ZapFormat. All rights reserved. 100% Client-Side Engine.</p>
+        <p>&copy; 2026 ZapTextCleaner. All rights reserved. 100% Client-Side Engine.</p>
       </div>
       <div class="flex items-center gap-6 font-medium text-slate-400">
         <a href="index.html" class="hover:text-white transition-colors">Home</a>
         <a href="formatter.html" class="hover:text-white transition-colors">Hub Dashboard</a>
-        <a href="contract-anonymizer.html" class="hover:text-white transition-colors">Contract Anonymizer</a>
-        <a href="ats-resume-tailor.html" class="hover:text-white transition-colors">ATS Resume Tailor</a>
+        <a href="anonymizer.html" class="hover:text-white transition-colors">Anonymizer</a>
+        <a href="resume-tailor.html" class="hover:text-white transition-colors">ATS Resume Tailor</a>
+        <a href="merge-pdf.html" class="hover:text-white transition-colors">PDF Merger</a>
+        <a href="faq.html" class="hover:text-white transition-colors">FAQ</a>
         <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
       </div>
     </div>
