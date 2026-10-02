@@ -1,76 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy & Data Security Manifesto - ZapTextCleaner</title>
+    <title>Privacy Policy - ZapTextCleaner</title>
+    <meta name="description" content="Privacy Policy for ZapTextCleaner. Learn about our 100% client-side zero-telemetry architecture, local text sandboxing, and data security guarantees.">
+    <link rel="canonical" href="https://zaptextcleaner.com/privacy.html">
+
     <style>
         :root {
             --primary: #1e3a8a;
-            --secondary: #64748b;
+            --primary-hover: #172554;
             --dark: #0f172a;
-            --border: #e2e8f0;
-            --light: #f8fafc;
+            --secondary: #64748b;
+            --border: #cbd5e1;
+            --bg-light: #f8fafc;
+            --card-bg: #ffffff;
+            --radius: 12px;
+            --success: #10b981;
         }
-        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background-color: #f8fafc; color: var(--dark); line-height: 1.7; margin: 0; padding: 0; }
-        header { background: white; border-bottom: 1px solid var(--border); padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 22px; font-weight: 800; color: var(--primary); letter-spacing: -0.03em; text-decoration: none; }
-        .back-link { font-size: 14px; font-weight: 600; color: var(--secondary); text-decoration: none; }
-        .back-link:hover { color: var(--primary); }
-        .content-container { max-width: 800px; margin: 60px auto; padding: 0 20px; }
-        h1 { font-size: 2.5rem; font-weight: 800; color: var(--dark); letter-spacing: -0.04em; margin-bottom: 10px; }
-        .last-updated { color: var(--secondary); font-size: 14px; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
-        h2 { font-size: 1.5rem; color: var(--primary); margin-top: 40px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-        p, li { font-size: 16px; color: #334155; }
-        .highlight-box { background: #eff6ff; border-left: 4px solid var(--primary); padding: 20px; border-radius: 8px; font-weight: 600; margin: 30px 0; color: #1e40af; }
-        footer { text-align: center; padding: 40px 20px; font-size: 13px; color: #94a3b8; border-top: 1px solid var(--border); margin-top: 80px; }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--dark);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 860px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 45px;
+            border-radius: var(--radius);
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.04);
+        }
+
+        header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0 0 10px 0;
+            color: var(--primary);
+            font-size: 2.2rem;
+            font-weight: 800;
+        }
+
+        .effective-date {
+            color: var(--secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .highlight-box {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+            padding: 20px 24px;
+            border-radius: 8px;
+            margin: 25px 0;
+            font-weight: 500;
+        }
+
+        .highlight-box strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 1.05rem;
+            color: #047857;
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-top: 35px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 6px;
+        }
+
+        h3 {
+            color: var(--dark);
+            font-size: 1.1rem;
+            margin-top: 22px;
+            margin-bottom: 8px;
+        }
+
+        p, li {
+            color: #334155;
+            font-size: 15px;
+        }
+
+        ul {
+            padding-left: 22px;
+            margin: 12px 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 13.5px;
+            color: var(--dark);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 35px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14.5px;
+        }
+        .back-link:hover { text-decoration: underline; }
+
+        footer {
+            max-width: 860px;
+            width: 100%;
+            text-align: center;
+            font-size: 13px;
+            color: var(--secondary);
+            padding-top: 25px;
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
+<div class="container">
     <header>
-        <a href="index.html" class="logo">ZapTextCleaner</a>
-        <a href="index.html" class="back-link">&larr; Return to Dashboard</a>
+        <h1>Privacy Policy</h1>
+        <div class="effective-date">Last Updated: October 2, 2026 • Effective Date: October 2, 2026</div>
     </header>
 
-    <div class="content-container">
-        <h1>Data Processing & Privacy Manifesto</h1>
-        <div class="last-updated">Security Architecture Status: Verified Client-Side Implementation</div>
-
-        <div class="highlight-box">
-            Technical Guarantee: ZapTextCleaner utilizes zero inbound or outbound telemetry pipelines. Absolutely zero bytes of user data, pasted text strings, or uploaded files ever touch an external network server.
-        </div>
-
-        <p>In modern corporate enterprise environments, data leaks represent massive legal and compliance liabilities. ZapTextCleaner was built out of a fundamental engineering truth: the safest way to store data is never to collect it in the first place.</p>
-
-        <h2>1. Zero-Server Sandbox Architecture</h2>
-        <p>Unlike standard web utilities that process your text inputs via backend APIs, our frameworks run 100% locally on your computer. When you upload a document or paste strings into our interface:</p>
-        <ul>
-            <li>The data stream is isolated inside a localized sandboxed layer utilizing native browser JavaScript compilation.</li>
-            <li>File reading operations are parsed directly out of your machine’s physical RAM using secure local engine scripts.</li>
-            <li>No records, logging files, cookies, or remote data states are established or transferred over HTTP/S.</li>
-        </ul>
-
-        <h2>2. Immediate Memory Ephemerality</h2>
-        <p>Because processing occurs purely inside the active virtual array memory of your specific web browser tab, data existence is explicitly temporary. The moment you refresh the browser page, navigate away, or close the browser tab, all text lines, patterns, and variables are instantaneously wiped from your local memory. There is no historical trail to extract.</p>
-
-        <h2>3. Regulatory Compliance Context (GDPR, HIPAA, CCPA)</h2>
-        <p>Corporate legal mandates strictly restrict the transmission of Protected Health Information (PHI) and Personally Identifiable Information (PII) to unverified third-party cloud engines. ZapTextCleaner completely circumvents these compliance friction points because zero processing or storage takes place outside your authorized corporate perimeter. Your network firewall remains untouched.</p>
-
-        <h2>4. User Accountability Framework</h2>
-        <p>While our systemic pattern scanners are configured to target structural markers (such as bank accounts, emails, and phone formats), machine processes act strictly as assistive filters. Ultimate data sanitation confirmation relies entirely on human bubble verification before asset deployment.</p>
-
-        <h2>5. Contact & Publisher Transparency</h2>
-        <p>ZapTextCleaner is operated independently as a client-side browser utility provider. If you have questions regarding our privacy practices, data security architecture, or advertising policies, you may contact us directly:</p>
-        <p><strong>Support Email:</strong> support [at] zaptextcleaner [dot] com</p>
-
-        <h2>6. Terms of Service & Usage Agreement</h2>
-        <p>By accessing and utilizing the ZapTextCleaner utility suite, you agree that all document transformations, text parsing, and file conversions occur entirely within your local browser sandbox memory. We retain zero logs, files, or personal information. Tools are provided on an "as-is" basis without warranties of any kind.</p>
+    <div class="highlight-box">
+        <strong>🔒 The Zero-Telemetry Guarantee</strong>
+        ZapTextCleaner operates entirely on a 100% client-side architecture. When you paste text, documents, code snippets, or book excerpts into any tool on this site, your data is processed entirely inside your local device's browser memory (RAM). Your text is never transmitted to, inspected by, or stored on any external server.
     </div>
 
-    <footer>
-        &copy; 2026 ZapTextCleaner. All core architecture executes client-side.
-    </footer>
+    <h2>1. Information We Do Not Collect (Text &amp; Documents)</h2>
+    <p>Unlike conventional web applications that process string manipulation and format conversion on cloud-hosted backends, <strong>ZapTextCleaner</strong> does not operate backend application servers for text processing:</p>
+    <ul>
+        <li><strong>No Clipboard Logging:</strong> Any text pasted into the input editors never leaves your browser sandbox.</li>
+        <li><strong>No Server-Side File Storage:</strong> We do not operate databases, S3 storage buckets, or log files that retain user-submitted content.</li>
+        <li><strong>No Model Training:</strong> Your input data is never used to train machine learning models, statistical datasets, or artificial intelligence systems.</li>
+        <li><strong>Instant Eviction:</strong> Refreshing or closing your browser tab immediately flushes all submitted text from your system's temporary memory (RAM).</li>
+    </ul>
+
+    <h2>2. Technical Architecture &amp; Local Execution</h2>
+    <p>All core functionalities across our tool suites—including whitespace normalization, HTML entity decoding, line wrap stripping, and regex formatting—are implemented using native JavaScript APIs (such as <code>DOMParser</code>, <code>String.prototype.replace()</code>, and the <code>Clipboard API</code>). Execution occurs locally in your web browser engine (V8, SpiderMonkey, or WebKit) without firing asynchronous HTTP POST payloads.</p>
+
+    <h2>3. Web Analytics &amp; Advertising</h2>
+    <p>To evaluate website traffic patterns, ensure cross-browser compatibility, and sustain site hosting costs, ZapTextCleaner uses third-party analytics and advertising networks:</p>
+
+    <h3>Google Analytics 4 (GA4)</h3>
+    <p>We use Google Analytics (measurement ID: <code>G-7TP5H35738</code>) to gather aggregated, anonymized metric information. This includes browser user agent, device operating system, general geographic location (country/city level), referral pages, and session duration. <strong>Google Analytics does not capture, read, or track the contents of your text input fields or conversion outputs.</strong></p>
+
+    <h3>Google AdSense</h3>
+    <p>We display third-party advertisements served by Google AdSense (publisher ID: <code>ca-pub-9973919593816896</code>). Google and its advertising partners may use cookies, device identifiers, or web beacons to display personalized or non-personalized ads based on prior visits to this website or other sites across the web. You can manage or opt out of personalized advertising by visiting <a href="https://adssettings.google.com/" target="_blank" rel="noopener">Google Ads Settings</a>.</p>
+
+    <h2>4. Cookies &amp; Local Storage</h2>
+    <p>ZapTextCleaner does not require user accounts, passwords, or personal profile registrations. We do not set first-party tracking cookies. Third-party advertising partners and analytics services may set standard operational cookies to measure ad impressions and site engagement according to their independent privacy standards.</p>
+
+    <h2>5. GDPR and CCPA Compliance</h2>
+    <p>Under the European Union General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA):</p>
+    <ul>
+        <li>Because user text data is processed exclusively on the client side, ZapTextCleaner never acts as a Data Processor or Data Controller for the contents of your copied documents.</li>
+        <li>We hold no personally identifiable records, customer contact databases, or archived document streams.</li>
+        <li>Users hold sole custody and control of their text data throughout the entire editing session.</li>
+    </ul>
+
+    <h2>6. External Links</h2>
+    <p>Our website may provide reference hyperlinks to third-party tools, specifications, or repositories. We hold no responsibility for the content, privacy protocols, or practices of external websites. We encourage users to inspect third-party policies directly upon navigation.</p>
+
+    <h2>7. Policy Amendments</h2>
+    <p>We reserve the right to revise this Privacy Policy periodically to reflect architectural changes or regulatory updates. Any modifications will be posted directly to this URL with a revised effective date.</p>
+
+    <h2>8. Contact Information</h2>
+    <p>If you have architectural questions, technical inquiries, or concerns regarding this Privacy Policy, please open an issue on our GitHub repository or contact the project maintainers via the hub dashboard.</p>
+
+    <a href="index.html" class="back-link">← Return to Hub Dashboard</a>
+</div>
+
+<footer>
+    <span>&copy; 2026 ZapTextCleaner. All rights reserved.</span>
+    <a href="index.html">Hub Home</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="sitemap.xml">XML Sitemap</a>
+</footer>
 
 </body>
 </html>
