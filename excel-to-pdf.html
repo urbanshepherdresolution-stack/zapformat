@@ -1,30 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Batch Excel to PDF Converter - ZapFormat</title>
-    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel to PDF Converter - Convert XLSX & XLS Spreadsheets Client-Side | ZapTextCleaner</title>
+    <meta name="description" content="Convert Excel spreadsheets (.xlsx, .xls) and CSV workbooks into professional PDF tables instantly in your browser. 100% private, zero-server document processing.">
+    <link rel="canonical" href="https://zaptextcleaner.com/excel-to-pdf.html">
+
+    <!-- Client-Side Parsing Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.5.28/dist/jspdf.plugin.autotable.min.js"></script>
 
     <style>
         :root {
-            --primary: #059669; /* Professional Excel Green */
+            --primary: #059669; /* Excel Green */
             --primary-hover: #047857;
             --dark: #0f172a;
             --secondary: #64748b;
-            --border: #e2e8f0;
+            --border: #cbd5e1;
             --success: #10b981;
+            --bg-light: #f8fafc;
             --radius: 12px;
         }
 
+        * { box-sizing: border-box; }
+
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: #f8fafc;
+            background-color: var(--bg-light);
             color: var(--dark);
             margin: 0;
             padding: 40px 20px;
@@ -41,65 +54,187 @@
             padding: 40px;
             border-radius: var(--radius);
             box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            box-sizing: border-box;
+            border: 1px solid #e2e8f0;
         }
 
-        h1 { margin-top: 0; color: var(--primary); font-size: 26px; }
-        p.subtitle { color: var(--secondary); font-size: 15px; margin-bottom: 25px; }
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin: 0 0 8px 0;
+        }
+
+        header p {
+            color: var(--secondary);
+            font-size: 1.05rem;
+            margin: 0 0 15px 0;
+        }
+
+        .privacy-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
 
         .file-drop {
             border: 2px dashed var(--border);
             border-radius: 8px;
-            padding: 40px;
+            padding: 35px 20px;
             text-align: center;
             background: #fdfdfe;
             cursor: pointer;
             transition: all 0.2s;
             margin-bottom: 20px;
         }
-        .file-drop:hover { border-color: var(--primary); background: #f0fdf4; }
-        .file-drop p { margin: 0; font-weight: 600; color: var(--secondary); }
+        .file-drop:hover {
+            border-color: var(--primary);
+            background: #f0fdf4;
+        }
+        .file-drop p {
+            margin: 0;
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 15px;
+        }
+        .file-drop span {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .controls-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .sheet-selector-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .sheet-selector-group label {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--dark);
+        }
+        select {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+        }
 
         .table-preview {
-            max-height: 300px;
-            overflow-y: auto;
-            border: 1px solid var(--border);
+            max-height: 320px;
+            overflow: auto;
+            border: 1px solid #e2e8f0;
             border-radius: 8px;
             background: #fafafa;
             padding: 15px;
-            margin-top: 20px;
-            box-sizing: border-box;
+            margin-bottom: 20px;
         }
-        table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        th, td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
-        th { background: #f1f5f9; color: var(--dark); }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            background: white;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 8px 12px;
+            text-align: left;
+            white-space: nowrap;
+        }
+        th {
+            background: #f1f5f9;
+            color: var(--dark);
+            font-weight: 700;
+            position: sticky;
+            top: 0;
+        }
 
-        .toolbar { display: flex; gap: 12px; margin-top: 20px; }
-        button {
+        .toolbar {
+            display: flex;
+            gap: 15px;
+        }
+        @media (max-width: 600px) {
+            .toolbar { flex-direction: column; }
+        }
+
+        button.btn {
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 14px 24px;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             border-radius: 8px;
             cursor: pointer;
             transition: background 0.2s;
+            width: 100%;
         }
-        button:hover { background-color: var(--primary-hover); }
+        button.btn:hover:not(:disabled) {
+            background-color: var(--primary-hover);
+        }
+        button.btn:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
 
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .back-link:hover { color: var(--primary); }
+
+        /* Rich SEO Content & Technical Guide */
         .editorial-section {
             max-width: 900px;
             width: 100%;
-            margin-top: 30px;
+            margin-top: 35px;
             background: white;
             padding: 40px;
             border-radius: var(--radius);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            box-sizing: border-box;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            border: 1px solid #e2e8f0;
         }
-        .editorial-section h2 { font-size: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: var(--primary); }
-        .editorial-section p { color: var(--secondary); font-size: 14px; }
+
+        .editorial-section h2 {
+            font-size: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+            margin-top: 24px;
+        }
+        .editorial-section h2:first-of-type { margin-top: 0; }
+        .editorial-section h3 { font-size: 16px; color: var(--dark); margin-top: 20px; margin-bottom: 6px; }
+        .editorial-section p { color: #475569; font-size: 14.5px; line-height: 1.7; }
+        .editorial-section ul { color: #475569; font-size: 14.5px; line-height: 1.7; padding-left: 20px; }
+        .editorial-section code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: var(--dark); }
 
         footer {
             max-width: 900px;
@@ -108,104 +243,194 @@
             font-size: 13px;
             color: var(--secondary);
             padding-top: 30px;
-            margin-top: 30px;
+            margin-top: 40px;
             border-top: 1px solid #e2e8f0;
             display: flex;
             justify-content: center;
             gap: 20px;
         }
-        footer a { color: var(--primary); text-decoration: none; }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>📊 Excel to PDF Converter</h1>
-    <p class="subtitle">Convert spreadsheet workbooks (.xlsx, .xls) instantly into formatted PDF table documents within your browser.</p>
+    <header>
+        <div class="privacy-badge">🔒 100% In-Browser Execution • Zero Server Latency</div>
+        <h1>Excel to PDF Converter</h1>
+        <p>Transform Microsoft Excel workbooks (.xlsx, .xls) and CSV sheets into publication-ready, formatted PDF tabular documents directly in your browser.</p>
+    </header>
 
     <div class="file-drop" onclick="document.getElementById('excelInput').click()">
-        <p>📂 Click or Drop Spreadsheet File Here</p>
+        <div style="font-size: 34px; margin-bottom: 8px;">📊</div>
+        <p>Click or Drag &amp; Drop Spreadsheet File Here</p>
+        <span>Supports .xlsx, .xls, and .csv formats up to multi-megabyte ledgers</span>
         <input type="file" id="excelInput" accept=".xlsx, .xls, .csv" style="display:none" onchange="processExcel(this)">
     </div>
 
+    <div class="controls-row">
+        <div class="sheet-selector-group">
+            <label for="sheetSelect">Workbook Sheet:</label>
+            <select id="sheetSelect" disabled onchange="switchSheet(this.value)">
+                <option value="">No spreadsheet loaded</option>
+            </select>
+        </div>
+        <div id="fileMeta" style="font-size: 13px; color: var(--secondary); font-weight: 600;"></div>
+    </div>
+
     <div id="previewContainer" class="table-preview">
-        <p style="text-align: center; color: var(--secondary); margin: 20px 0;">No spreadsheet uploaded yet.</p>
+        <p style="text-align: center; color: var(--secondary); margin: 40px 0;">Upload a spreadsheet workbook to preview its tabular layout here.</p>
     </div>
 
     <div class="toolbar">
-        <button id="convertBtn" onclick="exportToPDF()" disabled style="opacity: 0.5; cursor: not-allowed;">📥 Convert &amp; Download PDF</button>
+        <button id="convertBtn" class="btn" onclick="exportToPDF()" disabled>📥 Convert &amp; Download PDF</button>
     </div>
+
+    <a href="index.html" class="back-link">← Return to Dashboard</a>
 </div>
 
+<!-- SEO Rich Content & Technical Guide Section -->
 <div class="editorial-section">
-    <h2>Client-Side Spreadsheet Formatting</h2>
-    <p>Spreadsheet data conversion is executed entirely client-side using JavaScript libraries. Your sensitive business accounting files, ledgers, and metrics remain strictly within your local machine environment.</p>
+    <h2>How In-Browser Spreadsheet to PDF Conversion Works</h2>
+    <p>Financial ledgers, corporate budgets, invoice sheets, and inventory manifests are overwhelmingly stored as Microsoft Excel (<code>.xlsx</code> / <code>.xls</code>) files. However, sharing native workbooks with external stakeholders risks inadvertent formula alterations, font rendering mismatches, and compatibility errors across mobile platforms. The <strong>ZapTextCleaner Excel to PDF Converter</strong> compiles raw workbook cells into an immutable, portable PDF vector document directly using local browser resources.</p>
+
+    <h3>Why Client-Side Parsing Beats Cloud-Based Document Converters</h3>
+    <p>Most commercial file-conversion platforms require you to upload your sensitive accounting spreadsheets to third-party servers. This practice presents critical compliance risks under corporate confidentiality standards, HIPAA, and GDPR regulations. Our utility processes your documents within isolated browser virtual memory:</p>
+    <ul>
+        <li><strong>Zero Data Telemetry:</strong> Financial rows, employee salaries, and customer records never cross a network connection.</li>
+        <li><strong>Automated Layout Adaptation:</strong> Wide spreadsheets with more than six columns automatically toggle the generated PDF from Portrait to Landscape orientation, preventing awkward column clipping.</li>
+        <li><strong>Multi-Sheet Navigation:</strong> Interrogate and switch between individual worksheets within complex multi-tab workbooks before initiating compilation.</li>
+        <li><strong>Vector Grid Rendering:</strong> High-contrast header formatting and sharp vector gridlines ensure crisp reproduction whether viewed on screen or printed on paper.</li>
+    </ul>
+
+    <h3>Best Practices for Clean Spreadsheet Exports</h3>
+    <p>To produce the cleanest PDF table layout:</p>
+    <ul>
+        <li><strong>Header Row Standardization:</strong> Ensure the top row contains clear column titles (e.g., Date, Description, Amount) to facilitate automatic header pinning across multi-page tables.</li>
+        <li><strong>Trim Excess Padding:</strong> Delete unused, empty trailing rows and columns in Excel prior to export to keep the PDF pagination compact.</li>
+        <li><strong>Wide vs. Narrow Tables:</strong> Worksheets exceeding 10 columns benefit from compact numerical data formatting to minimize multi-page horizontal splitting.</li>
+    </ul>
 </div>
 
 <footer>
-    <span>&copy; 2026 ZapFormat. All rights reserved.</span>
+    <span>&copy; 2026 ZapTextCleaner. All rights reserved.</span>
     <a href="privacy.html">Privacy Policy</a>
-    <a href="formatter.html">Hub Dashboard</a>
+    <a href="index.html">Hub Dashboard</a>
 </footer>
 
 <script>
-    let activeWorkbookData = null;
+    let currentWorkbook = null;
     let loadedFileName = "spreadsheet";
+    let activeSheetData = null;
 
     function processExcel(input) {
         const file = input.files[0];
         if (!file) return;
 
         loadedFileName = file.name.replace(/\.[^/.]+$/, "");
+        document.getElementById('fileMeta').innerText = `${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+        
         const reader = new FileReader();
-
         reader.onload = function(e) {
             try {
                 const data = new Uint8Array(e.target.result);
-                const workbook = XLSX.read(data, {type: 'array'});
-                const firstSheetName = workbook.SheetNames[0];
-                const worksheet = workbook.Sheets[firstSheetName];
-                
-                activeWorkbookData = worksheet;
-                const htmlTable = XLSX.utils.sheet_to_html(worksheet, {header: ""});
-                document.getElementById('previewContainer').innerHTML = htmlTable;
+                currentWorkbook = XLSX.read(data, { type: 'array' });
+
+                const sheetSelect = document.getElementById('sheetSelect');
+                sheetSelect.innerHTML = '';
+                currentWorkbook.SheetNames.forEach(name => {
+                    const opt = document.createElement('option');
+                    opt.value = name;
+                    opt.innerText = name;
+                    sheetSelect.appendChild(opt);
+                });
+                sheetSelect.disabled = false;
+
+                switchSheet(currentWorkbook.SheetNames[0]);
 
                 const btn = document.getElementById('convertBtn');
-                btn.removeAttribute('disabled');
-                btn.style.opacity = "1";
-                btn.style.cursor = "pointer";
+                btn.disabled = false;
             } catch (err) {
-                alert("Error parsing spreadsheet file: " + err.message);
+                console.error(err);
+                alert("Error reading spreadsheet workbook: " + err.message);
             }
         };
         reader.readAsArrayBuffer(file);
     }
 
+    function switchSheet(sheetName) {
+        if (!currentWorkbook || !currentWorkbook.Sheets[sheetName]) return;
+        activeSheetData = currentWorkbook.Sheets[sheetName];
+
+        const htmlTable = XLSX.utils.sheet_to_html(activeSheetData, { header: "" });
+        document.getElementById('previewContainer').innerHTML = htmlTable;
+    }
+
     function exportToPDF() {
-        if (!activeWorkbookData) return alert("Please upload a spreadsheet file first.");
+        if (!activeSheetData) {
+            alert("Please select and load a spreadsheet sheet first.");
+            return;
+        }
 
-        const jsonRows = XLSX.utils.sheet_to_json(activeWorkbookData, {header: 1});
-        if (jsonRows.length === 0) return alert("Spreadsheet appears empty.");
+        const jsonRows = XLSX.utils.sheet_to_json(activeSheetData, { header: 1 });
+        if (jsonRows.length === 0) {
+            alert("Selected sheet is empty.");
+            return;
+        }
 
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF('p', 'pt', 'a4');
+        const convertBtn = document.getElementById('convertBtn');
+        convertBtn.innerText = "Compiling PDF...";
+        convertBtn.disabled = true;
 
-        const headers = jsonRows[0].map(h => String(h || ''));
-        const body = jsonRows.slice(1).map(row => row.map(cell => String(cell || '')));
+        try {
+            const headers = (jsonRows[0] || []).map(h => String(h ?? ''));
+            const body = jsonRows.slice(1).map(row => {
+                return headers.map((_, colIdx) => String(row[colIdx] ?? ''));
+            });
 
-        doc.setFontSize(16);
-        doc.text(loadedFileName, 40, 40);
+            // Automatically switch orientation based on column density
+            const isLandscape = headers.length > 6;
+            const orientation = isLandscape ? 'landscape' : 'portrait';
 
-        doc.autoTable({
-            head: [headers],
-            body: body,
-            startY: 60,
-            theme: 'grid',
-            styles: { fontSize: 9, font: 'helvetica' },
-            headStyles: { fillColor: [5, 150, 105] }
-        });
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF(orientation, 'pt', 'a4');
 
-        doc.save(`${loadedFileName}_converted.pdf`);
+            const title = `${loadedFileName} - ${document.getElementById('sheetSelect').value}`;
+            doc.setFontSize(14);
+            doc.setTextColor(15, 23, 42);
+            doc.text(title, 40, 36);
+
+            doc.autoTable({
+                head: [headers],
+                body: body,
+                startY: 50,
+                theme: 'grid',
+                styles: {
+                    fontSize: headers.length > 8 ? 7.5 : 8.5,
+                    font: 'helvetica',
+                    cellPadding: 4,
+                    overflow: 'linebreak'
+                },
+                headStyles: {
+                    fillColor: [5, 150, 105],
+                    textColor: [255, 255, 255],
+                    fontStyle: 'bold'
+                },
+                alternateRowStyles: {
+                    fillColor: [248, 250, 252]
+                },
+                margin: { top: 50, bottom: 40, left: 35, right: 35 }
+            });
+
+            doc.save(`${loadedFileName}_report.pdf`);
+        } catch (err) {
+            console.error(err);
+            alert("Encountered an issue compiling PDF table: " + err.message);
+        }
+
+        convertBtn.innerText = "📥 Convert & Download PDF";
+        convertBtn.disabled = false;
     }
 </script>
 
