@@ -8,229 +8,399 @@
       gtag('js', new Date());
       gtag('config', 'G-7TP5H35738');
     </script>
-
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fast CSV to JSON Converter Online - ZapFormat</title>
-    <meta name="description" content="Convert your comma-separated values into web-ready JSON structure instantly. 100% secure client-side execution.">
+    <title>CSV to JSON Converter - Client-Side Tabular Data Parser | ZapTextCleaner</title>
+    <meta name="description" content="Convert CSV and TSV spreadsheets to clean JSON objects and arrays directly in your browser. 100% private, zero-server data processing.">
+    <link rel="canonical" href="https://zaptextcleaner.com/csv-to-json.html">
 
     <style>
         :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --bg: #f8fafc;
-            --card: #ffffff;
-            --text: #1e293b;
+            --primary: #1e3a8a;
+            --primary-hover: #172554;
+            --dark: #0f172a;
+            --secondary: #64748b;
             --border: #cbd5e1;
             --success: #10b981;
+            --bg-light: #f8fafc;
             --radius: 12px;
         }
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--dark);
             margin: 0;
             padding: 40px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             line-height: 1.6;
         }
+
         .container {
-            max-width: 950px;
-            width: 100%;
-            background: var(--card);
-            padding: 40px;
-            border-radius: var(--radius);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            box-sizing: border-box;
+            max-width: 900px;
+            margin: 0 auto;
         }
-        header { text-align: center; margin-bottom: 30px; }
-        h1 { margin-top: 0; color: var(--text); font-size: 26px; }
-        p { color: #64748b; font-size: 15px; }
-        
-        .converter-grid {
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin: 0 0 8px 0;
+        }
+
+        header p {
+            color: var(--secondary);
+            font-size: 1.05rem;
+            margin: 0 0 15px 0;
+        }
+
+        .privacy-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .panel {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius);
+            padding: 35px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+        }
+
+        .grid-inputs {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
+            margin-bottom: 20px;
         }
         @media (max-width: 768px) {
-            .converter-grid { grid-template-columns: 1fr; }
+            .grid-inputs { grid-template-columns: 1fr; }
         }
-        .panel {
-            display: flex;
-            flex-direction: column;
+
+        label {
+            display: block;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--dark);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
         }
-        label { font-weight: 600; margin-bottom: 8px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text); }
+
         textarea {
             width: 100%;
-            height: 300px;
+            height: 280px;
             padding: 14px;
             border: 1px solid var(--border);
             border-radius: 8px;
-            font-family: Courier, monospace;
+            font-family: 'Consolas', 'Courier New', monospace;
             font-size: 13px;
+            background: #ffffff;
             resize: vertical;
-            box-sizing: border-box;
-            background-color: #fafafa;
-            transition: border-color 0.2s;
         }
-        textarea:focus { outline: none; border-color: var(--primary); background-color: #fff; box-shadow: 0 0 0 3px rgba(79,70,229,0.1); }
-        
-        .actions { margin-top: 15px; display: flex; gap: 10px; }
-        button {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 18px;
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30,58,138,0.1);
+        }
+
+        .options-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            background: var(--bg-light);
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-size: 14px;
             font-weight: 600;
-            border-radius: 8px;
+            color: #334155;
             cursor: pointer;
-            transition: background 0.2s;
-            flex: 1;
         }
-        button:hover { background-color: var(--primary-hover); }
-        button.secondary { background-color: #e2e8f0; color: var(--text); }
-        button.secondary:hover { background-color: #cbd5e1; }
-        
-        .error-msg { color: #dc2626; font-weight: 500; margin-top: 10px; display: none; font-size: 13px; }
 
-        .editorial-section {
-            max-width: 950px;
-            width: 100%;
-            margin-top: 30px;
-            background: var(--card);
-            padding: 40px;
-            border-radius: var(--radius);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            box-sizing: border-box;
+        .btn-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 12px;
         }
-        .editorial-section h2 { font-size: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: var(--primary); }
-        .editorial-section p { color: #64748b; font-size: 14px; }
+        @media (max-width: 600px) {
+            .btn-row { grid-template-columns: 1fr; }
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 15px;
+            text-align: center;
+            transition: background 0.15s;
+        }
+        .btn:hover:not(:disabled) { background: var(--primary-hover); }
+        .btn-copy { background: var(--success); }
+        .btn-copy:hover:not(:disabled) { background: #059669; }
+        .btn-download { background: #d97706; }
+        .btn-download:hover:not(:disabled) { background: #b45309; }
+        .btn:disabled { background: #94a3b8; cursor: not-allowed; }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .back-link:hover { color: var(--primary); }
+
+        /* Rich Content & Technical Documentation */
+        .editorial-section {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius);
+            padding: 35px;
+            margin-top: 35px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+        }
+
+        .editorial-section h2 {
+            font-size: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+            margin-top: 24px;
+        }
+        .editorial-section h2:first-of-type { margin-top: 0; }
+        .editorial-section h3 { font-size: 16px; color: var(--dark); margin-top: 20px; margin-bottom: 6px; }
+        .editorial-section p { color: #475569; font-size: 14.5px; line-height: 1.7; }
+        .editorial-section ul { color: #475569; font-size: 14.5px; line-height: 1.7; padding-left: 20px; }
+        .editorial-section code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: var(--dark); }
 
         footer {
-            max-width: 950px;
-            width: 100%;
             text-align: center;
             font-size: 13px;
-            color: #64748b;
+            color: var(--secondary);
             padding-top: 30px;
-            margin-top: 30px;
+            margin-top: 40px;
             border-top: 1px solid #e2e8f0;
             display: flex;
             justify-content: center;
             gap: 20px;
         }
-        footer a { color: var(--primary); text-decoration: none; }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1>⚡ Instant CSV to JSON Converter</h1>
-        <p>Convert comma-separated table values into web-ready JSON objects instantly. 100% secure client-side execution.</p>
+        <div class="privacy-badge">🔒 100% In-Browser Execution • Zero Server Latency</div>
+        <h1>CSV to JSON Converter</h1>
+        <p>Convert raw comma-separated values, Excel dumps, or TSV data directly into clean JSON notation for API testing and database seeding.</p>
     </header>
 
-    <div class="converter-grid">
-        <div class="panel">
-            <label for="csvInput">Paste CSV Data Here</label>
-            <textarea id="csvInput" placeholder="name,age,city&#10;John,28,New York&#10;Jane,32,London"></textarea>
-            <div class="actions">
-                <button onclick="convertCSV()">Convert to JSON →</button>
-                <button class="secondary" onclick="clearAll()">Clear</button>
+    <div class="panel">
+        <div class="grid-inputs">
+            <div>
+                <label>Input CSV / Tabular Data</label>
+                <textarea id="csvInput" placeholder="id,name,role,department&#10;101,&quot;Sarah Connor&quot;,Engineer,DevOps&#10;102,&quot;John Smith&quot;,Manager,Operations"></textarea>
             </div>
-            <div id="error" class="error-msg"></div>
+            <div>
+                <label>Output JSON Notation</label>
+                <textarea id="jsonOutput" readonly placeholder="Parsed JSON objects will appear here in real time..."></textarea>
+            </div>
         </div>
 
-        <div class="panel">
-            <label for="jsonOutput">JSON Result Matrix</label>
-            <textarea id="jsonOutput" readonly placeholder="[&#10;  {&#10;    &quot;name&quot;: &quot;John&quot;,&#10;    &quot;age&quot;: 28&#10;  }&#10;]"></textarea>
-            <div class="actions">
-                <button onclick="copyToClipboard()">📋 Copy JSON</button>
-            </div>
+        <div class="options-row">
+            <label class="option-item">
+                <input type="checkbox" id="optHeader" checked> First row is header
+            </label>
+            <label class="option-item">
+                <input type="checkbox" id="optTypes" checked> Auto-parse numbers &amp; booleans
+            </label>
+            <label class="option-item">
+                <input type="checkbox" id="optFormat" checked> Beautify / Pretty-print JSON
+            </label>
         </div>
+
+        <div class="btn-row">
+            <button class="btn" onclick="convertCsvToJson()">Convert CSV to JSON</button>
+            <button id="copyBtn" class="btn btn-copy" disabled onclick="copyJson()">Copy JSON</button>
+            <button id="downloadBtn" class="btn btn-download" disabled onclick="downloadJson()">Download .json</button>
+        </div>
+
+        <a href="index.html" class="back-link">← Return to Dashboard</a>
     </div>
-</div>
 
-<div class="editorial-section">
-    <h2>Client-Side Data Transformation</h2>
-    <p>Data parsing pipelines are executed locally inside your browser virtual memory. No database logging or server uploads take place, ensuring strict data compliance.</p>
-</div>
+    <!-- SEO Rich Text & Technical Guide Section -->
+    <div class="editorial-section">
+        <h2>How In-Browser CSV to JSON Parsing Works</h2>
+        <p>Comma-Separated Values (CSV) are the universal standard for exporting data from relational databases, spreadsheets (Excel, Google Sheets), and CRM systems. However, modern web APIs, NoSQL datastores (MongoDB, Firebase), and JavaScript frontends require structured JavaScript Object Notation (JSON). The <strong>ZapTextCleaner CSV to JSON Converter</strong> bridges this gap instantly using client-side lexical tokens.</p>
 
-<footer>
-    <span>&copy; 2026 ZapFormat. All rights reserved.</span>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="formatter.html">Hub Dashboard</a>
-</footer>
+        <h3>Why Client-Side Parsing Matters for Proprietary Spreadsheets</h3>
+        <p>Customer contact lists, financial revenue sheets, and sales transaction logs are frequently exported as CSV files. Uploading these documents to remote cloud formatting websites exposes company payrolls, emails, and client details to external logging servers. Our converter runs exclusively within your browser's local sandbox:</p>
+        <ul>
+            <li><strong>Zero Remote Storage:</strong> Your CSV strings never touch a web server or database.</li>
+            <li><strong>RFC-4180 Compliant Parsing:</strong> Correctly manages complex escape sequences, including multi-line cells wrapped in quotes and commas inside text strings.</li>
+            <li><strong>Automatic Type Inference:</strong> Intelligently distinguishes numeric integers, floating points, and boolean states (<code>true</code> / <code>false</code>) from raw strings so your data doesn't require manual cleaning.</li>
+            <li><strong>Instant Ephemerality:</strong> Closing the browser tab destroys all memory buffers immediately.</li>
+        </ul>
+
+        <h3>Common CSV Parsing Issues &amp; Best Practices</h3>
+        <p>To ensure flawless conversions:</p>
+        <ul>
+            <li><strong>Delimiter Detection:</strong> If copying from tab-separated sources (TSV), the engine detects tabs automatically and maps them to JSON keys.</li>
+            <li><strong>Quoted Columns:</strong> Values containing commas (e.g., <code>"London, England"</code>) must be encapsulated in double quotation marks to prevent unwanted column splitting.</li>
+            <li><strong>Header Naming:</strong> Ensure your first row contains unique names without special characters to guarantee valid JSON object keys.</li>
+        </ul>
+    </div>
+
+    <footer>
+        <span>&copy; 2026 ZapTextCleaner. All rights reserved.</span>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="index.html">Hub Dashboard</a>
+    </footer>
+</div>
 
 <script>
-    function convertCSV() {
-        const csvText = document.getElementById('csvInput').value.trim();
-        const errorDiv = document.getElementById('error');
-        errorDiv.style.display = 'none';
+    function parseCSV(text) {
+        let p = '', c = '', r = [];
+        let q = false;
+        let row = [''];
+        for (let i = 0; i < text.length; i++) {
+            c = text[i];
+            let next = text[i+1];
+            if (c === '"') {
+                if (q && next === '"') {
+                    row[row.length - 1] += '"';
+                    i++;
+                } else {
+                    q = !q;
+                }
+            } else if ((c === ',' || c === '\t') && !q) {
+                row.push('');
+            } else if ((c === '\r' || c === '\n') && !q) {
+                if (c === '\r' && next === '\n') { i++; }
+                r.push(row);
+                row = [''];
+            } else {
+                row[row.length - 1] += c;
+            }
+        }
+        if (row.length > 1 || row[0] !== '') {
+            r.push(row);
+        }
+        return r;
+    }
 
-        if (!csvText) {
-            showError('Please paste some CSV data first.');
+    function autoType(val) {
+        if (!document.getElementById('optTypes').checked) return val;
+        let trimmed = val.trim();
+        if (trimmed === '') return '';
+        if (trimmed.toLowerCase() === 'true') return true;
+        if (trimmed.toLowerCase() === 'false') return false;
+        if (trimmed.toLowerCase() === 'null') return null;
+        if (!isNaN(trimmed) && trimmed !== '') return Number(trimmed);
+        return val;
+    }
+
+    function convertCsvToJson() {
+        const raw = document.getElementById('csvInput').value;
+        const out = document.getElementById('jsonOutput');
+        const copyBtn = document.getElementById('copyBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        if (!raw.trim()) {
+            alert('Please paste some CSV data first.');
             return;
         }
 
         try {
-            const lines = csvText.split('\n').map(line => line.trim()).filter(line => line.length > 0);
-            if (lines.length < 1) {
-                showError('No valid data found.');
+            const rows = parseCSV(raw);
+            if (rows.length === 0) {
+                out.value = '[]';
                 return;
             }
 
-            const headers = lines[0].split(',').map(header => header.trim().replace(/^["']|["']$/g, ''));
-            const result = [];
+            const hasHeader = document.getElementById('optHeader').checked;
+            let result;
 
-            for (let i = 1; i < lines.length; i++) {
-                const currentLine = lines[i].split(',').map(cell => cell.trim().replace(/^["']|["']$/g, ''));
-                if (currentLine.length === 1 && currentLine[0] === "") continue;
-
-                const obj = {};
-                for (let j = 0; j < headers.length; j++) {
-                    let value = currentLine[j] || "";
-                    if (value !== "" && !isNaN(value)) {
-                        value = Number(value);
-                    }
-                    obj[headers[j]] = value;
+            if (hasHeader) {
+                const headers = rows[0].map(h => h.trim());
+                result = [];
+                for (let i = 1; i < rows.length; i++) {
+                    let obj = {};
+                    let row = rows[i];
+                    headers.forEach((header, index) => {
+                        obj[header] = row[index] !== undefined ? autoType(row[index]) : null;
+                    });
+                    result.push(obj);
                 }
-                result.push(obj);
+            } else {
+                result = rows.map(r => r.map(autoType));
             }
 
-            document.getElementById('jsonOutput').value = JSON.stringify(result, null, 2);
+            const pretty = document.getElementById('optFormat').checked;
+            out.value = JSON.stringify(result, null, pretty ? 2 : 0);
 
-        } catch (err) {
-            showError('Error parsing CSV. Please check your column formatting alignment.');
+            copyBtn.disabled = false;
+            downloadBtn.disabled = false;
+        } catch (e) {
+            console.error(e);
+            alert('Error parsing CSV. Please check that quotation marks and row structures are balanced.');
         }
     }
 
-    async function copyToClipboard() {
-        const jsonOutput = document.getElementById('jsonOutput');
-        if (!jsonOutput.value) return;
-        try {
-            await navigator.clipboard.writeText(jsonOutput.value);
-            alert('JSON copied to secure clipboard!');
-        } catch(e) {
-            alert('Copy failed.');
-        }
+    function copyJson() {
+        const text = document.getElementById('jsonOutput').value;
+        navigator.clipboard.writeText(text).then(() => {
+            const btn = document.getElementById('copyBtn');
+            btn.innerText = '✓ Copied';
+            setTimeout(() => { btn.innerText = 'Copy JSON'; }, 2000);
+        });
     }
 
-    function clearAll() {
-        document.getElementById('csvInput').value = '';
-        document.getElementById('jsonOutput').value = '';
-        document.getElementById('error').style.display = 'none';
-    }
-
-    function showError(message) {
-        const errorDiv = document.getElementById('error');
-        errorDiv.textContent = message;
-        errorDiv.style.display = 'block';
+    function downloadJson() {
+        const text = document.getElementById('jsonOutput').value;
+        const blob = new Blob([text], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'converted-data.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     }
 </script>
 
