@@ -21,6 +21,44 @@
         <priority>0.30</priority>
     </url>
 
+    <!-- Developer & Data Utilities -->
+    <url>
+        <loc>https://zaptextcleaner.com/json-formatter.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/base64-converter.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/url-slug-generator.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/case-converter.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/html-entity-converter.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://zaptextcleaner.com/jwt-debugger.html</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+
     <!-- Media & Conversion Utilities -->
     <url>
         <loc>https://zaptextcleaner.com/image-converter.html</loc>
