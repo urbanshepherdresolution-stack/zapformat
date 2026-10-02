@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Data Privacy & Document Anonymizer - ZapFormat</title>
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+    <title>Enterprise Data Privacy & Document Anonymizer - ZapTextCleaner</title>
+    <meta name="description" content="Scrub PII, confidential business entities, financial logs, and names from text and PDF documents directly in your browser. 100% client-side data privacy.">
+    <link rel="canonical" href="https://zaptextcleaner.com/anonymizer.html">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
     
@@ -20,6 +29,8 @@
             --success: #10b981;
             --radius: 12px;
         }
+
+        * { box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -55,6 +66,7 @@
             padding: 40px;
             border-radius: var(--radius);
             box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
         }
 
         label.section-heading { font-weight: 700; font-size: 15px; color: var(--primary); display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
@@ -94,7 +106,6 @@
             border: 1px solid var(--border-color);
             border-radius: 8px;
             font-size: 14px;
-            box-sizing: border-box;
             background-color: #fff;
             transition: border-color 0.2s;
             resize: vertical;
@@ -129,7 +140,6 @@
             padding: 12px;
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            box-sizing: border-box;
             font-size: 14px;
         }
 
@@ -206,6 +216,7 @@
             min-height: 100px;
             white-space: pre-wrap;
             color: #334155;
+            word-break: break-word;
         }
 
         .legal-box {
@@ -230,21 +241,31 @@
             grid-template-columns: 1fr 1fr;
             gap: 15px;
         }
+        @media (max-width: 600px) {
+            .action-row { grid-template-columns: 1fr; }
+        }
         .action-row button { width: 100%; }
-        button.copy-btn { background-color: var(--success); opacity: 0.5; cursor: not-allowed; }
-        button.download-btn { background-color: #f59e0b; opacity: 0.5; cursor: not-allowed; }
+        button.copy-btn { background-color: var(--success); }
+        button.download-btn { background-color: #f59e0b; }
+        button:disabled { opacity: 0.5; cursor: not-allowed !important; }
         
         .status-msg { font-size: 13px; font-weight: bold; margin-top: 5px; color: var(--primary); display: none; }
 
+        /* Rich Content & Editorial Guide for Search Performance */
         .editorial-section {
             background: white;
             padding: 40px;
             border-radius: var(--radius);
             box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
             margin-top: 30px;
+            border: 1px solid #e2e8f0;
         }
-        .editorial-section h2 { font-size: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: var(--primary); }
-        .editorial-section p { color: var(--secondary); font-size: 14px; }
+        .editorial-section h2 { font-size: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: var(--primary); margin-top: 24px; }
+        .editorial-section h2:first-of-type { margin-top: 0; }
+        .editorial-section h3 { font-size: 16px; color: #0f172a; margin-top: 18px; margin-bottom: 6px; }
+        .editorial-section p { color: #475569; font-size: 14.5px; line-height: 1.7; }
+        .editorial-section ul { color: #475569; font-size: 14.5px; line-height: 1.7; padding-left: 20px; }
+        .editorial-section code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: #0f172a; }
 
         footer {
             text-align: center;
@@ -257,7 +278,8 @@
             justify-content: center;
             gap: 20px;
         }
-        footer a { color: var(--primary); text-decoration: none; }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -284,16 +306,16 @@
         <div class="control-panel">
             <label class="section-heading">2. Scan Parameters (Default Classes)</label>
             <div class="options-grid">
-                <label class="checkbox-label"><input type="checkbox" id="cNames" checked> 👤 Names &amp; Titles</label>
-                <label class="checkbox-label"><input type="checkbox" id="cCompanies" checked> 🏢 Companies &amp; Orgs</label>
                 <label class="checkbox-label"><input type="checkbox" id="cEmails" checked> 📧 Email Addresses</label>
                 <label class="checkbox-label"><input type="checkbox" id="cPhones" checked> 📞 Phone Numbers</label>
                 <label class="checkbox-label"><input type="checkbox" id="cMoney" checked> 💰 Financial Figures</label>
-                <label class="checkbox-label"><input type="checkbox" id="cAccounts" checked> 💳 Bank Accounts</label>
+                <label class="checkbox-label"><input type="checkbox" id="cAccounts" checked> 💳 Credit Cards / IBANs</label>
+                <label class="checkbox-label"><input type="checkbox" id="cIp" checked> 🌐 IP &amp; MAC Addresses</label>
+                <label class="checkbox-label"><input type="checkbox" id="cGovId" checked> 🪪 SSN / Gov IDs</label>
             </div>
             
             <label class="section-heading" style="margin-top: 15px;">3. Custom Extraction Terms</label>
-            <input type="text" id="customInput" class="custom-input" placeholder="Enter target secret words separated by commas (e.g. Project Falcon, CodeRed)">
+            <input type="text" id="customInput" class="custom-input" placeholder="Enter target secret words separated by commas (e.g. Project Falcon, Acquisitor Corp, Smith)">
         </div>
 
         <button class="main-btn" onclick="scanDocument()">Execute Data Scrub &amp; Compile Categories</button>
@@ -303,7 +325,7 @@
             <div class="bubble-grid-layout">
                 <div class="column-box">
                     <div class="column-header">
-                        <span>Default Flags</span>
+                        <span>Default PII Flags</span>
                         <input type="checkbox" id="masterDefault" checked onchange="toggleMasterGroup('DEFAULT', this.checked)">
                     </div>
                     <div id="colDefault" class="column-bubbles"></div>
@@ -343,19 +365,41 @@
         </div>
     </div>
 
+    <!-- SEO Rich Text & Technical Guide Section -->
     <div class="editorial-section">
-        <h2>About Enterprise Data Anonymization</h2>
-        <p>When preparing sensitive contracts, financial records, or legal documents for external AI analysis or publishing, unverified metadata and PII pose severe privacy risks. This tool runs entirely within your browser's temporary memory, guaranteeing that confidential files never touch remote cloud servers.</p>
+        <h2>What is Document Anonymization &amp; Data De-Identification?</h2>
+        <p>Document de-identification is the programmatic removal or tokenization of <strong>Personally Identifiable Information (PII)</strong> and commercially sensitive figures from unstructured text, contracts, legal discovery files, and financial statements. When preparing data sets for third-party auditing, public filings, or external Large Language Models (LLMs), leaving raw identifiers in place creates immediate regulatory, HIPAA, and GDPR liabilities.</p>
+
+        <h3>Why Client-Side Execution is Essential for Sensitive Data</h3>
+        <p>Most online file converters and text-cleaning platforms transmit documents to remote cloud servers where payloads are temporarily cached, indexed, or monitored by telemetry logging pipelines. The <strong>ZapTextCleaner Anonymizer</strong> operates entirely within the isolated virtual memory (RAM) of your local web browser. No text buffers or document bytes ever travel across a network connection, ensuring compliance with strict zero-trust enterprise security protocols.</p>
+
+        <h3>Detected Patterns &amp; Tokenization Classes</h3>
+        <ul>
+            <li><strong>Email Addresses &amp; Direct Identifiers:</strong> Regex lexical scanners identify RFC-compliant emails and replace them with semantic tokens like <code>[EMAIL_1]</code>.</li>
+            <li><strong>Financial Values &amp; Transaction Ledgers:</strong> Captures international currency strings (e.g. <code>$1,250,000</code>, <code>€45,000</code>) to hide confidential pricing or budget projections.</li>
+            <li><strong>Credit Card &amp; IBAN Formats:</strong> Flags 13-to-19 digit card clusters and bank account hashes using standardized pattern matching.</li>
+            <li><strong>Government Identifiers &amp; Telephony:</strong> Flags Social Security numbers, national insurance strings, and formatted mobile or landline arrays.</li>
+            <li><strong>Targeted Proprietary Term Clusters:</strong> Custom regex mappings match internal code names, individual surnames, and legal entity names across your entire text corpus.</li>
+        </ul>
+
+        <h3>Step-by-Step Document Sanitization Workflow</h3>
+        <p>1. Paste raw text or drop a vector PDF file into the client sandbox.<br>
+           2. Select which standard PII classes to target, or specify confidential project names.<br>
+           3. Click <strong>Execute Data Scrub</strong> to inspect the three-column cluster review panel.<br>
+           4. Toggle individual item bubbles to retain or exclude false positives.<br>
+           5. Sign off on the legal review checkbox to export the clean plain-text file.</p>
     </div>
 
     <footer>
-        <span>&copy; 2026 ZapFormat. All rights reserved.</span>
+        <span>&copy; 2026 ZapTextCleaner. All rights reserved.</span>
         <a href="privacy.html">Privacy Policy</a>
-        <a href="formatter.html">Hub Dashboard</a>
+        <a href="index.html">Hub Dashboard</a>
     </footer>
 
     <script>
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+        if (window.pdfjsLib) {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+        }
 
         let originalText = "";
         let masterSecretsList = [];
@@ -366,15 +410,15 @@
         zone.addEventListener('drop', (e) => {
             e.preventDefault();
             zone.style.borderColor = '#cbd5e1';
-            if(e.dataTransfer.files.length > 0) processPDFFile(e.dataTransfer.files[0]);
+            if (e.dataTransfer.files.length > 0) processPDFFile(e.dataTransfer.files[0]);
         });
 
         function handleFileSelect(e) {
-            if(e.target.files.length > 0) processPDFFile(e.target.files[0]);
+            if (e.target.files.length > 0) processPDFFile(e.target.files[0]);
         }
 
         function processPDFFile(file) {
-            if(file.type !== "application/pdf") {
+            if (file.type !== "application/pdf") {
                 alert("Invalid format: Please drop a native PDF file.");
                 return;
             }
@@ -401,32 +445,155 @@
                         scanDocument();
                     });
                 }).catch(err => {
-                    status.innerText = "Error parsing local data lines.";
+                    status.innerText = "Error parsing local PDF data.";
                     console.error(err);
                 });
             };
             reader.readAsArrayBuffer(file);
         }
 
+        function addSecret(word, placeholder, category) {
+            const cleanWord = word.trim();
+            if (!cleanWord) return;
+            const exists = masterSecretsList.find(s => s.word.toLowerCase() === cleanWord.toLowerCase());
+            if (!exists) {
+                masterSecretsList.push({
+                    id: 'sec_' + Math.random().toString(36).substr(2, 9),
+                    word: cleanWord,
+                    placeholder: placeholder,
+                    category: category,
+                    active: true
+                });
+            }
+        }
+
         function scanDocument() {
             originalText = document.getElementById('inputText').value;
-            if(!originalText.trim()) return;
+            if (!originalText.trim()) {
+                alert("Please paste text or upload a document to scan.");
+                return;
+            }
 
             masterSecretsList = [];
 
+            // Custom terms
             const customRaw = document.getElementById('customInput').value;
             if (customRaw.trim() !== "") {
                 customRaw.split(',').map(w => w.trim()).filter(w => w.length > 0).forEach(word => {
                     const safeWord = word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-                    (originalText.match(new RegExp(safeWord, 'gi')) || []).forEach(item => addSecret(item, '[CUSTOM]', 'CUSTOM'));
+                    (originalText.match(new RegExp(safeWord, 'gi')) || []).forEach(item => addSecret(item, '[CONFIDENTIAL]', 'CUSTOM'));
                 });
             }
 
+            // Emails
             if (document.getElementById('cEmails').checked) {
                 (originalText.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g) || []).forEach(item => addSecret(item, '[EMAIL]', 'DEFAULT'));
             }
+
+            // Phone numbers
             if (document.getElementById('cPhones').checked) {
-                (originalText.match(/\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/g) || []).forEach(item => addSecret(item, '[PHONE]', 'DEFAULT'));
+                (originalText.match(/(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/g) || []).forEach(item => addSecret(item, '[PHONE]', 'DEFAULT'));
             }
+
+            // Financial figures
             if (document.getElementById('cMoney').checked) {
-                (originalText.match(/\$[0-9,]+/g) || []).forEach(
+                (originalText.match(/[\$£€¥]\s?[0-9,]+(\.[0-9]{2})?/g) || []).forEach(item => addSecret(item, '[FINANCIAL]', 'DEFAULT'));
+            }
+
+            // Credit Cards / Account Hashes
+            if (document.getElementById('cAccounts').checked) {
+                (originalText.match(/\b(?:\d[ -]*?){13,16}\b/g) || []).forEach(item => addSecret(item, '[ACCOUNT_NUM]', 'DEFAULT'));
+            }
+
+            // IP Addresses
+            if (document.getElementById('cIp').checked) {
+                (originalText.match(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g) || []).forEach(item => addSecret(item, '[IP_ADDR]', 'RISK'));
+            }
+
+            // SSN / National IDs
+            if (document.getElementById('cGovId').checked) {
+                (originalText.match(/\b\d{3}-\d{2}-\d{4}\b/g) || []).forEach(item => addSecret(item, '[GOV_ID]', 'RISK'));
+            }
+
+            renderBubbleColumns();
+            updatePreview();
+        }
+
+        function renderBubbleColumns() {
+            const colDefault = document.getElementById('colDefault');
+            const colCustom = document.getElementById('colCustom');
+            const colRisks = document.getElementById('colRisks');
+
+            colDefault.innerHTML = '';
+            colCustom.innerHTML = '';
+            colRisks.innerHTML = '';
+
+            masterSecretsList.forEach(secret => {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble-item ' + (secret.active ? 'redacted' : 'revealed');
+                bubble.innerHTML = `
+                    <input type="checkbox" ${secret.active ? 'checked' : ''} onclick="event.stopPropagation(); toggleSecret('${secret.id}')">
+                    <span>${secret.word}</span>
+                `;
+                bubble.onclick = () => toggleSecret(secret.id);
+
+                if (secret.category === 'DEFAULT') colDefault.appendChild(bubble);
+                else if (secret.category === 'CUSTOM') colCustom.appendChild(bubble);
+                else if (secret.category === 'RISK') colRisks.appendChild(bubble);
+            });
+        }
+
+        function toggleSecret(id) {
+            const sec = masterSecretsList.find(s => s.id === id);
+            if (sec) {
+                sec.active = !sec.active;
+                renderBubbleColumns();
+                updatePreview();
+            }
+        }
+
+        function toggleMasterGroup(cat, isChecked) {
+            masterSecretsList.filter(s => s.category === cat).forEach(s => s.active = isChecked);
+            renderBubbleColumns();
+            updatePreview();
+        }
+
+        function updatePreview() {
+            let output = originalText;
+            masterSecretsList.filter(s => s.active).forEach(s => {
+                const safeWord = s.word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                output = output.replace(new RegExp(safeWord, 'gi'), s.placeholder);
+            });
+            document.getElementById('previewDisplay').innerText = output || "Redacted preview output workspace...";
+        }
+
+        function toggleActionButtons() {
+            const confirmed = document.getElementById('legalConfirm').checked;
+            document.getElementById('finalCopyBtn').disabled = !confirmed;
+            document.getElementById('finalDownloadBtn').disabled = !confirmed;
+        }
+
+        function copyCleanText() {
+            const text = document.getElementById('previewDisplay').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.getElementById('finalCopyBtn');
+                btn.innerText = "✓ Copied Clean Text";
+                setTimeout(() => { btn.innerText = "Copy Clean Text"; }, 2000);
+            });
+        }
+
+        function downloadCleanText() {
+            const text = document.getElementById('previewDisplay').innerText;
+            const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'anonymized-document.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
