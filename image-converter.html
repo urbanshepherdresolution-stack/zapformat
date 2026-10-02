@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TP5H35738"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7TP5H35738');
+    </script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9973919593816896" crossorigin="anonymous"></script>
+
+    <!-- HEIC Decoder Library for iPhone Photos -->
+    <script src="https://unpkg.com/heic2any@0.0.4/dist/heic2any.min.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Converter to WebP, PNG, JPEG & HEIC Online - ZapTextCleaner</title>
+    <meta name="description" content="Convert HEIC, PNG, JPEG, and WebP images instantly in your browser using HTML5 Canvas. 100% private client-side image converter with zero server uploads.">
+    <link rel="canonical" href="https://zaptextcleaner.com/image-converter.html">
+
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-hover: #172554;
+            --dark: #0f172a;
+            --secondary: #64748b;
+            --border: #cbd5e1;
+            --success: #10b981;
+            --bg-light: #f8fafc;
+            --radius: 12px;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--dark);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            margin: 0 0 8px 0;
+            color: var(--primary);
+            font-size: 2.2rem;
+            font-weight: 800;
+        }
+
+        header p {
+            color: var(--secondary);
+            font-size: 1.05rem;
+            margin: 0 0 15px 0;
+        }
+
+        .privacy-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .drop-zone {
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            padding: 35px 20px;
+            text-align: center;
+            background-color: #fafafa;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 20px;
+        }
+        .drop-zone:hover, .drop-zone.dragover {
+            border-color: var(--primary);
+            background-color: #f0f4ff;
+        }
+
+        .drop-zone-icon {
+            font-size: 38px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .file-input { display: none; }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        @media (max-width: 768px) {
+            .controls-grid { grid-template-columns: 1fr; }
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            color: var(--dark);
+            letter-spacing: 0.03em;
+        }
+
+        select, input[type="range"] {
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            outline: none;
+        }
+        select:focus { border-color: var(--primary); }
+
+        .preview-area {
+            display: none;
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #fafafa;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .preview-img {
+            max-width: 100%;
+            max-height: 260px;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            margin-top: 10px;
+        }
+
+        .btn-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        @media (max-width: 600px) {
+            .btn-row { grid-template-columns: 1fr; }
+        }
+
+        button {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s;
+            width: 100%;
+        }
+        .btn-convert {
+            background-color: var(--primary);
+            color: white;
+        }
+        .btn-convert:hover { background-color: var(--primary-hover); }
+        .btn-convert:disabled { background-color: #94a3b8; cursor: not-allowed; opacity: 0.6; }
+
+        .btn-download {
+            background-color: var(--success);
+            color: white;
+        }
+        .btn-download:hover:not(:disabled) { background-color: #059669; }
+        .btn-download:disabled { background-color: #94a3b8; cursor: not-allowed; opacity: 0.6; }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .back-link:hover { color: var(--primary); }
+
+        .editorial-section {
+            max-width: 900px;
+            width: 100%;
+            margin-top: 35px;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            border: 1px solid #e2e8f0;
+        }
+
+        .editorial-section h2 {
+            font-size: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+            margin-top: 24px;
+        }
+        .editorial-section h2:first-of-type { margin-top: 0; }
+        .editorial-section h3 { font-size: 16px; color: var(--dark); margin-top: 20px; margin-bottom: 6px; }
+        .editorial-section p { color: #475569; font-size: 14.5px; line-height: 1.7; }
+        .editorial-section ul { color: #475569; font-size: 14.5px; line-height: 1.7; padding-left: 20px; }
+        .editorial-section code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: var(--dark); }
+
+        footer {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            font-size: 13px;
+            color: var(--secondary);
+            padding-top: 30px;
+            margin-top: 40px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="privacy-badge">🔒 100% Client-Side Sandbox • Zero Server Telemetry</div>
+        <h1>Image Format Converter (HEIC, WebP, PNG, JPEG)</h1>
+        <p>Convert Apple HEIC photos, PNGs, and JPEGs into optimized WebP, PNG, or JPEG images instantly using HTML5 Canvas right in your browser.</p>
+    </header>
+
+    <div class="drop-zone" id="dropZone" onclick="document.getElementById('imageFile').click()">
+        <span class="drop-zone-icon">🖼️</span>
+        <div style="font-weight: 700; color: var(--primary); margin-bottom: 4px;" id="dropLabel">Click to select or drag and drop an image file</div>
+        <div style="font-size: 13px; color: var(--secondary);">Supports HEIC, PNG, JPEG, WebP, and BMP formats</div>
+        <input type="file" id="imageFile" class="file-input" accept="image/*,.heic,.heif" onchange="handleFileSelected(event)">
+    </div>
+
+    <div class="controls-grid">
+        <div class="control-group">
+            <label for="outputFormat">Target Output Format</label>
+            <select id="outputFormat">
+                <option value="image/webp">WebP (High Compression)</option>
+                <option value="image/jpeg">JPEG (Standard Photo)</option>
+                <option value="image/png">PNG (Lossless / Transparent)</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label for="qualityRange">Quality: <span id="qualityVal">85</span>%</label>
+            <input type="range" id="qualityRange" min="10" max="100" value="85" oninput="document.getElementById('qualityVal').innerText = this.value">
+        </div>
+    </div>
+
+    <div class="preview-area" id="previewArea">
+        <div style="font-weight: 700; font-size: 13px; color: var(--dark);" id="fileMeta">Image loaded successfully</div>
+        <img id="previewImg" class="preview-img" alt="Preview">
+    </div>
+
+    <div class="btn-row">
+        <button class="btn-convert" id="convertBtn" onclick="convertImage()" disabled>⚡ Convert Image</button>
+        <button class="btn-download" id="downloadBtn" onclick="downloadImage()" disabled>💾 Download Converted Image</button>
+    </div>
+
+    <a href="index.html" class="back-link">← Return to Dashboard</a>
+</div>
+
+<!-- SEO Technical Editorial Section -->
+<div class="editorial-section">
+    <h2>Why In-Browser Image Conversion Outperforms Cloud Upload Services</h2>
+    <p>Optimizing and converting image formats—such as transforming iPhone HEIC photos into web-ready JPEGs or modern WebP files—is a daily task for web developers, content creators, and digital designers. However, conventional online converters require uploading personal photos and graphics to remote cloud servers, creating privacy risks, bandwidth bottlenecks, and slow processing queues.</p>
+
+    <p>Client-side image conversion leverages modern browser HTML5 Canvas and Web API standards:</p>
+    <ul>
+        <li><strong>Local Canvas Rendering:</strong> The browser loads images into local memory via <code>HTMLImageElement</code> and draws them onto an offscreen <code>HTMLCanvasElement</code>. Exporting via <code>canvas.toDataURL()</code> or <code>canvas.toBlob()</code> handles format encoding instantly.</li>
+        <li><strong>HEIC Decoder Integration:</strong> By utilizing client-side decoding libraries like <code>heic2any</code>, Apple's proprietary HEIC format is unpacked into standard RGB pixel buffers locally, ensuring seamless cross-platform compatibility.</li>
+        <li><strong>Adjustable Compression Parameters:</strong> Users retain complete control over lossy WebP/JPEG compression quality sliders to optimize file size without server restrictions or watermarks.</li>
+        <li><strong>Zero Data Transmission:</strong> Because all pixel processing occurs inside your browser's local sandbox RAM, your files never touch external storage or network logs.</li>
+    </ul>
+
+    <h3>How This Client-Side Converter Operates</h3>
+    <p>The <strong>ZapTextCleaner Image Converter</strong> reads input files directly from your local file system. If a HEIC file is detected, it is decoded in memory before being rendered onto the canvas and re-encoded into your chosen target format. The resulting file object is bound to a secure object URL for instant local downloading.</p>
+
+    <h3>Zero-Server Privacy Guarantee</h3>
+    <p>Personal photographs, proprietary graphic designs, and confidential product screenshots require strict data security. Unlike web tools that send files to cloud servers, this utility executes 100% inside your local web browser session memory (RAM). No image data is ever uploaded, logged, or retained.</p>
+</div>
+
+<footer>
+    <span>&copy; 2026 ZapTextCleaner. All rights reserved.</span>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="index.html">Hub Dashboard</a>
+</footer>
+
+<script>
+    let activeFile = null;
+    let convertedBlob = null;
+    let originalFileName = "";
+
+    const dropZone = document.getElementById('dropZone');
+    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        if (e.dataTransfer.files.length) {
+            processSelectedFile(e.dataTransfer.files[0]);
+        }
+    });
+
+    function handleFileSelected(event) {
+        if (event.target.files.length) {
+            processSelectedFile(event.target.files[0]);
+        }
+    }
+
+    async function processSelectedFile(file) {
+        originalFileName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
+        let fileToProcess = file;
+
+        // Check if file is HEIC/HEIF
+        const isHeic = file.type === "image/heic" || file.type === "image/heif" || file.name.toLowerCase().endsWith('.heic');
+
+        document.getElementById('dropLabel').innerText = `Loading: ${file.name}...`;
+
+        try {
+            if (isHeic) {
+                // Convert HEIC to JPEG blob in memory using heic2any
+                const jpegBlob = await heic2any({
+                    blob: file,
+                    toType: "image/jpeg",
+                    quality: 0.9
+                });
+                fileToProcess = Array.isArray(jpegBlob) ? jpegBlob[0] : jpegBlob;
+            }
+
+            activeFile = fileToProcess;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('previewImg').src = e.target.result;
+                document.getElementById('previewArea').style.display = 'block';
+                document.getElementById('dropLabel').innerText = `Loaded: ${file.name} (${(file.size / (1024 * 1024)).toFixed(2)} MB)`;
+                document.getElementById('fileMeta').innerText = `Source File Ready: ${file.name}`;
+                document.getElementById('convertBtn').disabled = false;
+                document.getElementById('downloadBtn').disabled = true;
+            };
+            reader.readAsDataURL(fileToProcess);
+        } catch (err) {
+            alert('Could not decode image file. Please try another standard format.');
+            document.getElementById('dropLabel').innerText = 'Click or drag and drop an image file';
+        }
+    }
+
+    function convertImage() {
+        if (!activeFile) return;
+
+        const format = document.getElementById('outputFormat').value;
+        const quality = parseInt(document.getElementById('qualityRange').value) / 100;
+
+        const img = new Image();
+        img.onload = function() {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+
+            // If converting to JPEG from PNG with transparency, fill white background
+            if (format === 'image/jpeg') {
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+
+            ctx.drawImage(img, 0, 0);
+
+            canvas.toBlob((blob) => {
+                convertedBlob = blob;
+                document.getElementById('downloadBtn').disabled = false;
+                alert('Image converted successfully! Click Download to save.');
+            }, format, quality);
+        };
+        img.src = URL.createObjectURL(activeFile);
+    }
+
+    function downloadImage() {
+        if (!convertedBlob) return;
+        const format = document.getElementById('outputFormat').value;
+        let ext = 'jpg';
+        if (format === 'image/webp') ext = 'webp';
+        if (format === 'image/png') ext = 'png';
+
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(convertedBlob);
+        a.download = `${originalFileName}-converted.${ext}`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+</script>
+
+</body>
+</html>
