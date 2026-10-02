@@ -13,8 +13,9 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Image Resizer & Converter Online - ZapFormat</title>
-    <meta name="description" content="Resize photos, adjust aspect ratios, and convert image formats locally in your browser sandbox.">
+    <title>Free Image Resizer &amp; Format Converter Online - ZapTextCleaner</title>
+    <meta name="description" content="Resize photos, scale dimensions, adjust aspect constraints, and convert image formats (JPEG, PNG, WebP) directly in your browser with zero server uploads.">
+    <link rel="canonical" href="https://zaptextcleaner.com/image-tool.html">
 
     <style>
         :root {
@@ -22,13 +23,17 @@
             --primary-hover: #172554;
             --dark: #0f172a;
             --secondary: #64748b;
-            --border: #e2e8f0;
+            --border: #cbd5e1;
             --success: #10b981;
+            --bg-light: #f8fafc;
             --radius: 12px;
         }
+
+        * { box-sizing: border-box; }
+
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f8fafc;
+            background-color: var(--bg-light);
             color: var(--dark);
             margin: 0;
             padding: 40px 20px;
@@ -37,6 +42,7 @@
             align-items: center;
             line-height: 1.6;
         }
+
         .container {
             max-width: 900px;
             width: 100%;
@@ -44,71 +50,189 @@
             padding: 40px;
             border-radius: var(--radius);
             box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            box-sizing: border-box;
+            border: 1px solid #e2e8f0;
         }
-        h1 { margin-top: 0; color: var(--primary); font-size: 26px; }
-        p.subtitle { color: var(--secondary); font-size: 15px; margin-bottom: 25px; }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            margin: 0 0 8px 0;
+            color: var(--primary);
+            font-size: 2.2rem;
+            font-weight: 800;
+        }
+
+        header p {
+            color: var(--secondary);
+            font-size: 1.05rem;
+            margin: 0 0 15px 0;
+        }
+
+        .privacy-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
 
         .file-drop {
             border: 2px dashed var(--border);
             border-radius: 8px;
-            padding: 40px;
+            padding: 35px 20px;
             text-align: center;
             background: #fdfdfe;
             cursor: pointer;
             transition: all 0.2s;
             margin-bottom: 25px;
         }
-        .file-drop:hover { border-color: var(--primary); background: #eff6ff; }
-        .file-drop p { margin: 0; font-weight: 600; color: var(--secondary); }
+        .file-drop:hover {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+        .file-drop p {
+            margin: 0;
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 15px;
+        }
+        .file-drop span {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .preview-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: var(--bg-light);
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+        .preview-img {
+            max-width: 100%;
+            max-height: 250px;
+            object-fit: contain;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: #fff;
+        }
+        .meta-text {
+            margin-top: 10px;
+            font-size: 13px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
 
         .control-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         @media (max-width: 768px) {
             .control-grid { grid-template-columns: 1fr; }
         }
+
         .field-group { display: flex; flex-direction: column; }
-        label { font-weight: 600; margin-bottom: 8px; font-size: 13px; text-transform: uppercase; color: var(--secondary); letter-spacing: 0.05em; }
-        input[type="number"], select {
+        label {
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 13px;
+            text-transform: uppercase;
+            color: var(--dark);
+            letter-spacing: 0.03em;
+        }
+
+        input[type="number"], select, input[type="range"] {
             padding: 12px;
             border: 1px solid var(--border);
             border-radius: 8px;
             font-size: 14px;
-            box-sizing: border-box;
             background: #fff;
         }
-        input[type="number"]:focus, select:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(30,58,138,0.1); }
+        input[type="number"]:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(30,58,138,0.1);
+        }
 
-        button {
+        .options-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+            cursor: pointer;
+        }
+        .options-bar input {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        button.main-btn {
             background-color: var(--primary);
             color: white;
             border: none;
             padding: 14px 24px;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             border-radius: 8px;
             cursor: pointer;
             transition: background 0.2s;
             width: 100%;
         }
-        button:hover { background-color: var(--primary-hover); }
+        button.main-btn:hover { background-color: var(--primary-hover); }
 
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .back-link:hover { color: var(--primary); }
+
+        /* Rich Content & Technical Documentation */
         .editorial-section {
             max-width: 900px;
             width: 100%;
-            margin-top: 30px;
+            margin-top: 35px;
             background: white;
             padding: 40px;
             border-radius: var(--radius);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            box-sizing: border-box;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            border: 1px solid #e2e8f0;
         }
-        .editorial-section h2 { font-size: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; color: var(--primary); }
-        .editorial-section p { color: var(--secondary); font-size: 14px; }
+
+        .editorial-section h2 {
+            font-size: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+            margin-top: 24px;
+        }
+        .editorial-section h2:first-of-type { margin-top: 0; }
+        .editorial-section h3 { font-size: 16px; color: var(--dark); margin-top: 20px; margin-bottom: 6px; }
+        .editorial-section p { color: #475569; font-size: 14.5px; line-height: 1.7; }
+        .editorial-section ul { color: #475569; font-size: 14.5px; line-height: 1.7; padding-left: 20px; }
+        .editorial-section code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: var(--dark); }
 
         footer {
             max-width: 900px;
@@ -117,27 +241,38 @@
             font-size: 13px;
             color: var(--secondary);
             padding-top: 30px;
-            margin-top: 30px;
+            margin-top: 40px;
             border-top: 1px solid #e2e8f0;
             display: flex;
             justify-content: center;
             gap: 20px;
         }
-        footer a { color: var(--primary); text-decoration: none; }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🖼️ Image Resizer &amp; Format Converter</h1>
-    <p class="subtitle">Resize photos, scale dimensions, and convert image formats locally within your browser sandbox.</p>
+    <header>
+        <div class="privacy-badge">🔒 100% Client-Side Processing • Zero Cloud Telemetry</div>
+        <h1>Image Resizer &amp; Format Converter</h1>
+        <p>Compress pixel dimensions, adjust aspect constraints, and convert image formats locally inside your browser memory.</p>
+    </header>
 
     <div class="file-drop" onclick="document.getElementById('imageInput').click()">
-        <p>📂 Click or Drop Image File Here (.jpg, .png, .webp)</p>
+        <div style="font-size: 34px; margin-bottom: 8px;">🖼️</div>
+        <p>Click or Drop Image File Here (.jpg, .png, .webp)</p>
+        <span>Zero server uploads — immediate in-memory rasterization</span>
         <input type="file" id="imageInput" accept="image/*" style="display:none" onchange="handleImageSelect(event)">
     </div>
 
     <div id="editorControls" style="display:none;">
+        <div class="preview-wrapper">
+            <img id="imagePreview" class="preview-img" alt="Uploaded Preview">
+            <div id="imageMeta" class="meta-text"></div>
+        </div>
+
         <div class="control-grid">
             <div class="field-group">
                 <label for="widthInput">Target Width (px)</label>
@@ -149,28 +284,58 @@
             </div>
         </div>
 
-        <div class="field-group" style="margin-bottom: 25px;">
-            <label for="formatSelect">Export Format</label>
-            <select id="formatSelect">
-                <option value="image/jpeg">JPEG (.jpg)</option>
-                <option value="image/png">PNG (.png)</option>
-                <option value="image/webp">WebP (.webp)</option>
-            </select>
+        <label class="options-bar">
+            <input type="checkbox" id="lockAspect" checked> Constrain aspect ratio (lock proportions)
+        </label>
+
+        <div class="control-grid">
+            <div class="field-group">
+                <label for="formatSelect">Export Format</label>
+                <select id="formatSelect" onchange="toggleQualitySlider()">
+                    <option value="image/webp">WebP (.webp) — Optimized Web Standard</option>
+                    <option value="image/jpeg">JPEG (.jpg) — Universal Photo Standard</option>
+                    <option value="image/png">PNG (.png) — Lossless Transparency</option>
+                </select>
+            </div>
+            <div class="field-group" id="qualityGroup">
+                <label for="qualityInput">Output Quality (<span id="qualityVal">90%</span>)</label>
+                <input type="range" id="qualityInput" min="0.1" max="1.0" step="0.05" value="0.9" oninput="document.getElementById('qualityVal').innerText = Math.round(this.value * 100) + '%'">
+            </div>
         </div>
 
-        <button onclick="processAndDownloadImage()">📥 Process &amp; Download Image</button>
+        <button class="main-btn" onclick="processAndDownloadImage()">📥 Process &amp; Download Image</button>
     </div>
+
+    <a href="index.html" class="back-link">← Return to Dashboard</a>
 </div>
 
+<!-- SEO Rich Content & Technical Guide Section -->
 <div class="editorial-section">
-    <h2>Client-Side Image Processing</h2>
-    <p>Image scaling and conversion scripts run entirely within your local browser memory via HTML5 canvas APIs. Your image files are never uploaded to remote servers.</p>
+    <h2>How In-Browser Image Resizing &amp; Transcoding Works</h2>
+    <p>Scaling image dimensions and converting compressed graphics usually requires uploading high-resolution photos to external web services. The <strong>ZapTextCleaner Image Resizer &amp; Converter</strong> performs all image transformations using your browser's hardware-accelerated <strong>HTML5 Canvas API</strong> and the native browser 2D rendering context, eliminating cloud transmission completely.</p>
+
+    <h3>Why Client-Side Rasterization Protects User Privacy</h3>
+    <p>Uploaded photos often carry sensitive metadata—including GPS geographic coordinates, camera serial numbers, and client or family faces. When you upload photos to typical online converters, that metadata is transmitted across network proxies and stored in remote temporary folders. Our tool enforces complete privacy:</p>
+    <ul>
+        <li><strong>Zero Remote Uploads:</strong> Files are read as local binary DataURLs and rendered directly into browser memory (RAM).</li>
+        <li><strong>Automatic EXIF Stripping:</strong> Re-rendering raw pixel arrays to canvas flattens and purges location tags, camera metadata, and hidden tracker payloads.</li>
+        <li><strong>Modern WebP Encoding:</strong> WebP files offer 25%–35% smaller file sizes compared to legacy JPEG compression at equivalent quality, improving website page speeds and Core Web Vitals.</li>
+        <li><strong>Bicubic Resampling:</strong> Canvas image smoothing produces crisp edges and reduces downscaling aliasing artifacts.</li>
+    </ul>
+
+    <h3>Best Practices for Optimizing Web Images</h3>
+    <p>To achieve optimal balance between visual fidelity and load speed:</p>
+    <ul>
+        <li><strong>Aspect Ratio Locking:</strong> Keep proportion constraints locked to avoid stretching or distorting portrait photographs and typography.</li>
+        <li><strong>PNG vs. WebP:</strong> Use PNG only when transparency or vector-sharp icons are needed; use WebP or JPEG for photography to minimize bandwidth.</li>
+        <li><strong>Dimension Boundaries:</strong> For web presentation and blog headers, resizing raw camera images from 4000px down to 1200px–1600px reduces file weight by over 80%.</li>
+    </ul>
 </div>
 
 <footer>
-    <span>&copy; 2026 ZapFormat. All rights reserved.</span>
+    <span>&copy; 2026 ZapTextCleaner. All rights reserved.</span>
     <a href="privacy.html">Privacy Policy</a>
-    <a href="formatter.html">Hub Dashboard</a>
+    <a href="index.html">Hub Dashboard</a>
 </footer>
 
 <script>
@@ -186,10 +351,12 @@
             const img = new Image();
             img.onload = function() {
                 rawImage = img;
-                baseAspectRatio = img.width / img.height;
+                baseAspectRatio = img.naturalWidth / img.naturalHeight;
 
-                document.getElementById('widthInput').value = img.width;
-                document.getElementById('heightInput').value = img.height;
+                document.getElementById('widthInput').value = img.naturalWidth;
+                document.getElementById('heightInput').value = img.naturalHeight;
+                document.getElementById('imagePreview').src = e.target.result;
+                document.getElementById('imageMeta').innerText = `Original: ${img.naturalWidth} × ${img.naturalHeight} px (${(file.size / 1024).toFixed(1)} KB)`;
                 document.getElementById('editorControls').style.display = 'block';
             };
             img.src = e.target.result;
@@ -198,41 +365,68 @@
     }
 
     function constrainDimensions(changed) {
+        if (!document.getElementById('lockAspect').checked || !baseAspectRatio) return;
+
         const widthInput = document.getElementById('widthInput');
         const heightInput = document.getElementById('heightInput');
 
         if (changed === 'w') {
             const currentWidth = parseInt(widthInput.value) || 0;
-            heightInput.value = Math.round(currentWidth / baseAspectRatio);
+            if (currentWidth > 0) {
+                heightInput.value = Math.round(currentWidth / baseAspectRatio);
+            }
         } else {
             const currentHeight = parseInt(heightInput.value) || 0;
-            widthInput.value = Math.round(currentHeight * baseAspectRatio);
+            if (currentHeight > 0) {
+                widthInput.value = Math.round(currentHeight * baseAspectRatio);
+            }
         }
     }
 
-    function processAndDownloadImage() {
-        if (!rawImage) return alert('Please upload an image into your workspace first.');
+    function toggleQualitySlider() {
+        const format = document.getElementById('formatSelect').value;
+        const qualityGroup = document.getElementById('qualityGroup');
+        qualityGroup.style.display = (format === 'image/png') ? 'none' : 'flex';
+    }
 
-        const targetWidth = parseInt(document.getElementById('widthInput').value) || rawImage.width;
-        const targetHeight = parseInt(document.getElementById('heightInput').value) || rawImage.height;
+    function processAndDownloadImage() {
+        if (!rawImage) {
+            alert('Please select an image file first.');
+            return;
+        }
+
+        const targetWidth = parseInt(document.getElementById('widthInput').value) || rawImage.naturalWidth;
+        const targetHeight = parseInt(document.getElementById('heightInput').value) || rawImage.naturalHeight;
         const exportFormat = document.getElementById('formatSelect').value;
+        const quality = parseFloat(document.getElementById('qualityInput').value) || 0.9;
 
         const canvas = document.createElement('canvas');
         canvas.width = targetWidth;
         canvas.height = targetHeight;
         const ctx = canvas.getContext('2d');
 
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
         ctx.drawImage(rawImage, 0, 0, targetWidth, targetHeight);
 
-        let fileExtension = '.jpg';
+        let fileExtension = '.webp';
+        if (exportFormat === 'image/jpeg') fileExtension = '.jpg';
         if (exportFormat === 'image/png') fileExtension = '.png';
-        if (exportFormat === 'image/webp') fileExtension = '.webp';
 
-        const dataUrl = canvas.toDataURL(exportFormat, 0.9);
-        const downloadElement = document.createElement('a');
-        downloadElement.href = dataUrl;
-        downloadElement.download = "zapformat_processed" + fileExtension;
-        downloadElement.click();
+        canvas.toBlob(function(blob) {
+            if (!blob) {
+                alert('Error creating image blob.');
+                return;
+            }
+            const downloadUrl = URL.createObjectURL(blob);
+            const downloadElement = document.createElement('a');
+            downloadElement.href = downloadUrl;
+            downloadElement.download = "zaptextcleaner_processed" + fileExtension;
+            document.body.appendChild(downloadElement);
+            downloadElement.click();
+            document.body.removeChild(downloadElement);
+            setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000);
+        }, exportFormat, quality);
     }
 </script>
 
